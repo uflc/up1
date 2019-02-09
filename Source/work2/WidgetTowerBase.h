@@ -19,9 +19,6 @@ class WORK2_API UWidgetTowerBase : public UUserWidget
 	GENERATED_BODY()
 	
 protected:
-	virtual void NativeConstruct() override;
-	virtual TSharedRef<SWidget> RebuildWidget();
-
 	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	UCanvasPanel* Root;
 
@@ -30,10 +27,4 @@ protected:
 public:
 	UFUNCTION(BlueprintCallable)
 	bool SelectPreset(FString iName);
-
-	UFUNCTION(BlueprintCallable)
-	void SetOwnTower(ATower* iTower){OwnTower=iTower;}
-
-	UFUNCTION(BlueprintCallable)
-	void AddChildtoRootCanvas(UWidget* iWidget);
 };

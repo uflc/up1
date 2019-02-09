@@ -6,57 +6,29 @@
 #include "WidgetTree.h"
 #include "Runtime/UMG/Public/UMG.h"
 
-void UWidgetTowerBase::NativeConstruct()
-{
-	Super::NativeConstruct();
-}
-
-TSharedRef<SWidget> UWidgetTowerBase::RebuildWidget()
-{
-	if (WidgetTree)
-	{
-		Root = Cast<UCanvasPanel>(GetRootWidget());
-		if (Root == nullptr)
-		{
-			Root = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), FName("Root"));
-
-			UCanvasPanelSlot * RootSlot = Cast<UCanvasPanelSlot>(Root->Slot);
-			if (RootSlot)
-			{
-				RootSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
-				RootSlot->SetOffsets(FMargin(0.f, 0.f));
-			}
-			WidgetTree->RootWidget = Root;
-		}
-	}
-	Root->bIsVariable = true;
-	TSharedRef<SWidget> Widget = Super::RebuildWidget();
-
-	return Widget;
-}
-
 bool UWidgetTowerBase::SelectPreset(FString iName)
 {
 	// TODO :: Implement this
 	bool rv=false;
-	if(!Root->HasAnyChildren()) return false;
+	if(!Root->HasAnyChildren()) {
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, TEXT("NOCHILD"));
+	return false;}
 
 	for(int idx=0;idx<=Root->GetChildrenCount()-1;idx++){
 
 		auto Child = Root->GetChildAt(idx);
 
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, Child->GetName());
+
 		if(Child->GetName().Equals(iName)){ 
+
 			Child->SetIsEnabled(true); Child->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 			rv=true;
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, TEXT("Find Matching One"));
 		}
 		else { 
 			Child->SetIsEnabled(false); Child->SetVisibility(ESlateVisibility::Collapsed);
 		}
 	}
 	return rv;
-}
-
-void UWidgetTowerBase::AddChildtoRootCanvas(UWidget* iWidget)
-{
-	Root->AddChildToCanvas(iWidget);
 }

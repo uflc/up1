@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 //#include "WidgetSwitcher.h"
-#include "TowerActionMenuWidget.h"
+//#include "TowerActionMenuWidget.h"
 #include "Tower.h"
 #include "HUDWidget.generated.h"
 
@@ -24,10 +24,9 @@ protected:
 	ATower* SelectedTower;
 
 public:
-	
-	UFUNCTION(BlueprintImplementableEvent, Category = "UI|HUD")
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
 	void ShowTowerActionMenu(ATower* InInteractingTower);
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "UI|HUD")
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
 	void HideTowerActionMenu();
 };

@@ -27,20 +27,24 @@ void ATowerEmpty::Selected(AActor * TouchedActor, FKey ButtonPressed)
 
 void ATowerEmpty::ShowActionMenu()
 {
-	if (bIsActionMenuDisplayed) return;
+	//if (bIsActionMenuDisplayed) return;
 
 	//ActionMenu is not displayed now
 
 	//auto widget = Cast<AMyUMGGameModeBase>(GEngine->GetWorld()->GetAuthGameMode())->GetCurrentWidget()
 
 	// TODO :: Complete this
-	auto towerwidget = Cast<UWidgetTowerBase>(Cast<AMyUMGGameModeBase>(GEngine->GetWorld()->GetAuthGameMode())->GetTowerWidget());
-	towerwidget->SelectPreset("Empty");
-	towerwidget->SetOwnTower(this);
+	//auto towerwidget = Cast<UWidgetTowerBase>(Cast<AMyUMGGameModeBase>(GEngine->GetWorld()->GetAuthGameMode())->GetTowerWidget());
+	//towerwidget->SelectPreset("Empty");
 }
 
 void ATowerEmpty::HideActionMenu()
 {
+}
+
+FString ATowerEmpty::GetPresetName()
+{
+	return "Empty";
 }
 
 // Called every frame

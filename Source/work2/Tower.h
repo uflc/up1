@@ -31,11 +31,17 @@ protected:
 	//void Selected(AActor* TouchedActor, FKey ButtonPressed);
 
 	////////////////////// UI ///////////////////////
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	virtual void ShowActionMenu();
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	virtual void HideActionMenu();
+	// Unused
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Texture")
+	void ResetMaterial(); // will be changed to ChangeSprite("");
 
-	
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	virtual FString GetPresetName();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

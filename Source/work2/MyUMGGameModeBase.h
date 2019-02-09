@@ -6,9 +6,9 @@
 #include "CoreMinimal.h" //need? auto
 #include "GameFramework/GameModeBase.h"
 #include "MyUMGGameModeBase.generated.h"
-
+class ATower;
 /**
- * 
+ * Like GameManager
  */
 UCLASS()
 class WORK2_API AMyUMGGameModeBase : public AGameModeBase
@@ -23,12 +23,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UMG Game")
 	UUserWidget* GetCurrentWidget();
 
-	UFUNCTION(BlueprintCallable)
-	UUserWidget* GetTowerWidget();
+	//UFUNCTION(BlueprintCallable)
+	//UUserWidget* GetTowerWidget();
 
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
+	void ChangeTower(ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
 
 	/** The widget class we will use as our menu when the game starts. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UMG Game")
@@ -38,6 +41,8 @@ protected:
 	UPROPERTY()
 	UUserWidget* CurrentWidget;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UUserWidget* TowerWidget;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//UUserWidget* TowerWidget;
+
+
 };

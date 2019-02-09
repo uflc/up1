@@ -25,24 +25,28 @@ void ATower::BeginPlay()
 
 void ATower::ShowActionMenu()
 {
-	if (bIsActionMenuDisplayed) return;
+	//if (bIsActionMenuDisplayed) return;
 
-	//to use GEngine include engine/engine.h not public engine.h for iwyu
-	UHUDWidget* HUDWidget = Cast<UHUDWidget>(GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
-	HUDWidget->ShowTowerActionMenu(this);
+	////to use GEngine include engine/engine.h not public engine.h for iwyu
+	//UHUDWidget* HUDWidget = Cast<UHUDWidget>(GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
+	//HUDWidget->ShowTowerActionMenu(this);
 
-	bIsActionMenuDisplayed = true;
-	
+	//bIsActionMenuDisplayed = true;
 }
 
 void ATower::HideActionMenu()
 {
-	if (!bIsActionMenuDisplayed) return;
+	//if (!bIsActionMenuDisplayed) return;
 
-	UHUDWidget* HUDWidget = Cast<UHUDWidget>(GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
-	HUDWidget->HideTowerActionMenu();
+	//UHUDWidget* HUDWidget = Cast<UHUDWidget>(GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
+	//HUDWidget->HideTowerActionMenu();
 
-	bIsActionMenuDisplayed = false;
+	//bIsActionMenuDisplayed = false;
+}
+
+FString ATower::GetPresetName()
+{
+	return FString();
 }
 
 // Called every frame

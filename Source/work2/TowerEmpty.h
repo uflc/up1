@@ -35,6 +35,7 @@ protected:
 	virtual void ShowActionMenu();
 	virtual void HideActionMenu();
 
+	virtual FString GetPresetName();
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -2,13 +2,14 @@
 
 //#include "work2.h" //need?
 #include "MyUMGGameModeBase.h"
+#include "Tower.h"
 
 UUserWidget * AMyUMGGameModeBase::GetCurrentWidget()
 {
 	return CurrentWidget;
 }
 
-inline UUserWidget * AMyUMGGameModeBase::GetTowerWidget() { return TowerWidget; }
+//inline UUserWidget * AMyUMGGameModeBase::GetTowerWidget() { return TowerWidget; }
 
 void AMyUMGGameModeBase::BeginPlay()
 {
