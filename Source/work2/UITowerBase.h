@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "WidgetTowerBase.generated.h"
+#include "UITowerBase.generated.h"
 
 /**
  * 
@@ -14,7 +14,7 @@ class UCanvasPanel;
 class ATower;
 
 UCLASS()
-class WORK2_API UWidgetTowerBase : public UUserWidget
+class WORK2_API UUITowerBase : public UUserWidget
 {
 	GENERATED_BODY()
 	
@@ -25,6 +25,14 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	ATower* OwnTower;
 public:
+	ATower* __native_GetOwnTower(){return OwnTower;}
+
 	UFUNCTION(BlueprintCallable)
 	bool SelectPreset(FString iName);
+
+	UFUNCTION(BlueprintCallable)
+	bool SetButtonsEvent();
+
+	UFUNCTION()
+	void DelegateButtonEvent();
 };

@@ -42,9 +42,14 @@ protected:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 	virtual FString GetPresetName();
+
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+	virtual void ResponseButtonEvent(int iNum);
 	
 };

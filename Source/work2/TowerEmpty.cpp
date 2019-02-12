@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TowerEmpty.h"
-#include "WidgetTowerBase.h"
+#include "UITowerBase.h"
 #include "MyUMGGameModeBase.h"
 #include "Engine.h"
 ATowerEmpty::ATowerEmpty()
@@ -45,6 +45,18 @@ void ATowerEmpty::HideActionMenu()
 FString ATowerEmpty::GetPresetName()
 {
 	return "Empty";
+}
+
+void ATowerEmpty::ResponseButtonEvent(int iNum)
+{
+	switch (iNum)
+	{
+	case 0:
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0");
+		return;
+	default:
+		return;
+	}
 }
 
 // Called every frame
