@@ -5,6 +5,7 @@
 #include "CanvasPanelSlot.h"
 #include "WidgetTree.h"
 #include "UITowerButton.h"
+#include "Tower.h"
 #include "Runtime/UMG/Public/UMG.h"
 
 bool UUITowerBase::SelectPreset(FString iName)
@@ -46,27 +47,25 @@ bool UUITowerBase::SetButtonsEvent()
 		UCanvasPanel* ChildCanvas = Cast<UCanvasPanel>(Root->GetChildAt(idx));
 		if(!ChildCanvas) continue;
 		for (int idx2 = 0; idx2 <= ChildCanvas->GetChildrenCount() - 1; idx2++) {
+			UUITowerButton* Button = Cast<UUITowerButton>(ChildCanvas->GetChildAt(idx2));
+			if (!Button) continue;
 
-			if (idx2 == 0) {
-				UUITowerButton* Button = Cast<UUITowerButton>(ChildCanvas->GetChildAt(idx2));
-				Button->OnClicked.AddDynamic(Button, &UUITowerButton::ButtonEvent);
-				Button->__native_SetRootCanvas(this);
-			}
-			else{
-				UButton* Button = Cast<UButton>(ChildCanvas->GetChildAt(idx2));
-			
-				if (!Button) continue;
-				Button->OnClicked.AddDynamic(this,&UUITowerBase::DelegateButtonEvent);
-			}
+			Button->OnClicked.AddDynamic(Button, &UUITowerButton::ButtonEvent);
+			Button->OnClicked.AddDynamic(this, &UUITowerBase::CloseUI);
+			Button->__native_SetRootCanvas(this);
 		}
 	}
 	return true;
 	
 }
 
-
-void UUITowerBase::DelegateButtonEvent()
+void UUITowerBase::CloseUI()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, TEXT("Button Clicked"));
-
+	for (int idx = 0; idx <= Root->GetChildrenCount() - 1; idx++) {
+	auto Child = Root->GetChildAt(idx);
+	Child->SetIsEnabled(false);
+	Child->SetVisibility(ESlateVisibility::Collapsed);
+	}
+	OwnTower->ResetMaterial();
 }
+

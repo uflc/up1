@@ -30,8 +30,7 @@ protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
-	void ChangeTower(ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
+
 
 	/** The widget class we will use as our menu when the game starts. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UMG Game")
@@ -44,5 +43,8 @@ protected:
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//UUserWidget* TowerWidget;
 
+public:	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
+	void ChangeTower(ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
 
 };

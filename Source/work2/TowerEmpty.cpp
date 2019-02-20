@@ -52,7 +52,23 @@ void ATowerEmpty::ResponseButtonEvent(int iNum)
 	switch (iNum)
 	{
 	case 0:
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0");
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Archer");
+		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
+		return;
+	case 1:
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Barracks");
+		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerBarracks);
+		return;
+	case 2:
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 2 : Wizard");
+		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerWizard);
+		return;
+	case 3:
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 3");
+		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
+		return;
+	case 4:
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 4 : Close");
 		return;
 	default:
 		return;

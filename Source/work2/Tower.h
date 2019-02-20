@@ -37,17 +37,15 @@ protected:
 	virtual void HideActionMenu();
 	// Unused
 
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Texture")
 	void ResetMaterial(); // will be changed to ChangeSprite("");
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 	virtual FString GetPresetName();
-
-
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void ResponseButtonEvent(int iNum);

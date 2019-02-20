@@ -34,5 +34,5 @@ public:
 	bool SetButtonsEvent();
 
 	UFUNCTION()
-	void DelegateButtonEvent();
+	void CloseUI();
 };
