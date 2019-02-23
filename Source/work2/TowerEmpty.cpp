@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TowerEmpty.h"
+#include "TowerArcher.h"
 #include "UITowerBase.h"
 #include "MyUMGGameModeBase.h"
 #include "Engine.h"
@@ -53,7 +54,7 @@ void ATowerEmpty::ResponseButtonEvent(int iNum)
 	{
 	case 0:
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Archer");
-		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
+		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this, newTower);
 		return;
 	case 1:
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Barracks");
