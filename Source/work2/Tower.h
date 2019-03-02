@@ -47,7 +47,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 	virtual FString GetPresetName();
 
-	UFUNCTION(BlueprintCallable)
-	virtual void ResponseButtonEvent(int iNum);
-	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void ResponseButtonEvent(int iNum);
 };

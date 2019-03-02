@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TowerWizard.h"
+#include "Engine.h"
 
 ATowerWizard::ATowerWizard()
 {
@@ -40,30 +41,30 @@ void ATowerWizard::HideActionMenu()
 {
 }
 
-FString ATowerWizard::GetPresetName()
+inline FString ATowerWizard::GetPresetName()
 {
 	return "Empty";
 }
 
-void ATowerWizard::ResponseButtonEvent(int iNum)
-{
-	switch (iNum)
-	{
-	case 0:
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Upgrade");
-		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
-		return;
-	case 1:
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Sell");
-		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this, ATowerEmpty);
-		return;
-	case 2:
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 2 : Close");
-		return;
-	default:
-		return;
-	}
-}
+//void ATowerWizard::ResponseButtonEvent(int iNum)
+//{
+//	switch (iNum)
+//	{
+//	case 0:
+//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Upgrade");
+//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
+//		return;
+//	case 1:
+//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Sell");
+//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this, ATowerEmpty);
+//		return;
+//	case 2:
+//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 2 : Close");
+//		return;
+//	default:
+//		return;
+//	}
+//}
 
 // Called every frame
 void ATowerWizard::Tick(float DeltaTime)

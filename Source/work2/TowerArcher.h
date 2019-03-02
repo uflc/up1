@@ -34,7 +34,7 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void ResponseButtonEvent(int iNum);
+	//virtual void ResponseButtonEvent(int iNum);
 	virtual FString GetPresetName();
 
 };

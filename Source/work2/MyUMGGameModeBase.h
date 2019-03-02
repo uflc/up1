@@ -47,4 +47,6 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
 	void ChangeTower(ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
 
+	//template<class T>
+	//void ChangeTower1(ATower* InInteractingTower);
 };

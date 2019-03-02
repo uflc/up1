@@ -35,30 +35,30 @@ void ATowerArcher::HideActionMenu()
 {
 }
 
-FString ATowerArcher::GetPresetName()
+inline FString ATowerArcher::GetPresetName()
 {
 	return "Archer";
 }
 
-void ATowerArcher::ResponseButtonEvent(int iNum)
-{
-	switch (iNum)
-	{
-	case 0:
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Upgrade");
-		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
-		return;
-	case 1:
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Sell");
-		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerEmpty);
-		return;
-	case 2:
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 2 : Close");
-		return;
-	default:
-		return;
-	}
-}
+//void ATowerArcher::ResponseButtonEvent(int iNum)
+//{
+//	switch (iNum)
+//	{
+//	case 0:
+//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Upgrade");
+//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
+//		return;
+//	case 1:
+//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Sell");
+//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerEmpty);
+//		return;
+//	case 2:
+//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 2 : Close");
+//		return;
+//	default:
+//		return;
+//	}
+//}
 
 // Called every frame
 void ATowerArcher::Tick(float DeltaTime)

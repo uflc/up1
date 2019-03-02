@@ -44,21 +44,21 @@ void ATower::HideActionMenu()
 	//bIsActionMenuDisplayed = false;
 }
 
-FString ATower::GetPresetName()
+inline FString ATower::GetPresetName()
 {
 	return FString();
 }
 
-void ATower::ResponseButtonEvent(int iNum)
-{
-	switch (iNum)
-	{
-	case 0:
-	return;
-		default:
-		return;
-	}
-}
+//void ATower::ResponseButtonEvent(int iNum)
+//{
+//	switch (iNum)
+//	{
+//	case 0:
+//	return;
+//		default:
+//		return;
+//	}
+//}
 
 // Called every frame
 void ATower::Tick(float DeltaTime)

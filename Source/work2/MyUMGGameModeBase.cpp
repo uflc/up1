@@ -33,3 +33,5 @@ void AMyUMGGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClas
 		}
 	}
 }
+
+
