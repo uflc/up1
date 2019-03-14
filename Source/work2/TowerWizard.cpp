@@ -43,7 +43,7 @@ void ATowerWizard::HideActionMenu()
 
 inline FString ATowerWizard::GetPresetName()
 {
-	return "Empty";
+	return "Wizard";
 }
 
 //void ATowerWizard::ResponseButtonEvent(int iNum)
