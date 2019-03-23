@@ -83,3 +83,13 @@ void ATowerEmpty::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
+
+FString ATowerEmpty::GetTowerStatusText()
+{
+	return "TowerEmpty Status Test";
+}
+
+FString ATowerEmpty::GetTowerDescriptionText()
+{
+	return "TowerEmpty Description Test";
+}

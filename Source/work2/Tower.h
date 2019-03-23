@@ -47,6 +47,15 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 	virtual FString GetPresetName();
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	virtual FString GetTowerStatusText();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	virtual FString GetTowerDescriptionText();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	inline virtual float GetTowerRange(){return 100.0f;}
+
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ResponseButtonEvent(int iNum);
 };

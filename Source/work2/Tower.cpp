@@ -11,7 +11,6 @@ ATower::ATower()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
 	//use if c++ only
 	//OnClicked.AddDynamic(this, &ATower::Selected);
 } 
@@ -46,7 +45,17 @@ void ATower::HideActionMenu()
 
 inline FString ATower::GetPresetName()
 {
-	return FString();
+	return "";
+}
+
+FString ATower::GetTowerStatusText()
+{
+	return "Tower Status Test";
+}
+
+FString ATower::GetTowerDescriptionText()
+{
+	return "Tower Description Test";
 }
 
 //void ATower::ResponseButtonEvent(int iNum)

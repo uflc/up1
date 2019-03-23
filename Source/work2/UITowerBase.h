@@ -24,6 +24,7 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	ATower* OwnTower;
+
 public:
 	ATower* __native_GetOwnTower(){return OwnTower;}
 
