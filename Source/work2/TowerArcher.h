@@ -37,4 +37,9 @@ public:
 	//virtual void ResponseButtonEvent(int iNum);
 	virtual FString GetPresetName();
 
+	virtual FString GetTowerStatusText();
+
+	virtual FString GetTowerDescriptionText();
+
+	virtual float GetTowerRange();
 };

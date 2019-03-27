@@ -46,6 +46,19 @@ inline FString ATowerWizard::GetPresetName()
 	return "Wizard";
 }
 
+FString ATowerWizard::GetTowerStatusText()
+{
+	return "TowerWizard Status Test";
+}
+
+FString ATowerWizard::GetTowerDescriptionText()
+{
+	return "TowerWizard Description Test";
+}
+
+inline float ATowerWizard::GetTowerRange() { return 0.0f; }
+
+
 //void ATowerWizard::ResponseButtonEvent(int iNum)
 //{
 //	switch (iNum)

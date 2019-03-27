@@ -65,3 +65,15 @@ void ATowerArcher::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
+
+FString ATowerArcher::GetTowerStatusText()
+{
+	return "TowerArcher Status Test";
+}
+
+FString ATowerArcher::GetTowerDescriptionText()
+{
+	return "TowerArcher Description Test";
+}
+
+inline float ATowerArcher::GetTowerRange() { return 0.0f; }

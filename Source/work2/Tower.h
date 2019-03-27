@@ -17,6 +17,14 @@ public:
 	ATower();
 
 protected:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	static float AttackDamage;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	static float AttackSpeed;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	static float AttackRange;
 
 	uint8 bIsActionMenuDisplayed : 1;
 
@@ -54,7 +62,7 @@ public:
 	virtual FString GetTowerDescriptionText();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
-	inline virtual float GetTowerRange(){return 100.0f;}
+	virtual float GetTowerRange();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ResponseButtonEvent(int iNum);

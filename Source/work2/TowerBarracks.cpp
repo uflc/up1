@@ -40,6 +40,18 @@ inline FString ATowerBarracks::GetPresetName()
 	return "Barracks";
 }
 
+FString ATowerBarracks::GetTowerStatusText()
+{
+	return "TowerBarracks Status Test";
+}
+
+FString ATowerBarracks::GetTowerDescriptionText()
+{
+	return "TowerBarracks Description Test";
+}
+
+inline float ATowerBarracks::GetTowerRange() { return 0.0f; }
+
 //void ATowerBarracks::ResponseButtonEvent(int iNum)
 //{
 //	switch (iNum)

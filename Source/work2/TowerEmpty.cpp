@@ -93,3 +93,5 @@ FString ATowerEmpty::GetTowerDescriptionText()
 {
 	return "TowerEmpty Description Test";
 }
+
+inline float ATowerEmpty::GetTowerRange() { return 0.0f; }

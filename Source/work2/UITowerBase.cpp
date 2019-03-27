@@ -44,7 +44,6 @@ bool UUITowerBase::SelectPreset(FString iName)
 		Cast<UTextBlock>(TowerStatus->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
 		Cast<UTextBlock>(TowerDescription->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
 
-
 	}
 	return rv;
 }

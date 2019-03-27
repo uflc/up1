@@ -39,13 +39,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	//virtual void ResponseButtonEvent(int iNum);
 	virtual FString GetPresetName();
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 
 	virtual FString GetTowerStatusText();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 	virtual FString GetTowerDescriptionText();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
-	inline virtual float GetTowerRange() { return 0.0f; }
+	virtual float GetTowerRange();
 };
