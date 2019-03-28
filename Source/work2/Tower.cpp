@@ -15,6 +15,10 @@ ATower::ATower()
 	//OnClicked.AddDynamic(this, &ATower::Selected);
 } 
 
+//const float ATower::AttackDamage = 0.0f;
+//const float ATower::AttackSpeed = 0.0f;
+//const float ATower::AttackRange = 0.0f;
+
 // Called when the game starts or when spawned
 void ATower::BeginPlay()
 {

@@ -17,15 +17,6 @@ public:
 	ATower();
 
 protected:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	static float AttackDamage;
-	
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	static float AttackSpeed;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	static float AttackRange;
-
 	uint8 bIsActionMenuDisplayed : 1;
 
 	//타워의 가능한 업그레이드를 각각 설정해서 그에 따라 위젯을 구성할 경우
@@ -48,6 +39,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	//static const float AttackDamage;
+	//static const float AttackSpeed;
+	//static const float AttackRange;
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Texture")
 	void ResetMaterial(); // will be changed to ChangeSprite("");

@@ -17,11 +17,13 @@ bool UUITowerBase::SelectPreset(FString iName)
 		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, TEXT("NO CHILD__ROOT"));
 	return false;}
 
+	UCanvasPanel* TowerDescription = nullptr;
+	UCanvasPanel* TowerStatus = nullptr;
+
 	for(int idx=0;idx<=Root->GetChildrenCount()-1;idx++){
 
 		auto Child = Root->GetChildAt(idx);
-		UCanvasPanel* TowerDescription=nullptr;
-		UCanvasPanel* TowerStatus = nullptr;
+
 		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, Child->GetName());
 		auto canvasName = Child->GetName();
 		if(canvasName.Equals(iName)){
@@ -40,11 +42,10 @@ bool UUITowerBase::SelectPreset(FString iName)
 		else { 
 			Child->SetIsEnabled(false); Child->SetVisibility(ESlateVisibility::Collapsed);
 		}
-
-		Cast<UTextBlock>(TowerStatus->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
-		Cast<UTextBlock>(TowerDescription->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
-
 	}
+
+	Cast<UTextBlock>(TowerStatus->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
+	Cast<UTextBlock>(TowerDescription->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
 	return rv;
 }
 
