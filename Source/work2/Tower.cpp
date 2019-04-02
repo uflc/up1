@@ -62,7 +62,7 @@ FString ATower::GetTowerDescriptionText()
 	return "Tower Description Test";
 }
 
-inline float ATower::GetTowerRange() { return 100.0f; }
+inline float ATower::GetTowerRange() { return 0.0f; }
 
 //void ATower::ResponseButtonEvent(int iNum)
 //{

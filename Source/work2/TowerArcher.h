@@ -23,6 +23,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	static float TowerAttackRange;
+	static float TowerAttackSpeed;
+	static float TowerAttackDmg;
+
 	// Actor OnClicked Signature delegate // this or blueprintimplementableevent?
 	void Selected(AActor* TouchedActor, FKey ButtonPressed);
 

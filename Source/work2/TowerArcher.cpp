@@ -14,6 +14,7 @@ ATowerArcher::ATowerArcher()
 	OnClicked.AddDynamic(this, &ATowerArcher::Selected);
 }
 
+float ATowerArcher::TowerAttackRange = 100.0f;
 // Called when the game starts or when spawned
 void ATowerArcher::BeginPlay()
 {
@@ -76,4 +77,4 @@ FString ATowerArcher::GetTowerDescriptionText()
 	return "TowerArcher Description Test";
 }
 
-inline float ATowerArcher::GetTowerRange() { return 0.0f; }
+inline float ATowerArcher::GetTowerRange() { return ATowerArcher::TowerAttackRange+0.0f; }
