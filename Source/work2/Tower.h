@@ -59,6 +59,12 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 	virtual float GetTowerRange();
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	virtual float GetTowerAttackSpd();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	virtual float GetTowerAttackDmg();
+
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ResponseButtonEvent(int iNum);
 };

@@ -27,6 +27,9 @@ protected:
 	virtual void ShowActionMenu();
 	virtual void HideActionMenu();
 
+	static float TowerAttackRange;
+	static float TowerAttackSpeed;
+	static float TowerAttackDmg;
 
 public:
 	// Called every frame
@@ -39,4 +42,6 @@ public:
 	virtual FString GetTowerDescriptionText();
 
 	virtual float GetTowerRange();
+	virtual float GetTowerAttackSpd();
+	virtual float GetTowerAttackDmg();
 };

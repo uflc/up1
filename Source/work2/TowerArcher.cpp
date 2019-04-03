@@ -15,6 +15,9 @@ ATowerArcher::ATowerArcher()
 }
 
 float ATowerArcher::TowerAttackRange = 100.0f;
+float ATowerArcher::TowerAttackSpeed = 100.0f;
+float ATowerArcher::TowerAttackDmg = 100.0f;
+
 // Called when the game starts or when spawned
 void ATowerArcher::BeginPlay()
 {
@@ -78,3 +81,5 @@ FString ATowerArcher::GetTowerDescriptionText()
 }
 
 inline float ATowerArcher::GetTowerRange() { return ATowerArcher::TowerAttackRange+0.0f; }
+inline float ATowerArcher::GetTowerAttackSpd() { return ATowerArcher::TowerAttackSpeed + 0.0f; }
+inline float ATowerArcher::GetTowerAttackDmg() { return ATowerArcher::TowerAttackDmg + 0.0f; }

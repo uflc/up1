@@ -11,6 +11,11 @@ ATowerWizard::ATowerWizard()
 	OnClicked.AddDynamic(this, &ATowerWizard::Selected);
 }
 
+
+float ATowerWizard::TowerAttackRange = 200.0f;
+float ATowerWizard::TowerAttackSpeed = 200.0f;
+float ATowerWizard::TowerAttackDmg = 200.0f;
+
 // Called when the game starts or when spawned
 void ATowerWizard::BeginPlay()
 {
@@ -56,8 +61,9 @@ FString ATowerWizard::GetTowerDescriptionText()
 	return "TowerWizard Description Test";
 }
 
-inline float ATowerWizard::GetTowerRange() { return 0.0f; }
-
+inline float ATowerWizard::GetTowerRange() { return ATowerWizard::TowerAttackRange + 0.0f; }
+inline float ATowerWizard::GetTowerAttackSpd() { return ATowerWizard::TowerAttackSpeed + 0.0f; }
+inline float ATowerWizard::GetTowerAttackDmg() { return ATowerWizard::TowerAttackDmg + 0.0f; }
 
 //void ATowerWizard::ResponseButtonEvent(int iNum)
 //{

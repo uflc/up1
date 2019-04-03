@@ -44,5 +44,4 @@ public:
 
 	virtual FString GetTowerDescriptionText();
 
-	virtual float GetTowerRange();
 };
