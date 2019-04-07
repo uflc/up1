@@ -34,6 +34,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool SetButtonsEvent();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void CloseUI();
 };
