@@ -14,7 +14,7 @@ ATowerArcher::ATowerArcher()
 	OnClicked.AddDynamic(this, &ATowerArcher::Selected);
 }
 
-float ATowerArcher::TowerAttackRange = 100.0f;
+float ATowerArcher::TowerAttackRange = 70.0f;
 float ATowerArcher::TowerAttackSpeed = 100.0f;
 float ATowerArcher::TowerAttackDmg = 100.0f;
 

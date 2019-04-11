@@ -12,8 +12,8 @@ ATowerWizard::ATowerWizard()
 }
 
 
-float ATowerWizard::TowerAttackRange = 200.0f;
-float ATowerWizard::TowerAttackSpeed = 200.0f;
+float ATowerWizard::TowerAttackRange = 150.0f;
+float ATowerWizard::TowerAttackSpeed = 2.0f;
 float ATowerWizard::TowerAttackDmg = 200.0f;
 
 // Called when the game starts or when spawned

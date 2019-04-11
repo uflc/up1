@@ -19,6 +19,7 @@ bool UUITowerBase::SelectPreset(FString iName)
 
 	UCanvasPanel* TowerDescription = nullptr;
 	UCanvasPanel* TowerStatus = nullptr;
+	UCanvasPanel* TowerRange = nullptr;
 
 	for(int idx=0;idx<=Root->GetChildrenCount()-1;idx++){
 
@@ -37,7 +38,7 @@ bool UUITowerBase::SelectPreset(FString iName)
 
 			if (canvasName.Contains("Status")){ TowerStatus=Cast<UCanvasPanel>(Child); }
 			else if (canvasName.Contains("Description")){ TowerDescription= Cast<UCanvasPanel>(Child); }
-
+			else if (canvasName.Contains("Range")) { TowerRange = Cast<UCanvasPanel>(Child); }
 		}
 		else { 
 			Child->SetIsEnabled(false); Child->SetVisibility(ESlateVisibility::Collapsed);
@@ -46,6 +47,7 @@ bool UUITowerBase::SelectPreset(FString iName)
 
 	Cast<UTextBlock>(TowerStatus->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
 	Cast<UTextBlock>(TowerDescription->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
+	TowerRange->GetChildAt(0)->SetRenderScale(FVector2D(OwnTower->GetTowerRange()/100.0f, OwnTower->GetTowerRange() / 100.0f));
 	return rv;
 }
 
