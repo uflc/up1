@@ -12,7 +12,7 @@ ATowerWizard::ATowerWizard()
 }
 
 
-float ATowerWizard::TowerAttackRange = 150.0f;
+float ATowerWizard::TowerAttackRange = 700.0f;
 float ATowerWizard::TowerAttackSpeed = 2.0f;
 float ATowerWizard::TowerAttackDmg = 200.0f;
 

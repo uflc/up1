@@ -47,7 +47,7 @@ bool UUITowerBase::SelectPreset(FString iName)
 
 	Cast<UTextBlock>(TowerStatus->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
 	Cast<UTextBlock>(TowerDescription->GetChildAt(0))->SetText(FText::FromString(OwnTower->GetTowerStatusText()));
-	TowerRange->GetChildAt(0)->SetRenderScale(FVector2D(OwnTower->GetTowerRange()/100.0f, OwnTower->GetTowerRange() / 100.0f));
+	TowerRange->GetChildAt(0)->SetRenderScale(FVector2D(OwnTower->GetTowerRange()/250.0f, OwnTower->GetTowerRange() / 250.0f));
 	return rv;
 }
 
