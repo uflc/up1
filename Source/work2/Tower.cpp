@@ -88,6 +88,5 @@ void ATower::UpdateAnimationCPP()
 void ATower::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

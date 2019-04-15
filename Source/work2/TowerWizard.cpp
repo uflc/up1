@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TowerWizard.h"
+#include "PaperFlipbook.h"
+#include "PaperFlipbookComponent.h"
 #include "Engine.h"
 
 ATowerWizard::ATowerWizard()
@@ -8,13 +10,35 @@ ATowerWizard::ATowerWizard()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	OnClicked.AddDynamic(this, &ATowerWizard::Selected);
+	if (!Initialized)
+	{
+		TArray<TSoftObjectPtr<UPaperFlipbook>> Idle;
+		Idle.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/1/Magic1Idle.Magic1Idle'"), NULL, LOAD_None, NULL));
+		Idle.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/2/Magic2Idle.Magic2Idle'"), NULL, LOAD_None, NULL));
+		Idle.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/3/Magic3Idle.Magic3Idle'"), NULL, LOAD_None, NULL));
+		Idle.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/4/Magic4Idle.Magic4Idle'"), NULL, LOAD_None, NULL));
+		Idle.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/5/Magic5LDIdle.Magic5LDIdle'"), NULL, LOAD_None, NULL));
+
+		TArray<TSoftObjectPtr<UPaperFlipbook>> Action;
+		Action.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/1/Magic1Attack.Magic1Attack'"), NULL, LOAD_None, NULL));
+		Action.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/2/Magic2Attack.Magic2Attack'"), NULL, LOAD_None, NULL));
+		Action.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/3/Magic3Attack.Magic3Attack'"), NULL, LOAD_None, NULL));
+		Action.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/4/Magic4Attack.Magic4Attack'"), NULL, LOAD_None, NULL));
+		Action.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/5/Magic5LDAttack.Magic5LDAttack'"), NULL, LOAD_None, NULL));
+
+		FlipbookMap.Add(ETowerState::TS_Idle,Idle);
+		FlipbookMap.Add(ETowerState::TS_Action, Action);
+
+		Initialized=true;
+	}
 }
 
 
 float ATowerWizard::TowerAttackRange = 700.0f;
 float ATowerWizard::TowerAttackSpeed = 2.0f;
 float ATowerWizard::TowerAttackDmg = 200.0f;
+bool ATowerWizard::Initialized = false;
+TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerWizard::FlipbookMap;
 
 // Called when the game starts or when spawned
 void ATowerWizard::BeginPlay()
@@ -31,15 +55,7 @@ void ATowerWizard::Selected(AActor * TouchedActor, FKey ButtonPressed)
 
 void ATowerWizard::ShowActionMenu()
 {
-	//if (bIsActionMenuDisplayed) return;
 
-	//ActionMenu is not displayed now
-
-	//auto widget = Cast<AMyUMGGameModeBase>(GEngine->GetWorld()->GetAuthGameMode())->GetCurrentWidget()
-
-	// TODO :: Complete this
-	//auto towerwidget = Cast<UWidgetTowerBase>(Cast<AMyUMGGameModeBase>(GEngine->GetWorld()->GetAuthGameMode())->GetTowerWidget());
-	//towerwidget->SelectPreset("Empty");
 }
 
 void ATowerWizard::HideActionMenu()
@@ -65,25 +81,11 @@ inline float ATowerWizard::GetTowerRange() { return ATowerWizard::TowerAttackRan
 inline float ATowerWizard::GetTowerAttackSpd() { return ATowerWizard::TowerAttackSpeed + 0.0f; }
 inline float ATowerWizard::GetTowerAttackDmg() { return ATowerWizard::TowerAttackDmg + 0.0f; }
 
-//void ATowerWizard::ResponseButtonEvent(int iNum)
-//{
-//	switch (iNum)
-//	{
-//	case 0:
-//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Upgrade");
-//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerArcher);
-//		return;
-//	case 1:
-//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Sell");
-//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this, ATowerEmpty);
-//		return;
-//	case 2:
-//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 2 : Close");
-//		return;
-//	default:
-//		return;
-//	}
-//}
+void ATowerWizard::TestFunc22()
+{
+	Cast<UPaperFlipbookComponent>(GetComponentByClass(UPaperFlipbookComponent::StaticClass()))->
+	SetFlipbook(ATowerWizard::FlipbookMap.Find(TowerState)->GetData()[TowerTypeNum-1].Get());
+}
 
 // Called every frame
 void ATowerWizard::Tick(float DeltaTime)
