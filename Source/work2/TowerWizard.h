@@ -30,6 +30,7 @@ protected:
 	static float TowerAttackRange;
 	static float TowerAttackSpeed;
 	static float TowerAttackDmg;
+	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
 
 public:
 	// Called every frame

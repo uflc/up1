@@ -6,6 +6,14 @@
 #include "GameFramework/Actor.h"
 #include "Tower.generated.h"
 
+class UPaperFlipbook;
+
+UENUM(BlueprintType)
+enum class ETowerState : uint8
+{
+	TS_Idle UMETA(DisplayName = "Idle"),
+	TS_Action  UMETA(DisplayName = "Attack or Open")
+};
 
 UCLASS(Abstract, BluePrintable)
 class WORK2_API ATower : public AActor
@@ -19,12 +27,20 @@ public:
 protected:
 	uint8 bIsActionMenuDisplayed : 1;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	uint8 TowerTypeNum;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ETowerState TowerState;
+
 	//타워의 가능한 업그레이드를 각각 설정해서 그에 따라 위젯을 구성할 경우
 	/*UPROPERTY(EditAnywhere, BluePrintReadWrite)
 	TArray<TSubclassOf<ATower>> Upgrades;*/
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
 
 	// Actor OnClicked Signature delegate // use if c++ only
 	//void Selected(AActor* TouchedActor, FKey ButtonPressed);
@@ -39,10 +55,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	//static const float AttackDamage;
-	//static const float AttackSpeed;
-	//static const float AttackRange;
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Texture")
 	void ResetMaterial(); // will be changed to ChangeSprite("");
@@ -67,4 +79,10 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ResponseButtonEvent(int iNum);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateAnimationCPP();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	TSoftObjectPtr<UPaperFlipbook> GetFlipbookOfCurrentState();
 };
