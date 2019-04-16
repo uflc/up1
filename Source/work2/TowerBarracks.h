@@ -32,7 +32,7 @@ protected:
 	////////////////////// UI ///////////////////////
 	virtual void ShowActionMenu();
 	virtual void HideActionMenu();
-
+	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
 
 public:
 	// Called every frame

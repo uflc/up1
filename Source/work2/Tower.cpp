@@ -4,15 +4,15 @@
 #include "MyUMGGameModeBase.h" //test
 #include "Engine/Engine.h"
 #include "HUDWidget.h"
-
+#include "PaperFlipbook.h"
+#include "PaperFlipbookComponent.h"
 
 // Sets default values
 ATower::ATower()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	//use if c++ only
-	//OnClicked.AddDynamic(this, &ATower::Selected);
+	TowerTypeNum=0;
+	TowerState=ETowerState::TS_Idle;
 } 
 
 //const float ATower::AttackDamage = 0.0f;
@@ -68,6 +68,11 @@ inline float ATower::GetTowerAttackSpd(){	return 0.0f; }
 
 inline float ATower::GetTowerAttackDmg() { return 0.0f; }
 
+void ATower::UpdateAnimationCPP()
+{
+	Cast<UPaperFlipbookComponent>(GetComponentByClass(UPaperFlipbookComponent::StaticClass()))->SetFlipbook(GetFlipbookOfCurrentState().Get());
+}
+
 //void ATower::ResponseButtonEvent(int iNum)
 //{
 //	switch (iNum)
@@ -83,6 +88,5 @@ inline float ATower::GetTowerAttackDmg() { return 0.0f; }
 void ATower::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

@@ -30,6 +30,8 @@ protected:
 	static float TowerAttackRange;
 	static float TowerAttackSpeed;
 	static float TowerAttackDmg;
+	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
+	static bool Initialized;
 
 public:
 	// Called every frame
@@ -44,4 +46,7 @@ public:
 	virtual float GetTowerRange();
 	virtual float GetTowerAttackSpd();
 	virtual float GetTowerAttackDmg();
+
+	UFUNCTION(BlueprintCallable)
+	void TestFunc22();
 };
