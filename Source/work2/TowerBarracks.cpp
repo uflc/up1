@@ -4,35 +4,14 @@
 #include "TowerEmpty.h"
 #include "UITowerBase.h"
 #include "MyUMGGameModeBase.h"
+#include "PaperFlipbook.h"
+#include "PaperFlipbookComponent.h"
 #include "Engine.h"
 
 ATowerBarracks::ATowerBarracks()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	OnClicked.AddDynamic(this, &ATowerBarracks::Selected);
-}
-
-// Called when the game starts or when spawned
-void ATowerBarracks::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
-void ATowerBarracks::Selected(AActor * TouchedActor, FKey ButtonPressed)
-{
-	ShowActionMenu();
-	// PlaySoundEffect();
-}
-
-void ATowerBarracks::ShowActionMenu()
-{
-}
-
-void ATowerBarracks::HideActionMenu()
-{
 }
 
 inline FString ATowerBarracks::GetPresetName()
@@ -52,28 +31,30 @@ FString ATowerBarracks::GetTowerDescriptionText()
 
 inline float ATowerBarracks::GetTowerRange() { return 0.0f; }
 
-//void ATowerBarracks::ResponseButtonEvent(int iNum)
-//{
-//	switch (iNum)
-//	{
-//	case 0:
-//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 0 : Upgrade");
-//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerBarracks);
-//		return;
-//	case 1:
-//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 1 : Sell");
-//		//GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->ChangeTower(this,ATowerEmpty);
-//		return;
-//	case 2:
-//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Black, "Button 2 : Close");
-//		return;
-//	default:
-//		return;
-//	}
-//}
-
-// Called every frame
-void ATowerBarracks::Tick(float DeltaTime)
+TSoftObjectPtr<UPaperFlipbook> ATowerBarracks::GetFlipbookOfCurrentState()
 {
-	Super::Tick(DeltaTime);
+	return ATowerBarracks::FlipbookMap.Find(TowerState)->GetData()[TowerTypeNum - 1].Get();
 }
+
+TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerBarracks::FlipbookMap =
+{
+	{
+		ETowerState::TS_Idle ,TArray<TSoftObjectPtr<UPaperFlipbook>>
+		{
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/1/Barracks1Idle.Barracks1Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/2/Barracks2Idle.Barracks2Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/3/Barracks3Idle.Barracks3Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/4/Barracks4Idle.Barracks4Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/5/Barracks5Idle.Barracks5Idle'"), NULL, LOAD_None, NULL)}
+		},
+	{
+		ETowerState::TS_Action,TArray<TSoftObjectPtr<UPaperFlipbook>>
+		{
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/1/Barracks1Open.Barracks1Open'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/2/Barracks2Open.Barracks2Open'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/3/Barracks3Open.Barracks3Open'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/4/Barracks4Open.Barracks4Open'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Barracks/Building/5/Barracks5Open.Barracks5Open'"), NULL, LOAD_None, NULL)
+		}
+	}
+};

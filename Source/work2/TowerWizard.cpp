@@ -10,7 +10,7 @@ ATowerWizard::ATowerWizard()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	if (!Initialized)
+	/*if (!Initialized)
 	{
 		TArray<TSoftObjectPtr<UPaperFlipbook>> Idle;
 		Idle.Add(LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/1/Magic1Idle.Magic1Idle'"), NULL, LOAD_None, NULL));
@@ -30,37 +30,36 @@ ATowerWizard::ATowerWizard()
 		FlipbookMap.Add(ETowerState::TS_Action, Action);
 
 		Initialized=true;
-	}
+	}*/
 }
 
 
 float ATowerWizard::TowerAttackRange = 700.0f;
 float ATowerWizard::TowerAttackSpeed = 2.0f;
 float ATowerWizard::TowerAttackDmg = 200.0f;
-bool ATowerWizard::Initialized = false;
-TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerWizard::FlipbookMap;
 
-// Called when the game starts or when spawned
-void ATowerWizard::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
-void ATowerWizard::Selected(AActor * TouchedActor, FKey ButtonPressed)
-{
-	ShowActionMenu();
-	// PlaySoundEffect();
-}
-
-void ATowerWizard::ShowActionMenu()
-{
-
-}
-
-void ATowerWizard::HideActionMenu()
-{
-}
+TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerWizard::FlipbookMap =
+{ 
+	{	
+		ETowerState ::TS_Idle ,TArray<TSoftObjectPtr<UPaperFlipbook>>
+		{
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/1/Magic1Idle.Magic1Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/2/Magic2Idle.Magic2Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/3/Magic3Idle.Magic3Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/4/Magic4Idle.Magic4Idle'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/5/Magic5LDIdle.Magic5LDIdle'"), NULL, LOAD_None, NULL)}	
+		},
+	{	
+		ETowerState::TS_Action,TArray<TSoftObjectPtr<UPaperFlipbook>>
+		{
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/1/Magic1Attack.Magic1Attack'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/2/Magic2Attack.Magic2Attack'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/3/Magic3Attack.Magic3Attack'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/4/Magic4Attack.Magic4Attack'"), NULL, LOAD_None, NULL),
+		LoadObject<UPaperFlipbook>(NULL, TEXT("PaperFlipbook'/Game/Image/Tower/Magic/5/Magic5LDAttack.Magic5LDAttack'"), NULL, LOAD_None, NULL)
+		}	
+	}
+};
 
 inline FString ATowerWizard::GetPresetName()
 {
@@ -81,14 +80,7 @@ inline float ATowerWizard::GetTowerRange() { return ATowerWizard::TowerAttackRan
 inline float ATowerWizard::GetTowerAttackSpd() { return ATowerWizard::TowerAttackSpeed + 0.0f; }
 inline float ATowerWizard::GetTowerAttackDmg() { return ATowerWizard::TowerAttackDmg + 0.0f; }
 
-void ATowerWizard::TestFunc22()
+TSoftObjectPtr<UPaperFlipbook> ATowerWizard::GetFlipbookOfCurrentState()
 {
-	Cast<UPaperFlipbookComponent>(GetComponentByClass(UPaperFlipbookComponent::StaticClass()))->
-	SetFlipbook(ATowerWizard::FlipbookMap.Find(TowerState)->GetData()[TowerTypeNum-1].Get());
-}
-
-// Called every frame
-void ATowerWizard::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	return ATowerWizard::FlipbookMap.Find(TowerState)->GetData()[TowerTypeNum - 1].Get();
 }

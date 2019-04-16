@@ -11,41 +11,11 @@
 ATower::ATower()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	TowerTypeNum=0;
-	TowerState=ETowerState::TS_Idle;
 } 
 
 //const float ATower::AttackDamage = 0.0f;
 //const float ATower::AttackSpeed = 0.0f;
 //const float ATower::AttackRange = 0.0f;
-
-// Called when the game starts or when spawned
-void ATower::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-void ATower::ShowActionMenu()
-{
-	//if (bIsActionMenuDisplayed) return;
-
-	////to use GEngine include engine/engine.h not public engine.h for iwyu
-	//UHUDWidget* HUDWidget = Cast<UHUDWidget>(GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
-	//HUDWidget->ShowTowerActionMenu(this);
-
-	//bIsActionMenuDisplayed = true;
-}
-
-void ATower::HideActionMenu()
-{
-	//if (!bIsActionMenuDisplayed) return;
-
-	//UHUDWidget* HUDWidget = Cast<UHUDWidget>(GEngine->GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
-	//HUDWidget->HideTowerActionMenu();
-
-	//bIsActionMenuDisplayed = false;
-}
 
 inline FString ATower::GetPresetName()
 {
@@ -70,23 +40,25 @@ inline float ATower::GetTowerAttackDmg() { return 0.0f; }
 
 void ATower::UpdateAnimationCPP()
 {
-	Cast<UPaperFlipbookComponent>(GetComponentByClass(UPaperFlipbookComponent::StaticClass()))->SetFlipbook(GetFlipbookOfCurrentState().Get());
+	auto Flipbook= Cast<UPaperFlipbookComponent>(GetComponentByClass(UPaperFlipbookComponent::StaticClass()));
+
+	Flipbook->SetFlipbook(GetFlipbookOfCurrentState().Get());
+
+	switch (TowerState) {
+		case ETowerState::TS_Idle:
+		default:
+		Flipbook->PlayFromStart();
+		Flipbook->SetLooping(true);
+		break;
+
+		case ETowerState::TS_Action:
+		Flipbook->PlayFromStart();
+		Flipbook->SetLooping(false);
+		break;
+	}
 }
 
-//void ATower::ResponseButtonEvent(int iNum)
-//{
-//	switch (iNum)
-//	{
-//	case 0:
-//	return;
-//		default:
-//		return;
-//	}
-//}
-
-// Called every frame
-void ATower::Tick(float DeltaTime)
+TSoftObjectPtr<UPaperFlipbook> ATower::GetFlipbookOfCurrentState()
 {
-	Super::Tick(DeltaTime);
+	return NULL;
 }
-

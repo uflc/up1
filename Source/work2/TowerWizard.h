@@ -18,35 +18,20 @@ public:
 	ATowerWizard();
 
 protected:
-	virtual void BeginPlay() override;
-
-	// Actor OnClicked Signature delegate // this or blueprintimplementableevent?
-	void Selected(AActor* TouchedActor, FKey ButtonPressed);
-
-	////////////////////// UI ///////////////////////
-	virtual void ShowActionMenu();
-	virtual void HideActionMenu();
 
 	static float TowerAttackRange;
 	static float TowerAttackSpeed;
 	static float TowerAttackDmg;
 	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
-	static bool Initialized;
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	//virtual void ResponseButtonEvent(int iNum);
 	virtual FString GetPresetName();
-
 	virtual FString GetTowerStatusText();
-
 	virtual FString GetTowerDescriptionText();
 
 	virtual float GetTowerRange();
 	virtual float GetTowerAttackSpd();
 	virtual float GetTowerAttackDmg();
 
-	UFUNCTION(BlueprintCallable)
-	void TestFunc22();
+	virtual TSoftObjectPtr<UPaperFlipbook> GetFlipbookOfCurrentState();
 };

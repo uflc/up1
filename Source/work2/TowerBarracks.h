@@ -19,25 +19,9 @@ public:
 	ATowerBarracks();
 
 protected:
-
-	//타워의 가능한 업그레이드를 각각 설정해서 그에 따라 위젯을 구성할 경우
-	//TArray<TSubclassOf<ATower>> Upgrades;
-
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	// Actor OnClicked Signature delegate // this or blueprintimplementableevent?
-	void Selected(AActor* TouchedActor, FKey ButtonPressed);
-
-	////////////////////// UI ///////////////////////
-	virtual void ShowActionMenu();
-	virtual void HideActionMenu();
 	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	//virtual void ResponseButtonEvent(int iNum);
 	virtual FString GetPresetName();
 
 	virtual FString GetTowerStatusText();
@@ -45,4 +29,6 @@ public:
 	virtual FString GetTowerDescriptionText();
 
 	virtual float GetTowerRange();
+
+	virtual TSoftObjectPtr<UPaperFlipbook> GetFlipbookOfCurrentState();
 };
