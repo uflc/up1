@@ -30,7 +30,7 @@ enum class EUnitTeam : uint8
 class AMyPaperCharacter;
 
 /*
-공통된 데이터를 한 인스턴트에 담으려고 만든 클래스이지만 블루프린트에 적합하지 않아 보이므로 보류.
+공통된 데이터를 한 인스턴트에 담으려고 만든 클래스이지만 블루프린트에 적합하지 않아 보류.
 */
 UCLASS(Blueprintable)
 class WORK2_API UMyPaperCharacterCommon : public UObject
@@ -45,6 +45,9 @@ protected:
 
 /**
  * 
+ 이 게임의 모든 캐릭터 유닛이 상속받을 클래스.
+ 스테이트, 팀, 공격 어그로 등등 이 게임의 유닛들에게 공통적인 기능 제공.
+ 구체적인 행동 로직은 BT BP로 함.
  */
 UCLASS(BluePrintable)
 class WORK2_API AMyPaperCharacter : public APaperCharacter
@@ -55,12 +58,13 @@ public:
 	AMyPaperCharacter();
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit State")
 	EUnitState UnitState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
 	EUnitTeam Team;
 
+	//편해서 쓰는데, 퍼포먼스 문제가 생긴다면 따로 단일 인스턴스를 공유하도록 해야 될 것 같지만 큰 영향은 없을 듯.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TMap<EUnitState, TSoftObjectPtr<UPaperFlipbook>> FlipbookMap;
 
@@ -80,11 +84,13 @@ protected:
 	//TSoftObjectPtr<UMyPaperCharacterCommon> Data;
 
 
-
 public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	void UpdateAnimation();
 	//virtual void UpdateAnimation_Implementation();
+
+	UFUNCTION(BlueprintCallable, Category = "Unit State")
+	void ChangeState(EUnitState InState);
 	
 
 };

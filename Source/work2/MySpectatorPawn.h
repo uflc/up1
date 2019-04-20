@@ -10,6 +10,7 @@
 
 /**
  * 
+ 현재 level BP가 하고있는 카메라 관련 일을 이 클래스에게 맡길 예정.
  */
 UCLASS()
 class WORK2_API AMySpectatorPawn : public ASpectatorPawn

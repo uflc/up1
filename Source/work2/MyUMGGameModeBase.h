@@ -3,12 +3,15 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "CoreMinimal.h" //need? auto
+#include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "MyUMGGameModeBase.generated.h"
+
 class ATower;
+
 /**
  * Like GameManager
+ 이름 바꿔야 될듯2.
  */
 UCLASS()
 class WORK2_API AMyUMGGameModeBase : public AGameModeBase
