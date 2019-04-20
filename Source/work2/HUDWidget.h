@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-//#include "WidgetSwitcher.h"
+//#include "WidgetSwitcher.h" //ÀÌ À§Á¬ Àß¾²¸é À§Á¬ °èÃþ ÀÌ»Ü°Å°°Àºµ¥ ¸ð¸£°ÙÀ½. 
 //#include "TowerActionMenuWidget.h"
 #include "Tower.h"
 #include "HUDWidget.generated.h"
@@ -12,6 +12,7 @@
 
 /**
  * 
+ Like UI Manager
  */
 UCLASS()
 class WORK2_API UHUDWidget : public UUserWidget

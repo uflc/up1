@@ -15,3 +15,9 @@ void AMyPaperCharacter::UpdateAnimation()
 
 	//GetCharacterMovement()->
 }
+
+void AMyPaperCharacter::ChangeState(EUnitState InState)
+{
+	UnitState = InState;
+	UpdateAnimation();
+}
