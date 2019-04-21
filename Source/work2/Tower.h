@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "StaticBitArray.h"
 #include "Tower.generated.h"
 
 class UPaperFlipbook;
