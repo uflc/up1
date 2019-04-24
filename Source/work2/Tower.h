@@ -26,7 +26,7 @@ enum class ETowerDirectionState : uint8
 };
 
 UCLASS(Abstract, BluePrintable)
-class WORK2_API ATower : public AActor
+class WORK2_API ATower : public APawn
 {
 	GENERATED_BODY()
 	

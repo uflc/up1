@@ -14,8 +14,8 @@ ATowerArcher::ATowerArcher()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-float ATowerArcher::TowerAttackRange = 350.0f;
-float ATowerArcher::TowerAttackSpeed = 100.0f;
+float ATowerArcher::TowerAttackRange = 700.0f;
+float ATowerArcher::TowerAttackSpeed = 0.5f;
 float ATowerArcher::TowerAttackDmg = 100.0f;
 
 inline FString ATowerArcher::GetPresetName()
