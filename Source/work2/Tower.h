@@ -16,6 +16,15 @@ enum class ETowerState : uint8
 	TS_Action  UMETA(DisplayName = "Attack or Open")
 };
 
+UENUM(BlueprintType)
+enum class ETowerDirectionState : uint8
+{
+	TDS_LD UMETA(DisplayName = "LT"),
+	TDS_LT  UMETA(DisplayName = "LD"),
+	TDS_RT UMETA(DisplayName = "RT"),
+	TDS_RD  UMETA(DisplayName = "RD"),
+};
+
 UCLASS(Abstract, BluePrintable)
 class WORK2_API ATower : public AActor
 {
@@ -34,6 +43,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ETowerState TowerState;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ETowerDirectionState TowerDirectionState;
 
 public:	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Texture")

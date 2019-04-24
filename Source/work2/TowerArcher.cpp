@@ -39,7 +39,7 @@ inline float ATowerArcher::GetTowerAttackDmg() { return ATowerArcher::TowerAttac
 
 TSoftObjectPtr<UPaperFlipbook> ATowerArcher::GetFlipbookOfCurrentState()
 {
-	return ATowerArcher::FlipbookMap.Find(TowerState)->GetData()[(TowerTypeNum - 1)*4/* + Direction*/].Get();
+	return ATowerArcher::FlipbookMap.Find(TowerState)->GetData()[(TowerTypeNum - 1)*4+(int)TowerDirectionState].Get();
 }
 
 TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerArcher::FlipbookMap =
