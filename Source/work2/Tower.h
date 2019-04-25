@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "StaticBitArray.h"
+#include "MyPaperCharacter.h"
 #include "Tower.generated.h"
 
 class UPaperFlipbook;
@@ -25,6 +25,8 @@ enum class ETowerDirectionState : uint8
 	TDS_RD  UMETA(DisplayName = "RD"),
 };
 
+
+
 UCLASS(Abstract, BluePrintable)
 class WORK2_API ATower : public APawn
 {
@@ -39,6 +41,9 @@ protected:
 	uint8 TowerTypeNum;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EUnitTeam Team;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float TowerActionDelayCounter;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -47,6 +52,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ETowerDirectionState TowerDirectionState;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AMyPaperCharacter* AggroTarget;
 public:	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Texture")
 	void ResetMaterial(); // will be changed to ChangeSprite("");
