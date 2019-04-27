@@ -52,20 +52,22 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
 	EUnitTeam Team;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	int32 UnitHP;
+
 	//편해서 쓰는데, 퍼포먼스 문제가 생긴다면 따로 단일 인스턴스를 공유하도록 해야 될 것 같지만 큰 영향은 없을 듯.
 	UPROPERTY(EditAnywhere,	BlueprintReadWrite, Category = "Animation")
 	TMap<EUnitState, TAssetPtr<UPaperFlipbook>> FlipbookMap;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
 	float AttackRange;
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
 	float AggroDrawnRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
 	float DrawingAggroRange;
+
 
 	//보류
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
@@ -79,6 +81,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Unit State")
 	void ChangeState(EUnitState InState);
+
+	UFUNCTION(BlueprintCallable, Category = "Unit State")
+	void ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage);
 
 	void BeginPlay();
 

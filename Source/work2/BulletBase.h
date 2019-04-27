@@ -24,7 +24,7 @@ protected:
 	AMyPaperCharacter* Target;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-	FVector Velocity;
+	float Velocity;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
