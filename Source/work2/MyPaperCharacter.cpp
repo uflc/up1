@@ -2,6 +2,8 @@
 
 #include "MyPaperCharacter.h"
 #include "FlipbookShakingComponent.h"
+#include "BehaviorTree\BehaviorTreeComponent.h"
+#include "Tower.h"
 #include "Runtime/Engine/Classes/Engine/AssetManager.h"
 
 
@@ -34,11 +36,10 @@ void AMyPaperCharacter::ChangeState(EUnitState InState)
 void AMyPaperCharacter::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
 {
 	UnitHP-=Damage;
-	if(UnitHP<=0) {ChangeState (EUnitState::Dying);return;}
+	if(UnitHP<=0) {ChangeState (EUnitState::Dying); return;}
 	
 	auto ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
 	if(ShakeComp) ShakeComp->DestroyComponent();
-
 
 	ShakeComp = NewObject<UFlipbookShakingComponent>(this,"FlipbookShakingComponent");
 	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
@@ -49,7 +50,6 @@ void AMyPaperCharacter::ApplyDamage(float ShakePower, float ShakeDuration, int32
 void AMyPaperCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
 	
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 

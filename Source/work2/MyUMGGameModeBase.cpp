@@ -3,6 +3,8 @@
 //#include "work2.h" //need?
 #include "MyUMGGameModeBase.h"
 #include "Tower.h"
+#include "MyPaperCharacter.h"
+#include "MyPaperCharacterCommon.h"
 
 UUserWidget * AMyUMGGameModeBase::GetCurrentWidget()
 {

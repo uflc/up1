@@ -25,6 +25,7 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	float Velocity;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

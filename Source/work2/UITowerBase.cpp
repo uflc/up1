@@ -72,7 +72,6 @@ bool UUITowerBase::SetButtonsEvent()
 		}
 	}
 	return true;
-	
 }
 
 void UUITowerBase::CloseUI()

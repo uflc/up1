@@ -8,6 +8,9 @@
 #include "PaperCharacter.h"
 #include "MyPaperCharacter.generated.h"
 
+class UMyPaperCharacterCommon;
+class ATower;
+
 UENUM(BlueprintType)
 enum class EUnitState : uint8
 {
@@ -26,7 +29,14 @@ enum class EUnitTeam : uint8
 	Enemy	UMETA(DisplayName = "Enemy"),
 };
 
-
+//
+//UCLASS(BluePrintable)
+//class WORK2_API AMyPaperCharacterCommon: public UObject
+//{
+//	GENERATED_BODY()
+//
+//
+//}
 /**
  * 
  이 게임의 모든 캐릭터 유닛이 상속받을 클래스.
@@ -40,6 +50,7 @@ class WORK2_API AMyPaperCharacter : public APaperCharacter
 
 	/*UPROPERTY(Config)
 	TArray<FStringAssetReference> UnitFlipbooks;*/
+	
 
 public:
 	AMyPaperCharacter();
@@ -73,6 +84,8 @@ protected:
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
 	//TSoftObjectPtr<UMyPaperCharacterCommon> Data;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	UMyPaperCharacterCommon* Common;
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")

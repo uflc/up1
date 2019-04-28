@@ -8,6 +8,8 @@
 #include "MyUMGGameModeBase.generated.h"
 
 class ATower;
+class AMyPaperCharacter;
+class UMyPaperCharacterCommon;
 
 /**
  * Like GameManager
@@ -29,10 +31,14 @@ public:
 	//UFUNCTION(BlueprintCallable)
 	//UUserWidget* GetTowerWidget();
 
+
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
+	TMap<TSubclassOf<AMyPaperCharacter>, TSubclassOf<UMyPaperCharacterCommon>> UnitDataMap;
 
 
 	/** The widget class we will use as our menu when the game starts. */

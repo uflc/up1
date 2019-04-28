@@ -30,7 +30,7 @@ void UFlipbookShakingComponent::BeginPlay()
 // Called every frame
 void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	if(!Flipbook) { DestroyComponent();return;}
+	if(!Flipbook) { DestroyComponent(); return; }
 	ShakeDuration-=DeltaTime;
 	if (ShakeDuration < 0)
 	{
@@ -38,8 +38,6 @@ void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 		DestroyComponent();
 		return;
 	}
-	
-	Flipbook = Cast<UPaperFlipbookComponent>(GetOwner()->GetComponentByClass(UPaperFlipbookComponent::StaticClass()));
 
 	FVector ShakeVector;
 	ShakeVector.X = FMath::FRandRange(-50, 50);
