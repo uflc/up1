@@ -36,7 +36,7 @@ inline float ATower::GetTowerRange() { return 0.0f; }
 
 inline float ATower::GetTowerAttackSpd(){	return 0.0f; }
 
-inline float ATower::GetTowerAttackDmg() { return 0.0f; }
+inline int32 ATower::GetTowerAttackDmg() { return 0; }
 
 void ATower::UpdateAnimationCPP()
 {

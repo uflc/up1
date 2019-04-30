@@ -26,8 +26,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	float Velocity;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+	int32 Damage;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+	virtual void Initialize(AMyPaperCharacter* iTarget, int32 iDamage);
 };
