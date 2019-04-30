@@ -23,9 +23,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float CurveScale;
 
-	float Counter;
+	float TickCounter;
 
-	float StartingVelocityPercent;
+	FVector DefVelocityVec;
+
+	float DefVecSize;
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
