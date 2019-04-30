@@ -21,18 +21,18 @@ protected:
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
 	TMap<TSubclassOf<AMyPaperCharacter>, TSubclassOf<UMyPaperCharacterCommon>> UnitDataMap;*/
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector Destination;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDPlayer")
 	int32 DefaultCoin;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDPlayer")
 	int32 DefaultLife;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDPlayer")
 	int32 DefaultMana;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDPlayer")
 	int32 DefaultHeroHP;
 };
