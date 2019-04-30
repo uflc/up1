@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+//#include "UObject/NoExportTypes.h"
+//#include "PaperFlipbook.h"
+//#include "MyPaperCharacter.h"
 #include "MyPaperCharacterCommon.generated.h"
 
 enum class  EUnitState : uint8;
@@ -11,23 +13,43 @@ class UPaperFlipbook;
 /**
  * 
  */
-UCLASS(BluePrintable)
-class WORK2_API UMyPaperCharacterCommon : public UObject
+UCLASS(BlueprintType)
+class UMyPaperCharacterCommon : public UDataAsset// : public UObject
 {
 	GENERATED_BODY()
-		//		/*UPROPERTY(Config)
-		//		TArray<FStringAssetReference> UnitFlipbooks;*/
-	protected:
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-			TMap<EUnitState, TAssetPtr<UPaperFlipbook>> FlipbookMap;
+	
+protected:
+	friend class AMyPaperCharacter;
+	friend class AMyUMGGameModeBase;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	TMap<EUnitState, TSoftObjectPtr<UPaperFlipbook>> FlipbookMap;
 		
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
-			float  DefaultAttackRange;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	float DefaultAttackRange;
 		
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
-			float DefaultAggroDrawnRange;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	float DefaultAggroDrawnRange;
 		
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
-			float DefaultDrawingAggroRange;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	float DefaultDrawingAggroRange;
+
+public:
+	UFUNCTION()
+	void Initialize();
+
+	UFUNCTION()
+	void LoadFlipbooksDeffered();
 
 };
+//
+//UCLASS(BlueprintType)
+//class WORK2_API UTDUnitCommonsDataBase : public UDataAsset
+//{
+//	GENERATED_BODY()
+//
+//	friend class AMyUMGGameModeBase;
+//
+//	UPROPERTY(EditAnywhere)
+//	TArray<UMyPaperCharacterCommon> TDUnitCommons;
+//};

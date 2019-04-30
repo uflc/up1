@@ -18,8 +18,8 @@ class WORK2_API ULevelDataBase : public UObject
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
-	TMap<TSubclassOf<AMyPaperCharacter>, TSubclassOf<UMyPaperCharacterCommon>> UnitDataMap;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
+	TMap<TSubclassOf<AMyPaperCharacter>, TSubclassOf<UMyPaperCharacterCommon>> UnitDataMap;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
 	FVector Destination;

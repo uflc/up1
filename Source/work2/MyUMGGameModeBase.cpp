@@ -1,10 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-//#include "work2.h" //need?
 #include "MyUMGGameModeBase.h"
 #include "Tower.h"
 #include "MyPaperCharacter.h"
 #include "MyPaperCharacterCommon.h"
+//#include "TDUnitCommonsDataBase.h"
+
 
 UUserWidget * AMyUMGGameModeBase::GetCurrentWidget()
 {
@@ -17,7 +18,15 @@ void AMyUMGGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 	ChangeMenuWidget(StartingWidgetClass);
+
 }
+
+void AMyUMGGameModeBase::LoadTDUnitFlibooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons)
+{
+	for(auto TDUnitCommon:TDUnitCommons)
+		TDUnitCommon->Initialize();
+}
+
 
 void AMyUMGGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
 {

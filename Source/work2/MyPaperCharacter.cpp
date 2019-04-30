@@ -4,18 +4,15 @@
 #include "FlipbookShakingComponent.h"
 #include "BehaviorTree\BehaviorTreeComponent.h"
 #include "Tower.h"
-#include "Runtime/Engine/Classes/Engine/AssetManager.h"
+#include "MyPaperCharacterCommon.h"
+//#include "Runtime/Engine/Classes/Engine/AssetManager.h"
 
-
-
-AMyPaperCharacter::AMyPaperCharacter()
-{
-
-}
 
 bool AMyPaperCharacter::UpdateAnimation()
 {
-	UPaperFlipbook* DesiredAnim = FlipbookMap.Find(UnitState)->Get();
+	//UPaperFlipbook* DesiredAnim = FlipbookMap.Find(UnitState)->Get();
+	UPaperFlipbook* DesiredAnim = Common->FlipbookMap.Find(UnitState)->Get();
+
 
 	if (DesiredAnim)
 	{
@@ -50,7 +47,7 @@ void AMyPaperCharacter::ApplyDamage(float ShakePower, float ShakeDuration, int32
 void AMyPaperCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	/*
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FStringAssetReference> AssetsToLoad;
@@ -58,15 +55,15 @@ void AMyPaperCharacter::BeginPlay()
 	{
 		AssetsToLoad.AddUnique(it.Value().ToStringReference());
 	}
-	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &AMyPaperCharacter::FlipbooksDeffered));
+	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &AMyPaperCharacter::FlipbooksDeffered));*/
 }
 
 void AMyPaperCharacter::FlipbooksDeffered()
 {
-	
+	/*
 	for (auto it = FlipbookMap.begin(); it != FlipbookMap.end(); ++it)
 	{
 		TAssetPtr<UPaperFlipbook> NewFlipbook = it.Value();
 		if (NewFlipbook)		  NewFlipbook.Get();	
-	}
+	}*/
 }

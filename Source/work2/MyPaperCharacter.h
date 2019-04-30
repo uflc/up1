@@ -29,14 +29,6 @@ enum class EUnitTeam : uint8
 	Enemy	UMETA(DisplayName = "Enemy"),
 };
 
-//
-//UCLASS(BluePrintable)
-//class WORK2_API AMyPaperCharacterCommon: public UObject
-//{
-//	GENERATED_BODY()
-//
-//
-//}
 /**
  * 
  이 게임의 모든 캐릭터 유닛이 상속받을 클래스.
@@ -50,52 +42,43 @@ class WORK2_API AMyPaperCharacter : public APaperCharacter
 
 	/*UPROPERTY(Config)
 	TArray<FStringAssetReference> UnitFlipbooks;*/
-	
-
-public:
-	AMyPaperCharacter();
 
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit State")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EUnitState UnitState;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	EUnitTeam Team;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	int32 UnitHP;
 
 	//편해서 쓰는데, 퍼포먼스 문제가 생긴다면 따로 단일 인스턴스를 공유하도록 해야 될 것 같지만 큰 영향은 없을 듯.
 	UPROPERTY(EditAnywhere,	BlueprintReadWrite, Category = "Animation")
 	TMap<EUnitState, TAssetPtr<UPaperFlipbook>> FlipbookMap;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float AttackRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float AggroDrawnRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DrawingAggroRange;
 
-
-	//보류
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
-	//TSoftObjectPtr<UMyPaperCharacterCommon> Data;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit Property")
-	UMyPaperCharacterCommon* Common;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	TSoftObjectPtr<UMyPaperCharacterCommon> Common;
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	bool UpdateAnimation();
 	//virtual void UpdateAnimation_Implementation();
 
-	UFUNCTION(BlueprintCallable, Category = "Unit State")
+	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	void ChangeState(EUnitState InState);
 
-	UFUNCTION(BlueprintCallable, Category = "Unit State")
+	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	void ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage);
 
 	void BeginPlay();
