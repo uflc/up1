@@ -25,3 +25,8 @@ void ABulletBase::Tick(float DeltaTime)
 
 }
 
+void ABulletBase::Initialize(AMyPaperCharacter * iTarget, int32 iDamage)
+{
+	Target = iTarget;
+	Damage = iDamage;
+}

@@ -16,7 +16,7 @@ ATowerArcher::ATowerArcher()
 
 float ATowerArcher::TowerAttackRange = 700.0f;
 float ATowerArcher::TowerAttackSpeed = 0.5f;
-float ATowerArcher::TowerAttackDmg = 100.0f;
+int32 ATowerArcher::TowerAttackDmg = 100;
 
 inline FString ATowerArcher::GetPresetName()
 {
@@ -35,7 +35,7 @@ FString ATowerArcher::GetTowerDescriptionText()
 
 inline float ATowerArcher::GetTowerRange() { return ATowerArcher::TowerAttackRange+0.0f; }
 inline float ATowerArcher::GetTowerAttackSpd() { return ATowerArcher::TowerAttackSpeed + 0.0f; }
-inline float ATowerArcher::GetTowerAttackDmg() { return ATowerArcher::TowerAttackDmg + 0.0f; }
+inline int32 ATowerArcher::GetTowerAttackDmg() { return ATowerArcher::TowerAttackDmg + 0.0f; }
 
 TSoftObjectPtr<UPaperFlipbook> ATowerArcher::GetFlipbookOfCurrentState()
 {

@@ -21,7 +21,7 @@ protected:
 
 	static float TowerAttackRange;
 	static float TowerAttackSpeed;
-	static float TowerAttackDmg;
+	static int32 TowerAttackDmg;
 	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
 
 public:
@@ -31,7 +31,7 @@ public:
 
 	virtual float GetTowerRange();
 	virtual float GetTowerAttackSpd();
-	virtual float GetTowerAttackDmg();
+	virtual int32 GetTowerAttackDmg();
 
 	virtual TSoftObjectPtr<UPaperFlipbook> GetFlipbookOfCurrentState();
 };

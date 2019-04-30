@@ -35,8 +35,8 @@ ATowerWizard::ATowerWizard()
 
 
 float ATowerWizard::TowerAttackRange = 700.0f;
-float ATowerWizard::TowerAttackSpeed = 2.0f;
-float ATowerWizard::TowerAttackDmg = 200.0f;
+float ATowerWizard::TowerAttackSpeed = 1.0f;
+int32 ATowerWizard::TowerAttackDmg = 200.0f;
 
 TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerWizard::FlipbookMap =
 { 
@@ -78,7 +78,7 @@ FString ATowerWizard::GetTowerDescriptionText()
 
 inline float ATowerWizard::GetTowerRange() { return ATowerWizard::TowerAttackRange + 0.0f; }
 inline float ATowerWizard::GetTowerAttackSpd() { return ATowerWizard::TowerAttackSpeed + 0.0f; }
-inline float ATowerWizard::GetTowerAttackDmg() { return ATowerWizard::TowerAttackDmg + 0.0f; }
+inline int32 ATowerWizard::GetTowerAttackDmg() { return ATowerWizard::TowerAttackDmg + 0.0f; }
 
 TSoftObjectPtr<UPaperFlipbook> ATowerWizard::GetFlipbookOfCurrentState()
 {

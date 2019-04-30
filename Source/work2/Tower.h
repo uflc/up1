@@ -74,7 +74,7 @@ public:
 	virtual float GetTowerAttackSpd();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
-	virtual float GetTowerAttackDmg();
+	virtual int32 GetTowerAttackDmg();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ResponseButtonEvent(int iNum);
