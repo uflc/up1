@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "PaperSprite.h"
+#include "TDPlayerStateBase.h"
 #include "MyBlueprintFunctionLibrary.generated.h"
 
 /**
@@ -18,7 +19,13 @@ class WORK2_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 	
 public:
 
-		//스프라이트의 소스 텍스쳐 디멘션 반환.
-		UFUNCTION(BlueprintPure, Category = Custom)
-		static FVector2D GetSourceSize(UPaperSprite* sprite);
+	//스프라이트의 소스 텍스쳐 디멘션 반환.
+	UFUNCTION(BlueprintPure, Category = Custom)
+	static FVector2D GetSourceSize(UPaperSprite* sprite);
+
+	UFUNCTION(BlueprintCallable, Category = Custom)
+	static void EarnCoin(UObject* CalledObj,int32 Value);
+
+	UFUNCTION(BlueprintCallable, Category = Custom)
+	static void UpdateCurrentPlayerStateValue(UObject* CalledObj, int32 i,EValueType Type);
 };

@@ -17,10 +17,10 @@ class WORK2_API AParabolicBullet : public ABulletBase
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector VelocityVec;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float CurveScale;
 
 	float TickCounter;
@@ -31,11 +31,6 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	UFUNCTION(BlueprintNativeEvent,BlueprintCallable)
-	void BulletDestroy();
-
-	void BulletDestroy_Implementation();
 
 	virtual void Initialize(AMyPaperCharacter* iTarget,int32 iDamage);
 };

@@ -16,7 +16,7 @@ ATowerArcher::ATowerArcher()
 
 float ATowerArcher::TowerAttackRange = 700.0f;
 float ATowerArcher::TowerAttackSpeed = 0.5f;
-int32 ATowerArcher::TowerAttackDmg = 100;
+int32 ATowerArcher::TowerAttackDmg = 2;
 
 inline FString ATowerArcher::GetPresetName()
 {

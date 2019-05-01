@@ -55,6 +55,12 @@ protected:
 	int32 UnitHP;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	float UnitAttackDelay;	
+		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	int32 UnitAttackDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float AttackRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
@@ -70,10 +76,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	bool UpdateAnimation();
 	//virtual void UpdateAnimation_Implementation();
+	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	void ChangeState(EUnitState InState);
 
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	void ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage);	
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void CharacterDestroy();
+
+	UFUNCTION(BlueprintCallable)
+	void CharacterDestroy_Implementation();
 };

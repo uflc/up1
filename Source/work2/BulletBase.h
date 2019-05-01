@@ -28,10 +28,18 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	int32 Damage;
+
+	bool IsDirectable;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void Initialize(AMyPaperCharacter* iTarget, int32 iDamage);
+	virtual void Initialize(AMyPaperCharacter* iTarget, int32 iDamage, bool iIsDirectable);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void BulletDestroy();
+
+	UFUNCTION(BlueprintCallable)
+	void BulletDestroy_Implementation();
 };

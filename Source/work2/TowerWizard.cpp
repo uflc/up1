@@ -36,7 +36,7 @@ ATowerWizard::ATowerWizard()
 
 float ATowerWizard::TowerAttackRange = 700.0f;
 float ATowerWizard::TowerAttackSpeed = 1.0f;
-int32 ATowerWizard::TowerAttackDmg = 200.0f;
+int32 ATowerWizard::TowerAttackDmg = 4;
 
 TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerWizard::FlipbookMap =
 { 

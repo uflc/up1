@@ -32,10 +32,7 @@ void AParabolicBullet::Tick(float DeltaTime)
 	if(TickCounter>=1.0f)	TickCounter=1.0f;
 }
 
-void AParabolicBullet::BulletDestroy_Implementation()
-{
-	Destroy();
-}
+
 
 void AParabolicBullet::Initialize(AMyPaperCharacter * iTarget, int32 iDamage)
 {
