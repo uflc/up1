@@ -21,10 +21,20 @@ void AMyUMGGameModeBase::BeginPlay()
 
 }
 
-void AMyUMGGameModeBase::LoadTDUnitFlibooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons)
+void AMyUMGGameModeBase::LoadTDUnitFlipbooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons)
 {
-	for(auto TDUnitCommon:TDUnitCommons)
+	UnLoadedTDUnitCommonNum += TDUnitCommons.Num();
+	for (auto TDUnitCommon : TDUnitCommons)
+	{
+		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
+	}
+}
+
+void AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded()
+{
+	if (--UnLoadedTDUnitCommonNum == 0)
+	OnAllTDUnitFlipbooksLoaded.Broadcast();
 }
 
 

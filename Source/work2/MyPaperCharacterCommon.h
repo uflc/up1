@@ -17,7 +17,9 @@ UCLASS(BlueprintType)
 class UMyPaperCharacterCommon : public UDataAsset// : public UObject
 {
 	GENERATED_BODY()
-	
+
+	DECLARE_DELEGATE(FLoadCompletedSignature);
+
 protected:
 	friend class AMyPaperCharacter;
 	friend class AMyUMGGameModeBase;
@@ -35,12 +37,16 @@ protected:
 	float DefaultDrawingAggroRange;
 
 public:
+	FLoadCompletedSignature OnFlipbooksLoaded;
+
 	UFUNCTION()
 	void Initialize();
 
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
 
+	/*UFUNCTION(BlueprintImplementableEvent)
+	void OnFlipbooksLoaded();*/
 };
 //
 //UCLASS(BlueprintType)

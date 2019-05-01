@@ -13,6 +13,7 @@ class ATower;
 class UMyPaperCharacterCommon;
 //class UTDUnitCommonsDataBase;
 
+
 /**
  * Like GameManager
  이름 바꿔야 될듯2.
@@ -24,6 +25,10 @@ class WORK2_API AMyUMGGameModeBase : public AGameModeBase
 
 	/*UPROPERTY(Config)
 	TArray<FSoftObjectPath> TDUnitCommonPaths;*/
+	
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFullyLoadedDelegate);
+	
+
 
 public:
 	/** Remove the current menu widget and create a new one from the specified class, if provided. */
@@ -36,6 +41,8 @@ public:
 	//UFUNCTION(BlueprintCallable)
 	//UUserWidget* GetTowerWidget();
 
+	UPROPERTY(BlueprintAssignable, Category = "TDUnit")
+	FFullyLoadedDelegate OnAllTDUnitFlipbooksLoaded;
 
 protected:
 	/** Called when the game starts. */
@@ -58,12 +65,15 @@ protected:
 	//UUserWidget* TowerWidget;
 	
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
-	void LoadTDUnitFlibooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons);
+	void LoadTDUnitFlipbooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons);
 
+	int8 UnLoadedTDUnitCommonNum;
 
 public:	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
 	void ChangeTower(ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
+
+	void OnTDUnitFlipbooksLoaded();
 
 	//template<class T>
 	//void ChangeTower1(ATower* InInteractingTower);
