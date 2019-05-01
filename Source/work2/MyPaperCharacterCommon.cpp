@@ -4,6 +4,9 @@
 #include "MyPaperCharacterCommon.h"
 #include "MyPaperCharacter.h"
 #include "Runtime/Engine/Classes/Engine/AssetManager.h"
+#include "Runtime/Engine/Classes/Engine/World.h"
+#include "MyUMGGameModeBase.h"
+
 
 void UMyPaperCharacterCommon::LoadFlipbooksDeffered()
 {
@@ -12,6 +15,7 @@ void UMyPaperCharacterCommon::LoadFlipbooksDeffered()
 		TSoftObjectPtr<UPaperFlipbook> NewFlipbook = it.Value;
 		if (NewFlipbook) NewFlipbook.Get();
 	}
+	OnFlipbooksLoaded.ExecuteIfBound();
 }
 
 void UMyPaperCharacterCommon::Initialize()
