@@ -2,11 +2,11 @@
 
 #include "MyPaperCharacter.h"
 #include "Engine\World.h"
+#include "AIModule\Classes\AIController.h"
+#include "AIModule\Classes\BrainComponent.h"
+
 #include "FlipbookShakingComponent.h"
-#include "BehaviorTree\BehaviorTreeComponent.h"
 #include "Tower.h"
-#include "GameFramework\Controller.h"
-#include "AIController.h"
 #include "MyPaperCharacterCommon.h"
 #include "TDPlayerStateBase.h"
 

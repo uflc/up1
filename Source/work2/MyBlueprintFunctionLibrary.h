@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "PaperSprite.h"
 #include "TDPlayerStateBase.h"
 #include "MyBlueprintFunctionLibrary.generated.h"
 
+class UPaperSprite;
 /**
  * 
  소스에만 있고 BP에 없는 함수를 BP에 커스텀으로 추가하기 위한 라이브러리.

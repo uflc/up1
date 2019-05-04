@@ -2,7 +2,7 @@
 
 //#include "work2.h"
 #include "MyBlueprintFunctionLibrary.h"
-
+#include "PaperSprite.h"
 
 FORCEINLINE FVector2D UMyBlueprintFunctionLibrary::GetSourceSize(UPaperSprite* sprite)
 {
