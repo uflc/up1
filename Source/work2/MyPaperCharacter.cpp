@@ -4,7 +4,7 @@
 #include "Engine\World.h"
 #include "AIModule\Classes\AIController.h"
 #include "AIModule\Classes\BrainComponent.h"
-
+#include "Engine\Public\TimerManager.h"
 #include "FlipbookShakingComponent.h"
 #include "Tower.h"
 #include "MyPaperCharacterCommon.h"
