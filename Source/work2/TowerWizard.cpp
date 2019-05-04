@@ -33,10 +33,36 @@ ATowerWizard::ATowerWizard()
 	}*/
 }
 
+TMap<uint8, float> ATowerWizard::TowerAttackRangeMap = {
+{0,0},
+{1,1400.0f},
+{2,1400.0f},
+{3,1400.0f},
+{4,1400.0f},
+{5,1400.0f},
+{6,1400.0f}
+};
 
-float ATowerWizard::TowerAttackRange = 700.0f;
-float ATowerWizard::TowerAttackSpeed = 1.0f;
-int32 ATowerWizard::TowerAttackDmg = 4;
+TMap<uint8, float> ATowerWizard::TowerAttackSpeedMap = {
+{0,0},
+{1,0.5f},
+{2,0.5f},
+{3,0.5f},
+{4,0.5f},
+{5,0.5f},
+{6,0.5f}
+};
+
+TMap<uint8, int32> ATowerWizard::TowerAttackDmgMap = {
+{0,0},
+{1,4},
+{2,5},
+{3,6},
+{4,7},
+{5,8},
+{6,9}
+};
+
 
 TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> ATowerWizard::FlipbookMap =
 { 
@@ -76,9 +102,9 @@ FString ATowerWizard::GetTowerDescriptionText()
 	return "TowerWizard Description Test";
 }
 
-inline float ATowerWizard::GetTowerRange() { return ATowerWizard::TowerAttackRange + 0.0f; }
-inline float ATowerWizard::GetTowerAttackSpd() { return ATowerWizard::TowerAttackSpeed + 0.0f; }
-inline int32 ATowerWizard::GetTowerAttackDmg() { return ATowerWizard::TowerAttackDmg + 0.0f; }
+inline float ATowerWizard::GetTowerRange() { return TowerAttackRangeMap[TowerTypeNum] + 0.0f; }
+inline float ATowerWizard::GetTowerAttackSpd() { return TowerAttackSpeedMap[TowerTypeNum] + 0.0f; }
+inline int32 ATowerWizard::GetTowerAttackDmg() { return TowerAttackDmgMap[TowerTypeNum] + 0; }
 
 TSoftObjectPtr<UPaperFlipbook> ATowerWizard::GetFlipbookOfCurrentState()
 {

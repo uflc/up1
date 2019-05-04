@@ -32,5 +32,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Initialize(AMyPaperCharacter* iTarget,int32 iDamage);
+	virtual void Initialize(AMyPaperCharacter* iTarget,int32 iDamage, bool IisDirectable) override;
 };

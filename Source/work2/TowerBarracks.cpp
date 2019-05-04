@@ -29,7 +29,7 @@ FString ATowerBarracks::GetTowerDescriptionText()
 	return "TowerBarracks Description Test";
 }
 
-inline float ATowerBarracks::GetTowerRange() { return 0.0f; }
+inline float ATowerBarracks::GetTowerRange() { return 700.0f; }
 
 TSoftObjectPtr<UPaperFlipbook> ATowerBarracks::GetFlipbookOfCurrentState()
 {

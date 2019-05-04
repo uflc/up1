@@ -67,13 +67,13 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
 	virtual FString GetTowerDescriptionText();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Tower Property")
 	virtual float GetTowerRange();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Tower Property")
 	virtual float GetTowerAttackSpd();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Tower Property")
 	virtual int32 GetTowerAttackDmg();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)

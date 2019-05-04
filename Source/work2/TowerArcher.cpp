@@ -14,9 +14,37 @@ ATowerArcher::ATowerArcher()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-float ATowerArcher::TowerAttackRange = 700.0f;
-float ATowerArcher::TowerAttackSpeed = 0.5f;
-int32 ATowerArcher::TowerAttackDmg = 2;
+TMap<uint8, float> ATowerArcher::TowerAttackRangeMap = {
+{0,0},
+{1,700.0f},
+{2,700.0f},
+{3,700.0f},
+{4,700.0f},
+{5,700.0f},
+{6,700.0f}
+};
+
+TMap<uint8, float> ATowerArcher::TowerAttackSpeedMap = {
+{0,0},
+{1,0.5f},
+{2,0.5f},
+{3,0.5f},
+{4,0.5f},
+{5,0.5f},
+{6,0.5f}
+};
+
+TMap<uint8, int32> ATowerArcher::TowerAttackDmgMap = {
+{0,0},
+{1,2},
+{2,3},
+{3,4},
+{4,5},
+{5,6},
+{6,7}
+};
+
+
 
 inline FString ATowerArcher::GetPresetName()
 {
@@ -33,9 +61,9 @@ FString ATowerArcher::GetTowerDescriptionText()
 	return "TowerArcher Description Test";
 }
 
-inline float ATowerArcher::GetTowerRange() { return ATowerArcher::TowerAttackRange+0.0f; }
-inline float ATowerArcher::GetTowerAttackSpd() { return ATowerArcher::TowerAttackSpeed + 0.0f; }
-inline int32 ATowerArcher::GetTowerAttackDmg() { return ATowerArcher::TowerAttackDmg + 0.0f; }
+inline float ATowerArcher::GetTowerRange() { return TowerAttackRangeMap[TowerTypeNum] + 0.0f; }
+inline float ATowerArcher::GetTowerAttackSpd() { return TowerAttackSpeedMap[TowerTypeNum] + 0.0f;}
+inline int32 ATowerArcher::GetTowerAttackDmg() { return TowerAttackDmgMap[TowerTypeNum] + 0;}
 
 TSoftObjectPtr<UPaperFlipbook> ATowerArcher::GetFlipbookOfCurrentState()
 {

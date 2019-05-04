@@ -40,10 +40,7 @@ void ABulletBase::Tick(float DeltaTime)
 	DirectionVec *= (Velocity * DeltaTime);
 
 	SetActorLocation(GetActorLocation() + DirectionVec);
-	if(IsDirectable){ 
-		DirectionVec.Rotation();
-		SetActorRotation(FRotator(0, DirectionVec.Rotation().Yaw,0));
-	}
+	if(IsDirectable)	SetActorRotation(FRotator(0, (DirectionVec*-1).Rotation().Yaw,0));
 }
 
 void ABulletBase::Initialize(AMyPaperCharacter * iTarget, int32 iDamage,bool iIsDirectable = false)

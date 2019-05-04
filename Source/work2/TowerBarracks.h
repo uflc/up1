@@ -28,7 +28,7 @@ public:
 
 	virtual FString GetTowerDescriptionText();
 
-	virtual float GetTowerRange();
+	virtual float GetTowerRange() override;
 
 	virtual TSoftObjectPtr<UPaperFlipbook> GetFlipbookOfCurrentState();
 };

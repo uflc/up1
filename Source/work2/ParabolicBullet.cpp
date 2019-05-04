@@ -14,7 +14,7 @@ void AParabolicBullet::Tick(float DeltaTime)
 	DirectionVec.Z=0;
 	float DirectionVecSize = DirectionVec.Size();
 	if(DirectionVecSize <= 40.0f) {
-		Target->ApplyDamage(8.0f,0.15f,0/*Damage*/);
+		Target->ApplyDamage(8.0f,0.15f,Damage);
 		BulletDestroy();
 		return;
 	}
@@ -30,15 +30,18 @@ void AParabolicBullet::Tick(float DeltaTime)
 	
 	TickCounter += (DeltaTime/(DefVecSize*0.4f));
 	if(TickCounter>=1.0f)	TickCounter=1.0f;
+
+	if (IsDirectable) SetActorRotation(FRotator(0, (VelocityVec*-1).Rotation().Yaw, 0));
 }
 
 
 
-void AParabolicBullet::Initialize(AMyPaperCharacter * iTarget, int32 iDamage)
+void AParabolicBullet::Initialize(AMyPaperCharacter * iTarget, int32 iDamage,bool IisDirectable)
 {
 	Target= iTarget;
 	Damage=iDamage;
-	CurveScale=0.72f;
+	IsDirectable= IisDirectable;
+	CurveScale=0.72f*1000.0f/Velocity;
 	TickCounter=0;
 
 	DefVelocityVec= Target->GetActorLocation() - GetActorLocation();

@@ -18,10 +18,10 @@ public:
 	// Sets default values for this actor's properties
 	ATowerArcher();
 protected:
+	static TMap<uint8,float> TowerAttackRangeMap;
+	static TMap<uint8, float> TowerAttackSpeedMap;
+	static TMap<uint8, int32> TowerAttackDmgMap;
 
-	static float TowerAttackRange;
-	static float TowerAttackSpeed;
-	static int32 TowerAttackDmg;
 	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
 
 public:
@@ -29,9 +29,9 @@ public:
 	virtual FString GetTowerStatusText();
 	virtual FString GetTowerDescriptionText();
 
-	virtual float GetTowerRange();
-	virtual float GetTowerAttackSpd();
-	virtual int32 GetTowerAttackDmg();
+	virtual float GetTowerRange() override;
+	virtual float GetTowerAttackSpd() override;
+	virtual int32 GetTowerAttackDmg() override;
 
 	virtual TSoftObjectPtr<UPaperFlipbook> GetFlipbookOfCurrentState();
 };
