@@ -4,7 +4,10 @@
 #include "WaveUnitSpawner.h"
 #include "Engine\World.h"
 #include "Engine\Public\TimerManager.h"
+#include "ParallelFor.h"
+#include "Engine.h"
 #include "MyPaperCharacter.h"
+
 // Sets default values
 AWaveUnitSpawner::AWaveUnitSpawner()
 {
@@ -32,4 +35,3 @@ void AWaveUnitSpawner::Initialize(TArray<FWaveDataArray> iWaveData, TArray<FVect
 	LevelWaveData=iWaveData;
 	EnemyStartingLocation=iStartingLocation;
 }
-
