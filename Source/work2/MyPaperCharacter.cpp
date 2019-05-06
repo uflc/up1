@@ -43,13 +43,14 @@ void AMyPaperCharacter::ChangeState(EUnitState InState)
 
 void AMyPaperCharacter::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
 {
+	if(UnitState == EUnitState::Dead)return;
+
 	UnitHP-=Damage;
 	if(UnitHP<=0) {ChangeState (EUnitState::Dying); 
 	((AAIController*)GetController())->GetBrainComponent()->StopLogic("Dead");
 	Team=EUnitTeam::None;
 	GetSprite()->SetLooping(false);
 	CharacterDestroy();
-
 	return;
 	}
 	
@@ -64,9 +65,9 @@ void AMyPaperCharacter::ApplyDamage(float ShakePower, float ShakeDuration, int32
 
 void AMyPaperCharacter::CharacterDestroy_Implementation()
 {
+	UnitState = EUnitState::Dead;
 	FTimerHandle  handle;
 	GetWorld()->GetTimerManager().SetTimer(handle, [this]() {
-		UnitState =EUnitState::Dead;
 		Destroy(); /* or pool */
 	}, GetSprite()->GetFlipbookLength() + 3.5f, 1);
 }
