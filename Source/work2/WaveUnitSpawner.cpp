@@ -30,8 +30,9 @@ void AWaveUnitSpawner::Tick(float DeltaTime)
 
 }
 
-void AWaveUnitSpawner::Initialize(TArray<FWaveDataArray> iWaveData, TArray<FVector> iStartingLocation)
+void AWaveUnitSpawner::Initialize(TArray<FWaveDataArray> iWaveData, TArray<FVector> iStartingLocation, TArray<FVector> iDestination)
 {
 	LevelWaveData=iWaveData;
 	EnemyStartingLocation=iStartingLocation;
+	EnemyDestination = iDestination;
 }

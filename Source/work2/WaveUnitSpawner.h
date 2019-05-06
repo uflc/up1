@@ -26,6 +26,9 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	TArray<FVector> EnemyStartingLocation;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FVector> EnemyDestination;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ActiveSubSpawnerNumber;
 public:	
@@ -33,7 +36,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void Initialize(TArray<FWaveDataArray> iWaveData, TArray<FVector> iStartingLocation);
+	void Initialize(TArray<FWaveDataArray> iWaveData, TArray<FVector> iStartingLocation, TArray<FVector> iDestination);
 
 	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
 	void WaveSpawn();

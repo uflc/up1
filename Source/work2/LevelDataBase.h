@@ -55,7 +55,7 @@ protected:
 	TMap<TSubclassOf<AMyPaperCharacter>, TSubclassOf<UMyPaperCharacterCommon>> UnitDataMap;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector Destination;
+	TArray<FVector> Destination;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FVector> EnemyStartingLocation;

@@ -29,6 +29,9 @@ protected:
 	TArray<FVector> EnemyStartingLocation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FVector> EnemyDestination;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	AWaveUnitSpawner* RootSpawner;
 public:	
 	// Called every frame
@@ -38,5 +41,5 @@ public:
 	void WaveSpawnSub();
 
 	UFUNCTION(BlueprintCallable)
-	void Initialize(FWaveData iWaveData, TArray<FVector> iStartingLocation, AWaveUnitSpawner* Root);
+	void Initialize(FWaveData iWaveData, TArray<FVector> iStartingLocation, TArray<FVector> iDestination, AWaveUnitSpawner* Root);
 };
