@@ -28,10 +28,8 @@ void AWaveUnitSpawnerSub::Tick(float DeltaTime)
 
 
 
-void AWaveUnitSpawnerSub::Initialize(FWaveData iWaveData, TArray<FVector> iStartingLocation, TArray<FVector> iDestination, AWaveUnitSpawner* Root)
+void AWaveUnitSpawnerSub::Initialize(FWaveData iWaveData, AWaveUnitSpawner* Root)
 {
 	LevelWaveData = iWaveData;
-	EnemyStartingLocation = iStartingLocation;
-	EnemyDestination = iDestination;
 	RootSpawner=Root;
 }
