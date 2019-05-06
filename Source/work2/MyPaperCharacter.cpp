@@ -66,7 +66,7 @@ void AMyPaperCharacter::CharacterDestroy_Implementation()
 {
 	FTimerHandle  handle;
 	GetWorld()->GetTimerManager().SetTimer(handle, [this]() {
-		ChangeState(EUnitState::Dead);
+		UnitState =EUnitState::Dead;
 		Destroy(); /* or pool */
 	}, GetSprite()->GetFlipbookLength() + 3.5f, 1);
 }
