@@ -26,12 +26,12 @@ TMap<uint8, float> ATowerArcher::TowerAttackRangeMap = {
 
 TMap<uint8, float> ATowerArcher::TowerAttackSpeedMap = {
 {0,0},
-{1,0.5f},
-{2,0.5f},
-{3,0.5f},
-{4,0.5f},
-{5,0.5f},
-{6,0.5f}
+{1,0.8f},
+{2,0.8f},
+{3,0.8f},
+{4,0.8f},
+{5,0.8f},
+{6,0.8f}
 };
 
 TMap<uint8, int32> ATowerArcher::TowerAttackDmgMap = {

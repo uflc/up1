@@ -6,6 +6,7 @@
 void AParabolicBullet::Tick(float DeltaTime)
 {
 	if (!Target) {
+		SetActorTickEnabled(false);
 		BulletDestroy();
 		return;
 	}

@@ -39,5 +39,8 @@ public:
 	void Initialize(TArray<FWaveDataArray> iWaveData, TArray<FVector> iStartingLocation, TArray<FVector> iDestination);
 
 	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
+	void NthWaveSpawnExec(int32 idx);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void WaveSpawn();
 };

@@ -21,6 +21,7 @@ void ABulletBase::BeginPlay()
 void ABulletBase::Tick(float DeltaTime)
 {
 	if (!Target) {
+		SetActorTickEnabled(false);
 		BulletDestroy();
 		return;
 	}

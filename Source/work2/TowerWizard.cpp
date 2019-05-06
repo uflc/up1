@@ -45,12 +45,12 @@ TMap<uint8, float> ATowerWizard::TowerAttackRangeMap = {
 
 TMap<uint8, float> ATowerWizard::TowerAttackSpeedMap = {
 {0,0},
-{1,0.5f},
-{2,0.5f},
-{3,0.5f},
-{4,0.5f},
-{5,0.5f},
-{6,0.5f}
+{1,1.5f},
+{2,1.0f},
+{3,1.5f},
+{4,1.5f},
+{5,1.5f},
+{6,1.5f}
 };
 
 TMap<uint8, int32> ATowerWizard::TowerAttackDmgMap = {
