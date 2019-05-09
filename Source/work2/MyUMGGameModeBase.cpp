@@ -33,7 +33,9 @@ void AMyUMGGameModeBase::LoadTDUnitFlipbooks(TArray<UMyPaperCharacterCommon*> TD
 void AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded()
 {
 	if (--UnLoadedTDUnitCommonNum == 0)
-	OnAllTDUnitFlipbooksLoaded.Broadcast();
+	{
+		OnAllTDUnitFlipbooksLoaded.Broadcast();
+	}
 }
 
 

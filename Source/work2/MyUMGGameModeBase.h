@@ -43,10 +43,6 @@ protected:
 	virtual void BeginPlay() override;
 
 
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
-	TMap<TSubclassOf<AMyPaperCharacter>, TSubclassOf<UMyPaperCharacterCommon>> TDUnitTypeMap;*/
-
-
 	/** The widget class we will use as our menu when the game starts. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
 	TSubclassOf<UUserWidget> StartingWidgetClass;
