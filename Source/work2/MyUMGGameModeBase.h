@@ -5,30 +5,24 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "GameFramework/GameModeBase.h"
-//#include "MyPaperCharacterCommon.h"
 #include "MyUMGGameModeBase.generated.h"
 
 class ATower;
 //class AMyPaperCharacter;
 class UMyPaperCharacterCommon;
-//class UTDUnitCommonsDataBase;
 
 
 /**
  * Like GameManager
  이름 바꿔야 될듯2.
+ 리소스 로드 및 사용할 위젯 관리
  */
 UCLASS()
 class WORK2_API AMyUMGGameModeBase : public AGameModeBase
 {										
 	GENERATED_BODY()
-
-	/*UPROPERTY(Config)
-	TArray<FSoftObjectPath> TDUnitCommonPaths;*/
 	
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFullyLoadedDelegate);
-	
-
 
 public:
 	/** Remove the current menu widget and create a new one from the specified class, if provided. */

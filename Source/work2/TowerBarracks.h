@@ -21,6 +21,8 @@ public:
 protected:
 	static TMap<ETowerState, TArray<TSoftObjectPtr<UPaperFlipbook>>> FlipbookMap;
 
+	static int8 MaxUnitNumber;
+
 public:
 	virtual FString GetPresetName();
 

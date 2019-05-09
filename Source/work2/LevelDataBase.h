@@ -11,6 +11,13 @@
 class AMyPaperCharacter;
 class UMyPaperCharacterCommon;
 
+
+/**
+ *
+ 레벨 마다 정해져야 할 정보와 특히 적 유닛이 소환될 웨이브를 구성하는 정보 구조체.
+ 
+ */
+
 USTRUCT(BlueprintType)
 struct  FWaveData {
 	GENERATED_USTRUCT_BODY()
@@ -41,9 +48,6 @@ public:
 	TArray<FWaveData> Wave;
 };
 
-/**
- * 
- */
 
 UCLASS(Blueprintable)
 class WORK2_API ULevelDataBase : public UObject
@@ -51,8 +55,6 @@ class WORK2_API ULevelDataBase : public UObject
 	GENERATED_BODY()
 	
 protected:
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Unit")
-	TMap<TSubclassOf<AMyPaperCharacter>, TSubclassOf<UMyPaperCharacterCommon>> UnitDataMap;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FVector> Destination;

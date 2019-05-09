@@ -40,9 +40,6 @@ class WORK2_API AMyPaperCharacter : public APaperCharacter
 {
 	GENERATED_BODY()
 
-	/*UPROPERTY(Config)
-	TArray<FStringAssetReference> UnitFlipbooks;*/
-
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
@@ -75,7 +72,7 @@ protected:
 public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	bool UpdateAnimation();
-	//virtual void UpdateAnimation_Implementation();
+
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
