@@ -27,6 +27,4 @@ public:
 
 	virtual FString GetTowerDescriptionText();
 
-	virtual void OnSelected_Implementation(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed) override;
-
 };

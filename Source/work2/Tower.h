@@ -59,17 +59,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AMyPaperCharacter* AggroTarget;
 public:	
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UI|HUD|Tower")
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void OnDeselected();
-	virtual void OnDeselected_Implementation();
 
-	/*
-	 Bind this to OnClicked
-	 ATower가 UPrimitiveComponent* 를 가지고 있어야 할까?
-	*/
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UI|HUD|Tower")
-	void OnSelected(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);
-	virtual void OnSelected_Implementation(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
+	void ShowActionMenu();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD|Tower")
 	virtual FString GetPresetName();

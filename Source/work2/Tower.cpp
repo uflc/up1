@@ -12,12 +12,12 @@ ATower::ATower()
 	PrimaryActorTick.bCanEverTick = true;
 } 
 
-void ATower::OnDeselected_Implementation()
+void ATower::OnDeselected()
 {
 	IsSelected = false;
 }
 
-void ATower::OnSelected_Implementation(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed)
+void ATower::ShowActionMenu()
 {
 	if (IsSelected) return;
 
