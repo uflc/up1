@@ -8,6 +8,7 @@
 #include "Tower.generated.h"
 
 class UPaperFlipbook;
+class UPaperFlipbookComponent;
 
 UENUM(BlueprintType)
 enum class ETowerState : uint8
@@ -37,6 +38,9 @@ public:
 	ATower();
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsSelected;
+
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	uint8 TowerTypeNum;
 
@@ -55,16 +59,25 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AMyPaperCharacter* AggroTarget;
 public:	
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Texture")
-	void ResetMaterial(); // will be changed to ChangeSprite("");
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UI|HUD|Tower")
+	void OnDeselected();
+	virtual void OnDeselected_Implementation();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	/*
+	 Bind this to OnClicked
+	 ATower가 UPrimitiveComponent* 를 가지고 있어야 할까?
+	*/
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UI|HUD|Tower")
+	void OnSelected(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);
+	virtual void OnSelected_Implementation(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD|Tower")
 	virtual FString GetPresetName();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD|Tower")
 	virtual FString GetTowerStatusText();
 
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD")
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD|Tower")
 	virtual FString GetTowerDescriptionText();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Tower Property")

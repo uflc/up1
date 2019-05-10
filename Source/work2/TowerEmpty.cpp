@@ -26,3 +26,8 @@ FString ATowerEmpty::GetTowerDescriptionText()
 {
 	return "TowerEmpty Description Test";
 }
+
+void ATowerEmpty::OnSelected_Implementation(UPrimitiveComponent * TouchedComponent, FKey ButtonPressed)
+{
+	Super::OnSelected_Implementation(TouchedComponent, ButtonPressed);
+}

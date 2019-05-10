@@ -11,9 +11,9 @@
 UENUM(BlueprintType)
 enum class EValueType : uint8
 {
-	Coin			UMETA(DisplayName = "Coin"),
-	Life 			UMETA(DisplayName = "Life"),
-	Mana			UMETA(DisplayName = "Mana"),
+	Coin		UMETA(DisplayName = "Coin"),
+	Life 		UMETA(DisplayName = "Life"),
+	Mana		UMETA(DisplayName = "Mana"),
 	HeroHP		UMETA(DisplayName = "HeroHP")
 };
 

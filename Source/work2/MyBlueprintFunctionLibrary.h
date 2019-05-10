@@ -10,7 +10,7 @@
 
 /**
  * 
- 소스에만 있고 BP에 없는 함수를 BP에 커스텀으로 추가하기 위한 라이브러리.
+ BP에 커스텀으로 추가하기 위한 라이브러리.
  */
 UCLASS()
 class WORK2_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
@@ -19,7 +19,7 @@ class WORK2_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 	
 public:
 
-	//스프라이트의 소스 텍스쳐 디멘션 반환.
+	//스프라이트의 텍스쳐 디멘션.
 	UFUNCTION(BlueprintPure, Category = Custom)
 	static FVector2D GetSourceSize(UPaperSprite* sprite);
 

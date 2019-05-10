@@ -5,14 +5,14 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 //#include "WidgetSwitcher.h" //이 위젯 잘쓰면 위젯 계층 이쁠거같은데 모르겟음. 
-//#include "TowerActionMenuWidget.h"
 #include "Tower.h"
 #include "HUDWidget.generated.h"
 
 
 /**
  * 
- Like UI Manager
+ UI Manager
+ My~GameMode가 소유. TDGamePlayerController도 생각해봐야 함.
  */
 UCLASS()
 class WORK2_API UHUDWidget : public UUserWidget

@@ -11,8 +11,6 @@ UUserWidget * AMyUMGGameModeBase::GetCurrentWidget()
 	return CurrentWidget;
 }
 
-//inline UUserWidget * AMyUMGGameModeBase::GetTowerWidget() { return TowerWidget; }
-
 void AMyUMGGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();

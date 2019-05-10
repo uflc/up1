@@ -1,21 +1,30 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tower.h"
-#include "MyUMGGameModeBase.h" //test
+#include "MyUMGGameModeBase.h"
 #include "Engine/Engine.h"
 #include "HUDWidget.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 
-// Sets default values
 ATower::ATower()
 {
 	PrimaryActorTick.bCanEverTick = true;
 } 
 
-//const float ATower::AttackDamage = 0.0f;
-//const float ATower::AttackSpeed = 0.0f;
-//const float ATower::AttackRange = 0.0f;
+void ATower::OnDeselected_Implementation()
+{
+	IsSelected = false;
+}
+
+void ATower::OnSelected_Implementation(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed)
+{
+	if (IsSelected) return;
+
+	UHUDWidget* HUD = Cast<UHUDWidget>(GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
+
+	if (HUD)	HUD->ShowTowerActionMenu(this);
+}
 
 inline FString ATower::GetPresetName()
 {

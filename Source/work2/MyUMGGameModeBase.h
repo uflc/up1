@@ -8,13 +8,12 @@
 #include "MyUMGGameModeBase.generated.h"
 
 class ATower;
-//class AMyPaperCharacter;
 class UMyPaperCharacterCommon;
 
 
 /**
- * Like GameManager
- 이름 바꿔야 될듯2.
+ GameManager
+ 적절한 이름 필요.
  리소스 로드 및 사용할 위젯 관리
  */
 UCLASS()
@@ -32,16 +31,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	UUserWidget* GetCurrentWidget();
 
-	//UFUNCTION(BlueprintCallable)
-	//UUserWidget* GetTowerWidget();
-
 	UPROPERTY(BlueprintAssignable, Category = "TDUnit")
 	FFullyLoadedDelegate OnAllTDUnitFlipbooksLoaded;
 
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
-
 
 	/** The widget class we will use as our menu when the game starts. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
@@ -50,9 +45,6 @@ protected:
 	/** The widget instance that we are using as our menu. */
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
 	UUserWidget* CurrentWidget;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//UUserWidget* TowerWidget;
 	
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
 	void LoadTDUnitFlipbooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons);
@@ -65,6 +57,4 @@ public:
 
 	void OnTDUnitFlipbooksLoaded();
 
-	//template<class T>
-	//void ChangeTower1(ATower* InInteractingTower);
 };
