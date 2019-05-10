@@ -1,12 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-//#include "work2.h"
 #include "MyBlueprintFunctionLibrary.h"
-#include "PaperSprite.h"
+//#include "work2.h"
 
-FORCEINLINE FVector2D UMyBlueprintFunctionLibrary::GetSourceSize(UPaperSprite* sprite)
+
+FVector2D UMyBlueprintFunctionLibrary::GetSourceSize(UPaperSprite* sprite)
 {
-	return sprite->GetSourceSize();
+	UTexture2D* texture = sprite->GetBakedTexture();
+	return texture ? FVector2D(texture->GetSizeX(), texture->GetSizeY()) : FVector2D();
 }
 
 FORCEINLINE void UMyBlueprintFunctionLibrary::EarnCoin(UObject * CalledObj, int32 Value)

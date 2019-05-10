@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-//#include "UObject/NoExportTypes.h"
 #include "MyPaperCharacterCommon.generated.h"
 
 enum class  EUnitState : uint8;
@@ -15,7 +14,7 @@ class UPaperFlipbook;
  BluePrint Class -> DataAsset -> MyPaperCharacterCommon을 선택해서 생성.
  */
 UCLASS(BlueprintType)
-class UMyPaperCharacterCommon : public UDataAsset// : public UObject
+class UMyPaperCharacterCommon : public UDataAsset
 {
 	GENERATED_BODY()
 
@@ -46,17 +45,4 @@ public:
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
 
-	/*UFUNCTION(BlueprintImplementableEvent)
-	void OnFlipbooksLoaded();*/
 };
-//
-//UCLASS(BlueprintType)
-//class WORK2_API UTDUnitCommonsDataBase : public UDataAsset
-//{
-//	GENERATED_BODY()
-//
-//	friend class AMyUMGGameModeBase;
-//
-//	UPROPERTY(EditAnywhere)
-//	TArray<UMyPaperCharacterCommon> TDUnitCommons;
-//};
