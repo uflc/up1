@@ -31,4 +31,4 @@ public:
 	void UpdateValue(int32 Value,EValueType Type);
 };
 
-#define PLAYER_EARN_COIN(x) UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPlayerState<ATDPlayerStateBase>()->UpdateValue(x,EValueType::Coin)
+//#define PLAYER_EARN_COIN(x) UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPlayerState<ATDPlayerStateBase>()->UpdateValue(x,EValueType::Coin)

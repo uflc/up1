@@ -25,14 +25,14 @@ bool AMyPaperCharacter::UpdateAnimation()
 
 void AMyPaperCharacter::Tick(float DeltaTime)
 {
-	if (UnitState == EUnitState::Dead)
-	{
-	// Fade or something
-		//FTimerHandle  handle;
-		//GetWorld()->GetTimerManager().SetTimer(handle, [this]() {
-		//	Destroy();
-		//}, 3.5f, 1);
-	}
+	//if (UnitState == EUnitState::Dead)
+	//{
+	//// Fade or something
+	//	//FTimerHandle  handle;
+	//	//GetWorld()->GetTimerManager().SetTimer(handle, [this]() {
+	//	//	Destroy();
+	//	//}, 3.5f, 1);
+	//}
 }
 
 void AMyPaperCharacter::ChangeState(EUnitState InState)

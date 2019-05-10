@@ -26,6 +26,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Custom)
 	static void EarnCoin(UObject* CalledObj,int32 Value);
 
-	UFUNCTION(BlueprintCallable, Category = Custom)
+	UFUNCTION(BlueprintCallable, Category = Custom) 
 	static void UpdateCurrentPlayerStateValue(UObject* CalledObj, int32 i,EValueType Type);
 };

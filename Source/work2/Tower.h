@@ -51,6 +51,9 @@ protected:
 	float TowerActionDelayCounter;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsDelayChecking;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ETowerState TowerState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
