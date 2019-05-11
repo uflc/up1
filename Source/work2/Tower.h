@@ -61,6 +61,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AMyPaperCharacter* AggroTarget;
+
 public:	
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void OnDeselected();
@@ -94,4 +95,10 @@ public:
 
 	UFUNCTION(BlueprintCallable,BlueprintPure)
 	virtual TSoftObjectPtr<UPaperFlipbook> GetFlipbookOfCurrentState();
+
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
+	void StartAction();
+
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
+	void ActionExecute();
 };
