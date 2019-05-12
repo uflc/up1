@@ -2,10 +2,11 @@
 
 
 #include "TDUnitCommonData.h"
-#include "TDUnit.h"
+//#include "TDUnit.h"
 #include "Runtime/Engine/Classes/Engine/AssetManager.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 #include "TDGameModeBase.h"
+
 
 void UTDUnitCommonData::Initialize()
 {

@@ -3,18 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
+#include "TDUnit.h"
 #include "TDUnitCommonData.generated.h"
 
 
-enum class  EUnitState : uint8;
-class UPaperFlipbook;
+//enum class  EUnitState : uint8;
+//class UPaperFlipbook;
+//class ATDUnit;
+//class ATDGameModeBase;
 
 /**
  *
  */
 UCLASS(Blueprintable, BlueprintType)
-class UTDUnitCommonData : public UObject
+class TOWERDEFENSE_API UTDUnitCommonData : public UObject
 {
 	GENERATED_BODY()
 

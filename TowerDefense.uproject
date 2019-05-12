@@ -4,17 +4,24 @@
 	"Category": "",
 	"Description": "",
 	"Modules": [
-    {
-      "Name": "TowerDefense",
-      "Type": "Runtime",
-      "LoadingPhase": "Default",
-      "AdditionalDependencies": [
-        "CoreUObject",
-        "Engine",
-        "UMG",
-        "Paper2D",
-        "UnrealEd"
-      ]
-    }
+		{
+			"Name": "TowerDefense",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"CoreUObject",
+				"Engine",
+				"UMG",
+				"Paper2D"
+			]
+		},
+		{
+			"Name": "TowerDefenseEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit",
+			"AdditionalDependencies": [
+				"UnrealEd"
+			]
+		}
 	]
 }

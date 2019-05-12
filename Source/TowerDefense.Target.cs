@@ -10,5 +10,6 @@ public class TowerDefenseTarget : TargetRules
 		Type = TargetType.Game;
 
 		ExtraModuleNames.AddRange( new string[] { "TowerDefense" } );
+
     }
 }
