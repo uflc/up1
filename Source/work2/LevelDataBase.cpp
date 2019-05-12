@@ -2,5 +2,3 @@
 
 
 #include "LevelDataBase.h"
-#include "MyPaperCharacter.h"
-#include "MyPaperCharacterCommon.h"

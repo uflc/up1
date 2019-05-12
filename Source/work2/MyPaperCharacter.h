@@ -8,8 +8,8 @@
 #include "PaperCharacter.h"
 #include "MyPaperCharacter.generated.h"
 
-class UMyPaperCharacterCommon;
 class ATower;
+class UTDUnitCommonData;
 
 UENUM(BlueprintType)
 enum class EUnitState : uint8
@@ -67,7 +67,7 @@ protected:
 	float DrawingAggroRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	TSoftObjectPtr<UMyPaperCharacterCommon> Common;
+	TSoftObjectPtr<UTDUnitCommonData> Common;
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")

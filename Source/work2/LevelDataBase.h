@@ -5,17 +5,14 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include <utility>
+#include "TDUnitCommonData.h"
+#include "MyPaperCharacter.h"
 #include "LevelDataBase.generated.h"
-
-
-class AMyPaperCharacter;
-class UMyPaperCharacterCommon;
 
 
 /**
  *
  레벨 마다 정해져야 할 정보와 특히 적 유닛이 소환될 웨이브를 구성하는 정보 구조체.
- 
  */
 
 USTRUCT(BlueprintType)
@@ -79,4 +76,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDPlayer")
 	int32 DefaultHeroHP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<TSoftObjectPtr<UTDUnitCommonData>> UsingTDUnitCommons; //Get Class Defaults cannot hard reference
 };

@@ -3,7 +3,7 @@
 #include "MyUMGGameModeBase.h"
 #include "Tower.h"
 #include "MyPaperCharacter.h"
-#include "MyPaperCharacterCommon.h"
+#include "TDUnitCommonData.h"
 
 
 UUserWidget * AMyUMGGameModeBase::GetCurrentWidget()
@@ -18,19 +18,33 @@ void AMyUMGGameModeBase::BeginPlay()
 
 }
 
-void AMyUMGGameModeBase::LoadTDUnitFlipbooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons)
+
+void AMyUMGGameModeBase::LoadTDUnitCommons(TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
 {
-	UnLoadedTDUnitCommonNum += TDUnitCommons.Num();
-	for (auto TDUnitCommon : TDUnitCommons)
+	int AlreadyLoadedNum = 0;
+
+	for (auto TDUnitCommon : InUsingTDUnitCommons)
 	{
+		if (TDUnitCommon->IsInitialized)
+		{
+			AlreadyLoadedNum++;
+			continue;
+		}
+		
+		UnloadedTDUnitCommonNum++;
+
 		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
 	}
+
+	//로드할 것이 없을 때 로드 완료
+	if (AlreadyLoadedNum == InUsingTDUnitCommons.Num()) OnAllTDUnitFlipbooksLoaded.Broadcast();
 }
 
+//처음 로드된 것들이 있을 때 사용할 모든 것들이 완료됬는지 체크.
 void AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded()
 {
-	if (--UnLoadedTDUnitCommonNum == 0)
+	if (--UnloadedTDUnitCommonNum == 0)
 	{
 		OnAllTDUnitFlipbooksLoaded.Broadcast();
 	}

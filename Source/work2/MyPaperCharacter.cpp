@@ -7,8 +7,9 @@
 #include "Engine\Public\TimerManager.h"
 #include "FlipbookShakingComponent.h"
 #include "Tower.h"
-#include "MyPaperCharacterCommon.h"
 #include "TDPlayerStateBase.h"
+#include "TDUnitCommonData.h"
+
 
 bool AMyPaperCharacter::UpdateAnimation()
 {

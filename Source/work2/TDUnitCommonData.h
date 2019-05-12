@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyPaperCharacterCommon.generated.h"
+#include "Engine/DataAsset.h"
+#include "TDUnitCommonData.generated.h"
+
 
 enum class  EUnitState : uint8;
 class UPaperFlipbook;
 
 /**
- * 
- TDUnit 종류별로 공통된 정보를 하나의 데이터어셋에 담고 유닛들은 공유.
- BluePrint Class -> DataAsset -> MyPaperCharacterCommon을 선택해서 생성.
+ *
  */
-UCLASS(BlueprintType)
-class UMyPaperCharacterCommon : public UDataAsset
+UCLASS(Blueprintable, BlueprintType)
+class UTDUnitCommonData : public UObject
 {
 	GENERATED_BODY()
 
@@ -24,15 +24,18 @@ protected:
 	friend class AMyPaperCharacter;
 	friend class AMyUMGGameModeBase;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	bool IsInitialized;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TMap<EUnitState, TSoftObjectPtr<UPaperFlipbook>> FlipbookMap;
-		
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DefaultAttackRange;
-		
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DefaultAggroDrawnRange;
-		
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DefaultDrawingAggroRange;
 

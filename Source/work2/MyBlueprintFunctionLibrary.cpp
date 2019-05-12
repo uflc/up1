@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MyBlueprintFunctionLibrary.h"
-
+#include "Kismet\GameplayStatics.h"
 
 FVector2D UMyBlueprintFunctionLibrary::GetSourceSize(UPaperSprite* sprite)
 {
@@ -11,7 +11,7 @@ FVector2D UMyBlueprintFunctionLibrary::GetSourceSize(UPaperSprite* sprite)
 
 void UMyBlueprintFunctionLibrary::EarnCoin(UObject * CalledObj, int32 Value)
 {
-	UGameplayStatics::GetPlayerController((UObject*)CalledObj->GetWorld(), 0)->GetPlayerState<ATDPlayerStateBase>()->UpdateValue(Value, EValueType::Coin);
+	UpdateCurrentPlayerStateValue(CalledObj, Value, EValueType::Coin);
 }
 
 void UMyBlueprintFunctionLibrary::UpdateCurrentPlayerStateValue(UObject * CalledObj, int32 Value, EValueType Type)

@@ -8,7 +8,7 @@
 #include "MyUMGGameModeBase.generated.h"
 
 class ATower;
-class UMyPaperCharacterCommon;
+class UTDUnitCommonData;
 
 
 /**
@@ -45,11 +45,14 @@ protected:
 	/** The widget instance that we are using as our menu. */
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
 	UUserWidget* CurrentWidget;
-	
-	UFUNCTION(BlueprintCallable, Category = "TDUnit")
-	void LoadTDUnitFlipbooks(TArray<UMyPaperCharacterCommon*> TDUnitCommons);
 
-	int8 UnLoadedTDUnitCommonNum;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
+	TArray<UTDUnitCommonData*> TDUnitCommons;
+
+	UFUNCTION(BlueprintCallable, Category = "TDUnit")
+	void LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons);
+
+	int8 UnloadedTDUnitCommonNum;
 
 public:	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
