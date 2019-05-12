@@ -8,7 +8,7 @@
 #include "BulletBase.generated.h"
 
 UCLASS()
-class WORK2_API ABulletBase : public AActor
+class TOWERDEFENSE_API ABulletBase : public AActor
 {
 	GENERATED_BODY()
 	

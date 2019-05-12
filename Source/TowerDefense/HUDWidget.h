@@ -15,7 +15,7 @@
  My~GameMode가 소유. TDGamePlayerController도 생각해봐야 함.
  */
 UCLASS()
-class WORK2_API UHUDWidget : public UUserWidget
+class TOWERDEFENSE_API UHUDWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

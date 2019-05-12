@@ -14,7 +14,7 @@ class UCanvasPanel;
 class ATower;
 
 UCLASS()
-class WORK2_API UUITowerBase : public UUserWidget
+class TOWERDEFENSE_API UUITowerBase : public UUserWidget
 {
 	GENERATED_BODY()
 	

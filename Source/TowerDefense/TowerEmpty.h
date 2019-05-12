@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class WORK2_API ATowerEmpty : public ATower
+class TOWERDEFENSE_API ATowerEmpty : public ATower
 {
 	GENERATED_BODY()
 	

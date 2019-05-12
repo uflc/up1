@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class WORK2_API UTDUnitCommonFactoryNew : public UFactory
+class TOWERDEFENSE_API UTDUnitCommonFactoryNew : public UFactory
 {
 	GENERATED_BODY()
 	

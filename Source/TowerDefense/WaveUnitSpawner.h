@@ -8,7 +8,7 @@
 #include "WaveUnitSpawner.generated.h"
 
 UCLASS()
-class WORK2_API AWaveUnitSpawner : public AActor
+class TOWERDEFENSE_API AWaveUnitSpawner : public AActor
 {
 	GENERATED_BODY()
 	

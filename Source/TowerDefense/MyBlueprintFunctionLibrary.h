@@ -13,7 +13,7 @@
  BP에 커스텀으로 추가하기 위한 라이브러리.
  */
 UCLASS()
-class WORK2_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
+class TOWERDEFENSE_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 	

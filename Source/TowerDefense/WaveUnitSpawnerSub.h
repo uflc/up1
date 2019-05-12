@@ -10,7 +10,7 @@
 class AWaveUnitSpawner;
 
 UCLASS()
-class WORK2_API AWaveUnitSpawnerSub : public AActor
+class TOWERDEFENSE_API AWaveUnitSpawnerSub : public AActor
 {
 	GENERATED_BODY()
 	

@@ -12,7 +12,7 @@ class AMyPaperCharacter;
  * 
  */
 UCLASS()
-class WORK2_API AParabolicBullet : public ABulletBase
+class TOWERDEFENSE_API AParabolicBullet : public ABulletBase
 {
 	GENERATED_BODY()
 	

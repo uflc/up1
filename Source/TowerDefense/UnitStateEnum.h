@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class WORK2_API UUnitStateEnum : public UUserDefinedEnum
+class TOWERDEFENSE_API UUnitStateEnum : public UUserDefinedEnum
 {
 	GENERATED_BODY()
 	

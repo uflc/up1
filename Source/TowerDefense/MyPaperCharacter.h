@@ -36,7 +36,7 @@ enum class EUnitTeam : uint8
  구체적인 행동 로직은 BT BP로 함.
  */
 UCLASS(BluePrintable)
-class WORK2_API AMyPaperCharacter : public APaperCharacter
+class TOWERDEFENSE_API AMyPaperCharacter : public APaperCharacter
 {
 	GENERATED_BODY()
 

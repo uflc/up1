@@ -9,7 +9,7 @@
 class UPaperFlipbookComponent;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class WORK2_API UFlipbookShakingComponent : public UActorComponent
+class TOWERDEFENSE_API UFlipbookShakingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 

@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class WORK2_API AMyUMGPlayerController : public APlayerController
+class TOWERDEFENSE_API AMyUMGPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 

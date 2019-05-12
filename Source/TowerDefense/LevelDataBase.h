@@ -47,7 +47,7 @@ public:
 
 
 UCLASS(Blueprintable)
-class WORK2_API ULevelDataBase : public UObject
+class TOWERDEFENSE_API ULevelDataBase : public UObject
 {
 	GENERATED_BODY()
 	

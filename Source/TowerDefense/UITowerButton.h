@@ -12,7 +12,7 @@ class UUITowerBase;
  * 
  */
 UCLASS()
-class WORK2_API UUITowerButton : public UButton
+class TOWERDEFENSE_API UUITowerButton : public UButton
 {
 	GENERATED_BODY()
 protected:

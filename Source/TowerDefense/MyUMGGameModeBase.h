@@ -17,7 +17,7 @@ class UTDUnitCommonData;
  리소스 로드 및 사용할 위젯 관리
  */
 UCLASS()
-class WORK2_API AMyUMGGameModeBase : public AGameModeBase
+class TOWERDEFENSE_API AMyUMGGameModeBase : public AGameModeBase
 {										
 	GENERATED_BODY()
 	

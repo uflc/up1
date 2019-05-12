@@ -21,7 +21,7 @@ enum class EValueType : uint8
  * 
  */
 UCLASS()
-class WORK2_API ATDPlayerStateBase : public APlayerState
+class TOWERDEFENSE_API ATDPlayerStateBase : public APlayerState
 {
 	GENERATED_BODY()
 	
