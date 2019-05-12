@@ -44,7 +44,7 @@ void ABulletBase::Tick(float DeltaTime)
 	if(IsDirectable)	SetActorRotation(FRotator(0, (DirectionVec*-1).Rotation().Yaw,0));
 }
 
-void ABulletBase::Initialize(AMyPaperCharacter * iTarget, int32 iDamage,bool iIsDirectable = false)
+void ABulletBase::Initialize(ATDUnit * iTarget, int32 iDamage,bool iIsDirectable = false)
 {
 	Target = iTarget;
 	Damage = iDamage;

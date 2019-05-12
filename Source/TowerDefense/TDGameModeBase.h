@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "GameFramework/GameModeBase.h"
-#include "MyUMGGameModeBase.generated.h"
+#include "TDGameModeBase.generated.h"
 
 class ATower;
 class UTDUnitCommonData;
@@ -17,7 +17,7 @@ class UTDUnitCommonData;
  리소스 로드 및 사용할 위젯 관리
  */
 UCLASS()
-class TOWERDEFENSE_API AMyUMGGameModeBase : public AGameModeBase
+class TOWERDEFENSE_API ATDGameModeBase : public AGameModeBase
 {										
 	GENERATED_BODY()
 	

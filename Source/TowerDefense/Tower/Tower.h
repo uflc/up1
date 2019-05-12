@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyPaperCharacter.h"
+#include "TDUnit.h"
 #include "Tower.generated.h"
 
 class UPaperFlipbook;
@@ -60,7 +60,7 @@ protected:
 	ETowerDirectionState TowerDirectionState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AMyPaperCharacter* AggroTarget;
+	ATDUnit* AggroTarget;
 
 public:	
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")

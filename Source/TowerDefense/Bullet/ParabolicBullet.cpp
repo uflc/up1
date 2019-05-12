@@ -38,7 +38,7 @@ void AParabolicBullet::Tick(float DeltaTime)
 
 
 
-void AParabolicBullet::Initialize(AMyPaperCharacter * iTarget, int32 iDamage,bool IisDirectable)
+void AParabolicBullet::Initialize(ATDUnit * iTarget, int32 iDamage,bool IisDirectable)
 {
 	Target= iTarget;
 	Damage=iDamage;

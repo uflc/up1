@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "MyPaperCharacter.h"
+#include "TDUnit.h"
 #include "Engine\World.h"
 #include "AIModule\Classes\AIController.h"
 #include "AIModule\Classes\BrainComponent.h"
@@ -11,7 +11,7 @@
 #include "TDUnitCommonData.h"
 
 
-bool AMyPaperCharacter::UpdateAnimation()
+bool ATDUnit::UpdateAnimation()
 {
 	UPaperFlipbook* DesiredAnim = Common->FlipbookMap.Find(UnitState)->Get();
 
@@ -24,7 +24,7 @@ bool AMyPaperCharacter::UpdateAnimation()
 
 }
 
-void AMyPaperCharacter::Tick(float DeltaTime)
+void ATDUnit::Tick(float DeltaTime)
 {
 	//if (UnitState == EUnitState::Dead)
 	//{
@@ -36,13 +36,13 @@ void AMyPaperCharacter::Tick(float DeltaTime)
 	//}
 }
 
-void AMyPaperCharacter::ChangeState(EUnitState InState)
+void ATDUnit::ChangeState(EUnitState InState)
 {
 	UnitState = InState;
 	UpdateAnimation();
 }
 
-void AMyPaperCharacter::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
+void ATDUnit::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
 {
 	if(UnitState == EUnitState::Dead)return;
 
@@ -64,7 +64,7 @@ void AMyPaperCharacter::ApplyDamage(float ShakePower, float ShakeDuration, int32
 	AddOwnedComponent(ShakeComp);
 }
 
-void AMyPaperCharacter::CharacterDestroy_Implementation()
+void ATDUnit::CharacterDestroy_Implementation()
 {
 	UnitState = EUnitState::Dead;
 	FTimerHandle  handle;

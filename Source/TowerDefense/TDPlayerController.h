@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "MyUMGPlayerController.generated.h"
+#include "TDPlayerController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TOWERDEFENSE_API AMyUMGPlayerController : public APlayerController
+class TOWERDEFENSE_API ATDPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 

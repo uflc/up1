@@ -3,7 +3,7 @@
 #include "TowerEmpty.h"
 #include "TowerArcher.h"
 #include "UITowerBase.h"
-#include "MyUMGGameModeBase.h"
+#include "TDGameModeBase.h"
 #include "Engine.h"
 
 ATowerEmpty::ATowerEmpty()

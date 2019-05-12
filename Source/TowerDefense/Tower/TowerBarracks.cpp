@@ -3,7 +3,7 @@
 #include "TowerBarracks.h"
 #include "TowerEmpty.h"
 #include "UITowerBase.h"
-#include "MyUMGGameModeBase.h"
+#include "TDGameModeBase.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "Engine.h"

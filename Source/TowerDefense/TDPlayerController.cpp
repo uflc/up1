@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "MyUMGPlayerController.h"
+#include "TDPlayerController.h"
 
-void AMyUMGPlayerController::BeginPlay()
+void ATDPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	SetInputMode(FInputModeGameAndUI());

@@ -6,7 +6,7 @@
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "PaperCharacter.h"
-#include "MyPaperCharacter.generated.h"
+#include "TDUnit.generated.h"
 
 class ATower;
 class UTDUnitCommonData;
@@ -36,7 +36,7 @@ enum class EUnitTeam : uint8
  구체적인 행동 로직은 BT BP로 함.
  */
 UCLASS(BluePrintable)
-class TOWERDEFENSE_API AMyPaperCharacter : public APaperCharacter
+class TOWERDEFENSE_API ATDUnit : public APaperCharacter
 {
 	GENERATED_BODY()
 

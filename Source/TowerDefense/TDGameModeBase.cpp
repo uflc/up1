@@ -1,17 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "MyUMGGameModeBase.h"
+#include "TDGameModeBase.h"
 #include "Tower.h"
-#include "MyPaperCharacter.h"
+#include "TDUnit.h"
 #include "TDUnitCommonData.h"
 
 
-UUserWidget * AMyUMGGameModeBase::GetCurrentWidget()
+UUserWidget * ATDGameModeBase::GetCurrentWidget()
 {
 	return CurrentWidget;
 }
 
-void AMyUMGGameModeBase::BeginPlay()
+void ATDGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 	ChangeMenuWidget(StartingWidgetClass);
@@ -19,7 +19,7 @@ void AMyUMGGameModeBase::BeginPlay()
 }
 
 
-void AMyUMGGameModeBase::LoadTDUnitCommons(TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
+void ATDGameModeBase::LoadTDUnitCommons(TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
 {
 	int AlreadyLoadedNum = 0;
 
@@ -33,7 +33,7 @@ void AMyUMGGameModeBase::LoadTDUnitCommons(TArray<TSoftObjectPtr<UTDUnitCommonDa
 		
 		UnloadedTDUnitCommonNum++;
 
-		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded);
+		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
 	}
 
@@ -42,7 +42,7 @@ void AMyUMGGameModeBase::LoadTDUnitCommons(TArray<TSoftObjectPtr<UTDUnitCommonDa
 }
 
 //처음 로드된 것들이 있을 때 사용할 모든 것들이 완료됬는지 체크.
-void AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded()
+void ATDGameModeBase::OnTDUnitFlipbooksLoaded()
 {
 	if (--UnloadedTDUnitCommonNum == 0)
 	{
@@ -51,7 +51,7 @@ void AMyUMGGameModeBase::OnTDUnitFlipbooksLoaded()
 }
 
 
-void AMyUMGGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
+void ATDGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
 {
 	if (CurrentWidget != nullptr)
 	{

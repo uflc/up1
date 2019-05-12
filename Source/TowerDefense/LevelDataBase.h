@@ -6,7 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include <utility>
 #include "TDUnitCommonData.h"
-#include "MyPaperCharacter.h"
+#include "TDUnit.h"
 #include "LevelDataBase.generated.h"
 
 
@@ -24,7 +24,7 @@ public:
 	int32 LocationIdx;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AMyPaperCharacter> UnitClass;
+	TSubclassOf<ATDUnit> UnitClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float StartingTime;

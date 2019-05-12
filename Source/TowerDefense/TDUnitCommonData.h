@@ -21,8 +21,8 @@ class UTDUnitCommonData : public UObject
 	DECLARE_DELEGATE(FLoadCompletedSignature);
 
 protected:
-	friend class AMyPaperCharacter;
-	friend class AMyUMGGameModeBase;
+	friend class ATDUnit;
+	friend class ATDGameModeBase;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	bool IsInitialized;

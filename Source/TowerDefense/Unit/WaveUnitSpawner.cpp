@@ -6,7 +6,7 @@
 #include "Engine\Public\TimerManager.h"
 #include "ParallelFor.h"
 #include "Engine.h"
-#include "MyPaperCharacter.h"
+#include "TDUnit.h"
 
 // Sets default values
 AWaveUnitSpawner::AWaveUnitSpawner()

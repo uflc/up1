@@ -2,10 +2,10 @@
 
 
 #include "TDUnitCommonData.h"
-#include "MyPaperCharacter.h"
+#include "TDUnit.h"
 #include "Runtime/Engine/Classes/Engine/AssetManager.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
-#include "MyUMGGameModeBase.h"
+#include "TDGameModeBase.h"
 
 void UTDUnitCommonData::Initialize()
 {

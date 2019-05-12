@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tower.h"
-#include "MyUMGGameModeBase.h"
+#include "TDGameModeBase.h"
 #include "Engine/Engine.h"
 #include "HUDWidget.h"
 #include "PaperFlipbook.h"
@@ -21,7 +21,7 @@ void ATower::ShowActionMenu()
 {
 	if (IsSelected) return;
 
-	UHUDWidget* HUD = Cast<UHUDWidget>(GetWorld()->GetAuthGameMode<AMyUMGGameModeBase>()->GetCurrentWidget());
+	UHUDWidget* HUD = Cast<UHUDWidget>(GetWorld()->GetAuthGameMode<ATDGameModeBase>()->GetCurrentWidget());
 
 	if (HUD)	HUD->ShowTowerActionMenu(this);
 }
