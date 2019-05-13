@@ -40,8 +40,12 @@ class TOWERDEFENSE_API ATDUnit : public APaperCharacter
 {
 	GENERATED_BODY()
 
-
+public:
+	ATDUnit();
 protected:
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
+	class UPaperSpriteComponent* Shadow;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EUnitState UnitState;
 
@@ -69,6 +73,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	TSoftObjectPtr<UTDUnitCommonData> Common;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool IsDelayChecking;
+
+	FTimerHandle ActionTimerHandle;
 public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	bool UpdateAnimation();
@@ -86,4 +94,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void CharacterDestroy_Implementation();
+
+	UFUNCTION(BlueprintCallable)
+	void StartAttack();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void execAttack();
+
+	//UFUNCTION(BlueprintCallable)
+	void execAttack_Implementation();
 };

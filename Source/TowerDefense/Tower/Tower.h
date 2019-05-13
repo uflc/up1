@@ -46,10 +46,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EUnitTeam Team;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float TowerActionDelayCounter;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsDelayChecking;
 

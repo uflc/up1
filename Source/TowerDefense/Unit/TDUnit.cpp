@@ -2,6 +2,7 @@
 
 #include "TDUnit.h"
 #include "Engine\World.h"
+#include "PaperSpriteComponent.h"
 #include "AIModule\Classes\AIController.h"
 #include "AIModule\Classes\BrainComponent.h"
 #include "Engine\Public\TimerManager.h"
@@ -10,6 +11,11 @@
 #include "TDPlayerStateBase.h"
 #include "TDUnitCommonData.h"
 
+ATDUnit::ATDUnit()
+{
+	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>("Shadow");
+	Shadow->SetupAttachment(GetRootComponent());
+}
 
 bool ATDUnit::UpdateAnimation()
 {
@@ -26,6 +32,16 @@ bool ATDUnit::UpdateAnimation()
 
 void ATDUnit::Tick(float DeltaTime)
 {
+	if (GetVelocity().X >0)
+	{
+		Shadow->SetRelativeRotation(FRotator(180,0,-90));
+		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
+	}
+	else if (GetVelocity().X < 0)
+	{
+		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
+		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
+	}
 	//if (UnitState == EUnitState::Dead)
 	//{
 	//// Fade or something
@@ -47,7 +63,9 @@ void ATDUnit::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
 	if(UnitState == EUnitState::Dead)return;
 
 	UnitHP-=Damage;
-	if(UnitHP<=0) {ChangeState (EUnitState::Dying); 
+
+	if(UnitHP<=0) {	ChangeState (EUnitState::Dying); 
+	PrimaryActorTick.bCanEverTick = false;
 	((AAIController*)GetController())->GetBrainComponent()->StopLogic("Dead");
 	Team=EUnitTeam::None;
 	GetSprite()->SetLooping(false);
@@ -72,3 +90,25 @@ void ATDUnit::CharacterDestroy_Implementation()
 		Destroy(); /* or pool */
 	}, GetSprite()->GetFlipbookLength() + 3.5f, 1);
 }
+
+void ATDUnit::StartAttack()
+{
+	IsDelayChecking=true;
+	execAttack_Implementation();
+	GetWorldTimerManager().SetTimer(ActionTimerHandle,this, &ATDUnit::execAttack_Implementation, UnitAttackDelay,true);
+}
+
+void ATDUnit::execAttack_Implementation()
+{
+	IsDelayChecking = false;
+	if (UnitState != EUnitState::Attacking)
+	{
+		GetWorldTimerManager().ClearTimer(ActionTimerHandle);
+		return;
+	}
+	//if(AggroTarget)
+	//{
+	//execAttack();
+	//}
+}
+
