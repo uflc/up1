@@ -3,18 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TDUnit.h"
 #include "TDUnitCommonData.generated.h"
 
 
-//enum class  EUnitState : uint8;
-//class UPaperFlipbook;
-//class ATDUnit;
-//class ATDGameModeBase;
+class UPaperFlipbook;
+UENUM(BlueprintType)
+enum class EUnitState : uint8
+{
+	Idle		UMETA(DisplayName = "Idle"),
+	Attacking	UMETA(DisplayName = "Attaking"),
+	Running		UMETA(DisplayName = "Running"),
+	Dying		UMETA(DisplayName = "Dying"),
+	Dead		UMETA(DisplayName = "Dead")
+};
 
-/**
- *
- */
 UCLASS(Blueprintable, BlueprintType)
 class TOWERDEFENSE_API UTDUnitCommonData : public UObject
 {

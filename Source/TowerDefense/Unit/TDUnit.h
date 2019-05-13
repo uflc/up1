@@ -10,17 +10,7 @@
 
 class ATower;
 class UTDUnitCommonData;
-
-UENUM(BlueprintType)
-enum class EUnitState : uint8
-{
-	Idle		UMETA(DisplayName="Idle"),
-	Attacking	UMETA(DisplayName="Attaking"),
-	Running		UMETA(DisplayName="Running"),
-	Dying		UMETA(DisplayName="Dying"),
-	Dead		UMETA(DisplayName="Dead")
-};
-
+//enum class EUnitState : uint8;
 UENUM(BlueprintType)
 enum class EUnitTeam : uint8
 {
