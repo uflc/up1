@@ -19,20 +19,20 @@ void ATDGameModeBase::BeginPlay()
 }
 
 
-void ATDGameModeBase::LoadTDUnitCommons(TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
+void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
 {
+	UnloadedTDUnitCommonNum = InUsingTDUnitCommons.Num();
 	int AlreadyLoadedNum = 0;
 
-	for (auto TDUnitCommon : InUsingTDUnitCommons)
+	for (auto& TDUnitCommon : InUsingTDUnitCommons)
 	{
 		if (TDUnitCommon->IsInitialized)
 		{
+			UnloadedTDUnitCommonNum--;
 			AlreadyLoadedNum++;
 			continue;
 		}
 		
-		UnloadedTDUnitCommonNum++;
-
 		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
 	}
