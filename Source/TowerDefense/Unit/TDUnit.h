@@ -37,6 +37,9 @@ protected:
 	class UPaperSpriteComponent* Shadow;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
+	ATDUnit* AggroTarget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EUnitState UnitState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
@@ -88,9 +91,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StartAttack();
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void execAttack();
+	UFUNCTION(BlueprintImplementableEvent)
+	void ExecuteAttack();
 
-	//UFUNCTION(BlueprintCallable)
-	void execAttack_Implementation();
+	void AttackGuider();
 };

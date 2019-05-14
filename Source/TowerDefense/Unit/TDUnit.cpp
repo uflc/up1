@@ -15,6 +15,7 @@ ATDUnit::ATDUnit()
 {
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>("Shadow");
 	Shadow->SetupAttachment(GetRootComponent());
+	AggroTarget=NULL;
 }
 
 bool ATDUnit::UpdateAnimation()
@@ -23,7 +24,12 @@ bool ATDUnit::UpdateAnimation()
 
 	if (DesiredAnim)
 	{
+
 		GetSprite()->SetFlipbook(DesiredAnim);
+		if (UnitState != EUnitState::Running) {
+		GetSprite()->SetLooping(false);
+		GetSprite()->PlayFromStart();
+		}
 		return true;
 	}
 	else return false;
@@ -65,12 +71,11 @@ void ATDUnit::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
 	UnitHP-=Damage;
 
 	if(UnitHP<=0) {	ChangeState (EUnitState::Dying); 
-	PrimaryActorTick.bCanEverTick = false;
-	((AAIController*)GetController())->GetBrainComponent()->StopLogic("Dead");
-	Team=EUnitTeam::None;
-	GetSprite()->SetLooping(false);
-	CharacterDestroy();
-	return;
+		PrimaryActorTick.bCanEverTick = false;
+		((AAIController*)GetController())->GetBrainComponent()->StopLogic("Dead");
+		Team=EUnitTeam::None;
+		CharacterDestroy();
+		return;
 	}
 	
 	auto ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
@@ -94,21 +99,21 @@ void ATDUnit::CharacterDestroy_Implementation()
 void ATDUnit::StartAttack()
 {
 	IsDelayChecking=true;
-	execAttack_Implementation();
-	GetWorldTimerManager().SetTimer(ActionTimerHandle,this, &ATDUnit::execAttack_Implementation, UnitAttackDelay,true);
+	AttackGuider();
+	GetWorldTimerManager().SetTimer(ActionTimerHandle,this, &ATDUnit::AttackGuider, UnitAttackDelay,true);
 }
 
-void ATDUnit::execAttack_Implementation()
+void ATDUnit::AttackGuider()
 {
 	IsDelayChecking = false;
-	if (UnitState != EUnitState::Attacking)
+	if (UnitState != EUnitState::Attacking || AggroTarget)
 	{
 		GetWorldTimerManager().ClearTimer(ActionTimerHandle);
 		return;
 	}
-	//if(AggroTarget)
-	//{
-	//execAttack();
-	//}
+
+	ExecuteAttack();
+	UpdateAnimation();
+	IsDelayChecking=true;
 }
 
