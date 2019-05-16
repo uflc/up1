@@ -52,9 +52,6 @@ protected:
 	float UnitAttackDelay;	
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	int32 UnitAttackDamage;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float AttackRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
@@ -95,4 +92,8 @@ public:
 	void ExecuteAttack();
 
 	void AttackGuider();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	int32 UnitAttackDamage;
+
 };
