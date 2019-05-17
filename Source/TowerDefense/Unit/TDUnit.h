@@ -32,12 +32,15 @@ class TOWERDEFENSE_API ATDUnit : public APaperCharacter
 
 public:
 	ATDUnit();
+
 protected:
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
 	class UPaperSpriteComponent* Shadow;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
-	ATDUnit* AggroTarget;
+	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
+	class UAttackComponent* AttackComp;
+
+	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EUnitState UnitState;
@@ -63,10 +66,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	TSoftObjectPtr<UTDUnitCommonData> Common;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool IsDelayChecking;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	TSubclassOf<UAttackComponent> AttackCompClass;
 
-	FTimerHandle ActionTimerHandle;
 public:
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	bool UpdateAnimation();
@@ -85,15 +87,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void CharacterDestroy_Implementation();
 
-	UFUNCTION(BlueprintCallable)
-	void StartAttack();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void ExecuteAttack();
-
-	void AttackGuider();
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	int32 UnitAttackDamage;
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void InitializeTDComponents();
 };

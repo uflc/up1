@@ -5,7 +5,7 @@
 #include "TDUnit.h"
 void UMeleeAttackComponent::ExecAttack(class UObject* Target)
 {
-	if(Target->IsValidLowLevel()){
+	if(Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()){
 	((ATDUnit*)Target)->ApplyDamage(10.0f,0.2f,((ATDUnit*)GetOwner())->UnitAttackDamage);
 	}
 }

@@ -8,14 +8,28 @@
 #include "Engine\Public\TimerManager.h"
 #include "FlipbookShakingComponent.h"
 #include "Tower.h"
+#include "MeleeAttackComponent.h"
 #include "TDPlayerStateBase.h"
 #include "TDUnitCommonData.h"
-#include "Engine.h"
+//#include "Engine.h"
 
 ATDUnit::ATDUnit()
 {
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>("Shadow");
 	Shadow->SetupAttachment(GetRootComponent());
+	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
+	//AddOwnedComponent(AttackComp);
+}
+
+void ATDUnit::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if(!(AttackCompClass.Get()))return;
+	AttackComp = NewObject<UAttackComponent>(this, AttackCompClass.Get());
+	AddOwnedComponent(AttackComp);
+
+	InitializeTDComponents();
 }
 
 bool ATDUnit::UpdateAnimation()
@@ -49,14 +63,6 @@ void ATDUnit::Tick(float DeltaTime)
 		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
 		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
 	}
-	//if (UnitState == EUnitState::Dead)
-	//{
-	//// Fade or something
-	//	//FTimerHandle  handle;
-	//	//GetWorld()->GetTimerManager().SetTimer(handle, [this]() {
-	//	//	Destroy();
-	//	//}, 3.5f, 1);
-	//}
 }
 
 void ATDUnit::ChangeState(EUnitState InState)
@@ -72,11 +78,11 @@ void ATDUnit::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
 	UnitHP-=Damage;
 
 	if(UnitHP<=0) {	ChangeState (EUnitState::Dying); 
-		//UnitState = EUnitState::Dead;
+
 		PrimaryActorTick.bCanEverTick = false;
 		((AAIController*)GetController())->GetBrainComponent()->StopLogic("Dead");
 		Team=EUnitTeam::None;
-		GetWorldTimerManager().ClearTimer(ActionTimerHandle);
+
 		CharacterDestroy();
 		return;
 	}
@@ -93,40 +99,41 @@ void ATDUnit::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
 void ATDUnit::CharacterDestroy_Implementation()
 {
 	UnitState = EUnitState::Dead;
+	FTimerHandle ActionTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(ActionTimerHandle, [this]() {
 		Destroy(); /* or pool */
 	}, GetSprite()->GetFlipbookLength() + 3.5f, 1);
 }
 
-void ATDUnit::StartAttack()
-{
-	IsDelayChecking=true;
-
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("StartAttack"));
-	AttackGuider();
-	GetWorldTimerManager().SetTimer(ActionTimerHandle,this, &ATDUnit::AttackGuider, UnitAttackDelay,true);
-}
-
-void ATDUnit::AttackGuider()
-{
-
-//	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("GuiderCall"));
-	IsDelayChecking = false;
-
-	if (UnitState == EUnitState::Attacking && IsValid(AggroTarget) )
-	{
-		if (AggroTarget->UnitState == EUnitState::Dead) {goto EndOfLogic;}
-
-		UpdateAnimation();
-		ExecuteAttack();
-		IsDelayChecking = true;
-		return;
-	}
-
-EndOfLogic:
-
-	AggroTarget=nullptr;
-	GetWorldTimerManager().ClearTimer(ActionTimerHandle);
-//	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("End Of Logic"));
-}
+//void ATDUnit::StartAttack()
+//{
+//	IsDelayChecking=true;
+//
+//	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("StartAttack"));
+//	AttackGuider();
+//	GetWorldTimerManager().SetTimer(ActionTimerHandle,this, &ATDUnit::AttackGuider, UnitAttackDelay,true);
+//}
+//
+//void ATDUnit::AttackGuider()
+//{
+//
+////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("GuiderCall"));
+//	IsDelayChecking = false;
+//
+//	if (UnitState == EUnitState::Attacking && IsValid(AggroTarget) )
+//	{
+//		if (AggroTarget->UnitState == EUnitState::Dead) {goto EndOfLogic;}
+//
+//		UpdateAnimation();
+//		ExecuteAttack();
+//		IsDelayChecking = true;
+//		return;
+//	}
+//
+//EndOfLogic:
+//
+//	AggroTarget=nullptr;
+//	GetWorldTimerManager().ClearTimer(ActionTimerHandle);
+////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("End Of Logic"));
+//}
 

@@ -6,15 +6,32 @@
 #include "HUDWidget.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
+#include "PaperSpriteComponent.h"
+
 
 ATower::ATower()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	RootScene = CreateOptionalDefaultSubobject<USceneComponent>("DummyRoot");
+	RootScene->SetupAttachment(GetRootComponent());
+	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>("Shadow");
+	Shadow->SetupAttachment(RootScene);
+	Shadow->SetRelativeLocationAndRotation(FVector(0,250.0f,-0.1f),FRotator(0,0,-90));
+	Sprite = CreateOptionalDefaultSubobject<UPaperFlipbookComponent>("Sprite");
+	Sprite->SetupAttachment(RootScene);
+	Sprite->SetRelativeRotation(FRotator(0,0,-90));
+	Sprite->OnClicked.AddDynamic(this,&ATower::OnSpriteSelected);
 } 
 
 void ATower::OnDeselected()
 {
 	IsSelected = false;
+}
+
+void ATower::OnSpriteSelected(UPrimitiveComponent * TouchedComponent, FKey ButtonPressed)
+{
+	ShowActionMenu();
 }
 
 void ATower::ShowActionMenu()
@@ -24,6 +41,8 @@ void ATower::ShowActionMenu()
 	UHUDWidget* HUD = Cast<UHUDWidget>(GetWorld()->GetAuthGameMode<ATDGameModeBase>()->GetCurrentWidget());
 
 	if (HUD)	HUD->ShowTowerActionMenu(this);
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("ShowActionMenu"));
 }
 
 inline FString ATower::GetPresetName()
@@ -49,22 +68,23 @@ inline int32 ATower::GetTowerAttackDmg() { return 0; }
 
 void ATower::UpdateAnimationCPP()
 {
-	auto Flipbook= Cast<UPaperFlipbookComponent>(GetComponentByClass(UPaperFlipbookComponent::StaticClass()));
-
-	Flipbook->SetFlipbook(GetFlipbookOfCurrentState().Get());
+	Sprite->SetFlipbook(GetFlipbookOfCurrentState().Get());
 
 	switch (TowerState) {
 		case ETowerState::TS_Idle:
 		default:
-		Flipbook->PlayFromStart();
-		Flipbook->SetLooping(true);
+			Sprite->PlayFromStart();
+			Sprite->SetLooping(true);
 		break;
 
 		case ETowerState::TS_Action:
-		Flipbook->PlayFromStart();
-		Flipbook->SetLooping(false);
+			Sprite->PlayFromStart();
+			Sprite->SetLooping(false);
 		break;
 	}
+
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("UpdateAnimationCPP"));
 }
 
 TSoftObjectPtr<UPaperFlipbook> ATower::GetFlipbookOfCurrentState()

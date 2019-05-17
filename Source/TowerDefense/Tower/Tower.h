@@ -38,6 +38,15 @@ public:
 	ATower();
 
 protected:
+	UPROPERTY(Category = "Tower Property", VisibleAnywhere, BlueprintReadWrite)
+	class USceneComponent* RootScene;
+
+	UPROPERTY(Category = "Tower Property", VisibleAnywhere, BlueprintReadWrite)
+	class UPaperSpriteComponent* Shadow;
+
+	UPROPERTY(Category ="Tower Property", VisibleAnywhere, BlueprintReadWrite)
+	class UPaperFlipbookComponent* Sprite;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsSelected;
 
@@ -62,6 +71,9 @@ protected:
 public:	
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void OnDeselected();
+
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
+	void OnSpriteSelected(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);
 
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void ShowActionMenu();
