@@ -21,7 +21,7 @@ ATower::ATower()
 	Sprite = CreateOptionalDefaultSubobject<UPaperFlipbookComponent>("Sprite");
 	Sprite->SetupAttachment(RootScene);
 	Sprite->SetRelativeRotation(FRotator(0,0,-90));
-	Sprite->OnClicked.AddDynamic(this,&ATower::OnSpriteSelected);
+//	Sprite->OnClicked.AddDynamic(this,&ATower::OnSpriteSelected);
 } 
 
 void ATower::OnDeselected()
@@ -82,9 +82,6 @@ void ATower::UpdateAnimationCPP()
 			Sprite->SetLooping(false);
 		break;
 	}
-
-
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("UpdateAnimationCPP"));
 }
 
 TSoftObjectPtr<UPaperFlipbook> ATower::GetFlipbookOfCurrentState()

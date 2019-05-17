@@ -19,6 +19,7 @@ ATDUnit::ATDUnit()
 	Shadow->SetupAttachment(GetRootComponent());
 	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
 	//AddOwnedComponent(AttackComp);
+	
 }
 
 void ATDUnit::BeginPlay()
