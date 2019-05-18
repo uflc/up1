@@ -15,7 +15,7 @@ void AParabolicBullet::Tick(float DeltaTime)
 	DirectionVec.Z=0;
 	float DirectionVecSize = DirectionVec.Size();
 	if(DirectionVecSize <= 40.0f) {
-		Target->ApplyDamage(8.0f,0.15f,Damage);
+		Target->TDUnitTakeDamage(8.0f,0.15f,Damage);
 		SetActorTickEnabled(false);
 		BulletDestroy();
 		return;
@@ -38,7 +38,7 @@ void AParabolicBullet::Tick(float DeltaTime)
 
 
 
-void AParabolicBullet::Initialize(ATDUnit * iTarget, int32 iDamage,bool IisDirectable)
+void AParabolicBullet::Initialize(ATDCharacter * iTarget, int32 iDamage,bool IisDirectable)
 {
 	Target= iTarget;
 	Damage=iDamage;

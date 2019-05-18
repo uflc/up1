@@ -7,7 +7,6 @@
 #include "BrainComponent.h"
 #include "TimerManager.h"
 #include "FlipbookShakingComponent.h"
-#include "Tower.h"
 #include "MeleeAttackComponent.h"
 #include "TDPlayerStateBase.h"
 #include "TDUnitCommonData.h"
@@ -72,39 +71,39 @@ void ATDUnit::ChangeState(EUnitState InState)
 	UpdateAnimation();
 }
 
-void ATDUnit::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
-{
-	if(UnitState == EUnitState::Dead)return;
-
-	UnitHP-=Damage;
-
-	if(UnitHP<=0) {	ChangeState (EUnitState::Dying); 
-
-		PrimaryActorTick.bCanEverTick = false;
-		((AAIController*)GetController())->GetBrainComponent()->StopLogic("Dead");
-		Team=EUnitTeam::None;
-
-		CharacterDestroy();
-		return;
-	}
-	
-	auto ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
-	if(ShakeComp) ShakeComp->DestroyComponent();
-
-	ShakeComp = NewObject<UFlipbookShakingComponent>(this,"FlipbookShakingComponent");
-	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
-	ShakeComp->RegisterComponent();
-	AddOwnedComponent(ShakeComp);
-}
-
-void ATDUnit::CharacterDestroy_Implementation()
-{
-	UnitState = EUnitState::Dead;
-	FTimerHandle ActionTimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(ActionTimerHandle, [this]() {
-		Destroy(); /* or pool */
-	}, GetSprite()->GetFlipbookLength() + 3.5f, 1);
-}
+//void ATDUnit::ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage)
+//{
+//	if(UnitState == EUnitState::Dead)return;
+//
+//	UnitHP-=Damage;
+//
+//	if(UnitHP<=0) {	ChangeState (EUnitState::Dying); 
+//
+//		PrimaryActorTick.bCanEverTick = false;
+//		((AAIController*)GetController())->GetBrainComponent()->StopLogic("Dead");
+//		Team=EUnitTeam::None;
+//
+//		CharacterDestroy();
+//		return;
+//	}
+//	
+//	auto ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
+//	if(ShakeComp) ShakeComp->DestroyComponent();
+//
+//	ShakeComp = NewObject<UFlipbookShakingComponent>(this,"FlipbookShakingComponent");
+//	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
+//	ShakeComp->RegisterComponent();
+//	AddOwnedComponent(ShakeComp);
+//}
+//
+//void ATDUnit::CharacterDestroy_Implementation()
+//{
+//	UnitState = EUnitState::Dead;
+//	FTimerHandle ActionTimerHandle;
+//	GetWorld()->GetTimerManager().SetTimer(ActionTimerHandle, [this]() {
+//		Destroy(); /* or pool */
+//	}, GetSprite()->GetFlipbookLength() + 3.5f, 1);
+//}
 
 //void ATDUnit::StartAttack()
 //{

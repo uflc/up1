@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TDUnit.h"
+#include "TDCharacter.h"
 #include "BulletBase.generated.h"
 
 UCLASS()
@@ -21,7 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-	ATDUnit* Target;
+	ATDCharacter* Target;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	float Velocity;
@@ -35,7 +35,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void Initialize(ATDUnit* iTarget, int32 iDamage, bool iIsDirectable);
+	virtual void Initialize(ATDCharacter* iTarget, int32 iDamage, bool iIsDirectable);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void BulletDestroy();

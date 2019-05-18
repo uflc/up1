@@ -31,7 +31,7 @@ void ABulletBase::Tick(float DeltaTime)
 
 	float DirectionVecSize = DirectionVec.Size();
 	if (DirectionVecSize <= 40.0f) {
-		Target->ApplyDamage(8.0f, 0.15f, Damage);
+		Target->TDUnitTakeDamage(8.0f, 0.15f, Damage);
 		SetActorTickEnabled(false);
 		BulletDestroy();
 		return;
@@ -44,7 +44,7 @@ void ABulletBase::Tick(float DeltaTime)
 	if(IsDirectable)	SetActorRotation(FRotator(0, (DirectionVec*-1).Rotation().Yaw,0));
 }
 
-void ABulletBase::Initialize(ATDUnit * iTarget, int32 iDamage,bool iIsDirectable = false)
+void ABulletBase::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirectable = false)
 {
 	Target = iTarget;
 	Damage = iDamage;

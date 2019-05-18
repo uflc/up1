@@ -2,13 +2,13 @@
 
 
 #include "MeleeAttackComponent.h"
-#include "TDUnit.h"
+#include "TDCharacter.h"
 void UMeleeAttackComponent::ExecAttack(class UObject* Target)
 {
 	//++ Create Effect
 	
 	if(Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()){
-	((ATDUnit*)Target)->ApplyDamage(10.0f,0.2f,((ATDUnit*)GetOwner())->UnitAttackDamage);
+	((ATDCharacter*)Target)->TDUnitTakeDamage(10.0f,0.2f,((ATDUnit*)GetOwner())->UnitAttackDamage);
 	}
 	
 	//++ Splash Damage Process

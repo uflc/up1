@@ -32,5 +32,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Initialize(ATDUnit* iTarget,int32 iDamage, bool IisDirectable) override;
+	virtual void Initialize(ATDCharacter* iTarget,int32 iDamage, bool IisDirectable) override;
 };

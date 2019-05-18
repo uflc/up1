@@ -8,7 +8,7 @@
 #include "PaperCharacter.h"
 #include "TDUnit.generated.h"
 
-class ATower;
+//class ATower;
 class UTDUnitCommonData;
 //enum class EUnitState : uint8;
 UENUM(BlueprintType)
@@ -75,14 +75,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	void ChangeState(EUnitState InState);
 
-	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
-	void ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage);	
+	/*UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
+	void ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage);	*/
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	/*UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void CharacterDestroy();
 
 	UFUNCTION(BlueprintCallable)
-	void CharacterDestroy_Implementation();
+	void CharacterDestroy_Implementation();*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	int32 UnitAttackDamage;
