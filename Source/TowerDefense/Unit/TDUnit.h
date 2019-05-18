@@ -61,9 +61,6 @@ protected:
 	float AggroDrawnRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	float DrawingAggroRange;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	TSoftObjectPtr<UTDUnitCommonData> Common;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")

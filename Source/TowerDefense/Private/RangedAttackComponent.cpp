@@ -3,7 +3,7 @@
 
 #include "RangedAttackComponent.h"
 #include "BulletBase.h"
-#include "Engine\World.h"
+//#include "Engine\World.h"
 #include "TDUnit.h"
 #include "Tower.h"
 void URangedAttackComponent::ExecAttack(UObject * Target)

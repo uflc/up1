@@ -2,10 +2,10 @@
 
 
 #include "WaveUnitSpawner.h"
-#include "Engine\World.h"
-#include "Engine\Public\TimerManager.h"
-#include "ParallelFor.h"
-#include "Engine.h"
+//#include "Engine\World.h"
+//#include "Engine\Public\TimerManager.h"
+//#include "ParallelFor.h"
+//#include "Engine.h"
 #include "TDUnit.h"
 
 // Sets default values

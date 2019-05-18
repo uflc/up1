@@ -2,8 +2,8 @@
 
 #include "TowerWizard.h"
 #include "PaperFlipbook.h"
-#include "PaperFlipbookComponent.h"
-#include "Engine.h"
+//#include "PaperFlipbookComponent.h"
+//#include "Engine.h"
 
 ATowerWizard::ATowerWizard()
 {

@@ -7,7 +7,7 @@
 #include "UITowerButton.h"
 #include "TextBlock.h"
 #include "Tower.h"
-#include "Runtime/UMG/Public/UMG.h"
+#include "UMG.h"
 
 bool UUITowerBase::SelectPreset(FString iName)
 {

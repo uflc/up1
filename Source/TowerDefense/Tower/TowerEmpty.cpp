@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TowerEmpty.h"
-#include "TowerArcher.h"
-#include "UITowerBase.h"
-#include "TDGameModeBase.h"
-#include "Engine.h"
+//#include "TowerArcher.h"
+//#include "UITowerBase.h"
+//#include "TDGameModeBase.h"
+//#include "Engine.h"
 
 ATowerEmpty::ATowerEmpty()
 {

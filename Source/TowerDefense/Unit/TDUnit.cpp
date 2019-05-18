@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TDUnit.h"
-#include "Engine\World.h"
+//#include "Engine\World.h"
 #include "PaperSpriteComponent.h"
-#include "AIModule\Classes\AIController.h"
-#include "AIModule\Classes\BrainComponent.h"
-#include "Engine\Public\TimerManager.h"
+#include "AIController.h"
+#include "BrainComponent.h"
+#include "TimerManager.h"
 #include "FlipbookShakingComponent.h"
 #include "Tower.h"
 #include "MeleeAttackComponent.h"

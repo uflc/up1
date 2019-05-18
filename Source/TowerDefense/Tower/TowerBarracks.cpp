@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TowerBarracks.h"
-#include "TowerEmpty.h"
-#include "UITowerBase.h"
-#include "TDGameModeBase.h"
+//#include "TowerEmpty.h"
+//#include "UITowerBase.h"
+//#include "TDGameModeBase.h"
 #include "PaperFlipbook.h"
-#include "PaperFlipbookComponent.h"
-#include "Engine.h"
+//#include "PaperFlipbookComponent.h"
+//#include "Engine.h"
 
 ATowerBarracks::ATowerBarracks()
 {

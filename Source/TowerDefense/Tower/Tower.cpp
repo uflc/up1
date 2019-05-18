@@ -2,7 +2,7 @@
 
 #include "Tower.h"
 #include "TDGameModeBase.h"
-#include "Engine/Engine.h"
+//#include "Engine/Engine.h"
 #include "HUDWidget.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
@@ -42,7 +42,7 @@ void ATower::ShowActionMenu()
 
 	if (HUD)	HUD->ShowTowerActionMenu(this);
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("ShowActionMenu"));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("ShowActionMenu"));
 }
 
 inline FString ATower::GetPresetName()
