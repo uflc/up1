@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TDUnit.h"
+#include "TDCharacter.h"
 #include "Tower.generated.h"
 
 class UPaperFlipbook;
@@ -25,7 +25,6 @@ enum class ETowerDirectionState : uint8
 	TDS_RT UMETA(DisplayName = "RT"),
 	TDS_RD  UMETA(DisplayName = "RD"),
 };
-
 
 
 UCLASS(Abstract, BluePrintable)
@@ -66,7 +65,7 @@ protected:
 	ETowerDirectionState TowerDirectionState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ATDUnit* AggroTarget;
+	ATDCharacter* AggroTarget;
 
 public:	
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")

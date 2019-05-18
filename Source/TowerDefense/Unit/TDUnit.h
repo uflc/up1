@@ -49,9 +49,6 @@ protected:
 	EUnitTeam Team;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	int32 UnitHP;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float UnitAttackDelay;	
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
@@ -74,15 +71,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	void ChangeState(EUnitState InState);
-
-	/*UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
-	void ApplyDamage(float ShakePower, float ShakeDuration, int32 Damage);	*/
-
-	/*UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void CharacterDestroy();
-
-	UFUNCTION(BlueprintCallable)
-	void CharacterDestroy_Implementation();*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	int32 UnitAttackDamage;

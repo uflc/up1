@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TDCharacter.h"
 #include "BulletBase.generated.h"
 
 UCLASS()
@@ -21,15 +20,22 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-	ATDCharacter* Target;
+	class ATDCharacter* Target;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	float Velocity;
+
+	FVector VelocityVec;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	int32 Damage;
 
 	bool IsDirectable;
+
+	FVector GetDistanceVecToTarget();
+
+	virtual void CalcVelocityVec(const FVector& DirectionVec);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

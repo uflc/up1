@@ -2,6 +2,17 @@
 
 
 #include "BulletBase.h"
+#include "TDCharacter.h"
+
+FVector ABulletBase::GetDistanceVecToTarget()
+{
+	return Target->GetActorLocation() - GetActorLocation();
+}
+
+void ABulletBase::CalcVelocityVec(const FVector& DirectionVec)
+{
+	VelocityVec = DirectionVec * Velocity;
+}
 
 // Sets default values
 ABulletBase::ABulletBase()
@@ -26,22 +37,25 @@ void ABulletBase::Tick(float DeltaTime)
 		return;
 	}
 
-	auto DirectionVec = Target->GetActorLocation() - GetActorLocation();
-	DirectionVec.Z = 0;
+	FVector DistanceVec = GetDistanceVecToTarget();
+	DistanceVec.Z = 0;
+	float Distance = DistanceVec.Size();
 
-	float DirectionVecSize = DirectionVec.Size();
-	if (DirectionVecSize <= 40.0f) {
+	if (Distance <= 40.0f)
+	{
 		Target->TDUnitTakeDamage(8.0f, 0.15f, Damage);
 		SetActorTickEnabled(false);
 		BulletDestroy();
 		return;
 	}
 
-	DirectionVec.Normalize();
-	DirectionVec *= (Velocity * DeltaTime);
+	DistanceVec.Normalize();
+	CalcVelocityVec(DistanceVec);
+//
+//	DirectionVec *= (Velocity * DeltaTime);
 
-	SetActorLocation(GetActorLocation() + DirectionVec);
-	if(IsDirectable)	SetActorRotation(FRotator(0, (DirectionVec*-1).Rotation().Yaw,0));
+	SetActorLocation(GetActorLocation() + VelocityVec * DeltaTime);
+	if (IsDirectable)	SetActorRotation(FRotator(0, (VelocityVec/** DeltaTime*/*-1).Rotation().Yaw,0));
 }
 
 void ABulletBase::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirectable = false)

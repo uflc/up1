@@ -6,8 +6,6 @@
 #include "BulletBase.h"
 #include "ParabolicBullet.generated.h"
 
-
-class ATDUnit;
 /**
  * 
  */
@@ -17,8 +15,8 @@ class TOWERDEFENSE_API AParabolicBullet : public ABulletBase
 	GENERATED_BODY()
 	
 protected:
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector VelocityVec;
+	////UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//FVector VelocityVec;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float CurveScale;
@@ -28,6 +26,9 @@ protected:
 	FVector DefVelocityVec;
 
 	float DefVecSize;
+
+	virtual void CalcVelocityVec(const FVector& DirectionVec) override;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
