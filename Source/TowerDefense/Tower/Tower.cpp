@@ -42,7 +42,6 @@ void ATower::ShowActionMenu()
 
 	if (HUD)	HUD->ShowTowerActionMenu(this);
 
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("ShowActionMenu"));
 }
 
 inline FString ATower::GetPresetName()

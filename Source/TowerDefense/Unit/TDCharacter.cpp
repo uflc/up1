@@ -2,11 +2,37 @@
 
 
 #include "TDCharacter.h"
+#include "PaperSpriteComponent.h"
 #include "TDUnitCommonData.h"
 #include "TimerManager.h"
 #include "FlipbookShakingComponent.h"
 #include "AIController.h"
 
+
+void ATDCharacter::Tick(float DeltaTime)
+{
+	if (GetVelocity().X > 0)
+	{
+		Shadow->SetRelativeRotation(FRotator(180, 0, -90));
+		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
+	}
+	else if (GetVelocity().X < 0)
+	{
+		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
+		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
+	}
+}
+
+bool ATDCharacter::ChangeAnimation()
+{
+	if (!Super::ChangeAnimation()) return false;
+
+	//if (UnitState != EUnitState::Running) {	GetSprite()->SetLooping(false);}
+			//else {GetSprite()->SetLooping(true);}
+
+			//GetSprite()->PlayFromStart();
+	return true;
+}
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
 {

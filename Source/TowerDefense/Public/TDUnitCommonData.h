@@ -17,6 +17,7 @@ enum class EUnitState : uint8
 	Dead		UMETA(DisplayName = "Dead")
 };
 
+//@TODO
 UCLASS(Blueprintable, BlueprintType)
 class TOWERDEFENSE_API UTDUnitCommonData : public UObject
 {
@@ -28,7 +29,7 @@ protected:
 	friend class ATDUnit;
 	friend class ATDGameModeBase;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
 	bool IsInitialized;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")

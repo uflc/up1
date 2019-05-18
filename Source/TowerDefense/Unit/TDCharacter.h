@@ -22,6 +22,11 @@ protected:
 	int32 Health;
 
 public:
+	virtual void Tick(float DeltaTime) override;
+
+	virtual bool ChangeAnimation() override;
+
+
 	//@TODO AActor::TakeDamge override?
 	UFUNCTION(BlueprintCallable)
 	void TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage);

@@ -28,43 +28,23 @@ void ATDUnit::BeginPlay()
 	InitializeTDComponents();
 }
 
-bool ATDUnit::UpdateAnimation()
+bool ATDUnit::ChangeAnimation()
 {
 	UPaperFlipbook* DesiredAnim = Common->FlipbookMap.Find(UnitState)->Get();
 
 	if (DesiredAnim)
 	{
 		GetSprite()->SetFlipbook(DesiredAnim);
-
-		if (UnitState != EUnitState::Running) {	GetSprite()->SetLooping(false);}
-		else {GetSprite()->SetLooping(true);}
-
-		GetSprite()->PlayFromStart();
-
 		return true;
 	}
 	else return false;
 
 }
 
-void ATDUnit::Tick(float DeltaTime)
-{
-	if (GetVelocity().X >0)
-	{
-		Shadow->SetRelativeRotation(FRotator(180,0,-90));
-		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
-	}
-	else if (GetVelocity().X < 0)
-	{
-		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
-		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
-	}
-}
-
 void ATDUnit::ChangeState(EUnitState InState)
 {
 	UnitState = InState;
-	UpdateAnimation();
+	ChangeAnimation();
 }
 
 //void ATDUnit::StartAttack()

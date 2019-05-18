@@ -8,9 +8,7 @@
 #include "PaperCharacter.h"
 #include "TDUnit.generated.h"
 
-//class ATower;
 class UTDUnitCommonData;
-//enum class EUnitState : uint8;
 UENUM(BlueprintType)
 enum class EUnitTeam : uint8
 {
@@ -42,6 +40,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	//@Note AnimState
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EUnitState UnitState;
 
@@ -64,11 +63,10 @@ protected:
 	TSubclassOf<UAttackComponent> AttackCompClass;
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "Animation")
-	bool UpdateAnimation();
+	UFUNCTION()
+	virtual bool ChangeAnimation();
 
-	virtual void Tick(float DeltaTime) override;
-
+	//@Note AnimState this will call ChangeAnimation
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	void ChangeState(EUnitState InState);
 
