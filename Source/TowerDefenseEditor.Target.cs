@@ -9,6 +9,6 @@ public class TowerDefenseEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 
-		ExtraModuleNames.AddRange( new string[] { "TowerDefense", "TowerDefenseEditor" } );
+		ExtraModuleNames.AddRange( new string[] { "TowerDefense"} );
 	}
 }

@@ -1,12 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TDUnit.h"
-#include "PaperSpriteComponent.h"
-#include "TimerManager.h"
-#include "FlipbookShakingComponent.h"
-#include "MeleeAttackComponent.h"
-#include "TDPlayerStateBase.h"
 #include "TDUnitCommonData.h"
+//#include "TDPlayerStateBase.h"
+#include "PaperFlipbook.h" //anim
+#include "PaperFlipbookComponent.h" //anim
+#include "PaperSpriteComponent.h" //shadow
+#include "MeleeAttackComponent.h"
+//#include "TimerManager.h"
 
 ATDUnit::ATDUnit()
 {
@@ -21,16 +22,21 @@ void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if(!(AttackCompClass.Get()))return;
+	if(!(AttackCompClass.Get())) return;
 	AttackComp = NewObject<UAttackComponent>(this, AttackCompClass.Get());
 	AddOwnedComponent(AttackComp);
 
 	InitializeTDComponents();
 }
 
-bool ATDUnit::ChangeAnimation()
+UPaperFlipbook * ATDUnit::GetDesiredAnimation()
 {
-	UPaperFlipbook* DesiredAnim = Common->FlipbookMap.Find(UnitState)->Get();
+	return Common->FlipbookMap.Find(UnitState)->Get();
+}
+
+bool ATDUnit::UpdateAnimation()
+{
+	UPaperFlipbook* DesiredAnim = GetDesiredAnimation();
 
 	if (DesiredAnim)
 	{
@@ -44,7 +50,19 @@ bool ATDUnit::ChangeAnimation()
 void ATDUnit::ChangeState(EUnitState InState)
 {
 	UnitState = InState;
-	ChangeAnimation();
+	UpdateAnimation();
+}
+
+void ATDUnit::UpdateDirection()
+{
+	EDirection OldDirection = Direction;
+
+	Direction = GetVelocity().X > 0 ?
+			    (GetVelocity().Y > 0 ? EDirection::RT : EDirection::RD)
+			   :(GetVelocity().Y > 0 ? EDirection::LT : EDirection::LD);
+
+	if (!(OldDirection == Direction))
+		UpdateAnimation();
 }
 
 //void ATDUnit::StartAttack()

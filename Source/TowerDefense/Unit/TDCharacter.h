@@ -24,7 +24,8 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
-	virtual bool ChangeAnimation() override;
+	//@TODO 방향전환
+	virtual bool UpdateAnimation() override;
 
 
 	//@TODO AActor::TakeDamge override?

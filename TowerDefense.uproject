@@ -14,14 +14,6 @@
 				"UMG",
 				"Paper2D"
 			]
-		},
-		{
-			"Name": "TowerDefenseEditor",
-			"Type": "Editor",
-			"LoadingPhase": "PostEngineInit",
-			"AdditionalDependencies": [
-				"UnrealEd"
-			]
 		}
 	],
 	"Plugins": [

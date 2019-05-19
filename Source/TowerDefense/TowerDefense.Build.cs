@@ -18,8 +18,7 @@ public class TowerDefense : ModuleRules
             {
                 "TowerDefense/Unit",
                 "TowerDefense/Bullet",
-                "TowerDefense/UI",
-                "TowerDefense/Tower"
+                "TowerDefense/UI"
             }
         );
 

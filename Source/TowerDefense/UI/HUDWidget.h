@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-//#include "WidgetSwitcher.h" //ÀÌ À§Á¬ Àß¾²¸é À§Á¬ °èÃþ ÀÌ»Ü°Å°°Àºµ¥ ¸ð¸£°ÙÀ½. 
-#include "Tower.h"
 #include "HUDWidget.generated.h"
 
 
@@ -18,11 +16,6 @@ UCLASS()
 class TOWERDEFENSE_API UHUDWidget : public UUserWidget
 {
 	GENERATED_BODY()
-
-	//UWidgetSwitcher TowerSelector;
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI|HUD")
-	ATower* SelectedTower;
 
 public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")

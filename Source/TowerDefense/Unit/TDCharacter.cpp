@@ -2,10 +2,11 @@
 
 
 #include "TDCharacter.h"
-#include "PaperSpriteComponent.h"
 #include "TDUnitCommonData.h"
-#include "TimerManager.h"
+#include "PaperSpriteComponent.h" //shadow
+#include "PaperFlipbookComponent.h" //anim
 #include "FlipbookShakingComponent.h"
+#include "TimerManager.h"
 #include "AIController.h"
 
 
@@ -23,9 +24,9 @@ void ATDCharacter::Tick(float DeltaTime)
 	}
 }
 
-bool ATDCharacter::ChangeAnimation()
+bool ATDCharacter::UpdateAnimation()
 {
-	if (!Super::ChangeAnimation()) return false;
+	if (!Super::UpdateAnimation()) return false;
 
 	//if (UnitState != EUnitState::Running) {	GetSprite()->SetLooping(false);}
 			//else {GetSprite()->SetLooping(true);}
@@ -78,6 +79,6 @@ void ATDCharacter::OnDeath()
 {
 	ChangeState(EUnitState::Dead);
 
-	SetLifeSpan(3.5f); //@TODO: do not hard code life span?
+	SetLifeSpan(3.5f); //@TODO: 
 }
 

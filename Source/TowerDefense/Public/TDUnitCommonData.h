@@ -3,23 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/DataAsset.h"
+#include "TDTypes.h"
 #include "TDUnitCommonData.generated.h"
 
 
-class UPaperFlipbook;
-UENUM(BlueprintType)
-enum class EUnitState : uint8
-{
-	Idle		UMETA(DisplayName = "Idle"),
-	Attacking	UMETA(DisplayName = "Attaking"),
-	Running		UMETA(DisplayName = "Running"),
-	Dying		UMETA(DisplayName = "Dying"),
-	Dead		UMETA(DisplayName = "Dead")
-};
-
 //@TODO
 UCLASS(Blueprintable, BlueprintType)
-class TOWERDEFENSE_API UTDUnitCommonData : public UObject
+class UTDUnitCommonData : public UDataAsset
 {
 	GENERATED_BODY()
 
@@ -27,13 +18,14 @@ class TOWERDEFENSE_API UTDUnitCommonData : public UObject
 
 protected:
 	friend class ATDUnit;
+	friend class TSubclassOf<ATDUnit>; //???
 	friend class ATDGameModeBase;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
 	bool IsInitialized;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	TMap<EUnitState, TSoftObjectPtr<UPaperFlipbook>> FlipbookMap;
+	TMap<EUnitState, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DefaultAttackRange;
