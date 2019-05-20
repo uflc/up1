@@ -4,6 +4,7 @@
 #include "Tower.h"
 #include "TDUnit.h"
 #include "TDUnitCommonData.h"
+#include "TowerUpDataTree.h"
 
 
 UUserWidget * ATDGameModeBase::GetCurrentWidget()

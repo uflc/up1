@@ -7,22 +7,6 @@
 #include "TDUnit.h"
 #include "Tower.generated.h"
 
-//UENUM(BlueprintType)
-//enum class ETowerState : uint8
-//{
-//	TS_Idle UMETA(DisplayName = "Idle"),
-//	TS_Action  UMETA(DisplayName = "Attack or Open")
-//};
-//
-//UENUM(BlueprintType)
-//enum class ETowerDirectionState : uint8
-//{
-//	TDS_LD UMETA(DisplayName = "LT"),
-//	TDS_LT  UMETA(DisplayName = "LD"),
-//	TDS_RT UMETA(DisplayName = "RT"),
-//	TDS_RD  UMETA(DisplayName = "RD"),
-//};
-
 
 //@TODO disable movement
 UCLASS(Abstract, BluePrintable)
@@ -45,8 +29,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void OnDeselected();
 
-	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
-	void OnSelected(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);
+	/*UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
+	void OnSelected(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);*/
 
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void ShowActionMenu();
@@ -57,23 +41,7 @@ public:
 	//UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
 	virtual bool UpdateAnimation() override;
 
-	//UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD|Tower")
-	//virtual FString GetPresetName();
-
-	//UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD|Tower")
-	//virtual FString GetTowerStatusText();
-
-	//UFUNCTION(BlueprintCallable, BlueprintPure, Category = "UI|HUD|Tower")
-	//virtual FString GetTowerDescriptionText();
-
-	/*UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Tower Property")
-	virtual float GetTowerRange();
-
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Tower Property")
-	virtual float GetTowerAttackSpd();
-
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Tower Property")
-	virtual int32 GetTowerAttackDmg();*/
+	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ResponseButtonEvent(int iNum);

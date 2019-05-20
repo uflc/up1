@@ -8,12 +8,8 @@
 #include "TDGameModeBase.generated.h"
 
 class ATower;
-class UTDUnitCommonData;
-
 
 /**
- GameManager
- 적절한 이름 필요.
  리소스 로드 및 사용할 위젯 관리
  */
 UCLASS()
@@ -46,9 +42,14 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
 	UUserWidget* CurrentWidget;
 
+	//@ TD 유닛 데이터. 특히 필드 유닛의 플립북.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
-	TArray<UTDUnitCommonData*> TDUnitCommons;
+	TArray<class UTDUnitCommonData*> TDUnitCommons;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
+	class UTowerUpData* TDTowerDataTree;
+
+	//@TODO 더 좋은 로딩 방법
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
 	void LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons);
 

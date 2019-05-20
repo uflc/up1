@@ -9,6 +9,7 @@
 //#include "PaperSpriteComponent.h"
 //#include "TDCharacter.h"
 //#include "TDUnitCommonData.h"
+#include "TowerDefense.h" //log 
 
 
 void ATower::OnDeselected()
@@ -16,19 +17,19 @@ void ATower::OnDeselected()
 	IsSelected = false;
 }
 
-void ATower::OnSelected(UPrimitiveComponent * TouchedComponent, FKey ButtonPressed)
-{
-	ShowActionMenu();
-}
+//void ATower::OnSelected(UPrimitiveComponent * TouchedComponent, FKey ButtonPressed)
+//{
+//	if (IsSelected) return;
+//
+//	IsSelected = true;
+//	ShowActionMenu();
+//}
 
 void ATower::ShowActionMenu()
 {
-	if (IsSelected) return;
-
 	UHUDWidget* HUD = Cast<UHUDWidget>(GetWorld()->GetAuthGameMode<ATDGameModeBase>()->GetCurrentWidget());
 
 	if (HUD)	HUD->ShowTowerActionMenu(this);
-
 }
 
 UPaperFlipbook * ATower::GetDesiredAnimation()
@@ -41,6 +42,17 @@ bool ATower::UpdateAnimation()
 	if (!Super::UpdateAnimation()) return false;
 
 	return true;
+}
+void ATower::NotifyActorOnClicked(FKey ButtonPressed)
+{
+	Super::NotifyActorOnClicked(ButtonPressed);
+
+	TD_LOG_CALLONLY(Warning);////
+
+	if (IsSelected) return;
+
+	IsSelected = true;
+	ShowActionMenu();
 }
 //
 //inline FString ATower::GetPresetName()
