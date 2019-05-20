@@ -14,13 +14,9 @@ class TOWERDEFENSE_API ATower : public ATDUnit
 {
 	GENERATED_BODY()
 
-
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsSelected;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool IsDelayChecking;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTowerUpData* UpgradeTree;
@@ -48,10 +44,4 @@ public:
 
 	/*UFUNCTION(BlueprintCallable,BlueprintPure)
 	virtual TSoftObjectPtr<class UPaperFlipbook> GetFlipbookOfCurrentState();*/
-
-	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
-	void StartAction();
-
-	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
-	void ActionExecute();
 };
