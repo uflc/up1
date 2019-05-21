@@ -27,4 +27,6 @@ public:
 	void Initialize(const float inSplashRange, UPaperFlipbook* inEffectFlipbook);
 
 	virtual void ExecAttack(class ATDCharacter* Target) override;
+
+	virtual void Work() override;
 };

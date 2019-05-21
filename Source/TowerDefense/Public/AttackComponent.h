@@ -20,6 +20,9 @@ protected:
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SplashRange;
 
+	//Need it for cache?
+	//class ATDCharacter* Target;
+
 public:	
 	UFUNCTION(BlueprintCallable)
 	virtual void Initialize();

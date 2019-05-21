@@ -16,9 +16,15 @@ public:
 	// Sets default values for this component's properties
 	UUnitSkillComponent();
 
+	//Need it for cache?
+	//class ATDCharacter* Target;
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Cooldown;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool CooldownChecker;
 
 public:
 	UFUNCTION(BlueprintCallable)

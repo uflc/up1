@@ -21,6 +21,9 @@ protected:
 	UTDComponent* Parent;
 
 public:	
+	UFUNCTION(BlueprintCallable)
+	virtual void Work(){}
+
 	void SetParent(UTDComponent* iComp) { Parent = iComp; }
 
 	void AddSubComponent(UTDComponent* inComp);

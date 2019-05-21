@@ -7,6 +7,8 @@
 //#include "TDUnit.h"
 #include "TDCharacter.h"
 //#include "Tower.h"
+#include "AIController.h"
+#include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
 
 URangedAttackComponent::URangedAttackComponent():ProjectileRelativeSpawnPoint(FVector(0,0,0)), ProjectileisDirectable(false)
 {
@@ -25,6 +27,23 @@ void URangedAttackComponent::ExecAttack(ATDCharacter* Target)
 
 	}
 }
+
+void URangedAttackComponent::Work()
+{
+	ATDCharacter* Target = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
+
+	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {
+
+		auto CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
+
+		auto Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
+
+		Local_Bullet->Initialize(Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, SplashRange);
+
+	}
+}
+
+
 
 inline void URangedAttackComponent::Initialize() {
 	Super::Initialize();

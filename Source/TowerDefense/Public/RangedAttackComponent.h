@@ -28,6 +28,8 @@ protected:
 public:
 	virtual void ExecAttack(class ATDCharacter* Target) override;
 
+	virtual void Work() override;
+
 	void Initialize() override;
 
 	void Initialize(const FVector inVector, UClass* inClass, bool inDirectable);
