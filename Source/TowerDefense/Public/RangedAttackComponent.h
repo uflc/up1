@@ -27,7 +27,7 @@ public:
 	virtual void ExecAttack(class UObject* Target) override;
 
 	UFUNCTION(BlueprintCallable)
-	void Initialize(const FVector inVector,UClass* inClass,bool inDirectable){
+	void Initialize(const FVector inVector,TSubclassOf<ABulletBase> inClass,bool inDirectable){
 	ProjectileRelativeSpawnPoint=inVector; 
 	ProjectileClass=inClass;
 	ProjectileisDirectable= inDirectable;

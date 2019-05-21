@@ -2,20 +2,19 @@
 
 #include "TDUnit.h"
 #include "TDUnitCommonData.h"
-//#include "TDPlayerStateBase.h"
 #include "PaperFlipbook.h" //anim
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h" //shadow
 #include "MeleeAttackComponent.h"
-//#include "TimerManager.h"
+
 
 ATDUnit::ATDUnit()
 {
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>("Shadow");
 	Shadow->SetupAttachment(GetRootComponent());
+
 	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
 	//AddOwnedComponent(AttackComp);
-	
 }
 
 void ATDUnit::BeginPlay()
@@ -55,14 +54,6 @@ void ATDUnit::ChangeState(EUnitState InState)
 
 void ATDUnit::UpdateDirection()
 {
-	EDirection OldDirection = Direction;
-
-	Direction = GetVelocity().X > 0 ?
-			    (GetVelocity().Y > 0 ? EDirection::RT : EDirection::RD)
-			   :(GetVelocity().Y > 0 ? EDirection::LT : EDirection::LD);
-
-	if (!(OldDirection == Direction))
-		UpdateAnimation();
 }
 
 //void ATDUnit::StartAttack()

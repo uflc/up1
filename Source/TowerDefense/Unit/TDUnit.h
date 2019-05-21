@@ -12,6 +12,7 @@
  * 
  스테이트, 팀, 공격 어그로 등등.
  구체적인 행동 로직은 BT BP로 함.
+ @TODO Access 
  */
 UCLASS(BluePrintable)
 class TOWERDEFENSE_API ATDUnit : public APaperCharacter

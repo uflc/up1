@@ -43,6 +43,16 @@ enum class ETowerType : uint8
 	THREE		
 };
 
+//@TODO 삭제
+UENUM(BlueprintType)
+enum class EValueType : uint8
+{
+	Coin		UMETA(DisplayName = "Coin"),
+	Life 		UMETA(DisplayName = "Life"),
+	Mana		UMETA(DisplayName = "Mana"),
+	//HeroHP		UMETA(DisplayName = "HeroHP")
+};
+
 
 //@TODO How to use Enum as Byte as arrry index
 //@TowerUpDataTree에서 타워의 현재 레벨은 이 배열의 길이. 타워의 타입(업그레이드 인덱스)이 ETowerType 즉 TowerLevel은 각 레벨에서의 업그레이드 타입. 

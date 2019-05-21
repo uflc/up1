@@ -7,8 +7,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "TDGameModeBase.generated.h"
 
-class ATower;
-
 /**
  리소스 로드 및 사용할 위젯 관리
  */
@@ -55,9 +53,14 @@ protected:
 
 	int8 UnloadedTDUnitCommonNum;
 
+	UFUNCTION(BlueprintCallable, Category = "TDUnit")
+	void LoadTowerResources(UTowerUpData * InTowerDataTree);
+
+	void LoadTowerResourcesDeffered();
+
 public:	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
-	void ChangeTower(ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
+	void ChangeTower(class ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
 
 	void OnTDUnitFlipbooksLoaded();
 
