@@ -17,21 +17,15 @@ public:
 	UAttackComponent();
 
 protected:
-
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SplashRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<TSubclassOf<class UDebufferComponent>> Debuffers;
-
 public:	
 	UFUNCTION(BlueprintCallable)
-	void Initialize(const float inSplashRange);
-
 	virtual void Initialize();
+
+	virtual void Initialize(const float inSplashRange);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void ExecAttack(class ATDCharacter* Target){}
-
-	void SetupDebuffers();
 };

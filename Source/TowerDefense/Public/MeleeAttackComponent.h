@@ -14,6 +14,8 @@ class TOWERDEFENSE_API UMeleeAttackComponent : public UAttackComponent
 {
 	GENERATED_BODY()
 
+	UMeleeAttackComponent();
+
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

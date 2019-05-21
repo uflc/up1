@@ -46,7 +46,6 @@ enum class ETowerType : uint8
 UENUM(BlueprintType)
 enum class EDebuffType : uint8
 {
-	None,
 	Stun,
 	Snared,
 	Slow

@@ -8,10 +8,8 @@
 #include "TDCharacter.h"
 //#include "Tower.h"
 
-URangedAttackComponent::URangedAttackComponent()
+URangedAttackComponent::URangedAttackComponent():ProjectileRelativeSpawnPoint(FVector(0,0,0)), ProjectileisDirectable(false)
 {
-	ProjectileRelativeSpawnPoint=FVector(0,0,0);
-	ProjectileisDirectable=false;
 }
 
 
@@ -42,8 +40,6 @@ inline void URangedAttackComponent::Initialize(const FVector inVector, UClass * 
 
 inline void URangedAttackComponent::Initialize(const float inRange, const FVector inVector, UClass * inClass, bool inDirectable)
 {
-	Super::Initialize(inRange);
-	ProjectileRelativeSpawnPoint = inVector;
-	ProjectileClass = inClass;
-	ProjectileisDirectable = inDirectable;
+	URangedAttackComponent::Initialize(inVector, inClass, inDirectable);
+	SplashRange=inRange;
 }

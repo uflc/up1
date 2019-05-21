@@ -16,10 +16,18 @@ public:
 	UTDComponent();
 
 protected:
-	TArray<class UTDSubComponent*> SubComponents;
+	TSet<class UTDComponent*> SubComponents;
+
+	UTDComponent* Parent;
 
 public:	
-	void AddSubComponent(UTDSubComponent* inComp);
+	void SetParent(UTDComponent* iComp) { Parent = iComp; }
+
+	void AddSubComponent(UTDComponent* inComp);
 	
 	void AddSubComponent(UClass* inClass);
+
+	UTDComponent* GetParent() const { return Parent; }
+
+	UTDComponent* FindSubComponent(const TSubclassOf<UActorComponent> ComponentClass) const;
 };

@@ -7,13 +7,12 @@
 //#include "TimerManager.h"
 
 void ASimpleFlipbookEffect::SetupEffect(UPaperFlipbook* inFlipbook) {
-	auto comp = GetRenderComponent();
-	comp->SetFlipbook(inFlipbook);
-	comp->SetLooping(false);
-	comp->PlayFromStart();
 
-	FTimerHandle handle;
-	GetWorldTimerManager().SetTimer(handle,[this](){
-	Destroy();
-	}, inFlipbook->GetTotalDuration(),false);
+	if(!inFlipbook) {Destroy();return;}
+
+	auto FlipbookComp = GetRenderComponent();
+	FlipbookComp->SetFlipbook(inFlipbook);
+	FlipbookComp->SetLooping(false);
+	FlipbookComp->PlayFromStart();
+	SetLifeSpan(inFlipbook->GetTotalDuration());
 }

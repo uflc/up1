@@ -9,6 +9,12 @@
 #include "Engine\World.h"
 #include "Engine\Classes\Engine\EngineTypes.h"
 
+
+UMeleeAttackComponent::UMeleeAttackComponent():EffectFlipbook(nullptr)
+{
+
+}
+
 inline void UMeleeAttackComponent::Initialize()
 {
 	Super::Initialize();
@@ -22,13 +28,11 @@ inline void UMeleeAttackComponent::Initialize(const float inSplashRange, UPaperF
 
 void UMeleeAttackComponent::ExecAttack(ATDCharacter* Target)
 {
-
 	if(Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()){
 		FVector TargetLocation=(Target)->GetActorLocation();
 		auto TargetTeam = Target->Team;
 
 		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(TargetLocation, FRotator()))->SetupEffect(EffectFlipbook);
-
 
 		//SetAffect(&ATDCharacter::TDUnitTakeDamage);
 
@@ -49,6 +53,7 @@ void UMeleeAttackComponent::ExecAttack(ATDCharacter* Target)
 
 			if(HitTDCharacter->Team==TargetTeam)
 			HitTDCharacter->TDUnitTakeDamage(5.0f, 0.2f, ((ATDUnit*)GetOwner())->AttackDamage*0.5f);
+
 			//CallAffect(HitTDCharacter,Params);
 		}
 

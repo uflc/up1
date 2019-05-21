@@ -7,28 +7,22 @@
 
 
 // Sets default values for this component's properties
-UAttackComponent::UAttackComponent()
+UAttackComponent::UAttackComponent():SplashRange(0)
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-	SplashRange=0;
-	// ...
 }
 
-inline void UAttackComponent::Initialize(const float inSplashRange) {
+inline void UAttackComponent::Initialize(const float inSplashRange) 
+{
+	if(SplashRange<0) return;
+
 	SplashRange = inSplashRange;
-	SetupDebuffers();
+
+	//auto SubComp = NewObject<UTDComponent>(this);
+
+	//AddSubComponent(SubComp);
 }
 
-inline void UAttackComponent::Initialize() {
-	SplashRange = 0;
-	SetupDebuffers();
-}
-
-inline void UAttackComponent::SetupDebuffers() {
-	for (auto DebufferClass : Debuffers)
-	{
-		AddSubComponent(NewObject<UDebufferComponent>(this, DebufferClass.Get()));
-	}
+inline void UAttackComponent::Initialize() 
+{
 }

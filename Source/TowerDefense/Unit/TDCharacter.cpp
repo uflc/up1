@@ -12,18 +12,7 @@
 
 void ATDCharacter::Tick(float DeltaTime)
 {
-
-	//스프라이트 방향 전환. //@TODO any Event?
-	if (GetVelocity().X > 0)
-	{
-		Shadow->SetRelativeRotation(FRotator(180, 0, -90));
-		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
-	}
-	else// if (GetVelocity().X < 0)
-	{
-		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
-		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
-	}
+	UpdateDirection();
 }
 
 bool ATDCharacter::UpdateAnimation()
@@ -31,6 +20,20 @@ bool ATDCharacter::UpdateAnimation()
 	if (!Super::UpdateAnimation()) return false;
 
 	return true;
+}
+
+void ATDCharacter::UpdateDirection()
+{	//스프라이트 방향 전환. //@TODO any Event?
+	if (GetVelocity().X > 0)
+	{
+		Shadow->SetRelativeRotation(FRotator(180, 0, -90));
+		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
+	}
+	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함
+	{
+		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
+		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
+	}
 }
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)

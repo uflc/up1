@@ -17,14 +17,13 @@ public:
 	UUnitSkillComponent();
 
 protected:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<class  UDebufferComponent*> Debuffers;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Cooldown;
 
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void CastSkill(class UObject* Target) {}
+
+	UFUNCTION(BlueprintCallable)
+	virtual void Initialize(){}
 };
