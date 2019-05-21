@@ -32,17 +32,7 @@ protected:
 	float UsingRange;
 
 public:	
-	virtual void Initialize(const TArray<FDebuffSet>& inArr, float inChance,float inUsingRange) {
-		DebuffSetArray = inArr;
-		DebuffChance=inChance;
-		UsingRange= inUsingRange;
-		EffectRange=0;
-	}
+	virtual void Initialize(const TArray<FDebuffSet>& inArr, float inChance, float inUsingRange);
 
-	virtual void Initialize(const TArray<FDebuffSet>& inArr, float inChance, float inUsingRange, float inEffectRange) {
-		DebuffSetArray= inArr;
-		DebuffChance = inChance;
-		UsingRange = inUsingRange;
-		EffectRange = inEffectRange;
-	}
+	virtual void Initialize(const TArray<FDebuffSet>& inArr, float inChance, float inUsingRange, float inEffectRange);
 };

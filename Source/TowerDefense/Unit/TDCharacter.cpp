@@ -12,12 +12,14 @@
 
 void ATDCharacter::Tick(float DeltaTime)
 {
+
+	//스프라이트 방향 전환. //@TODO any Event?
 	if (GetVelocity().X > 0)
 	{
 		Shadow->SetRelativeRotation(FRotator(180, 0, -90));
 		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
 	}
-	else if (GetVelocity().X < 0)
+	else// if (GetVelocity().X < 0)
 	{
 		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
 		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
@@ -28,10 +30,6 @@ bool ATDCharacter::UpdateAnimation()
 {
 	if (!Super::UpdateAnimation()) return false;
 
-	//if (UnitState != EUnitState::Running) {	GetSprite()->SetLooping(false);}
-			//else {GetSprite()->SetLooping(true);}
-
-			//GetSprite()->PlayFromStart();
 	return true;
 }
 

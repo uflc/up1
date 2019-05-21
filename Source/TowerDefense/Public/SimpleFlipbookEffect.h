@@ -14,6 +14,7 @@ class TOWERDEFENSE_API ASimpleFlipbookEffect : public APaperFlipbookActor
 {
 	GENERATED_BODY()
 	
-
+public:
+	void SetupEffect(class UPaperFlipbook* inFlipbook);
 
 };

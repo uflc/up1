@@ -23,4 +23,7 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
 	void HideTowerActionMenu();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
+	void UpdateValue(int32 Value, EValueType Type);
 };

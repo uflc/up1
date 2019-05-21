@@ -15,11 +15,17 @@ class TOWERDEFENSE_API ATower : public ATDUnit
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool IsSelected;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool IsDelayChecking;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class UTowerUpData* UpgradeTree;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int32 TotalCost;
 
 public:	
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
@@ -31,17 +37,22 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void ShowActionMenu();
 
-	//UFUNCTION()
 	virtual class UPaperFlipbook* GetDesiredAnimation() override;
 
-	//UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
 	virtual bool UpdateAnimation() override;
+
+	virtual void UpdateDirection() override;
+
+	//@TODO 실제 속성(데미지, 불렛타입 등) 업그레이드
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "TDUnit|Tower")
+	bool Upgrade(ETowerType UpType);
+	virtual bool Upgrade_Implementation(ETowerType UpType);
 
 	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void ResponseButtonEvent(int iNum);
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
+	void StartAction();
 
-	/*UFUNCTION(BlueprintCallable,BlueprintPure)
-	virtual TSoftObjectPtr<class UPaperFlipbook> GetFlipbookOfCurrentState();*/
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
+	void ActionExecute();
 };

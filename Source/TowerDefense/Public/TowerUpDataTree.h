@@ -18,6 +18,9 @@ class UTowerUpData : public UDataAsset
 {
 	GENERATED_BODY()
 
+friend class ATower;
+friend class ATDGameModeBase;
+
 private:
 	//@타워 액션메뉴에서 뜰 업그레이드 미리보기 이미지
 	UPROPERTY(EditAnywhere)
@@ -30,6 +33,22 @@ private:
 	//@현재 타입에서 가능한 업그레이드 타입
 	UPROPERTY(EditAnywhere)
 	UTowerUpData* Upgrades[UPGRADES_NUM];
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 Cost;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 UpAttackDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 UpAttackRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 UpAttackSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<class ABulletBase> BulletType;
 
 public:
 

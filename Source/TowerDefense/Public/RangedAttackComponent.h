@@ -26,25 +26,11 @@ protected:
 	bool ProjectileisDirectable;
 
 public:
-	virtual void ExecAttack(class UObject* Target) override;
+	virtual void ExecAttack(class ATDCharacter* Target) override;
 
-	void Initialize() override{
-		Super::Initialize();
-		ProjectileClass = nullptr;
-	}
+	void Initialize() override;
 
-	void Initialize(const FVector inVector,UClass* inClass,bool inDirectable){
-		Super::Initialize();
-		ProjectileRelativeSpawnPoint=inVector; 
-		ProjectileClass=inClass;
-		ProjectileisDirectable= inDirectable;
-	}
+	void Initialize(const FVector inVector, UClass* inClass, bool inDirectable);
 
-	void Initialize(const float inRange, const FVector inVector, UClass* inClass, bool inDirectable)
-	{
-		Super::Initialize(inRange);
-		ProjectileRelativeSpawnPoint = inVector;
-		ProjectileClass = inClass;
-		ProjectileisDirectable = inDirectable;
-	}
+	void Initialize(const float inRange, const FVector inVector, UClass* inClass, bool inDirectable);
 };

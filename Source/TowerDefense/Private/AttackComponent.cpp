@@ -29,7 +29,6 @@ inline void UAttackComponent::Initialize() {
 inline void UAttackComponent::SetupDebuffers() {
 	for (auto DebufferClass : Debuffers)
 	{
-		auto DebufferComp = NewObject<UDebufferComponent>(this, DebufferClass.Get());
-		SubComponents.Add(DebufferComp);
+		AddSubComponent(NewObject<UDebufferComponent>(this, DebufferClass.Get()));
 	}
 }

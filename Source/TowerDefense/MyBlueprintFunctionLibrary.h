@@ -3,8 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TDPlayerStateBase.h"
-#include "PaperSprite.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "MyBlueprintFunctionLibrary.generated.h"
 
@@ -21,11 +19,6 @@ public:
 
 	//스프라이트의 텍스쳐 디멘션.
 	UFUNCTION(BlueprintPure, Category = Custom)
-	static FVector2D GetSourceSize(UPaperSprite* sprite);
+	static FVector2D GetSourceSize(class UPaperSprite* sprite);
 
-	UFUNCTION(BlueprintCallable, Category = Custom)
-	static void EarnCoin(UObject* CalledObj,int32 Value);
-
-	UFUNCTION(BlueprintCallable, Category = Custom) 
-	static void UpdateCurrentPlayerStateValue(UObject* CalledObj, int32 i,EValueType Type);
 };

@@ -20,16 +20,9 @@ protected:
 	class UPaperFlipbook* EffectFlipbook;
 
 public:
-	void Initialize() override
-	{
-		Super::Initialize();
-		EffectFlipbook=nullptr;
-	}
+	void Initialize() override;
 
-	void Initialize(const float inSplashRange, UPaperFlipbook* inEffectFlipbook) {
-		Super::Initialize(inSplashRange);
-		EffectFlipbook = inEffectFlipbook;
-	}
+	void Initialize(const float inSplashRange, UPaperFlipbook* inEffectFlipbook);
 
-	virtual void ExecAttack(class UObject* Target) override;
+	virtual void ExecAttack(class ATDCharacter* Target) override;
 };

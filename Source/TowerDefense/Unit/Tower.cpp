@@ -2,8 +2,7 @@
 
 #include "Tower.h"
 #include "TowerUpDataTree.h"
-#include "TDGameModeBase.h"
-#include "HUDWidget.h"
+#include "TDPlayerController.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 //#include "PaperSpriteComponent.h"
@@ -17,19 +16,9 @@ void ATower::OnDeselected()
 	IsSelected = false;
 }
 
-//void ATower::OnSelected(UPrimitiveComponent * TouchedComponent, FKey ButtonPressed)
-//{
-//	if (IsSelected) return;
-//
-//	IsSelected = true;
-//	ShowActionMenu();
-//}
-
 void ATower::ShowActionMenu()
 {
-	UHUDWidget* HUD = Cast<UHUDWidget>(GetWorld()->GetAuthGameMode<ATDGameModeBase>()->GetCurrentWidget());
-
-	if (HUD)	HUD->ShowTowerActionMenu(this);
+	GetWorld()->GetFirstLocalPlayerFromController<ATDPlayerController>()->ShowTowerActionMenu(this);
 }
 
 UPaperFlipbook * ATower::GetDesiredAnimation()
@@ -43,6 +32,40 @@ bool ATower::UpdateAnimation()
 
 	return true;
 }
+
+void ATower::UpdateDirection()
+{
+	EDirection OldDirection = Direction;
+
+	//@TODO Aggro Target AActor
+	FVector DirectionVec= ((AActor*) AggroTarget)->GetActorLocation() - GetActorLocation();
+
+	Direction = DirectionVec.X > 0 ?
+				(DirectionVec.Y > 0 ? EDirection::RT : EDirection::RD)
+			  : (DirectionVec.Y > 0 ? EDirection::LT : EDirection::LD);
+
+	if (!(OldDirection == Direction))
+		UpdateAnimation();
+}
+
+bool ATower::Upgrade_Implementation(ETowerType UpType)
+{
+	UTowerUpData* Upgraded = UpgradeTree->GetNextUpgraded(UpType);
+
+	if (!Upgraded) return false;
+
+	UpgradeTree = Upgraded;
+
+	AttackDamage += Upgraded->UpAttackDamage;
+	AttackRange += Upgraded->UpAttackRange;
+	AttackDelay -= Upgraded->UpAttackSpeed;
+	TotalCost += Upgraded->Cost;
+
+	UpdateAnimation();
+
+	return true;
+}
+
 void ATower::NotifyActorOnClicked(FKey ButtonPressed)
 {
 	Super::NotifyActorOnClicked(ButtonPressed);
@@ -54,50 +77,3 @@ void ATower::NotifyActorOnClicked(FKey ButtonPressed)
 	IsSelected = true;
 	ShowActionMenu();
 }
-//
-//inline FString ATower::GetPresetName()
-//{
-//	return "";
-//}
-//
-//FString ATower::GetTowerStatusText()
-//{
-//	return "Tower Status Test";
-//}
-//
-//FString ATower::GetTowerDescriptionText()
-//{
-//	return "Tower Description Test";
-//}
-//
-//inline float ATower::GetTowerRange() { return 0.0f; }
-//
-//inline float ATower::GetTowerAttackSpd(){	return 0.0f; }
-//
-//inline int32 ATower::GetTowerAttackDmg() { return 0; }
-
-//void ATower::UpdateAnimationCPP()
-//{
-//	UPaperFlipbookComponent* Sprite = GetSprite();
-//	if (!Sprite) return;
-//
-//	Sprite->SetFlipbook(GetFlipbookOfCurrentState().Get());
-//
-//	/*switch (TowerState) {
-//		case ETowerState::TS_Idle:
-//		default:
-//			Sprite->PlayFromStart();
-//			Sprite->SetLooping(true);
-//		break;
-//
-//		case ETowerState::TS_Action:
-//			Sprite->PlayFromStart();
-//			Sprite->SetLooping(false);
-//		break;
-//	}*/
-//}
-//
-//TSoftObjectPtr<UPaperFlipbook> ATower::GetFlipbookOfCurrentState()
-//{
-//	return nullptr;
-//}

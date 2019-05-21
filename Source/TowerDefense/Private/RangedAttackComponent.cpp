@@ -15,7 +15,7 @@ URangedAttackComponent::URangedAttackComponent()
 }
 
 
-void URangedAttackComponent::ExecAttack(UObject * Target)
+void URangedAttackComponent::ExecAttack(ATDCharacter* Target)
 {
 	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {
 
@@ -23,7 +23,27 @@ void URangedAttackComponent::ExecAttack(UObject * Target)
 
 		auto Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
-		Local_Bullet->Initialize((ATDCharacter*)Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, SplashRange);
+		Local_Bullet->Initialize(Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, SplashRange);
 
 	}
+}
+
+inline void URangedAttackComponent::Initialize() {
+	Super::Initialize();
+	ProjectileClass = nullptr;
+}
+
+inline void URangedAttackComponent::Initialize(const FVector inVector, UClass * inClass, bool inDirectable) {
+	Super::Initialize();
+	ProjectileRelativeSpawnPoint = inVector;
+	ProjectileClass = inClass;
+	ProjectileisDirectable = inDirectable;
+}
+
+inline void URangedAttackComponent::Initialize(const float inRange, const FVector inVector, UClass * inClass, bool inDirectable)
+{
+	Super::Initialize(inRange);
+	ProjectileRelativeSpawnPoint = inVector;
+	ProjectileClass = inClass;
+	ProjectileisDirectable = inDirectable;
 }

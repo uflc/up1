@@ -9,9 +9,10 @@
 
 
 /**
- * 
+ *
  스테이트, 팀, 공격 어그로 등등.
  구체적인 행동 로직은 BT BP로 함.
+ @TODO Access
  */
 UCLASS(BluePrintable)
 class TOWERDEFENSE_API ATDUnit : public APaperCharacter
@@ -23,7 +24,7 @@ class TOWERDEFENSE_API ATDUnit : public APaperCharacter
 
 public:
 	ATDUnit();
-	
+
 protected:
 	UPROPERTY(Category = "TDUnit|Effect", VisibleAnywhere, BlueprintReadWrite)
 	class UPaperSpriteComponent* Shadow;
@@ -40,16 +41,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EDirection Direction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	EUnitTeam Team;
-
 	//@TODO 필요 or BT only?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class ATDCharacter* AggroTarget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	float AttackDelay;	
-		
+	float AttackDelay;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float AttackRange;
 
@@ -82,4 +80,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	int32 AttackDamage;
-};
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	EUnitTeam Team;
+}

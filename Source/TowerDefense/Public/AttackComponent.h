@@ -26,12 +26,12 @@ protected:
 
 public:	
 	UFUNCTION(BlueprintCallable)
-		void Initialize(const float inSplashRange);
+	void Initialize(const float inSplashRange);
 
 	virtual void Initialize();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ExecAttack(class UObject* Target){}
+	virtual void ExecAttack(class ATDCharacter* Target){}
 
 	void SetupDebuffers();
 };

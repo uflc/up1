@@ -13,3 +13,16 @@ UDebufferComponent::UDebufferComponent()
 	// ...
 }
 
+inline void UDebufferComponent::Initialize(const TArray<FDebuffSet>& inArr, float inChance, float inUsingRange) {
+	DebuffSetArray = inArr;
+	DebuffChance = inChance;
+	UsingRange = inUsingRange;
+	EffectRange = 0;
+}
+
+inline void UDebufferComponent::Initialize(const TArray<FDebuffSet>& inArr, float inChance, float inUsingRange, float inEffectRange) {
+	DebuffSetArray = inArr;
+	DebuffChance = inChance;
+	UsingRange = inUsingRange;
+	EffectRange = inEffectRange;
+}

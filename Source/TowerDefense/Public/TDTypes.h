@@ -52,6 +52,18 @@ enum class EDebuffType : uint8
 	Slow
 };
 
+
+//@TODO ªË¡¶
+UENUM(BlueprintType)
+enum class EValueType : uint8
+{
+	Coin		UMETA(DisplayName = "Coin"),
+	Life 		UMETA(DisplayName = "Life"),
+	Mana		UMETA(DisplayName = "Mana"),
+	//HeroHP		UMETA(DisplayName = "HeroHP")
+};
+
+
 USTRUCT(BlueprintType)
 struct  FDebuffSet {
 	GENERATED_USTRUCT_BODY()
