@@ -30,6 +30,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	int32 Damage;
 
+	float SplashRange;
+
 	bool IsDirectable;
 
 	FVector GetDistanceVecToTarget();
@@ -41,7 +43,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void Initialize(ATDCharacter* iTarget, int32 iDamage, bool iIsDirectable);
+	virtual void Initialize(ATDCharacter* iTarget, int32 iDamage, bool iIsDirectable, float iSplashRange);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void BulletDestroy();

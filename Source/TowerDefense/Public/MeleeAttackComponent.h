@@ -14,6 +14,22 @@ class TOWERDEFENSE_API UMeleeAttackComponent : public UAttackComponent
 {
 	GENERATED_BODY()
 
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UPaperFlipbook* EffectFlipbook;
+
 public:
+	void Initialize() override
+	{
+		Super::Initialize();
+		EffectFlipbook=nullptr;
+	}
+
+	void Initialize(const float inSplashRange, UPaperFlipbook* inEffectFlipbook) {
+		Super::Initialize(inSplashRange);
+		EffectFlipbook = inEffectFlipbook;
+	}
+
 	virtual void ExecAttack(class UObject* Target) override;
 };

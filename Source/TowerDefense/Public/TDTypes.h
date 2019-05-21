@@ -46,10 +46,10 @@ enum class ETowerType : uint8
 UENUM(BlueprintType)
 enum class EDebuffType : uint8
 {
+	None,
 	Stun,
 	Snared,
 	Slow
-
 };
 
 USTRUCT(BlueprintType)
@@ -64,7 +64,7 @@ public:
 	float Duration;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Power;
+	int Power;
 };
 
 //@TODO How to use Enum as Byte as arrry index

@@ -3,13 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
-#include "TDTypes.h"
+#include "TDComponent.h"
 #include "UnitSkillComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class TOWERDEFENSE_API UUnitSkillComponent : public UActorComponent
+UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+class TOWERDEFENSE_API UUnitSkillComponent : public UTDComponent
 {
 	GENERATED_BODY()
 
@@ -18,9 +17,14 @@ public:
 	UUnitSkillComponent();
 
 protected:
-	UFUNCTION(BlueprintCallable)
-	virtual void ExecAttack(class UObject* Target) {}
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FDebuffSet> DebuffSetArray;
+	TArray<class  UDebufferComponent*> Debuffers;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Cooldown;
+
+public:
+	UFUNCTION(BlueprintCallable)
+	virtual void CastSkill(class UObject* Target) {}
 };
