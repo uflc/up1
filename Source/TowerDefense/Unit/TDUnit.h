@@ -41,8 +41,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EDirection Direction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	EUnitTeam Team;
 
 	//@TODO ÇÊ¿ä or BT only?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -83,4 +81,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	int32 AttackDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	EUnitTeam Team;
 };

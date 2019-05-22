@@ -27,6 +27,7 @@ public:
 	//@TODO 방향전환
 	virtual bool UpdateAnimation() override;
 
+	virtual void UpdateDirection();
 
 	//@TODO AActor::TakeDamge override?
 	UFUNCTION(BlueprintCallable)

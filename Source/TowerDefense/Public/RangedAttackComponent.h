@@ -13,7 +13,9 @@ UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpa
 class TOWERDEFENSE_API URangedAttackComponent : public UAttackComponent
 {
 	GENERATED_BODY()
-	
+public:
+	URangedAttackComponent();
+
 protected:
 
 	FVector ProjectileRelativeSpawnPoint;
@@ -24,6 +26,7 @@ protected:
 	bool ProjectileisDirectable;
 
 public:
+<<<<<<< HEAD
 	virtual void ExecAttack(class UObject* Target) override;
 
 	UFUNCTION(BlueprintCallable)
@@ -32,4 +35,15 @@ public:
 	ProjectileClass=inClass;
 	ProjectileisDirectable= inDirectable;
 	}
+=======
+	virtual void ExecAttack(class ATDCharacter* Target) override;
+
+	virtual void Work() override;
+
+	void Initialize() override;
+
+	void Initialize(const FVector inVector, UClass* inClass, bool inDirectable);
+
+	void Initialize(const float inRange, const FVector inVector, UClass* inClass, bool inDirectable);
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
 };

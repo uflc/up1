@@ -43,6 +43,18 @@ enum class ETowerType : uint8
 	THREE		
 };
 
+<<<<<<< HEAD
+=======
+UENUM(BlueprintType)
+enum class EDebuffType : uint8
+{
+	Stun,
+	Snared,
+	Slow
+};
+
+
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
 //@TODO 삭제
 UENUM(BlueprintType)
 enum class EValueType : uint8
@@ -53,6 +65,24 @@ enum class EValueType : uint8
 	//HeroHP		UMETA(DisplayName = "HeroHP")
 };
 
+<<<<<<< HEAD
+=======
+
+USTRUCT(BlueprintType)
+struct  FDebuffSet {
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EDebuffType Type;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Duration;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Power;
+};
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
 
 //@TODO How to use Enum as Byte as arrry index
 //@TowerUpDataTree에서 타워의 현재 레벨은 이 배열의 길이. 타워의 타입(업그레이드 인덱스)이 ETowerType 즉 TowerLevel은 각 레벨에서의 업그레이드 타입. 

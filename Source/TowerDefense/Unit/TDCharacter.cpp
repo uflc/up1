@@ -12,18 +12,11 @@
 
 void ATDCharacter::Tick(float DeltaTime)
 {
+<<<<<<< HEAD
 
 	//스프라이트 방향 전환. //@TODO any Event?
-	if (GetVelocity().X > 0)
-	{
-		Shadow->SetRelativeRotation(FRotator(180, 0, -90));
-		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
-	}
-	else// if (GetVelocity().X < 0)
-	{
-		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
-		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
-	}
+=======
+	UpdateDirection();
 }
 
 bool ATDCharacter::UpdateAnimation()
@@ -33,6 +26,35 @@ bool ATDCharacter::UpdateAnimation()
 	return true;
 }
 
+void ATDCharacter::UpdateDirection()
+{	//스프라이트 방향 전환. //@TODO any Event?
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
+	if (GetVelocity().X > 0)
+	{
+		Shadow->SetRelativeRotation(FRotator(180, 0, -90));
+		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
+	}
+<<<<<<< HEAD
+	else// if (GetVelocity().X < 0)
+=======
+	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
+	{
+		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
+		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
+	}
+}
+
+<<<<<<< HEAD
+bool ATDCharacter::UpdateAnimation()
+{
+	if (!Super::UpdateAnimation()) return false;
+
+	return true;
+}
+
+=======
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
 {
 	// Already dying or dead

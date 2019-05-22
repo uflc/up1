@@ -58,11 +58,12 @@ void ABulletBase::Tick(float DeltaTime)
 	if (IsDirectable)	SetActorRotation(FRotator(0, (VelocityVec/** DeltaTime*/*-1).Rotation().Yaw,0));
 }
 
-void ABulletBase::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirectable = false)
+void ABulletBase::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirectable = false, float iSplashRange=0)
 {
 	Target = iTarget;
 	Damage = iDamage;
 	IsDirectable=iIsDirectable;
+	SplashRange= iSplashRange;
 }
 
 void ABulletBase::BulletDestroy_Implementation()

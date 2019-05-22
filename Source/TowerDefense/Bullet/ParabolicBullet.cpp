@@ -28,9 +28,9 @@ void AParabolicBullet::Tick(float DeltaTime)
 	//if (IsDirectable) SetActorRotation(FRotator(0, (VelocityVec*-1).Rotation().Yaw, 0));
 }
 
-void AParabolicBullet::Initialize(ATDCharacter * iTarget, int32 iDamage,bool IisDirectable)
+void AParabolicBullet::Initialize(ATDCharacter * iTarget, int32 iDamage,bool IisDirectable, float iSplashRange)
 {
-	Super::Initialize(iTarget, iDamage, IisDirectable);
+	Super::Initialize(iTarget, iDamage, IisDirectable, iSplashRange);
 
 	CurveScale = 0.72f*1000.0f/Velocity;
 	TickCounter = 0;

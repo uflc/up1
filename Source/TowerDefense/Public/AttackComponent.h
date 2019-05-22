@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "TDComponent.h"
 #include "AttackComponent.generated.h"
 
 
 UCLASS(Blueprintable, Abstract, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class TOWERDEFENSE_API UAttackComponent : public UActorComponent
+class TOWERDEFENSE_API UAttackComponent : public UTDComponent
 {
 	GENERATED_BODY()
 
@@ -17,10 +17,18 @@ public:
 	UAttackComponent();
 
 protected:
-	// Called when the game starts
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SplashRange;
+
+	//Need it for cache?
+	//class ATDCharacter* Target;
 
 public:	
 	UFUNCTION(BlueprintCallable)
-	virtual void ExecAttack(class UObject* Target){}
-		
+	virtual void Initialize();
+
+	virtual void Initialize(const float inSplashRange);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void ExecAttack(class ATDCharacter* Target){}
 };
