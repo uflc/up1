@@ -24,13 +24,12 @@ protected:
 	class UPaperFlipbook* EffectFlipbook;
 
 public:
-
+	// Change to virtual?
 	UFUNCTION(BlueprintCallable)
-	void InitializeMeleeComp(const float inSplashRange, UPaperFlipbook* inEffectFlipbook);
+	void InitializeDirectAttackComp();
 
+	virtual void UseWeapon() override;
+
+	//Old func
 	virtual void ExecAttack(ATDCharacter* Target) override;
-
-	virtual void Work() override;
-
-	virtual void Affect(ATDCharacter* Target) override;
 };

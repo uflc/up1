@@ -4,32 +4,19 @@
 #include "DebufferComponent.h"
 
 // Sets default values for this component's properties
-UDebufferComponent::UDebufferComponent():EffectRange(0)
+UDebufferComponent::UDebufferComponent()
 {
 }
 
-inline void UDebufferComponent::InitializeDebuffComp(const TArray<FDebuffSet>& inArr, float inChance =100.0f, float inEffectRange=0.0f)
+inline void UDebufferComponent::InitializeDebuffComp(float iEffectRange, const TArray<FDebuffSet>& iArr, float iChance)
 {
-	DebuffSetArray = inArr;
-	DebuffChance = inChance;
-	EffectRange=inEffectRange;
+	UEffectorComponent::InitializeEffectorComponent(iEffectRange);
+	DebuffSetArray = iArr;
+	DebuffChance = iChance;
+	//EffectRange = inEffectRange;
 }
 
-void UDebufferComponent::Work()
+void UDebufferComponent::Effect(ATDCharacter * Target)
 {
-	// if (SplashRange > 0) SplashAffect(vTarget);
-
-	// Affect(vTarget);
-}
-
-//void UDebufferComponent::Affect(ATDCharacter * Target)
-//{
 	//Target->Debuff(~~);
-
-	//auto Arr = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-
-	//for (auto Effector : Arr)
-	//{
-	//	((UEffectorComponent*)Effector)->Affect(Target);
-	//}
-//}
+}

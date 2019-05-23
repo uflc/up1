@@ -62,7 +62,6 @@ void ATDCharacter::Die_Implementation()
 	// Play Dying anim just once
 	ChangeState(EUnitState::Dying);
 	GetSprite()->SetLooping(false);
-
 	// prevent BTService Aggro Check trace checked
 	Team = EUnitTeam::None;
 

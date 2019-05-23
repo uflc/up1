@@ -18,21 +18,17 @@ public:
 	UDebufferComponent();
 
 protected:
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FDebuffSet> DebuffSetArray;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DebuffChance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float EffectRange;
-
 public:	
 	UFUNCTION(BlueprintCallable)
-	void InitializeDebuffComp(const TArray<FDebuffSet>& inArr, float inChance,float inEffectRange);
+	void InitializeDebuffComp(float inEffectRange, const TArray<FDebuffSet>& inArr, float inChance);
 	
-	virtual void Work() override;
+	//virtual void Work() override;
 
-	//virtual void Affect(ATDCharacter* Target) override;
+	virtual void Effect(ATDCharacter* Target) override;
 };

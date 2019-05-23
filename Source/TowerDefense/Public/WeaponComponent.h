@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EffectorComponent.h"
+#include "TDComponent.h"
 #include "WeaponComponent.generated.h"
 
 
-UCLASS(Blueprintable, Abstract, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class TOWERDEFENSE_API UWeaponComponent : public UEffectorComponent
+UCLASS(Blueprintable, Abstract, ClassGroup=(Custom))
+class TOWERDEFENSE_API UWeaponComponent : public UTDComponent
 {
 	GENERATED_BODY()
 
@@ -17,10 +17,15 @@ public:
 	UWeaponComponent();
 
 protected:
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class ATDCharacter* vTarget;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSoftObjectPtr<class UTDWeaponCommonData> Common;
+
+	//These properties will be deprecated.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SplashRange;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Cooldown;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -29,17 +34,16 @@ protected:
 	int Damage;
 
 public:	
-	UFUNCTION(BlueprintCallable)
-	virtual void InitializeAttackComp(const float inSplashRange);
-
-	//How about this?
-	//UFUNCTION(BlueprintCallable)
-	//virtual void InitializeAttackComp(const UTDWeaponCommonData&);
+	bool TargetValidCheck();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ExecAttack(ATDCharacter* Target){}
+	void InitializeWeaponComp();
 
-	virtual void Work() override;
+	UFUNCTION(BlueprintCallable)
+	virtual void UseWeapon();
 
-	//virtual void Affect(ATDCharacter* Target)override{}
+	//Deprecated
+	UFUNCTION(BlueprintCallable)
+	virtual void ExecAttack(ATDCharacter* Target) {}
+
 };

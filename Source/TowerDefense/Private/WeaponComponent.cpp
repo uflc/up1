@@ -2,34 +2,51 @@
 
 
 #include "WeaponComponent.h"
+
+#include "TDCharacter.h"
+#include "AIController.h"
+
 #include "DebufferComponent.h"
-//#include "TDUnit.h"
+#include "DamagerComponent.h"
+
+#include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
 
 
 // Sets default values for this component's properties
-UWeaponComponent::UWeaponComponent():vTarget(nullptr)
+UWeaponComponent::UWeaponComponent():vTarget(nullptr), SplashRange(0),Cooldown(0),Range(0),Damage(0)
 {
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
-inline void UWeaponComponent::InitializeAttackComp(const float inSplashRange)
+bool UWeaponComponent::TargetValidCheck()
 {
-	if(AffectRange<0) return;
+	if (!vTarget) vTarget = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
 
-	AffectRange = inSplashRange;
+	if (vTarget->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) return true;
+
+	return false;
 }
 
-//bool UWeaponComponent::TargetValidCheck()
-//{
-//	if (!vTarget) vTarget = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
-//
-//	//if(!vTarget) return;
-//
-//	//ATDCharacter* Target=(ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
-//
-//	if (vTarget->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {}
-//}
+void UWeaponComponent::InitializeWeaponComp()
+{
+	// TODO :: Initialize with common data
 
-void UWeaponComponent::Work()
+	//if (UTDWeaponCommonData.Damage > 0)	{
+	//	UDamagerComponent* DmgComp= AddSubComponent<UDamagerComponent>();
+	//	if (DmgComp != nullptr) {
+	//		DmgComp->InitializeDamagerComp(UTDWeaponCommonData->EffectRange, UTDWeaponCommonData->Damage);
+	//	}
+	//}
+	
+	//if( UTDWeaponCommonData.DebuffInfo ) {
+	//UDebufferComponent* DebuffComp = AddSubComponent<UDebufferComponent>();
+	//if (DebuffComp != nullptr) {
+	//		DebuffComp->InitializeDebufferComp(UTDWeaponCommonData->EffectRange, UTDWeaponCommonData->DebuffArr,UTDWeaponCommonData->DebuffChance);
+	//	}
+	//
+	//}
+}
+
+void UWeaponComponent::UseWeapon()
 {
 }

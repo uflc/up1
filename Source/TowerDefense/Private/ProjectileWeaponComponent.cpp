@@ -22,31 +22,29 @@ void UProjectileWeaponComponent::ExecAttack(ATDCharacter* Target)
 
 		ABulletBase* Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
-		Local_Bullet->Initialize(Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, AffectRange);
+		Local_Bullet->Initialize(Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, SplashRange);
 
 	}
 }
 
-void UProjectileWeaponComponent::Work()
+void UProjectileWeaponComponent::UseWeapon()
 {
-	ATDCharacter* Target = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
-
-	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {
-
+	if(TargetValidCheck())
+	{
 		auto CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 
 		auto Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
-		Local_Bullet->Initialize(Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, AffectRange);
+		//Need to change;
+
+		Local_Bullet->Initialize(vTarget, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, SplashRange);
 
 	}
 }
 
-inline void UProjectileWeaponComponent::InitializeRangedComp(const float inRange=0, const FVector inVector=FVector(0,0,0), UClass * inClass=nullptr, bool inDirectable=false)
+inline void UProjectileWeaponComponent::InitializeProjectileAttackComp()
 {
-	InitializeAttackComp(inRange);
+	UWeaponComponent::InitializeWeaponComp();
 
-	ProjectileRelativeSpawnPoint = inVector;
-	ProjectileClass = inClass;
-	ProjectileisDirectable = inDirectable;
+	// Additional Work
 }

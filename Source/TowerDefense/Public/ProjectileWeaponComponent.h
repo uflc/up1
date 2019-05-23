@@ -28,11 +28,12 @@ protected:
 	bool ProjectileisDirectable;
 
 public:
-	virtual void ExecAttack(ATDCharacter* Target) override;
-
-	virtual void Work() override;
-
+	// Change to virtual?
 	UFUNCTION(BlueprintCallable)
-	void InitializeRangedComp(const float inRange, const FVector inVector, UClass* inClass, bool inDirectable);
+	void InitializeProjectileAttackComp();
 
+	virtual void UseWeapon() override;
+
+	//Deprecated
+	virtual void ExecAttack(ATDCharacter* Target) override;
 };

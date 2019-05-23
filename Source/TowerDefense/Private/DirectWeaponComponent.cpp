@@ -4,12 +4,7 @@
 #include "DirectWeaponComponent.h"
 #include "TDCharacter.h"
 #include "SimpleFlipbookEffect.h"
-
-#include "Engine\World.h"
-#include "Engine\Classes\Engine\EngineTypes.h"
-#include "AIController.h"
-#include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
-
+#include "EffectorComponent.h"
 
 UDirectWeaponComponent::UDirectWeaponComponent():EffectFlipbook(nullptr)
 {
@@ -17,70 +12,33 @@ UDirectWeaponComponent::UDirectWeaponComponent():EffectFlipbook(nullptr)
 }
 
 
-inline void UDirectWeaponComponent::InitializeMeleeComp(const float inSplashRange, UPaperFlipbook * inEffectFlipbook) {
-	InitializeAttackComp(inSplashRange);
-	EffectFlipbook = inEffectFlipbook;
+inline void UDirectWeaponComponent::InitializeDirectAttackComp() {
+	UWeaponComponent::InitializeWeaponComp();
+
+	// Additional Work
 }
 
 void UDirectWeaponComponent::ExecAttack(ATDCharacter* Target)
 {
 	if(Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()){
-		FVector TargetLocation=(Target)->GetActorLocation();
-		auto TargetTeam = Target->Team;
-
-		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(TargetLocation, FRotator()))->SetupEffect(EffectFlipbook);
-
-		//SetAffect(&ATDCharacter::TDUnitTakeDamage);
-
-		TArray<FHitResult> OutResults;
-
-		FCollisionQueryParams QueryParam;
-		QueryParam.AddIgnoredActor(Target);
-
-		GetWorld()->SweepMultiByChannel(OutResults, TargetLocation, (TargetLocation+FVector(0,0,0.1f)), FQuat::Identity, ECC_GameTraceChannel1, FCollisionShape::MakeSphere(AffectRange),QueryParam);
-
-		for (auto HitResult : OutResults)
-		{
-			//AActor* HitActor= HitResult.Actor.Get();
-			//if(!HitActor->IsValidLowLevelFast())continue;
-
-			ATDCharacter* HitTDCharacter= Cast<ATDCharacter>(/*HitActor*/HitResult.Actor.Get());
-			if(!HitTDCharacter)continue;
-
-			if(HitTDCharacter->Team==TargetTeam)
-			HitTDCharacter->TDUnitTakeDamage(5.0f, 0.2f, ((ATDUnit*)GetOwner())->AttackDamage*0.5f);
-
-			//CallAffect(HitTDCharacter,Params);
-		}
-
 		Target->TDUnitTakeDamage(10.0f,0.2f,((ATDUnit*)GetOwner())->AttackDamage);
 	}
 }
 
-
-
 // Have to test
-void UDirectWeaponComponent::Work()
+void UDirectWeaponComponent::UseWeapon()
 {	
-	if(!vTarget) vTarget = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
-	
-	if (vTarget->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {
+	// Gonna change to using common data
+
+	if (TargetValidCheck()) {
 
 		if(EffectFlipbook)		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(vTarget->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
 
-		if (AffectRange > 0) SplashAffect(vTarget);
+		auto Arr = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 
-		Affect(vTarget);
-	}
-}
-
-void UDirectWeaponComponent::Affect(ATDCharacter * Target)
-{
-	Target->TDUnitTakeDamage(10.0f, 0.2f, Damage);
-	auto Arr = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-
-	for (auto Effector : Arr)
-	{
-		((UEffectorComponent*)Effector)->Affect(Target);
+		for (auto Effector : Arr)
+		{
+			((UEffectorComponent*)Effector)->AffectTarget(vTarget);
+		}
 	}
 }

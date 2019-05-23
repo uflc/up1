@@ -9,20 +9,11 @@ UTDComponent::UTDComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
-inline void UTDComponent::AddSubComponent(UTDComponent * inComp) 
-{
-	inComp->SetParent(this);
-	SubComponents.Add(inComp);
-}
-
-// Unused
-inline void UTDComponent::AddSubComponent(UClass * inClass) 
-{
-	if (!inClass->IsChildOf<UTDComponent>()) return;
-	auto SubComp = NewObject<UTDComponent>(this, inClass->GetClass());
-	SubComp->SetParent(this);
-	SubComponents.Add(SubComp);
-}
+//inline void UTDComponent::AddSubComponent(UTDComponent * inComp) 
+//{
+//	inComp->SetParent(this);
+//	SubComponents.Add(inComp);
+//}
 
 inline UTDComponent * UTDComponent::GetSubComponent(const TSubclassOf<UTDComponent> ComponentClass) const
 {

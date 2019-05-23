@@ -16,21 +16,14 @@ public:
 	// Sets default values for this component's properties
 	UUnitSkillComponent();
 
-	//Need it for cache?
-	//class ATDCharacter* Target;
-
 protected:
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//float Cooldown;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//bool CooldownChecker;
 
 public:
+	// Change to virtual?
+	UFUNCTION(BlueprintCallable)
+	virtual void InitializeSkillComp(const float iCooldown);
+
+	// Need?
 	UFUNCTION(BlueprintCallable)
 	virtual void CastSkill(class UObject* Target) {}
-
-	UFUNCTION(BlueprintCallable)
-	virtual void InitializeSkillComp(const float inSplashRange, float iCooldown);
-
 };
