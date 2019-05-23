@@ -18,6 +18,9 @@ ATDUnit::ATDUnit()
 	//언리얼 기본 스프라이트는 XZ 평면을 쓰지만 TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
 	GetSprite()->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
 
+	static FName TDCollisionProfileName(TEXT("OverlapOnlyTDUnit"));
+	GetSprite()->SetCollisionProfileName(TDCollisionProfileName);
+
 	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
 	//AddOwnedComponent(AttackComp);
 }

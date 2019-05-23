@@ -23,8 +23,7 @@ struct FTowerUpInfo
 //@Note TArray with FixedAlloc or c++ fixed array reference BP 미지원
 //@ https://docs.unrealengine.com/en-us/Programming/Development/CodingStandard#stongly-typedenums 흠..
 //@타워 타입 업그레이드 트리
-//@모든 배열 주소는 타입과 일치해야함.
-//@TODO make const or FORCEINLINE ??
+//@TODO BlueprintPure or const or FORCEINLINE ??
 UCLASS(BlueprintType)
 class UTowerData : public UDataAsset
 {
