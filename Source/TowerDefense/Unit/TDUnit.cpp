@@ -5,7 +5,7 @@
 #include "PaperFlipbook.h" //anim
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h" //shadow
-#include "MeleeAttackComponent.h"
+#include "DirectWeaponComponent.h"
 
 
 ATDUnit::ATDUnit()
@@ -22,7 +22,7 @@ void ATDUnit::BeginPlay()
 	Super::BeginPlay();
 
 	if(!(AttackCompClass.Get())) return;
-	AttackComp = NewObject<UAttackComponent>(this, AttackCompClass.Get());
+	AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass.Get());
 	AddOwnedComponent(AttackComp);
 
 	InitializeTDComponents();

@@ -8,13 +8,28 @@ UDebufferComponent::UDebufferComponent():EffectRange(0)
 {
 }
 
-inline void UDebufferComponent::Initialize(const TArray<FDebuffSet>& inArr, float inChance) {
+inline void UDebufferComponent::InitializeDebuffComp(const TArray<FDebuffSet>& inArr, float inChance =100.0f, float inEffectRange=0.0f)
+{
 	DebuffSetArray = inArr;
 	DebuffChance = inChance;
+	EffectRange=inEffectRange;
 }
 
-void UDebufferComponent::Initialize(const TArray<FDebuffSet>& inArr, float inChance, float inEffectRange)
+void UDebufferComponent::Work()
 {
-	UDebufferComponent::Initialize(inArr, inChance);
-	EffectRange=inEffectRange;
+	// if (SplashRange > 0) SplashAffect(vTarget);
+
+	// Affect(vTarget);
+}
+
+void UDebufferComponent::Affect(ATDCharacter * Target)
+{
+	//Target->Debuff(~~);
+
+	//auto Arr = GetSubComponentsByClass(UEffectorComponent::StaticClass());
+
+	//for (auto Effector : Arr)
+	//{
+	//	((UEffectorComponent*)Effector)->Affect(Target);
+	//}
 }

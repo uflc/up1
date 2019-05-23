@@ -16,8 +16,10 @@ public:
 	UTDComponent();
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSet<class UTDComponent*> SubComponents;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTDComponent* Parent;
 
 public:	
@@ -32,5 +34,7 @@ public:
 
 	UTDComponent* GetParent() const { return Parent; }
 
-	UTDComponent* FindSubComponent(const TSubclassOf<UActorComponent> ComponentClass) const;
+	UTDComponent* GetSubComponent(const TSubclassOf<UTDComponent> ComponentClass) const;
+
+	TArray<UTDComponent*> GetSubComponentsByClass(TSubclassOf<UTDComponent> ComponentClass) const;
 };

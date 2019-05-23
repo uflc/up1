@@ -3,26 +3,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AttackComponent.h"
-#include "RangedAttackComponent.generated.h"
+#include "WeaponComponent.h"
+#include "ProjectileWeaponComponent.generated.h"
 
 /**
  * 
  */
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class TOWERDEFENSE_API URangedAttackComponent : public UAttackComponent
+class TOWERDEFENSE_API UProjectileWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()
 public:
-	URangedAttackComponent();
+	UProjectileWeaponComponent();
 
 protected:
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector ProjectileRelativeSpawnPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class ABulletBase> ProjectileClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool ProjectileisDirectable;
 
 public:
@@ -30,9 +31,6 @@ public:
 
 	virtual void Work() override;
 
-	void Initialize() override;
-
-	void Initialize(const FVector inVector, UClass* inClass, bool inDirectable);
-
-	void Initialize(const float inRange, const FVector inVector, UClass* inClass, bool inDirectable);
+	UFUNCTION(BlueprintCallable)
+	void InitializeRangedComp(const float inRange, const FVector inVector, UClass* inClass, bool inDirectable);
 };

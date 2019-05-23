@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AttackComponent.h"
-#include "MeleeAttackComponent.generated.h"
+#include "WeaponComponent.h"
+#include "DirectWeaponComponent.generated.h"
 
 /**
  * 
  */
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class TOWERDEFENSE_API UMeleeAttackComponent : public UAttackComponent
+class TOWERDEFENSE_API UDirectWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()
 
-	UMeleeAttackComponent();
+	UDirectWeaponComponent();
 
 protected:
 
@@ -22,11 +22,13 @@ protected:
 	class UPaperFlipbook* EffectFlipbook;
 
 public:
-	void Initialize() override;
 
-	void Initialize(const float inSplashRange, UPaperFlipbook* inEffectFlipbook);
+	UFUNCTION(BlueprintCallable)
+	void InitializeMeleeComp(const float inSplashRange, UPaperFlipbook* inEffectFlipbook);
 
 	virtual void ExecAttack(class ATDCharacter* Target) override;
 
 	virtual void Work() override;
+
+	virtual void Affect(ATDCharacter* Target) override;
 };
