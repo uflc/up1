@@ -16,5 +16,4 @@ class TOWERDEFENSE_API ASimpleFlipbookEffect : public APaperFlipbookActor
 	
 public:
 	void SetupEffect(class UPaperFlipbook* inFlipbook);
-
 };

@@ -9,22 +9,13 @@ UTDComponent::UTDComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
-inline void UTDComponent::AddSubComponent(UTDComponent * inComp) 
-{
-	inComp->SetParent(this);
-	SubComponents.Add(inComp);
-}
+//inline void UTDComponent::AddSubComponent(UTDComponent * inComp) 
+//{
+//	inComp->SetParent(this);
+//	SubComponents.Add(inComp);
+//}
 
-// Unused
-inline void UTDComponent::AddSubComponent(UClass * inClass) 
-{
-	if (!inClass->IsChildOf<UTDComponent>()) return;
-	auto SubComp = NewObject<UTDComponent>(this, inClass->GetClass());
-	SubComp->SetParent(this);
-	SubComponents.Add(SubComp);
-}
-
-UTDComponent * UTDComponent::FindSubComponent(const TSubclassOf<UActorComponent> ComponentClass) const
+inline UTDComponent * UTDComponent::GetSubComponent(const TSubclassOf<UTDComponent> ComponentClass) const
 {
 	UTDComponent* FoundComponent = nullptr;
 
@@ -42,3 +33,33 @@ UTDComponent * UTDComponent::FindSubComponent(const TSubclassOf<UActorComponent>
 
 	return FoundComponent;
 }
+
+inline TArray<UTDComponent*> UTDComponent::GetSubComponentsByClass(TSubclassOf<UTDComponent> ComponentClass) const
+{
+	TArray<UTDComponent*> ValidComponents;
+
+	// In the UActorComponent case we can skip the IsA checks for a slight performance benefit
+	if (ComponentClass == UActorComponent::StaticClass())
+	{
+		for (UTDComponent* Component : SubComponents)
+		{
+			if (Component)
+			{
+				ValidComponents.Add(Component);
+			}
+		}
+	}
+	else if (*ComponentClass)
+	{
+		for (UTDComponent* Component : SubComponents)
+		{
+			if (Component && Component->IsA(ComponentClass))
+			{
+				ValidComponents.Add(Component);
+			}
+		}
+	}
+
+	return ValidComponents;
+}
+

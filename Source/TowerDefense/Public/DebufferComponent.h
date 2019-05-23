@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TDComponent.h"
+#include "EffectorComponent.h"
 #include "TDTypes.h"
 #include "DebufferComponent.generated.h"
 
-
+class ATDCharacter;
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class TOWERDEFENSE_API UDebufferComponent : public UTDComponent
+class TOWERDEFENSE_API UDebufferComponent : public UEffectorComponent
 {
 	GENERATED_BODY()
 
@@ -18,18 +18,17 @@ public:
 	UDebufferComponent();
 
 protected:
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FDebuffSet> DebuffSetArray;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DebuffChance;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float EffectRange;
 public:	
+	UFUNCTION(BlueprintCallable)
+	void InitializeDebuffComp(float inEffectRange, const TArray<FDebuffSet>& inArr, float inChance);
+	
+	//virtual void Work() override;
 
-	virtual void Initialize(const TArray<FDebuffSet>& inArr, float inChance);
-	virtual void Initialize(const TArray<FDebuffSet>& inArr, float inChance,float inEffectRange);
-
+	virtual void Effect(ATDCharacter* Target) override;
 };

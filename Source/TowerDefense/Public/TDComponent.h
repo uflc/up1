@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "TDComponent.generated.h"
 
-UCLASS(Blueprintable, Abstract, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+UCLASS(Blueprintable, Abstract, ClassGroup = (Custom))
 class TOWERDEFENSE_API UTDComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -16,21 +16,39 @@ public:
 	UTDComponent();
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSet<class UTDComponent*> SubComponents;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTDComponent* Parent;
 
 public:	
-	UFUNCTION(BlueprintCallable)
-	virtual void Work(){}
+	//UFUNCTION(BlueprintCallable)
+	//virtual void Work(){}
 
 	void SetParent(UTDComponent* iComp) { Parent = iComp; }
 
-	void AddSubComponent(UTDComponent* inComp);
+	//void AddSubComponent(UTDComponent* inComp);
 	
-	void AddSubComponent(UClass* inClass);
+	template <typename  T>
+	T* AddSubComponent();
 
 	UTDComponent* GetParent() const { return Parent; }
 
-	UTDComponent* FindSubComponent(const TSubclassOf<UActorComponent> ComponentClass) const;
+	UTDComponent* GetSubComponent(const TSubclassOf<UTDComponent> ComponentClass) const;
+
+	TArray<UTDComponent*> GetSubComponentsByClass(const TSubclassOf<UTDComponent> ComponentClass) const;
 };
+
+
+template <typename  T>
+inline T* UTDComponent::AddSubComponent()
+{
+	T*  SubComp = NewObject<T>(this);
+
+	if(!SubComp) return nullptr;
+	SubComp->SetParent(this);
+	SubComponents.Add(SubComp);
+
+	return SubComp;
+}
