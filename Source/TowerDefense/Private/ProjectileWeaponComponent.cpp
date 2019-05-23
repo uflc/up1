@@ -3,9 +3,12 @@
 
 #include "ProjectileWeaponComponent.h"
 #include "BulletBase.h"
-//#include "Engine\World.h"
-//#include "TDUnit.h"
 #include "TDCharacter.h"
+<<<<<<< HEAD
+
+
+void URangedAttackComponent::ExecAttack(UObject * Target)
+=======
 //#include "Tower.h"
 #include "AIController.h"
 #include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
@@ -15,13 +18,18 @@ UProjectileWeaponComponent::UProjectileWeaponComponent():ProjectileRelativeSpawn
 }
 
 
+<<<<<<< HEAD:Source/TowerDefense/Private/ProjectileWeaponComponent.cpp
 void UProjectileWeaponComponent::ExecAttack(ATDCharacter* Target)
+=======
+void URangedAttackComponent::ExecAttack(ATDCharacter* Target)
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
+>>>>>>> origin/master:Source/TowerDefense/Private/RangedAttackComponent.cpp
 {
 	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {
 
-		auto CaculatedSpawnPoint=GetOwner()->GetActorLocation()+ProjectileRelativeSpawnPoint;
+		FVector CaculatedSpawnPoint=GetOwner()->GetActorLocation()+ProjectileRelativeSpawnPoint;
 
-		auto Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
+		ABulletBase* Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
 		Local_Bullet->Initialize(Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, AffectRange);
 

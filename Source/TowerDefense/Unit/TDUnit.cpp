@@ -54,4 +54,41 @@ void ATDUnit::ChangeState(EUnitState InState)
 
 void ATDUnit::UpdateDirection()
 {
+<<<<<<< HEAD
 }
+
+//void ATDUnit::StartAttack()
+//{
+//	IsDelayChecking=true;
+//
+//	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("StartAttack"));
+//	AttackGuider();
+//	GetWorldTimerManager().SetTimer(ActionTimerHandle,this, &ATDUnit::AttackGuider, UnitAttackDelay,true);
+//}
+//
+//void ATDUnit::AttackGuider()
+//{
+//
+////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("GuiderCall"));
+//	IsDelayChecking = false;
+//
+//	if (UnitState == EUnitState::Attacking && IsValid(AggroTarget) )
+//	{
+//		if (AggroTarget->UnitState == EUnitState::Dead) {goto EndOfLogic;}
+//
+//		UpdateAnimation();
+//		ExecuteAttack();
+//		IsDelayChecking = true;
+//		return;
+//	}
+//
+//EndOfLogic:
+//
+//	AggroTarget=nullptr;
+//	GetWorldTimerManager().ClearTimer(ActionTimerHandle);
+////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("End Of Logic"));
+//}
+
+=======
+}
+>>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
