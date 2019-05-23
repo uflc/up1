@@ -11,6 +11,12 @@
 #include "TowerDefense.h" //log 
 
 
+void ATower::BeginPlay()
+{
+	Super::BeginPlay();
+	TotalCost = TowerData->Cost;
+}
+
 void ATower::OnDeselected()
 {
 	IsSelected = false;
@@ -23,7 +29,7 @@ void ATower::ShowActionMenu()
 
 UPaperFlipbook * ATower::GetDesiredAnimation()
 {
-	return UpgradeTree->GetMatchingAnim(Direction, UnitState);
+	return TowerData->GetMatchingAnim(Direction, UnitState);
 }
 
 bool ATower::UpdateAnimation()
@@ -50,11 +56,11 @@ void ATower::UpdateDirection()
 
 bool ATower::Upgrade_Implementation(ETowerType UpType)
 {
-	UTowerData* Upgraded = UpgradeTree->GetNextUpgraded(UpType);
+	UTowerData* Upgraded = TowerData->GetNextUpgraded(UpType);
 
 	if (!Upgraded) return false;
 
-	UpgradeTree = Upgraded;
+	TowerData = Upgraded;
 
 	AttackDamage = Upgraded->AttackDamage;
 	AttackRange = Upgraded->AttackRange;

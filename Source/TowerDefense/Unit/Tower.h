@@ -22,12 +22,14 @@ protected:
 	bool IsDelayChecking;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class UTowerData* UpgradeTree;
+	class UTowerData* TowerData;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;
 
 public:	
+	virtual void BeginPlay() override;
+
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void OnDeselected();
 
