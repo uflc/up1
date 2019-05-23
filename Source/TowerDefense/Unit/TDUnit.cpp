@@ -5,13 +5,18 @@
 #include "PaperFlipbook.h" //anim
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h" //shadow
-#include "MeleeAttackComponent.h"
+#include "DirectWeaponComponent.h"
 
 
 ATDUnit::ATDUnit()
 {
+	//@TODO 캡슐 삭제? 플립북 루트?
+
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>("Shadow");
-	Shadow->SetupAttachment(GetRootComponent());
+	Shadow->SetupAttachment(GetSprite());
+
+	//언리얼 기본 스프라이트는 XZ 평면을 쓰지만 TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
+	GetSprite()->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
 
 	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
 	//AddOwnedComponent(AttackComp);
@@ -22,7 +27,7 @@ void ATDUnit::BeginPlay()
 	Super::BeginPlay();
 
 	if(!(AttackCompClass.Get())) return;
-	AttackComp = NewObject<UAttackComponent>(this, AttackCompClass.Get());
+	AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass.Get());
 	AddOwnedComponent(AttackComp);
 
 	InitializeTDComponents();
@@ -54,7 +59,7 @@ void ATDUnit::ChangeState(EUnitState InState)
 
 void ATDUnit::UpdateDirection()
 {
-<<<<<<< HEAD
+
 }
 
 //void ATDUnit::StartAttack()
@@ -89,6 +94,3 @@ void ATDUnit::UpdateDirection()
 ////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("End Of Logic"));
 //}
 
-=======
-}
->>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351

@@ -2,7 +2,7 @@
 
 #include "TDGameModeBase.h"
 #include "TDUnitCommonData.h"
-#include "TowerUpDataTree.h"
+#include "TowerDataTree.h"
 #include "TDPlayerController.h"//
 #include "HUDWidget.h"//
 #include "Runtime/Engine/Classes/Engine/AssetManager.h"
@@ -44,16 +44,16 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 	if (AlreadyLoadedNum == InUsingTDUnitCommons.Num()) OnAllTDUnitFlipbooksLoaded.Broadcast();
 }
 
-void ATDGameModeBase::LoadTowerResources(UTowerUpData * InTowerDataTree)
+void ATDGameModeBase::LoadTowerResources(UTowerData * InTowerDataTree)
 {
 	if (!InTowerDataTree) return;
 
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 	TArray<FSoftObjectPath> AssetsToLoad;
 
-	for (const auto& UpPreViewTex : InTowerDataTree->GetUpPreviews())
+	for (const auto& UpType : InTowerDataTree->GetUpTypesInfo())
 	{
-		AssetsToLoad.AddUnique(UpPreViewTex.ToSoftObjectPath());
+		AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
 	}
 	for (const auto& Animation : InTowerDataTree->Animations)
 	{
@@ -98,8 +98,8 @@ void ATDGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
 			CurrentWidget->AddToViewport();
 		}
 		
-		//@TODO move all UI stuff to ATDPlayerController
-		GetWorld()->GetFirstLocalPlayerFromController<ATDPlayerController>()->HUDWidget = Cast<UHUDWidget>(CurrentWidget);
+		//@TODO move all UI stuff to ATDPlayerController?
+		GetWorld()->GetFirstPlayerController<ATDPlayerController>()->HUDWidget = Cast<UHUDWidget>(CurrentWidget);
 	}
 }
 

@@ -30,7 +30,7 @@ protected:
 	class UPaperSpriteComponent* Shadow;
 
 	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
-	class UAttackComponent* AttackComp;
+	class UWeaponComponent* AttackComp;
 
 	virtual void BeginPlay() override;
 
@@ -59,7 +59,7 @@ protected:
 	TSoftObjectPtr<class UTDUnitCommonData> Common;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	TSubclassOf<UAttackComponent> AttackCompClass;
+	TSubclassOf<UWeaponComponent> AttackCompClass;
 
 public:
 	UFUNCTION()

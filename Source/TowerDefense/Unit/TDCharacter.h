@@ -36,7 +36,6 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Die();
 
-	UFUNCTION(BlueprintCallable)
 	void Die_Implementation();
 
 	void OnDeath();

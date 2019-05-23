@@ -22,7 +22,7 @@ protected:
 	bool IsDelayChecking;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class UTowerUpData* UpgradeTree;
+	class UTowerData* UpgradeTree;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;

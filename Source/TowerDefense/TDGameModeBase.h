@@ -44,8 +44,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	TArray<class UTDUnitCommonData*> TDUnitCommons;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
-	class UTowerUpData* TDTowerDataTree;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
+	class UTowerData* TDTowerDataTree;*/
 
 	//@TODO 더 좋은 로딩 방법
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
@@ -53,8 +53,9 @@ protected:
 
 	int8 UnloadedTDUnitCommonNum;
 
+	//@Note BaseTowerData 로부터 모든 타워 데이터에 접근할 수 있기 때문에 일단 이렇게 함.
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
-	void LoadTowerResources(UTowerUpData * InTowerDataTree);
+	void LoadTowerResources(UTowerData * InTowerDataTree);
 
 	void LoadTowerResourcesDeffered();
 

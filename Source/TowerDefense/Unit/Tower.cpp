@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tower.h"
-#include "TowerUpDataTree.h"
+#include "TowerDataTree.h"
 #include "TDPlayerController.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
@@ -18,7 +18,7 @@ void ATower::OnDeselected()
 
 void ATower::ShowActionMenu()
 {
-	GetWorld()->GetFirstLocalPlayerFromController<ATDPlayerController>()->ShowTowerActionMenu(this);
+	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->ShowTowerActionMenu(this);
 }
 
 UPaperFlipbook * ATower::GetDesiredAnimation()
@@ -50,15 +50,15 @@ void ATower::UpdateDirection()
 
 bool ATower::Upgrade_Implementation(ETowerType UpType)
 {
-	UTowerUpData* Upgraded = UpgradeTree->GetNextUpgraded(UpType);
+	UTowerData* Upgraded = UpgradeTree->GetNextUpgraded(UpType);
 
 	if (!Upgraded) return false;
 
 	UpgradeTree = Upgraded;
 
-	AttackDamage += Upgraded->UpAttackDamage;
-	AttackRange += Upgraded->UpAttackRange;
-	AttackDelay -= Upgraded->UpAttackSpeed;
+	AttackDamage = Upgraded->AttackDamage;
+	AttackRange = Upgraded->AttackRange;
+	AttackDelay = Upgraded->AttackSpeed;
 	TotalCost += Upgraded->Cost;
 
 	UpdateAnimation();
