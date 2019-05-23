@@ -9,6 +9,8 @@
 /**
  * 
  */
+class ATDCharacter;
+
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOWERDEFENSE_API UDirectWeaponComponent : public UWeaponComponent
 {
@@ -26,7 +28,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void InitializeMeleeComp(const float inSplashRange, UPaperFlipbook* inEffectFlipbook);
 
-	virtual void ExecAttack(class ATDCharacter* Target) override;
+	virtual void ExecAttack(ATDCharacter* Target) override;
 
 	virtual void Work() override;
 

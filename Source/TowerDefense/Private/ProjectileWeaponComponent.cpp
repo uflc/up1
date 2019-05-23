@@ -4,11 +4,7 @@
 #include "ProjectileWeaponComponent.h"
 #include "BulletBase.h"
 #include "TDCharacter.h"
-<<<<<<< HEAD
 
-
-void URangedAttackComponent::ExecAttack(UObject * Target)
-=======
 //#include "Tower.h"
 #include "AIController.h"
 #include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
@@ -18,12 +14,7 @@ UProjectileWeaponComponent::UProjectileWeaponComponent():ProjectileRelativeSpawn
 }
 
 
-<<<<<<< HEAD:Source/TowerDefense/Private/ProjectileWeaponComponent.cpp
 void UProjectileWeaponComponent::ExecAttack(ATDCharacter* Target)
-=======
-void URangedAttackComponent::ExecAttack(ATDCharacter* Target)
->>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351
->>>>>>> origin/master:Source/TowerDefense/Private/RangedAttackComponent.cpp
 {
 	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {
 

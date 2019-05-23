@@ -7,7 +7,7 @@
 #include "TDTypes.h"
 #include "DebufferComponent.generated.h"
 
-
+class ATDCharacter;
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOWERDEFENSE_API UDebufferComponent : public UEffectorComponent
 {
@@ -34,6 +34,5 @@ public:
 	
 	virtual void Work() override;
 
-	virtual void Affect(class ATDCharacter* Target) override;
-
+	//virtual void Affect(ATDCharacter* Target) override;
 };

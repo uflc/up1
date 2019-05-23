@@ -5,15 +5,15 @@
 #include "WorldCollision.h"
 #include "TDCharacter.h"
 
-UEffectorComponent::UEffectorComponent():vTarget(nullptr), AffectRange(0)
+UEffectorComponent::UEffectorComponent():AffectRange(0)
 {
 
 }
 
-void UEffectorComponent::SplashAffect()
-{
-	SplashAffect(vTarget);
-}
+//void UEffectorComponent::SplashAffect()
+//{
+//	SplashAffect(vTarget);
+//}
 
 void UEffectorComponent::SplashAffect(const ATDCharacter * MainTarget)
 {

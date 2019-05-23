@@ -17,7 +17,10 @@ public:
 	UWeaponComponent();
 
 protected:
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class ATDCharacter* vTarget;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Cooldown;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -34,9 +37,9 @@ public:
 	//virtual void InitializeAttackComp(const UTDWeaponCommonData&);
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ExecAttack(class ATDCharacter* Target){}
+	virtual void ExecAttack(ATDCharacter* Target){}
 
 	virtual void Work() override;
 
-	virtual void Affect(ATDCharacter* Target){}
+	//virtual void Affect(ATDCharacter* Target)override{}
 };

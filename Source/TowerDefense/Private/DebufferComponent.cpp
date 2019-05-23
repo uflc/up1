@@ -22,8 +22,8 @@ void UDebufferComponent::Work()
 	// Affect(vTarget);
 }
 
-void UDebufferComponent::Affect(ATDCharacter * Target)
-{
+//void UDebufferComponent::Affect(ATDCharacter * Target)
+//{
 	//Target->Debuff(~~);
 
 	//auto Arr = GetSubComponentsByClass(UEffectorComponent::StaticClass());
@@ -32,4 +32,4 @@ void UDebufferComponent::Affect(ATDCharacter * Target)
 	//{
 	//	((UEffectorComponent*)Effector)->Affect(Target);
 	//}
-}
+//}

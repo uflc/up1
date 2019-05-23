@@ -54,7 +54,7 @@ void ATDUnit::ChangeState(EUnitState InState)
 
 void ATDUnit::UpdateDirection()
 {
-<<<<<<< HEAD
+
 }
 
 //void ATDUnit::StartAttack()
@@ -89,6 +89,3 @@ void ATDUnit::UpdateDirection()
 ////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("End Of Logic"));
 //}
 
-=======
-}
->>>>>>> 9dbd6eed48176c0144435ed0a4729a740d1f2351

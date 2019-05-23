@@ -7,7 +7,7 @@
 
 
 // Sets default values for this component's properties
-UWeaponComponent::UWeaponComponent()
+UWeaponComponent::UWeaponComponent():vTarget(nullptr)
 {
 	PrimaryComponentTick.bCanEverTick = false;
 }
