@@ -12,20 +12,19 @@ void UTDWeaponCommonData::Initialize()
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
-
-	TSoftObjectPtr<UPaperFlipbook> NewFlipbook(EffectFlipbook);
-
-	AssetsToLoad.AddUnique(NewFlipbook.ToSoftObjectPath());
-	
-
+	for (auto it : FlipbookMap)
+	{
+		AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
+	}
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
-
-	IsInitialized = true;
 }
 
 void UTDWeaponCommonData::LoadFlipbooksDeffered()
 {
-	TSoftObjectPtr<UPaperFlipbook> NewFlipbook = EffectFlipbook;
-	if (NewFlipbook) NewFlipbook.Get();
+	for (auto it : FlipbookMap)
+	{
+		TSoftObjectPtr<UPaperFlipbook> NewFlipbook = it.Value;
+		if (NewFlipbook) NewFlipbook.Get();
+	}
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

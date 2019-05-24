@@ -3,32 +3,26 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "BulletBase.generated.h"
+#include "ProjectileBase.h"
+#include "HomingProjectile.generated.h"
 
 UCLASS()
-class TOWERDEFENSE_API ABulletBase : public AActor
+class TOWERDEFENSE_API AHomingProjectile : public AProjectileBase
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ABulletBase();
+	AHomingProjectile();
 
 protected:
 	// Called when the game starts or when spawned
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+		class ATDCharacter* Target;
+
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-	class ATDCharacter* Target;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-	float Velocity;
-
 	FVector VelocityVec;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-	int32 Damage;
 
 	float SplashRange;
 

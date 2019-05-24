@@ -1,15 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ParabolicBullet.h"
+#include "ParabolicHomingProjectile.h"
 
-void AParabolicBullet::CalcVelocityVec(const FVector& DirectionVec)
+void AParabolicHomingProjectile::CalcVelocityVec(const FVector& DirectionVec)
 {
 	Super::CalcVelocityVec(DirectionVec);
 	VelocityVec = (DefVelocityVec*(1 - TickCounter)) + (VelocityVec * TickCounter);
 }
 
-void AParabolicBullet::Tick(float DeltaTime)
+void AParabolicHomingProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
@@ -28,7 +28,7 @@ void AParabolicBullet::Tick(float DeltaTime)
 	//if (IsDirectable) SetActorRotation(FRotator(0, (VelocityVec*-1).Rotation().Yaw, 0));
 }
 
-void AParabolicBullet::Initialize(ATDCharacter * iTarget, int32 iDamage,bool IisDirectable, float iSplashRange)
+void AParabolicHomingProjectile::Initialize(ATDCharacter * iTarget, int32 iDamage,bool IisDirectable, float iSplashRange)
 {
 	Super::Initialize(iTarget, iDamage, IisDirectable, iSplashRange);
 

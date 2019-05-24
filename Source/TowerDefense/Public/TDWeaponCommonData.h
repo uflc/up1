@@ -22,28 +22,34 @@ protected:
 	//friend class TSubclassOf<UWeaponComponent>; //???
 	friend class ATDGameModeBase;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
-	bool IsInitialized;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	//bool IsInitialized;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	class UPaperFlipbook* EffectFlipbook;
+	TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	TSubclassOf<class AProjectileBase> ProjectileClass;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	//class UPaperFlipbook* EffectFlipbook;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	float DefaultSplashRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	float DefaultCooldown;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	float DefaultRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	int DefaultDamage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	TArray<FDebuffSet> DebuffSetArray;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	float DefaultDebuffChance;
 
 public:

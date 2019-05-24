@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BulletBase.h"
-#include "ParabolicBullet.generated.h"
+#include "HomingProjectile.h"
+#include "ParabolicHomingProjectile.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TOWERDEFENSE_API AParabolicBullet : public ABulletBase
+class TOWERDEFENSE_API AParabolicHomingProjectile : public AHomingProjectile
 {
 	GENERATED_BODY()
 	

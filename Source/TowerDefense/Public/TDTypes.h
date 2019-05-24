@@ -25,6 +25,13 @@ enum class EUnitState : uint8
 };
 
 UENUM(BlueprintType)
+enum class EWeaponFlipbookType : uint8
+{
+	Projectile	,
+	Effect	
+};
+
+UENUM(BlueprintType)
 enum class EDirection : uint8
 {
 	LD	UMETA(DisplayName = "Left Dowm"),
