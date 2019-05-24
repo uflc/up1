@@ -41,7 +41,5 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void BulletDestroy();
-
-	UFUNCTION(BlueprintCallable)
-	void BulletDestroy_Implementation();
+	virtual void BulletDestroy_Implementation();
 };

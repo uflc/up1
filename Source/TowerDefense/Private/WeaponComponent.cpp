@@ -2,15 +2,12 @@
 
 
 #include "WeaponComponent.h"
-
 #include "TDCharacter.h"
 #include "AIController.h"
-
 #include "DebufferComponent.h"
 #include "DamagerComponent.h"
 #include "TDWeaponCommonData.h"
-
-#include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
+#include "BehaviorTree\BlackboardComponent.h"
 
 
 // Sets default values for this component's properties
