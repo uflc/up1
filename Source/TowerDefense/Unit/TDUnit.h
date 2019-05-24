@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PaperCharacter.h"
+#include "GameFrameWork/Pawn.h"
 #include "TDTypes.h"
 #include "TDUnit.generated.h"
 
@@ -15,7 +15,7 @@
  @TODO Access 
  */
 UCLASS(BluePrintable)
-class TOWERDEFENSE_API ATDUnit : public APaperCharacter
+class TOWERDEFENSE_API ATDUnit : public APawn
 {
 	GENERATED_BODY()
 
@@ -24,12 +24,18 @@ class TOWERDEFENSE_API ATDUnit : public APaperCharacter
 
 public:
 	ATDUnit();
-	
+
 protected:
-	UPROPERTY(Category = "TDUnit|Effect", VisibleAnywhere, BlueprintReadWrite)
+	//UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
+	//class UBoxComponent* Collision;
+
+	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
+	class UPaperFlipbookComponent* Animation;
+
+	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadWrite)
 	class UPaperSpriteComponent* Shadow;
 
-	UPROPERTY(Category = Character, VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadWrite)
 	class UWeaponComponent* AttackComp;
 
 	virtual void BeginPlay() override;
@@ -38,6 +44,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EUnitState UnitState;
 
+	//@TODO Tower Only?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EDirection Direction;
 

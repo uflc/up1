@@ -13,8 +13,14 @@ UCLASS()
 class TOWERDEFENSE_API ATDCharacter : public ATDUnit
 {
 	GENERATED_BODY()
+	
+public:
+	ATDCharacter();
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPawnMovementComponent* Movement;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DrawingAggroRange;
 

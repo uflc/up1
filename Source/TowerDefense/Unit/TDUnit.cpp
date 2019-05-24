@@ -6,20 +6,27 @@
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h" //shadow
 #include "DirectWeaponComponent.h"
+#include "Components/BoxComponent.h"
 
 
 ATDUnit::ATDUnit()
 {
-	//@TODO 캡슐 삭제? 플립북 루트?
 
-	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>("Shadow");
-	Shadow->SetupAttachment(GetSprite());
+	/*Collision = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
+	RootComponent = Collision;*/
 
-	//언리얼 기본 스프라이트는 XZ 평면을 쓰지만 TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
-	GetSprite()->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
-
+	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook Animation"));
+	//TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
+	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
+	//Animation->SetupAttachment(Collision);
 	static FName TDCollisionProfileName(TEXT("OverlapOnlyTDUnit"));
-	GetSprite()->SetCollisionProfileName(TDCollisionProfileName);
+	Animation->SetCollisionProfileName(TDCollisionProfileName);
+	RootComponent = Animation;
+
+	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow"));
+
+	if (Shadow)
+		Shadow->SetupAttachment(Animation);
 
 	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
 	//AddOwnedComponent(AttackComp);
@@ -38,7 +45,7 @@ void ATDUnit::BeginPlay()
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()
 {
-	return Common->FlipbookMap.Find(UnitState)->Get();
+	return Common ? Common->FlipbookMap.Find(UnitState)->Get() : nullptr;
 }
 
 bool ATDUnit::UpdateAnimation()
@@ -47,7 +54,7 @@ bool ATDUnit::UpdateAnimation()
 
 	if (DesiredAnim)
 	{
-		GetSprite()->SetFlipbook(DesiredAnim);
+		Animation->SetFlipbook(DesiredAnim);
 		return true;
 	}
 	else return false;

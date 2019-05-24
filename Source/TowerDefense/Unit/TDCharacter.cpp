@@ -8,7 +8,16 @@
 #include "FlipbookShakingComponent.h"
 #include "TimerManager.h"
 #include "AIController.h"
+//#include "GameFrameWork/PawnMovementComponent.h"
+#include "Components/BoxComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 
+
+ATDCharacter::ATDCharacter()
+{
+	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
+	Movement->UpdatedComponent = Animation;
+}
 
 void ATDCharacter::Tick(float DeltaTime)
 {
@@ -19,14 +28,13 @@ void ATDCharacter::UpdateDirection()
 {	//스프라이트 방향 전환. //@TODO any Event?
 	if (GetVelocity().X > 0)
 	{
-		Shadow->SetRelativeRotation(FRotator(180, 0, -90));
-		GetSprite()->SetRelativeRotation(FRotator(180, 0, -90));
+		//Shadow->SetRelativeRotation(FRotator(180, 0, -90));
+		Animation->SetRelativeRotation(FRotator(180, 0, -90));
 	}
-
 	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함
 	{
-		Shadow->SetRelativeRotation(FRotator(0, 0, 0));
-		GetSprite()->SetRelativeRotation(FRotator(0, 0, -90));
+		//Shadow->SetRelativeRotation(FRotator(0, 0, 0));
+		Animation->SetRelativeRotation(FRotator(0, 0, -90));
 	}
 }
 
@@ -61,7 +69,7 @@ void ATDCharacter::Die_Implementation()
 {
 	// Play Dying anim just once
 	ChangeState(EUnitState::Dying);
-	GetSprite()->SetLooping(false);
+	Animation->SetLooping(false);
 	// prevent BTService Aggro Check trace checked
 	Team = EUnitTeam::None;
 
@@ -74,7 +82,7 @@ void ATDCharacter::Die_Implementation()
 
 	// After Dying anim 사후경직
 	FTimerHandle  Timer;
-	GetWorldTimerManager().SetTimer(Timer, this, &ATDCharacter::OnDeath, GetSprite()->GetFlipbookLength(), false);
+	GetWorldTimerManager().SetTimer(Timer, this, &ATDCharacter::OnDeath, Animation->GetFlipbookLength(), false);
 }
 
 void ATDCharacter::OnDeath()
