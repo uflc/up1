@@ -4,7 +4,7 @@
 #include "ProjectileWeaponComponent.h"
 #include "BulletBase.h"
 #include "TDCharacter.h"
-
+#include "EffectorComponent.h"
 //#include "Tower.h"
 #include "AIController.h"
 #include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
@@ -22,7 +22,7 @@ void UProjectileWeaponComponent::ExecAttack(ATDCharacter* Target)
 
 		ABulletBase* Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
-		Local_Bullet->Initialize(Target, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, SplashRange);
+		Local_Bullet->Initialize(Target, Damage, ProjectileisDirectable, SplashRange);
 
 	}
 }
@@ -35,9 +35,13 @@ void UProjectileWeaponComponent::UseWeapon()
 
 		auto Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
-		//Need to change;
+		auto Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
+		for (auto Effector : Effectors)
+		{
+			Local_Bullet->AddOwnedComponent(Effector);
+		}
 
-		Local_Bullet->Initialize(vTarget, ((ATDUnit*)GetOwner())->AttackDamage, ProjectileisDirectable, SplashRange);
+		Local_Bullet->Initialize(vTarget, Damage, ProjectileisDirectable, SplashRange);
 
 	}
 }

@@ -40,10 +40,9 @@ void UWeaponComponent::InitializeWeaponComp()
 	
 	//if( UTDWeaponCommonData.DebuffInfo ) {
 	//UDebufferComponent* DebuffComp = AddSubComponent<UDebufferComponent>();
-	//if (DebuffComp != nullptr) {
-	//		DebuffComp->InitializeDebufferComp(UTDWeaponCommonData->EffectRange, UTDWeaponCommonData->DebuffArr,UTDWeaponCommonData->DebuffChance);
-	//	}
-	//
+	//		if (DebuffComp != nullptr) {
+	//			DebuffComp->InitializeDebufferComp(UTDWeaponCommonData->EffectRange, UTDWeaponCommonData->DebuffArr,UTDWeaponCommonData->DebuffChance);
+	//		}
 	//}
 }
 

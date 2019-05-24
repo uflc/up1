@@ -2,6 +2,7 @@
 
 
 #include "BulletBase.h"
+#include "EffectorComponent.h"
 #include "TDCharacter.h"
 
 FVector ABulletBase::GetDistanceVecToTarget()
@@ -43,7 +44,13 @@ void ABulletBase::Tick(float DeltaTime)
 
 	if (Distance <= 40.0f)
 	{
-		Target->TDUnitTakeDamage(8.0f, 0.15f, Damage);
+		//Target->TDUnitTakeDamage(8.0f, 0.15f, Damage);
+		auto Effectors = GetComponentsByClass(UEffectorComponent::StaticClass());
+		for (auto Effector : Effectors)
+		{
+			((UEffectorComponent*)Effector)->AffectTarget(Target);
+		}
+
 		SetActorTickEnabled(false);
 		BulletDestroy();
 		return;
