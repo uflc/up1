@@ -58,8 +58,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<class AHomingProjectile> BulletType;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<class UTDWeaponCommonData> WeaponData;
 public:
 
 	//@return nullptr when UpType is not valid.

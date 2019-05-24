@@ -13,6 +13,9 @@
 
 ATDCharacter::ATDCharacter()
 {
+	static FName TDCollisionProfileName(TEXT("OverlapOnlyTDUnit"));
+	Animation->SetCollisionProfileName(TDCollisionProfileName);
+
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 	Movement->UpdatedComponent = Animation;
 }
