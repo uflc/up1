@@ -20,10 +20,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-		float Velocity;
+	float Velocity;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-		int32 Damage;
+	int32 Damage;
 
 public:	
 	// Called every frame
