@@ -5,11 +5,14 @@
 #include "TDPlayerController.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
-//#include "PaperSpriteComponent.h"
-//#include "TDCharacter.h"
-//#include "TDUnitCommonData.h"
 #include "TowerDefense.h" //log 
 
+
+ATower::ATower()
+{
+	static FName TowerCollisionProfileName(TEXT("NoCollision"));
+	Animation->SetCollisionProfileName(TowerCollisionProfileName);
+}
 
 void ATower::BeginPlay()
 {

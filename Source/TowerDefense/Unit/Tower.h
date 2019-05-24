@@ -13,9 +13,12 @@ UCLASS(Abstract, BluePrintable)
 class TOWERDEFENSE_API ATower : public ATDUnit
 {
 	GENERATED_BODY()
+	
+public:
+	ATower();
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool IsSelected;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
@@ -30,13 +33,13 @@ protected:
 public:	
 	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void OnDeselected();
 
 	/*UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
 	void OnSelected(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);*/
 
-	UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void ShowActionMenu();
 
 	virtual class UPaperFlipbook* GetDesiredAnimation() override;
