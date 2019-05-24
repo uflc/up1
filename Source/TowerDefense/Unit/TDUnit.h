@@ -26,9 +26,6 @@ public:
 	ATDUnit();
 
 protected:
-	//UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
-	//class UBoxComponent* Collision;
-
 	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
 	class UPaperFlipbookComponent* Animation;
 

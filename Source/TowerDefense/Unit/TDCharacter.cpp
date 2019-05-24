@@ -8,8 +8,6 @@
 #include "FlipbookShakingComponent.h"
 #include "TimerManager.h"
 #include "AIController.h"
-//#include "GameFrameWork/PawnMovementComponent.h"
-#include "Components/BoxComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
 
@@ -25,13 +23,13 @@ void ATDCharacter::Tick(float DeltaTime)
 }
 
 void ATDCharacter::UpdateDirection()
-{	//스프라이트 방향 전환. //@TODO any Event?
+{	
 	if (GetVelocity().X > 0)
 	{
 		//Shadow->SetRelativeRotation(FRotator(180, 0, -90));
 		Animation->SetRelativeRotation(FRotator(180, 0, -90));
 	}
-	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함
+	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함 // ?
 	{
 		//Shadow->SetRelativeRotation(FRotator(0, 0, 0));
 		Animation->SetRelativeRotation(FRotator(0, 0, -90));
