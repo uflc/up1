@@ -22,7 +22,7 @@ protected:
 	FVector ProjectileRelativeSpawnPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class ABulletBase> ProjectileClass;
+	TSubclassOf<class AHomingProjectile> ProjectileClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool ProjectileisDirectable;

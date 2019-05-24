@@ -56,8 +56,10 @@ protected:
 	float AttackSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<class ABulletBase> BulletType;
+	TSubclassOf<class AHomingProjectile> BulletType;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<class UTDWeaponCommonData> WeaponData;
 public:
 
 	//@return nullptr when UpType is not valid.

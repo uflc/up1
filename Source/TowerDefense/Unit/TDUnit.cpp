@@ -33,9 +33,11 @@ void ATDUnit::BeginPlay()
 
 	if(!(AttackCompClass.Get())) return;
 	AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass.Get());
+	// Create from UnitCommonData
 	AddOwnedComponent(AttackComp);
+	AttackComp->SetCommonData(Common.Get()->WeaponData);
 
-	InitializeTDComponents();
+	//InitializeTDComponents();
 }
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()

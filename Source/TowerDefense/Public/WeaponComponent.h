@@ -39,6 +39,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void InitializeWeaponComp();
 
+	//UFUNCTION(BlueprintCallable)
+	void SetCommonData(TSoftObjectPtr<UTDWeaponCommonData> iData);
+
 	UFUNCTION(BlueprintCallable)
 	virtual void UseWeapon();
 

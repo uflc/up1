@@ -36,6 +36,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DefaultDrawingAggroRange;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	TSoftObjectPtr<class UTDWeaponCommonData> WeaponData;	// or array
+
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
 

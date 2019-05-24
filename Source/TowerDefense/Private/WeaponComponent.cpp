@@ -8,6 +8,7 @@
 
 #include "DebufferComponent.h"
 #include "DamagerComponent.h"
+#include "TDWeaponCommonData.h"
 
 #include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
 
@@ -45,6 +46,10 @@ void UWeaponComponent::InitializeWeaponComp()
 	//		}
 	//}
 }
+
+//UFUNCTION(BlueprintCallable)
+
+inline void UWeaponComponent::SetCommonData(TSoftObjectPtr<UTDWeaponCommonData> iData) { Common = iData; }
 
 void UWeaponComponent::UseWeapon()
 {

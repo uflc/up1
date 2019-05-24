@@ -1,22 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BulletBase.h"
+#include "HomingProjectile.h"
 #include "EffectorComponent.h"
 #include "TDCharacter.h"
 
-FVector ABulletBase::GetDistanceVecToTarget()
+FVector AHomingProjectile::GetDistanceVecToTarget()
 {
 	return Target->GetActorLocation() - GetActorLocation();
 }
 
-void ABulletBase::CalcVelocityVec(const FVector& DirectionVec)
+void AHomingProjectile::CalcVelocityVec(const FVector& DirectionVec)
 {
 	VelocityVec = DirectionVec * Velocity;
 }
 
 // Sets default values
-ABulletBase::ABulletBase()
+AHomingProjectile::AHomingProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -24,13 +24,13 @@ ABulletBase::ABulletBase()
 }
 
 // Called when the game starts or when spawned
-void ABulletBase::BeginPlay()
+void AHomingProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
 // Called every frame
-void ABulletBase::Tick(float DeltaTime)
+void AHomingProjectile::Tick(float DeltaTime)
 {
 	if (!Target) {
 		SetActorTickEnabled(false);
@@ -65,7 +65,7 @@ void ABulletBase::Tick(float DeltaTime)
 	if (IsDirectable)	SetActorRotation(FRotator(0, (VelocityVec/** DeltaTime*/*-1).Rotation().Yaw,0));
 }
 
-void ABulletBase::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirectable = false, float iSplashRange=0)
+void AHomingProjectile::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirectable = false, float iSplashRange=0)
 {
 	Target = iTarget;
 	Damage = iDamage;
@@ -73,7 +73,7 @@ void ABulletBase::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirec
 	SplashRange= iSplashRange;
 }
 
-void ABulletBase::BulletDestroy_Implementation()
+void AHomingProjectile::BulletDestroy_Implementation()
 {
 	Destroy();
 }

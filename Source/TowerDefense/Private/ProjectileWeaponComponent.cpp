@@ -2,7 +2,7 @@
 
 
 #include "ProjectileWeaponComponent.h"
-#include "BulletBase.h"
+#include "HomingProjectile.h"
 #include "TDCharacter.h"
 #include "EffectorComponent.h"
 //#include "Tower.h"
@@ -20,7 +20,7 @@ void UProjectileWeaponComponent::ExecAttack(ATDCharacter* Target)
 
 		FVector CaculatedSpawnPoint=GetOwner()->GetActorLocation()+ProjectileRelativeSpawnPoint;
 
-		ABulletBase* Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
+		AHomingProjectile* Local_Bullet = (AHomingProjectile*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
 		Local_Bullet->Initialize(Target, Damage, ProjectileisDirectable, SplashRange);
 
@@ -33,7 +33,7 @@ void UProjectileWeaponComponent::UseWeapon()
 	{
 		auto CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 
-		auto Local_Bullet = (ABulletBase*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
+		auto Local_Bullet = (AHomingProjectile*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
 
 		auto Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 		for (auto Effector : Effectors)
