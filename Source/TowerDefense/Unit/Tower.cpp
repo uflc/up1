@@ -14,6 +14,7 @@
 void ATower::BeginPlay()
 {
 	Super::BeginPlay();
+
 	TotalCost = TowerData->Cost;
 }
 
@@ -29,7 +30,7 @@ void ATower::ShowActionMenu()
 
 UPaperFlipbook * ATower::GetDesiredAnimation()
 {
-	return TowerData->GetMatchingAnim(Direction, UnitState);
+	return TowerData ? TowerData->GetMatchingAnim(Direction, UnitState) : nullptr;
 }
 
 bool ATower::UpdateAnimation()
