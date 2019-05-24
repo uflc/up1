@@ -30,9 +30,10 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
-	//@TODO 방향전환
 	virtual bool UpdateAnimation() override;
 
+	//Tick마다 콜. 좌우 방향을 체크해서 스프라이트 로테이트. 
+	//@TODO any Event?
 	virtual void UpdateDirection();
 
 	//@TODO AActor::TakeDamge override?
