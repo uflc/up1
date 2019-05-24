@@ -13,9 +13,7 @@ ATDUnit::ATDUnit()
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook Animation"));
 	//TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
-	//Animation->SetupAttachment(Collision);
-	static FName TDCollisionProfileName(TEXT("OverlapOnlyTDUnit"));
-	Animation->SetCollisionProfileName(TDCollisionProfileName);
+	
 	RootComponent = Animation;
 
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow"));
@@ -31,11 +29,11 @@ void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if(!(AttackCompClass.Get())) return;
-	AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass.Get());
-	// Create from UnitCommonData
-	AddOwnedComponent(AttackComp);
-	AttackComp->SetCommonData(Common.Get()->WeaponData);
+	if(!AttackCompClass) return;
+	//AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
+	//// Create from UnitCommonData
+	//AddOwnedComponent(AttackComp);
+	//AttackComp->SetCommonData(Common.Get()->WeaponData);
 
 	//InitializeTDComponents();
 }

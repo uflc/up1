@@ -44,9 +44,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	TArray<class UTDUnitCommonData*> TDUnitCommons;
 
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
-	class UTowerData* TDTowerDataTree;*/
-
 	//@TODO 더 좋은 로딩 방법
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
 	void LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons);
