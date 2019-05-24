@@ -6,15 +6,10 @@
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h" //shadow
 #include "DirectWeaponComponent.h"
-#include "Components/BoxComponent.h"
 
 
 ATDUnit::ATDUnit()
 {
-
-	/*Collision = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
-	RootComponent = Collision;*/
-
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook Animation"));
 	//TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
