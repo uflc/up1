@@ -24,7 +24,7 @@ bool UWeaponComponent::TargetValidCheck()
 
 EndofCheck:
 
-	(ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
+	vTarget=(ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
 
 	if (vTarget->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) return true;
 
