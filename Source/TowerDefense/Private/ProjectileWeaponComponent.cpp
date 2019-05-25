@@ -35,17 +35,20 @@ void UProjectileWeaponComponent::UseWeapon()
 		auto Local_Bullet = (AProjectileBase*)GetWorld()->SpawnActor(Data->ProjectileClass.Get(), &CaculatedSpawnPoint);
 
 		auto Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-		for (auto Effector : Effectors) // here
+		for (auto Effector : Effectors) // 문제있음
 		{
-			auto CopyEffector = NewObject<UTDComponent>(Local_Bullet, Effector->StaticClass());
-			Local_Bullet->AddOwnedComponent(CopyEffector);
+			
+			UEffectorComponent*  CopyEffector = DuplicateObject<UEffectorComponent>((UEffectorComponent*)Effector, Local_Bullet);
+			//NewObject<UTDComponent>(Local_Bullet, Effector->StaticClass());
+			UE_LOG(LogTemp, Warning, TEXT("%s"), *Effector->StaticClass()->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("%s"), *CopyEffector->StaticClass()->GetName());
+			Local_Bullet->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);
 		}
 
 		Local_Bullet->SetCommonData(Data);
 		Local_Bullet->SetTarget(vTarget);
 		Local_Bullet->Initialize();
 
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Use Weapon Done"));
 	}
 }
 

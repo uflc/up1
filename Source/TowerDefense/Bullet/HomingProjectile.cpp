@@ -39,9 +39,11 @@ void AHomingProjectile::Tick(float DeltaTime)
 	{
 		//Target->TDUnitTakeDamage(8.0f, 0.15f, Damage);
 		auto Effectors = GetComponentsByClass(UEffectorComponent::StaticClass());
+		if( Effectors.Num()==0) UE_LOG(LogTemp, Warning, TEXT("Zero Effector"));
 		for (auto Effector : Effectors)
 		{
 			((UEffectorComponent*)Effector)->AffectTarget(Target);
+			UE_LOG(LogTemp, Warning, TEXT("Effector"));
 		}
 
 		SetActorTickEnabled(false);
@@ -57,4 +59,3 @@ void AHomingProjectile::Tick(float DeltaTime)
 	SetActorLocation(GetActorLocation() + VelocityVec * DeltaTime);
 	if (IsDirectable)	SetActorRotation(FRotator(0, (VelocityVec/** DeltaTime*/*-1).Rotation().Yaw,-90.0f));
 }
-

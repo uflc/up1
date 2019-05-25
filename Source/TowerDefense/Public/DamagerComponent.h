@@ -18,6 +18,7 @@ class TOWERDEFENSE_API UDamagerComponent : public UEffectorComponent
 	UDamagerComponent();
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Damage;
 
 public:

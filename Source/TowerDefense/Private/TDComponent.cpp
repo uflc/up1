@@ -39,7 +39,7 @@ inline TArray<UTDComponent*> UTDComponent::GetSubComponentsByClass(TSubclassOf<U
 	TArray<UTDComponent*> ValidComponents;
 
 	// In the UActorComponent case we can skip the IsA checks for a slight performance benefit
-	if (ComponentClass == UActorComponent::StaticClass())
+	if (ComponentClass == UTDComponent::StaticClass())
 	{
 		for (UTDComponent* Component : SubComponents)
 		{
