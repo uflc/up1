@@ -69,6 +69,12 @@ void ATDUnit::UpdateDirection()
 
 }
 
+bool ATDUnit::IsTargetable()
+{
+	if(UnitState==EUnitState::Dying || UnitState == EUnitState::Dead) return false;
+	return true;
+}
+
 //void ATDUnit::StartAttack()
 //{
 //	IsDelayChecking=true;
