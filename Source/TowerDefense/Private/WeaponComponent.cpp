@@ -27,26 +27,31 @@ bool UWeaponComponent::TargetValidCheck()
 
 void UWeaponComponent::InitializeWeaponComp()
 {
-	// TODO :: Initialize with common data
+	SplashRange=WeaponCommon->DefaultSplashRange;
 
-	//if (UTDWeaponCommonData.Damage > 0)	{
-	//	UDamagerComponent* DmgComp= AddSubComponent<UDamagerComponent>();
-	//	if (DmgComp != nullptr) {
-	//		DmgComp->InitializeDamagerComp(UTDWeaponCommonData->EffectRange, UTDWeaponCommonData->Damage);
-	//	}
-	//}
+	Cooldown= WeaponCommon->DefaultCooldown;
+
+	Range= WeaponCommon->DefaultRange;
+
+	// need?
+	Damage= WeaponCommon->DefaultDamage;
+
+	if (Damage > 0)	{
+		UDamagerComponent* DmgComp= AddSubComponent<UDamagerComponent>();
+		if (DmgComp != nullptr) {
+			DmgComp->InitializeDamagerComp(SplashRange, Damage);
+		}
+	}
 	
-	//if( UTDWeaponCommonData.DebuffInfo ) {
+	if( WeaponCommon->DebuffSetArray.Num()!=0) {
 	//UDebufferComponent* DebuffComp = AddSubComponent<UDebufferComponent>();
 	//		if (DebuffComp != nullptr) {
-	//			DebuffComp->InitializeDebufferComp(UTDWeaponCommonData->EffectRange, UTDWeaponCommonData->DebuffArr,UTDWeaponCommonData->DebuffChance);
+	//			DebuffComp->InitializeDebufferComp(WeaponCommon->EffectRange, WeaponCommon->DebuffArr, WeaponCommon->DebuffChance);
 	//		}
-	//}
+	}
 }
 
-//UFUNCTION(BlueprintCallable)
-
-inline void UWeaponComponent::SetCommonData(TSoftObjectPtr<UTDWeaponCommonData> iData) { Common = iData; }
+inline void UWeaponComponent::SetCommonData(UTDWeaponCommonData* iData) { WeaponCommon = iData; InitializeWeaponComp(); }
 
 void UWeaponComponent::UseWeapon()
 {

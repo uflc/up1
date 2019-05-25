@@ -10,6 +10,8 @@
 /**
  * 
  */
+class UWeaponComponent;
+
 UCLASS(Blueprintable, BlueprintType)
 class TOWERDEFENSE_API UTDWeaponCommonData : public UDataAsset
 {
@@ -18,21 +20,25 @@ class TOWERDEFENSE_API UTDWeaponCommonData : public UDataAsset
 	DECLARE_DELEGATE(FLoadCompletedSignature);
 
 protected:
-	friend class UWeaponComponent;
-	//friend class TSubclassOf<UWeaponComponent>; //???
+	friend UWeaponComponent;	
 	friend class ATDGameModeBase;
 
 	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
 	//bool IsInitialized;
 
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	//TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
+
+//for a test
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
+	TSubclassOf<UWeaponComponent> WeaponClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
-	TSubclassOf<class AProjectileBase> ProjectileClass;
+	class UTDProjectileCommonData* ProjectileData;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	//class UPaperFlipbook* EffectFlipbook;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	TSoftObjectPtr<class UPaperFlipbook> EffectFlipbook;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
 	float DefaultSplashRange;
@@ -61,4 +67,5 @@ public:
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
 
+	UClass* GetWeaponClass();
 };

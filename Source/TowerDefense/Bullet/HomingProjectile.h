@@ -12,21 +12,14 @@ class TOWERDEFENSE_API AHomingProjectile : public AProjectileBase
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
-	AHomingProjectile();
 
 protected:
 	// Called when the game starts or when spawned
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-		class ATDCharacter* Target;
-
 	virtual void BeginPlay() override;
 
 	FVector VelocityVec;
 
 	float SplashRange;
-
-	bool IsDirectable;
 
 	FVector GetDistanceVecToTarget();
 
@@ -36,10 +29,4 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable)
-	virtual void Initialize(ATDCharacter* iTarget, int32 iDamage, bool iIsDirectable, float iSplashRange);
-
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void BulletDestroy();
-	virtual void BulletDestroy_Implementation();
 };

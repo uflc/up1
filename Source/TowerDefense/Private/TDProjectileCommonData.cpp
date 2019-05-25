@@ -1,12 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TDUnitCommonData.h"
+#include "TDProjectileCommonData.h"
+
 #include "PaperFlipbook.h"
 #include "Runtime/Engine/Classes/Engine/AssetManager.h"
 //#include "Runtime/Engine/Classes/Engine/World.h"
 
-void UTDUnitCommonData::Initialize()
+void UTDProjectileCommonData::Initialize()
 {
 	//if (IsInitialized) return; //하나만 따로 테스트 하는 경우 체크 필요. 실제로는 Iterate 하는 쪽에서 Bind 때문에 체크를 할 것이므로 불필요. 
 
@@ -17,12 +18,10 @@ void UTDUnitCommonData::Initialize()
 	{
 		AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
 	}
-	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
-
-	IsInitialized = true;
+	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
 }
 
-void UTDUnitCommonData::LoadFlipbooksDeffered()
+void UTDProjectileCommonData::LoadFlipbooksDeffered()
 {
 	for (auto it : FlipbookMap)
 	{

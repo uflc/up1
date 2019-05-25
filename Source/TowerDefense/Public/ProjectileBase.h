@@ -16,17 +16,28 @@ public:
 	AProjectileBase();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
+	class UTDProjectileCommonData* ProjectileCommon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
 	float Velocity;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
-	int32 Damage;
+	class ATDCharacter* Target;
 
+	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
+	class UPaperFlipbookComponent* Animation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Default")
+	bool IsDirectable;
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	//UFUNCTION(BlueprintCallable)
+	void SetTarget(ATDCharacter* iTarget);
 
+	void SetCommonData(UTDProjectileCommonData* iData);
+
+	virtual void Initialize();
+
+	//UFUNCTION(BlueprintCallable)
+	virtual void BulletDestroy();
 };

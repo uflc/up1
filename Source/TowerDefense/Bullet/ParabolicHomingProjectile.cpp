@@ -28,21 +28,25 @@ void AParabolicHomingProjectile::Tick(float DeltaTime)
 	//if (IsDirectable) SetActorRotation(FRotator(0, (VelocityVec*-1).Rotation().Yaw, 0));
 }
 
-void AParabolicHomingProjectile::Initialize(ATDCharacter * iTarget, int32 iDamage,bool IisDirectable, float iSplashRange)
+void AParabolicHomingProjectile::Initialize()
 {
-	Super::Initialize(iTarget, iDamage, IisDirectable, iSplashRange);
-
-	CurveScale = 0.72f*1000.0f/Velocity;
+	Super::Initialize();
+	
+	CurveScale = 0.72f*1000.0f / Velocity;
 	TickCounter = 0;
 
 	DefVelocityVec = GetDistanceVecToTarget();
 	DefVelocityVec.Z = 0;
 
-	DefVecSize = DefVelocityVec.Size()/600.0f >= 1.0f ? 1.0f : DefVelocityVec.Size() / 1000.0f;
+	DefVecSize = DefVelocityVec.Size() / 600.0f >= 1.0f ? 1.0f : DefVelocityVec.Size() / 1000.0f;
 
 	DefVelocityVec.Normalize();
-	DefVelocityVec*=Velocity;
+	DefVelocityVec *= Velocity;
 
-	DefVelocityVec.Y-=(CurveScale*Velocity);
-
+	DefVelocityVec.Y -= (CurveScale*Velocity);
+	
 }
+
+
+
+

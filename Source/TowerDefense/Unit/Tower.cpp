@@ -6,7 +6,8 @@
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "TowerDefense.h" //log 
-
+#include "TDWeaponCommonData.h"
+#include "WeaponComponent.h"
 
 ATower::ATower()
 {
@@ -16,7 +17,16 @@ ATower::ATower()
 
 void ATower::BeginPlay()
 {
-	Super::BeginPlay();
+	//Super::BeginPlay();
+
+	if (!TowerData->WeaponData)return;
+	if (!AttackComp->IsValidLowLevelFast()) {
+		AttackCompClass=TowerData->WeaponData->GetWeaponClass();
+		AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
+	}
+	// Create from UnitCommonData
+	AddOwnedComponent(AttackComp);
+	AttackComp->SetCommonData(TowerData->WeaponData);
 
 	TotalCost = TowerData->Cost;
 }

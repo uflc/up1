@@ -25,11 +25,8 @@ protected:
 
 public:
 	// Change to virtual?
-	UFUNCTION(BlueprintCallable)
-	void InitializeDirectAttackComp();
+	//virtual void InitializeWeaponComp() override;
 
 	virtual void UseWeapon() override;
 
-	//Old func
-	virtual void ExecAttack(ATDCharacter* Target) override;
 };

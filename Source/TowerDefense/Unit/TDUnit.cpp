@@ -30,10 +30,12 @@ void ATDUnit::BeginPlay()
 	Super::BeginPlay();
 
 	if(!AttackCompClass) return;
-	//AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
-	//// Create from UnitCommonData
-	//AddOwnedComponent(AttackComp);
-	//AttackComp->SetCommonData(Common.Get()->WeaponData);
+	if(!AttackComp){
+	AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
+	}
+	// Create from UnitCommonData
+	AddOwnedComponent(AttackComp);
+	AttackComp->SetCommonData(Common.Get()->WeaponData);
 
 	//InitializeTDComponents();
 }

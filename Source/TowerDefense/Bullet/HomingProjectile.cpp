@@ -15,13 +15,6 @@ void AHomingProjectile::CalcVelocityVec(const FVector& DirectionVec)
 	VelocityVec = DirectionVec * Velocity;
 }
 
-// Sets default values
-AHomingProjectile::AHomingProjectile()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	
-}
 
 // Called when the game starts or when spawned
 void AHomingProjectile::BeginPlay()
@@ -62,18 +55,6 @@ void AHomingProjectile::Tick(float DeltaTime)
 //	DirectionVec *= (Velocity * DeltaTime);
 
 	SetActorLocation(GetActorLocation() + VelocityVec * DeltaTime);
-	if (IsDirectable)	SetActorRotation(FRotator(0, (VelocityVec/** DeltaTime*/*-1).Rotation().Yaw,0));
+	if (IsDirectable)	SetActorRotation(FRotator(0, (VelocityVec/** DeltaTime*/*-1).Rotation().Yaw,-90.0f));
 }
 
-void AHomingProjectile::Initialize(ATDCharacter * iTarget, int32 iDamage,bool iIsDirectable = false, float iSplashRange=0)
-{
-	Target = iTarget;
-	Damage = iDamage;
-	IsDirectable=iIsDirectable;
-	SplashRange= iSplashRange;
-}
-
-void AHomingProjectile::BulletDestroy_Implementation()
-{
-	Destroy();
-}

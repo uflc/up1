@@ -21,17 +21,22 @@ protected:
 	class ATDCharacter* vTarget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSoftObjectPtr<class UTDWeaponCommonData> Common;
+	class UTDWeaponCommonData* WeaponCommon;
 
-	//These properties will be deprecated.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SplashRange;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Cooldown;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Range;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Damage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float UpgradedLevel;
 
 public:	
 	bool TargetValidCheck();
@@ -40,13 +45,8 @@ public:
 	void InitializeWeaponComp();
 
 	//UFUNCTION(BlueprintCallable)
-	void SetCommonData(TSoftObjectPtr<UTDWeaponCommonData> iData);
+	void SetCommonData(UTDWeaponCommonData* iData);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void UseWeapon();
-
-	//Deprecated
-	UFUNCTION(BlueprintCallable)
-	virtual void ExecAttack(ATDCharacter* Target) {}
-
 };

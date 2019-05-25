@@ -12,18 +12,11 @@ UDirectWeaponComponent::UDirectWeaponComponent():EffectFlipbook(nullptr)
 }
 
 
-inline void UDirectWeaponComponent::InitializeDirectAttackComp() {
-	UWeaponComponent::InitializeWeaponComp();
-
-	// Additional Work
-}
-
-void UDirectWeaponComponent::ExecAttack(ATDCharacter* Target)
-{
-	if(Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()){
-		Target->TDUnitTakeDamage(10.0f,0.2f,((ATDUnit*)GetOwner())->AttackDamage);
-	}
-}
+//inline void UDirectWeaponComponent::InitializeDirectWeaponComp() {
+//	UWeaponComponent::InitializeWeaponComp();
+//
+//	// Additional Work
+//}
 
 // Have to test
 void UDirectWeaponComponent::UseWeapon()

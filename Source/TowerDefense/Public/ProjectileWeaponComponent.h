@@ -18,22 +18,16 @@ public:
 	UProjectileWeaponComponent();
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector ProjectileRelativeSpawnPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class AHomingProjectile> ProjectileClass;
+	FVector ProjectileRelativeSpawnPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool ProjectileisDirectable;
 
 public:
 	// Change to virtual?
-	UFUNCTION(BlueprintCallable)
-	void InitializeProjectileAttackComp();
-
+	//virtual void InitializeWeaponComp() override;
+	virtual void BeginPlay() override;
 	virtual void UseWeapon() override;
-
-	//Deprecated
-	virtual void ExecAttack(ATDCharacter* Target) override;
 };

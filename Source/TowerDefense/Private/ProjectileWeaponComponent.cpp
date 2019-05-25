@@ -2,53 +2,56 @@
 
 
 #include "ProjectileWeaponComponent.h"
-#include "HomingProjectile.h"
+
+#include "ProjectileBase.h"
+
 #include "TDCharacter.h"
 #include "EffectorComponent.h"
+#include "TDWeaponCommonData.h"
+#include "TDProjectileCommonData.h"
 //#include "Tower.h"
 #include "AIController.h"
 #include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
 
 UProjectileWeaponComponent::UProjectileWeaponComponent():ProjectileRelativeSpawnPoint(FVector(0,0,0)), ProjectileisDirectable(false)
 {
+
 }
 
-
-void UProjectileWeaponComponent::ExecAttack(ATDCharacter* Target)
-{
-	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) {
-
-		FVector CaculatedSpawnPoint=GetOwner()->GetActorLocation()+ProjectileRelativeSpawnPoint;
-
-		AHomingProjectile* Local_Bullet = (AHomingProjectile*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
-
-		Local_Bullet->Initialize(Target, Damage, ProjectileisDirectable, SplashRange);
-
-	}
+void UProjectileWeaponComponent::BeginPlay(){
 }
-
 void UProjectileWeaponComponent::UseWeapon()
 {
 	if(TargetValidCheck())
 	{
+		auto Data = WeaponCommon->ProjectileData;
+
+		if(!Data->IsValidLowLevelFast())return; 
+
+		if (!Data->ProjectileClass.Get()->IsValidLowLevelFast())return;
+
 		auto CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 
-		auto Local_Bullet = (AHomingProjectile*)GetWorld()->SpawnActor(ProjectileClass.Get(), &CaculatedSpawnPoint);
+		auto Local_Bullet = (AProjectileBase*)GetWorld()->SpawnActor(Data->ProjectileClass.Get(), &CaculatedSpawnPoint);
 
 		auto Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-		for (auto Effector : Effectors)
+		for (auto Effector : Effectors) // here
 		{
-			Local_Bullet->AddOwnedComponent(Effector);
+			auto CopyEffector = NewObject<UTDComponent>(Local_Bullet, Effector->StaticClass());
+			Local_Bullet->AddOwnedComponent(CopyEffector);
 		}
 
-		Local_Bullet->Initialize(vTarget, Damage, ProjectileisDirectable, SplashRange);
+		Local_Bullet->SetCommonData(Data);
+		Local_Bullet->SetTarget(vTarget);
+		Local_Bullet->Initialize();
 
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("Use Weapon Done"));
 	}
 }
 
-inline void UProjectileWeaponComponent::InitializeProjectileAttackComp()
-{
-	UWeaponComponent::InitializeWeaponComp();
-
-	// Additional Work
-}
+//void UProjectileWeaponComponent::InitializeWeaponComp()
+//{
+//	Super::InitializeWeaponComp();
+//
+//	// Additional Work
+//}

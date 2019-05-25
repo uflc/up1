@@ -55,8 +55,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float AttackSpeed;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<class AHomingProjectile> BulletType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	class UTDWeaponCommonData* WeaponData;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	//TSubclassOf<class AHomingProjectile> BulletType;
 
 public:
 
