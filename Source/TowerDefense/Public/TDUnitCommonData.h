@@ -30,14 +30,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float DefaultAttackRange;
 
-	//타워에 불필요
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	float DefaultAggroDrawnRange;
-
-	//타워에 불필요
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	float DefaultDrawingAggroRange;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	class UTDWeaponCommonData* WeaponData;	// or array
 

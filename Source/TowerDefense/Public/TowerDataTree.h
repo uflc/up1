@@ -39,15 +39,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Cost;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 AttackDamage;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	//int32 AttackDamage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 AttackRange;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	//int32 AttackRange;
 
-	//@Note Per Second
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float AttackSpeed;
+	////@Note Per Second
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	//float AttackSpeed;
 
 public:
 	//@return nullptr when UpType is not valid.
@@ -61,6 +61,4 @@ public:
 	//@Note BP용. c++에서는 TArray에 카피할 필요가 전혀 없다. see class note
 	UFUNCTION(BlueprintPure)
 	TArray<FTowerUpInfo> GetUpTypesInfo();
-
-	//@return Animation of current level, direction and state
 };

@@ -2,8 +2,8 @@
 
 
 #include "TDCharacter.h"
-#include "TDUnitCommonData.h"
-#include "PaperSpriteComponent.h" //shadow
+#include "TDCharData.h"
+//#include "PaperSpriteComponent.h" //shadow
 #include "PaperFlipbookComponent.h" //anim
 #include "FlipbookShakingComponent.h"
 #include "TimerManager.h"
@@ -18,6 +18,19 @@ ATDCharacter::ATDCharacter()
 
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 	Movement->UpdatedComponent = Animation;
+}
+
+void ATDCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UTDCharData* CharData = Cast<UTDCharData>(Common);
+
+	if (CharData)
+	{
+		AggroDrawnRange = CharData->DefaultAggroDrawnRange;
+		DrawingAggroRange = CharData->DefaultDrawingAggroRange;
+	}
 }
 
 void ATDCharacter::Tick(float DeltaTime)

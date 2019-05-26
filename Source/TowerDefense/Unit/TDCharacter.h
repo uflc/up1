@@ -25,9 +25,14 @@ protected:
 	float DrawingAggroRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	float AggroDrawnRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	int32 Health;
 
 public:
+	virtual void BeginPlay() override;
+
 	virtual void Tick(float DeltaTime) override;
 
 	virtual bool UpdateAnimation() override;

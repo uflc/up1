@@ -50,20 +50,19 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class ATDCharacter* AggroTarget;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float AttackDelay;	
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	float AttackRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	float AggroDrawnRange;
+	*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	class UTDUnitCommonData* Common;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	TSubclassOf<UWeaponComponent> AttackCompClass;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	TSubclassOf<UWeaponComponent> AttackCompClass;*/
 
 public:
 	UFUNCTION()
@@ -83,8 +82,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void InitializeTDComponents();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	int32 AttackDamage;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	int32 AttackDamage;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	EUnitTeam Team;

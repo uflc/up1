@@ -37,6 +37,7 @@ void ATower::ShowActionMenu()
 
 UPaperFlipbook * ATower::GetDesiredAnimation()
 {
+	//Animation of current level, direction and state, 플립북 배열 순서가 아래 식과 매칭 되야 함.
 	return Common ? Common->Animations[((uint8)Direction) + ((uint8)UnitState * 4/*EDirection::NumEnums*/)].Get() : nullptr;
 }
 
@@ -73,9 +74,9 @@ bool ATower::Upgrade_Implementation(ETowerType UpType)
 
 	Common = Upgraded;
 
-	AttackDamage = Upgraded->AttackDamage;
+	/*AttackDamage = Upgraded->AttackDamage;
 	AttackRange = Upgraded->AttackRange;
-	AttackDelay = Upgraded->AttackSpeed;
+	AttackDelay = Upgraded->AttackSpeed;*/
 	TotalCost += Upgraded->Cost;
 
 	UpdateAnimation();

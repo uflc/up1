@@ -32,14 +32,15 @@ void ATDUnit::BeginPlay()
 	Super::BeginPlay();
 
 	// Create AttackComponent(Weapon) from UnitCommonData
-	if (!Common->WeaponData) return;
+	UTDWeaponCommonData* WeaponData = Common->WeaponData;
+	if (!WeaponData) return;
 	if (!AttackComp->IsValidLowLevelFast()) 
 	{
-		AttackCompClass = Common->WeaponData->GetWeaponClass();
+		TSubclassOf<UWeaponComponent> AttackCompClass = WeaponData->GetWeaponClass();
 		AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
 	}
-	AddOwnedComponent(AttackComp);
-	AttackComp->SetCommonData(Common->WeaponData);
+	//AddOwnedComponent(AttackComp);
+	AttackComp->SetCommonData(WeaponData);
 
 	//InitializeTDComponents();
 }
