@@ -22,28 +22,28 @@ void UProjectileWeaponComponent::UseWeapon()
 {
 	if(TargetValidCheck())
 	{
-		auto Data = WeaponCommon->ProjectileData;
+		//TSubclassOf<AProjectileBase> ProjectileClass = WeaponCommon->ProjectileClass;
 
-		if(!Data->IsValidLowLevelFast())return; 
+		//if(!Data->IsValidLowLevelFast())return; 
 
-		if (!Data->ProjectileClass.Get()->IsValidLowLevelFast())return;
+		//if (!Data->ProjectileClass->IsValidLowLevelFast())return;
 
-		auto CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
+		FVector CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 
-		auto Local_Bullet = (AProjectileBase*)GetWorld()->SpawnActor(Data->ProjectileClass.Get(), &CaculatedSpawnPoint);
+		AProjectileBase* SpawnedProjectile = (AProjectileBase*)GetWorld()->SpawnActor(WeaponCommon->ProjectileClass, &CaculatedSpawnPoint);
 
-		auto Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-		for (auto Effector : Effectors) // 문제있음
+		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
+		for (const auto& Effector : Effectors) // 문제있음
 		{
 			
-			UEffectorComponent*  CopyEffector = DuplicateObject<UEffectorComponent>((UEffectorComponent*)Effector, Local_Bullet);
+			UEffectorComponent* CopyEffector = DuplicateObject<UEffectorComponent>((UEffectorComponent*)Effector, SpawnedProjectile);
 			//NewObject<UTDComponent>(Local_Bullet, Effector->StaticClass());
-			Local_Bullet->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);
+			SpawnedProjectile->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);
 		}
 
-		Local_Bullet->SetCommonData(Data);
-		Local_Bullet->SetTarget(vTarget);
-		Local_Bullet->Initialize();
+		SpawnedProjectile->SetCommonData(WeaponCommon->ProjectileData);
+		SpawnedProjectile->SetTarget(vTarget);
+		SpawnedProjectile->Initialize();
 
 	}
 }

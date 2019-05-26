@@ -7,6 +7,7 @@
 #include "PaperSpriteComponent.h" //shadow
 #include "WeaponComponent.h"
 #include "TDWeaponCommonData.h"
+#include "TowerDefense.h"
 
 ATDUnit::ATDUnit()
 {
@@ -31,23 +32,26 @@ void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Create AttackComponent(Weapon) from UnitCommonData
-	UTDWeaponCommonData* WeaponData = Common->WeaponData;
-	if (!WeaponData) return;
-	if (!AttackComp->IsValidLowLevelFast()) 
+	// Create AttackComponent(Weapon) if not already have one.
+	TSubclassOf<UWeaponComponent> WeaponClass = Common->GetWeaponClass();
+	if (WeaponClass && !AttackComp->IsValidLowLevelFast()) 
 	{
-		TSubclassOf<UWeaponComponent> AttackCompClass = WeaponData->GetWeaponClass();
-		AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
+		AttackComp = NewObject<UWeaponComponent>(this, WeaponClass);
 	}
 	//AddOwnedComponent(AttackComp);
-	AttackComp->SetCommonData(WeaponData);
+	if (!AttackComp)
+	{
+		TD_LOG_CALLONLY(Warning);
+		return;
+	}
+	AttackComp->SetCommonData(Common->GetWeaponData());
 
 	//InitializeTDComponents();
 }
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()
 {
-	return Common ? Common->Animations[(uint8)UnitState].Get() : nullptr;
+	return Common ? Common->GetAnimations()[(uint8)UnitState].Get() : nullptr;
 }
 
 bool ATDUnit::UpdateAnimation()

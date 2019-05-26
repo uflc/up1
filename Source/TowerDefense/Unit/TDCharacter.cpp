@@ -28,8 +28,8 @@ void ATDCharacter::BeginPlay()
 
 	if (CharData)
 	{
-		AggroDrawnRange = CharData->DefaultAggroDrawnRange;
-		DrawingAggroRange = CharData->DefaultDrawingAggroRange;
+		AggroDrawnRange = CharData->GetAggroDrawnRange();
+		DrawingAggroRange = CharData->GetDrawingAggroRange();
 	}
 }
 

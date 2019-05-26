@@ -17,20 +17,21 @@ class UTDUnitCommonData : public UDataAsset
 	DECLARE_DELEGATE(FLoadCompletedSignature);
 
 protected:
-	friend class ATDUnit;
-	friend class ATower; //»Ï...
 	friend class ATDGameModeBase;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool IsInitialized;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	float DefaultAttackRange;
+	//UPROPERTY(EditAnywhere, Category = "TDUnit|Property")
+	//float DefaultAttackRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	TSubclassOf<class UWeaponComponent> WeaponClass;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon")
 	class UTDWeaponCommonData* WeaponData;	// or array
 
 public:
@@ -41,4 +42,8 @@ public:
 
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
+
+	FORCEINLINE const TArray<TSoftObjectPtr<class UPaperFlipbook>>& GetAnimations() const { return Animations; }
+	FORCEINLINE TSubclassOf<UWeaponComponent> GetWeaponClass() const { return WeaponClass; }
+	FORCEINLINE UTDWeaponCommonData* GetWeaponData() { return WeaponData; }
 };

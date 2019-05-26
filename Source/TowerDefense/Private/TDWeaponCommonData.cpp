@@ -4,8 +4,8 @@
 #include "TDWeaponCommonData.h"
 #include "WeaponComponent.h"
 #include "PaperFlipbook.h"
-#include "Runtime/Engine/Classes/Engine/AssetManager.h"
-#include "Runtime/Engine/Classes/Engine/World.h"
+#include "Engine/AssetManager.h"
+#include "Engine/World.h"
 
 void UTDWeaponCommonData::Initialize()
 {
@@ -24,4 +24,4 @@ void UTDWeaponCommonData::LoadFlipbooksDeffered()
 	OnFlipbooksLoaded.ExecuteIfBound();
 }
 
-inline UClass * UTDWeaponCommonData::GetWeaponClass() { return WeaponClass.Get(); }
+//inline UClass * UTDWeaponCommonData::GetWeaponClass() { return WeaponClass.Get(); }

@@ -4,7 +4,7 @@
 #include "TDProjectileCommonData.h"
 
 #include "PaperFlipbook.h"
-#include "Runtime/Engine/Classes/Engine/AssetManager.h"
+#include "Engine/AssetManager.h"
 //#include "Runtime/Engine/Classes/Engine/World.h"
 
 void UTDProjectileCommonData::Initialize()

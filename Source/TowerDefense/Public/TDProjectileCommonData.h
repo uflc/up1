@@ -23,16 +23,16 @@ protected:
 	friend class ATDGameModeBase;
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	TSubclassOf<AProjectileBase> ProjectileClass;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	TSubclassOf<AProjectileBase> ProjectileClass;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	float Velocity;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	bool Directable;
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;

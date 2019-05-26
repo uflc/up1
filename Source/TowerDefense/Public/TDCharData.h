@@ -13,13 +13,16 @@ UCLASS()
 class TOWERDEFENSE_API UTDCharData : public UTDUnitCommonData
 {
 	GENERATED_BODY()
-	
-	friend class ATDCharacter;
-	
+		
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDChar|Property")
+	UPROPERTY(EditAnywhere, Category = "TDChar|Property")
 	float DefaultAggroDrawnRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDChar|Property")
+	UPROPERTY(EditAnywhere, Category = "TDChar|Property")
 	float DefaultDrawingAggroRange;
+
+public:
+	FORCEINLINE const float& GetAggroDrawnRange() const { return DefaultAggroDrawnRange; }
+	FORCEINLINE const float& GetDrawingAggroRange() const { return DefaultDrawingAggroRange; }
+
 };

@@ -31,31 +31,31 @@ protected:
 
 //for a test
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	TSubclassOf<UWeaponComponent> WeaponClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	class UTDProjectileCommonData* ProjectileData;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
+	TSubclassOf<class AProjectileBase> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class UPaperFlipbook> EffectFlipbook;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultSplashRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultCooldown;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	int DefaultDamage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TArray<FDebuffSet> DebuffSetArray;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultDebuffChance;
 
 public:
@@ -67,5 +67,5 @@ public:
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
 
-	UClass* GetWeaponClass();
+	//UClass* GetWeaponClass();
 };
