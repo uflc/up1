@@ -18,7 +18,13 @@ UWeaponComponent::UWeaponComponent():vTarget(nullptr), SplashRange(0),Cooldown(0
 
 bool UWeaponComponent::TargetValidCheck()
 {
-	if (!vTarget) vTarget = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
+	if (vTarget == nullptr)	{goto EndofCheck;}
+
+	else if(!vTarget->IsTargetable()) 	{goto EndofCheck;}
+
+EndofCheck:
+
+	vTarget=(ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
 
 	if (vTarget->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) return true;
 

@@ -40,8 +40,6 @@ void UProjectileWeaponComponent::UseWeapon()
 			
 			UEffectorComponent*  CopyEffector = DuplicateObject<UEffectorComponent>((UEffectorComponent*)Effector, Local_Bullet);
 			//NewObject<UTDComponent>(Local_Bullet, Effector->StaticClass());
-			UE_LOG(LogTemp, Warning, TEXT("%s"), *Effector->StaticClass()->GetName());
-			UE_LOG(LogTemp, Warning, TEXT("%s"), *CopyEffector->StaticClass()->GetName());
 			Local_Bullet->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);
 		}
 

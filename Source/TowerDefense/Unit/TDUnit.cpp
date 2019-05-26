@@ -5,8 +5,8 @@
 #include "PaperFlipbook.h" //anim
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h" //shadow
-#include "DirectWeaponComponent.h"
-
+#include "WeaponComponent.h"
+#include "TDWeaponCommonData.h"
 
 ATDUnit::ATDUnit()
 {
@@ -29,13 +29,22 @@ void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if(!AttackCompClass) return;
-	if(!AttackComp){
-	AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
+	//if(!AttackCompClass) return;
+	//if(!AttackComp){
+	//AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
+	//}
+	//// Create from UnitCommonData
+	//AddOwnedComponent(AttackComp);
+	//AttackComp->SetCommonData(Common.Get()->WeaponData);
+
+	if (!Common->WeaponData)return;
+	if (!AttackComp->IsValidLowLevelFast()) {
+		AttackCompClass = Common->WeaponData->GetWeaponClass();
+		AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
 	}
 	// Create from UnitCommonData
 	AddOwnedComponent(AttackComp);
-	AttackComp->SetCommonData(Common.Get()->WeaponData);
+	AttackComp->SetCommonData(Common->WeaponData);
 
 	//InitializeTDComponents();
 }
@@ -67,6 +76,12 @@ void ATDUnit::ChangeState(EUnitState InState)
 void ATDUnit::UpdateDirection()
 {
 
+}
+
+bool ATDUnit::IsTargetable()
+{
+	if(UnitState==EUnitState::Dying || UnitState == EUnitState::Dead) return false;
+	return true;
 }
 
 //void ATDUnit::StartAttack()

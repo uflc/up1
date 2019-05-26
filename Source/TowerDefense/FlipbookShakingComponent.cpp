@@ -34,7 +34,7 @@ void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	ShakeDuration-=DeltaTime;
 	if (ShakeDuration < 0)
 	{
-		Flipbook->SetRelativeLocation(FVector::ZeroVector);
+		//Flipbook->SetRelativeLocation(FVector::ZeroVector);
 		DestroyComponent();
 		return;
 	}
@@ -47,7 +47,8 @@ void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	ShakeVector.Normalize();
 	ShakeVector*=ShakePower;
 
-	Flipbook->SetRelativeLocation(ShakeVector);
+	//Flipbook->AddLocalOffset(ShakeVector);
+	Flipbook->SetRelativeLocation(Flipbook->RelativeLocation+ShakeVector);
 	
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
