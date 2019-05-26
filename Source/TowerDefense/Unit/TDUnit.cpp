@@ -33,7 +33,7 @@ void ATDUnit::BeginPlay()
 	Super::BeginPlay();
 
 	// Create AttackComponent(Weapon) if not already have one.
-	TSubclassOf<UWeaponComponent> WeaponClass = Common->GetWeaponClass();
+	TSubclassOf<UWeaponComponent> WeaponClass = UnitData->GetWeaponClass();
 	if (WeaponClass && !AttackComp->IsValidLowLevelFast()) 
 	{
 		AttackComp = NewObject<UWeaponComponent>(this, WeaponClass);
@@ -44,14 +44,12 @@ void ATDUnit::BeginPlay()
 		TD_LOG_CALLONLY(Warning);
 		return;
 	}
-	AttackComp->SetCommonData(Common->GetWeaponData());
-
-	//InitializeTDComponents();
+	AttackComp->SetCommonData(UnitData->GetWeaponData());
 }
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()
 {
-	return Common ? Common->GetAnimations()[(uint8)UnitState].Get() : nullptr;
+	return UnitData ? UnitData->GetAnimations()[(uint8)UnitState].Get() : nullptr;
 }
 
 bool ATDUnit::UpdateAnimation()

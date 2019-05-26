@@ -50,7 +50,7 @@ protected:
 	class ATDCharacter* AggroTarget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	class UTDUnitCommonData* Common;
+	class UTDUnitCommonData* UnitData;
 
 public:
 	UFUNCTION()
@@ -66,9 +66,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
 	virtual void UpdateDirection();
-
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void InitializeTDComponents();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	EUnitTeam Team;

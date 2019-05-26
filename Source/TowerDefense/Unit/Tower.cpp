@@ -18,7 +18,7 @@ void ATower::BeginPlay()
 {
 	Super::BeginPlay();
 
-	const UTowerData* TowerData = Cast<UTowerData>(Common);
+	const UTowerData* TowerData = Cast<UTowerData>(UnitData);
 	if (TowerData)
 	{
 		TotalCost = TowerData->Cost;
@@ -38,7 +38,7 @@ void ATower::ShowActionMenu()
 UPaperFlipbook * ATower::GetDesiredAnimation()
 {
 	//Animation of current level, direction and state, 플립북 배열 순서가 아래 식과 매칭 되야 함.
-	return Common ? Common->GetAnimations()[((uint8)Direction) + ((uint8)UnitState * 4/*EDirection::NumEnums*/)].Get() : nullptr;
+	return UnitData ? UnitData->GetAnimations()[((uint8)Direction) + ((uint8)UnitState * 4/*EDirection::NumEnums*/)].Get() : nullptr;
 }
 
 bool ATower::UpdateAnimation()
@@ -65,13 +65,13 @@ void ATower::UpdateDirection()
 
 bool ATower::Upgrade_Implementation(ETowerType UpType)
 {
-	UTowerData* TowerData = Cast<UTowerData>(Common);
+	UTowerData* TowerData = Cast<UTowerData>(UnitData);
 	if (!TowerData) return false;
 
 	UTowerData* Upgraded = TowerData->GetNextUpgraded(UpType);
 	if (!Upgraded) return false;
 
-	Common = Upgraded;
+	UnitData = Upgraded;
 	TotalCost += Upgraded->Cost;
 
 	UpdateAnimation();

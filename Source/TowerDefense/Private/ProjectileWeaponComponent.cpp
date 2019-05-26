@@ -30,7 +30,7 @@ void UProjectileWeaponComponent::UseWeapon()
 
 		FVector CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 
-		AProjectileBase* SpawnedProjectile = (AProjectileBase*)GetWorld()->SpawnActor(WeaponCommon->ProjectileClass, &CaculatedSpawnPoint);
+		AProjectileBase* SpawnedProjectile = (AProjectileBase*)GetWorld()->SpawnActor(WeaponData->ProjectileClass, &CaculatedSpawnPoint);
 
 		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 		for (const auto& Effector : Effectors) // 문제있음
@@ -41,7 +41,7 @@ void UProjectileWeaponComponent::UseWeapon()
 			SpawnedProjectile->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);
 		}
 
-		SpawnedProjectile->SetCommonData(WeaponCommon->ProjectileData);
+		SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
 		SpawnedProjectile->SetTarget(vTarget);
 		SpawnedProjectile->Initialize();
 

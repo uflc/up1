@@ -24,7 +24,7 @@ void ATDCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UTDCharData* CharData = Cast<UTDCharData>(Common);
+	UTDCharData* CharData = Cast<UTDCharData>(UnitData);
 
 	if (CharData)
 	{

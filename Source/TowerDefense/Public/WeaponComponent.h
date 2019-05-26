@@ -21,7 +21,7 @@ protected:
 	class ATDCharacter* vTarget;
 
 	UPROPERTY(BlueprintReadOnly)
-	class UTDWeaponCommonData* WeaponCommon;
+	class UTDWeaponCommonData* WeaponData;
 
 	UPROPERTY(BlueprintReadOnly)
 	float SplashRange;
