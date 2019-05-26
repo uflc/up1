@@ -22,6 +22,8 @@ protected:
 	friend class AProjectileBase;
 	friend class ATDGameModeBase;
 
+		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	bool IsInitialized;
 public:
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TSubclassOf<AProjectileBase> ProjectileClass;*/

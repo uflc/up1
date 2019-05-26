@@ -59,6 +59,9 @@ bool ATDUnit::UpdateAnimation()
 	if (DesiredAnim)
 	{
 		Animation->SetFlipbook(DesiredAnim);
+		Animation->PlayFromStart();
+		if(UnitState==EUnitState::Attacking) Animation->SetLooping(false);
+		else  Animation->SetLooping(true);
 		return true;
 	}
 	

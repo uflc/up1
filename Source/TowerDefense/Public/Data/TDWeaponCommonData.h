@@ -23,8 +23,8 @@ protected:
 	friend UWeaponComponent;	
 	friend class ATDGameModeBase;
 
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
-	//bool IsInitialized;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	bool IsInitialized;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	//TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
