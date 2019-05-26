@@ -24,7 +24,7 @@ struct FTowerUpInfo
 //@타워 타입 업그레이드 트리
 //@TODO BlueprintPure or const or FORCEINLINE ??
 UCLASS(BlueprintType)
-class UTowerData : public UTDUnitCommonData
+class TOWERDEFENSE_API UTowerData : public UTDUnitCommonData
 {
 	GENERATED_BODY()
 

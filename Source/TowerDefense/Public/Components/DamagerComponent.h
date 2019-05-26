@@ -9,7 +9,6 @@
 /**
  * 
  */
- class ATDCharacter;
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOWERDEFENSE_API UDamagerComponent : public UEffectorComponent
 {
@@ -22,6 +21,6 @@ public:
 	int Damage;
 
 public:
-	virtual void Effect(ATDCharacter* Target) override;
+	virtual void Effect(class ATDCharacter* Target) override;
 	void InitializeDamagerComp(float iEffectRange, int iDamage);
 };

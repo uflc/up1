@@ -10,7 +10,7 @@
 
 //@TODO
 UCLASS(Blueprintable, BlueprintType)
-class UTDUnitCommonData : public UDataAsset
+class TOWERDEFENSE_API UTDUnitCommonData : public UDataAsset
 {
 	GENERATED_BODY()
 

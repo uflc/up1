@@ -42,12 +42,10 @@ void ATDCharacter::UpdateDirection()
 {	
 	if (GetVelocity().X > 0)
 	{
-		//Shadow->SetRelativeRotation(FRotator(180, 0, -90));
 		Animation->SetRelativeRotation(FRotator(180, 0, -90));
 	}
 	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함 // ?
 	{
-		//Shadow->SetRelativeRotation(FRotator(0, 0, 0));
 		Animation->SetRelativeRotation(FRotator(0, 0, -90));
 	}
 }
@@ -80,10 +78,11 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 
 void ATDCharacter::Die_Implementation()
 {
-	// Play Dying anim just once
+	// Play Dying anim once
 	ChangeState(EUnitState::Dying);
 	Animation->SetLooping(false);
-	// prevent BTService Aggro Check trace checked
+
+	// BTService Aggro Check trace 방지
 	Team = EUnitTeam::None;
 
 	// detach the controller

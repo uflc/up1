@@ -8,7 +8,7 @@ UDebufferComponent::UDebufferComponent()
 {
 }
 
-inline void UDebufferComponent::InitializeDebuffComp(float iEffectRange, const TArray<FDebuffSet>& iArr, float iChance)
+void UDebufferComponent::InitializeDebuffComp (float iEffectRange, const TArray<FDebuffSet>& iArr, float iChance)
 {
 	UEffectorComponent::InitializeEffectorComponent(iEffectRange);
 	DebuffSetArray = iArr;

@@ -16,11 +16,13 @@ UProjectileWeaponComponent::UProjectileWeaponComponent():ProjectileRelativeSpawn
 
 }
 
-void UProjectileWeaponComponent::BeginPlay(){
+void UProjectileWeaponComponent::BeginPlay()
+{
 }
+
 void UProjectileWeaponComponent::UseWeapon()
 {
-	if(TargetValidCheck())
+	if (TargetValidCheck())
 	{
 		//TSubclassOf<AProjectileBase> ProjectileClass = WeaponCommon->ProjectileClass;
 
@@ -30,7 +32,7 @@ void UProjectileWeaponComponent::UseWeapon()
 
 		FVector CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 
-		AProjectileBase* SpawnedProjectile = (AProjectileBase*)GetWorld()->SpawnActor(WeaponData->ProjectileClass, &CaculatedSpawnPoint);
+		AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &CaculatedSpawnPoint);
 
 		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 		for (const auto& Effector : Effectors) // 문제있음

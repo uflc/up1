@@ -10,7 +10,7 @@ UEffectorComponent::UEffectorComponent():EffectRange(0)
 
 }
 
-inline void UEffectorComponent::InitializeEffectorComponent(float iEffectRange)
+void UEffectorComponent::InitializeEffectorComponent(float iEffectRange)
 {
 	EffectRange=iEffectRange;
 }
@@ -18,7 +18,7 @@ inline void UEffectorComponent::InitializeEffectorComponent(float iEffectRange)
 void UEffectorComponent::AffectTarget(ATDCharacter * MainTarget)
 {
 	FVector TargetLocation = (MainTarget)->GetActorLocation();
-	auto TargetTeam = MainTarget->Team;
+	EUnitTeam TargetTeam = MainTarget->Team;
 
 	if(EffectRange>0){
 

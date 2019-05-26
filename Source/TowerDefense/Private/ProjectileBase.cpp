@@ -17,9 +17,9 @@ AProjectileBase::AProjectileBase()
 	RootComponent = Animation;
 }
 
-inline void AProjectileBase::SetTarget(ATDCharacter * iTarget) { Target = iTarget; }
+void AProjectileBase::SetTarget(ATDCharacter * iTarget) { Target = iTarget; }
 
-inline void AProjectileBase::SetCommonData(UTDProjectileCommonData* iData) { ProjectileCommon = iData; }
+void AProjectileBase::SetCommonData(UTDProjectileCommonData* iData) { ProjectileCommon = iData; }
 
 void AProjectileBase::Initialize()
 {

@@ -34,7 +34,7 @@ inline UTDComponent * UTDComponent::GetSubComponent(const TSubclassOf<UTDCompone
 	return FoundComponent;
 }
 
-inline TArray<UTDComponent*> UTDComponent::GetSubComponentsByClass(TSubclassOf<UTDComponent> ComponentClass) const
+TArray<UTDComponent*> UTDComponent::GetSubComponentsByClass(TSubclassOf<UTDComponent> ComponentClass) const
 {
 	TArray<UTDComponent*> ValidComponents;
 

@@ -23,13 +23,13 @@ void UDirectWeaponComponent::UseWeapon()
 {	
 	// Gonna change to using common data
 
-	if (TargetValidCheck()) {
+	if (TargetValidCheck()) 
+	{
+		if (EffectFlipbook)		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(vTarget->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
 
-		if(EffectFlipbook)		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(vTarget->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
+		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 
-		auto Arr = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-
-		for (auto Effector : Arr)
+		for (auto& Effector : Effectors)
 		{
 			((UEffectorComponent*)Effector)->AffectTarget(vTarget);
 		}

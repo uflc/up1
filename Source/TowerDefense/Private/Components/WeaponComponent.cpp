@@ -33,23 +33,22 @@ EndofCheck:
 
 void UWeaponComponent::InitializeWeaponComp()
 {
-	SplashRange=WeaponData->DefaultSplashRange;
+	SplashRange	= WeaponData->DefaultSplashRange;
+	Cooldown	= WeaponData->DefaultCooldown;
+	Range		= WeaponData->DefaultRange;
+	Damage		= WeaponData->DefaultDamage;
 
-	Cooldown= WeaponData->DefaultCooldown;
-
-	Range= WeaponData->DefaultRange;
-
-	// need?
-	Damage= WeaponData->DefaultDamage;
-
-	if (Damage > 0)	{
+	if (Damage > 0)	
+	{
 		UDamagerComponent* DmgComp= AddSubComponent<UDamagerComponent>();
-		if (DmgComp != nullptr) {
+		if (DmgComp != nullptr) 
+		{
 			DmgComp->InitializeDamagerComp(SplashRange, Damage);
 		}
 	}
 	
-	if( WeaponData->DebuffSetArray.Num()!=0) {
+	if( WeaponData->DebuffSetArray.Num()!=0) 
+	{
 	//UDebufferComponent* DebuffComp = AddSubComponent<UDebufferComponent>();
 	//		if (DebuffComp != nullptr) {
 	//			DebuffComp->InitializeDebufferComp(WeaponCommon->EffectRange, WeaponCommon->DebuffArr, WeaponCommon->DebuffChance);
@@ -57,7 +56,11 @@ void UWeaponComponent::InitializeWeaponComp()
 	}
 }
 
-inline void UWeaponComponent::SetCommonData(UTDWeaponCommonData* iData) { WeaponData = iData; InitializeWeaponComp(); }
+void UWeaponComponent::SetCommonData(UTDWeaponCommonData* iData) 
+{ 
+	WeaponData = iData; 
+	InitializeWeaponComp(); 
+}
 
 void UWeaponComponent::UseWeapon()
 {
