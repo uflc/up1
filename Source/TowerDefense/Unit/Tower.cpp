@@ -10,7 +10,7 @@
 
 ATower::ATower()
 {
-	static FName TowerCollisionProfileName(TEXT("NoCollision"));
+	static FName TowerCollisionProfileName(TEXT("BlockAll"));
 	Animation->SetCollisionProfileName(TowerCollisionProfileName);
 }
 
