@@ -9,7 +9,7 @@
 #include "TimerManager.h"
 #include "AIController.h"
 #include "GameFramework/FloatingPawnMovement.h"
-
+#include "TowerDefense.h"
 
 ATDCharacter::ATDCharacter()
 {
@@ -59,7 +59,6 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 	// FlipbookShakingComponent È¿°ú
 	auto ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
 	if (ShakeComp) ShakeComp->DestroyComponent();
-
 	ShakeComp = NewObject<UFlipbookShakingComponent>(this, "FlipbookShakingComponent");
 	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
 	ShakeComp->RegisterComponent();
