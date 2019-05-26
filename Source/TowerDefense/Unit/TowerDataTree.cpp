@@ -28,9 +28,3 @@ TArray<FTowerUpInfo>UTowerData::GetUpTypesInfo()
 {
 	return TArray<FTowerUpInfo>(UpTypes, UPGRADES_NUM);
 }
-
-//@TODO Note UnitState is not safe!
-UPaperFlipbook * UTowerData::GetMatchingAnim(const EDirection & Direction, const EUnitState & State)
-{
-	return Animations[((uint8)Direction) + ((uint8)State * 4/*EDirection::NumEnums*/)].Get();
-}

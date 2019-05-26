@@ -40,9 +40,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
 	UUserWidget* CurrentWidget;
 
-	//@ TD 유닛 데이터. 특히 필드 유닛의 플립북.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
-	TArray<class UTDUnitCommonData*> TDUnitCommons;
+	////@ TD 유닛 데이터. 특히 필드 유닛의 플립북. //TODO Config
+	//UPROPERTY(EditAnywhere, Category = "TDUnit")
+	//TArray<class UTDUnitCommonData*> TDUnitCommons;
 
 	//@TODO 더 좋은 로딩 방법
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
@@ -53,7 +53,6 @@ protected:
 	//@Note BaseTowerData 로부터 모든 타워 데이터에 접근할 수 있기 때문에 일단 이렇게 함.
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
 	void LoadTowerResources(UTowerData * InTowerDataTree);
-
 	void LoadTowerResourcesDeffered();
 
 public:	

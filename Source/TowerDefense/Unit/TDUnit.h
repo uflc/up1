@@ -60,7 +60,7 @@ protected:
 	float AggroDrawnRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	TSoftObjectPtr<class UTDUnitCommonData> Common;
+	class UTDUnitCommonData* Common;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	TSubclassOf<UWeaponComponent> AttackCompClass;

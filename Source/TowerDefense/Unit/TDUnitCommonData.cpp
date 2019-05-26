@@ -3,8 +3,8 @@
 
 #include "TDUnitCommonData.h"
 #include "PaperFlipbook.h"
-#include "Runtime/Engine/Classes/Engine/AssetManager.h"
-//#include "Runtime/Engine/Classes/Engine/World.h"
+#include "Engine/AssetManager.h"
+#include "TowerDefense.h"
 
 void UTDUnitCommonData::Initialize()
 {
@@ -13,9 +13,9 @@ void UTDUnitCommonData::Initialize()
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
-	for (auto it : FlipbookMap)
+	for (auto& Animation : Animations)
 	{
-		AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
+		AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
 	}
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
 
@@ -24,10 +24,13 @@ void UTDUnitCommonData::Initialize()
 
 void UTDUnitCommonData::LoadFlipbooksDeffered()
 {
-	for (auto it : FlipbookMap)
+	for (auto& Animation : Animations)
 	{
-		TSoftObjectPtr<UPaperFlipbook> NewFlipbook = it.Value;
-		if (NewFlipbook) NewFlipbook.Get();
+		if (!Animation.Get())
+		{
+			TD_LOG_CALLONLY(Warning);
+			return;
+		}
 	}
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

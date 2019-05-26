@@ -2,16 +2,14 @@
 
 
 #include "ProjectileWeaponComponent.h"
-
 #include "ProjectileBase.h"
-
 #include "TDCharacter.h"
 #include "EffectorComponent.h"
 #include "TDWeaponCommonData.h"
 #include "TDProjectileCommonData.h"
 //#include "Tower.h"
 #include "AIController.h"
-#include "AIModule\Classes\BehaviorTree\BlackboardComponent.h"
+#include "BehaviorTree\BlackboardComponent.h"
 
 UProjectileWeaponComponent::UProjectileWeaponComponent():ProjectileRelativeSpawnPoint(FVector(0,0,0)), ProjectileisDirectable(false)
 {

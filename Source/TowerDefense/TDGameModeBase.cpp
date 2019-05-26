@@ -5,8 +5,8 @@
 #include "TowerDataTree.h"
 #include "TDPlayerController.h"//
 #include "HUDWidget.h"//
-#include "Runtime/Engine/Classes/Engine/AssetManager.h"
-#include "Runtime/Engine/Classes/Engine/World.h"
+#include "Engine/AssetManager.h"
+#include "Engine/World.h"
 #include "TowerDefense.h"
 
 

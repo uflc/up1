@@ -13,19 +13,9 @@ void AParabolicHomingProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//TeleportTo(GetActorLocation() + (VelocityVec*DeltaTime),GetActorRotation());
-
-	//DirectionVec.Normalize();
-	//DirectionVec *= Velocity;
-
-	//VelocityVec = (DefVelocityVec*(1 - TickCounter)) + (DirectionVec * TickCounter);
-
-	//SetActorLocation(GetActorLocation() + (VelocityVec*DeltaTime)); 
-	
 	TickCounter += (DeltaTime/(DefVecSize*0.4f));
 	if(TickCounter>=1.0f)	TickCounter=1.0f;
 
-	//if (IsDirectable) SetActorRotation(FRotator(0, (VelocityVec*-1).Rotation().Yaw, 0));
 }
 
 void AParabolicHomingProjectile::Initialize()

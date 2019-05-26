@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
-#include "TDTypes.h"
+#include "TDUnitCommonData.h"
 #include "TowerDataTree.generated.h"
 
 USTRUCT(BlueprintType)
@@ -25,17 +24,12 @@ struct FTowerUpInfo
 //@타워 타입 업그레이드 트리
 //@TODO BlueprintPure or const or FORCEINLINE ??
 UCLASS(BlueprintType)
-class UTowerData : public UDataAsset
+class UTowerData : public UTDUnitCommonData
 {
 	GENERATED_BODY()
 
 	friend class ATower;
 	friend class ATDGameModeBase;
-
-private:
-	//@매칭 플립북 배열 주소는 UnitState * Direction as Byte
-	UPROPERTY(EditAnywhere)
-	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -55,13 +49,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float AttackSpeed;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
-	class UTDWeaponCommonData* WeaponData;
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	//TSubclassOf<class AHomingProjectile> BulletType;
-
 public:
-
 	//@return nullptr when UpType is not valid.
 	UFUNCTION(BlueprintPure)
 	UTowerData* GetNextUpgraded(const ETowerType& UpType);
@@ -75,6 +63,4 @@ public:
 	TArray<FTowerUpInfo> GetUpTypesInfo();
 
 	//@return Animation of current level, direction and state
-	UFUNCTION(BlueprintCallable)
-	UPaperFlipbook* GetMatchingAnim(const EDirection& Direction, const EUnitState& State);
 };

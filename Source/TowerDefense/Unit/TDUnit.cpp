@@ -19,7 +19,9 @@ ATDUnit::ATDUnit()
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow"));
 
 	if (Shadow)
+	{
 		Shadow->SetupAttachment(Animation);
+	}
 
 	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
 	//AddOwnedComponent(AttackComp);
@@ -29,20 +31,13 @@ void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//if(!AttackCompClass) return;
-	//if(!AttackComp){
-	//AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
-	//}
-	//// Create from UnitCommonData
-	//AddOwnedComponent(AttackComp);
-	//AttackComp->SetCommonData(Common.Get()->WeaponData);
-
-	if (!Common->WeaponData)return;
-	if (!AttackComp->IsValidLowLevelFast()) {
+	// Create AttackComponent(Weapon) from UnitCommonData
+	if (!Common->WeaponData) return;
+	if (!AttackComp->IsValidLowLevelFast()) 
+	{
 		AttackCompClass = Common->WeaponData->GetWeaponClass();
 		AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
 	}
-	// Create from UnitCommonData
 	AddOwnedComponent(AttackComp);
 	AttackComp->SetCommonData(Common->WeaponData);
 
@@ -51,7 +46,7 @@ void ATDUnit::BeginPlay()
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()
 {
-	return Common ? Common->FlipbookMap.Find(UnitState)->Get() : nullptr;
+	return Common ? Common->Animations[(uint8)UnitState].Get() : nullptr;
 }
 
 bool ATDUnit::UpdateAnimation()
@@ -63,8 +58,8 @@ bool ATDUnit::UpdateAnimation()
 		Animation->SetFlipbook(DesiredAnim);
 		return true;
 	}
-	else return false;
-
+	
+	return false;
 }
 
 void ATDUnit::ChangeState(EUnitState InState)
@@ -80,7 +75,8 @@ void ATDUnit::UpdateDirection()
 
 bool ATDUnit::IsTargetable()
 {
-	if(UnitState==EUnitState::Dying || UnitState == EUnitState::Dead) return false;
+	if (UnitState==EUnitState::Dying || UnitState == EUnitState::Dead) return false;
+
 	return true;
 }
 

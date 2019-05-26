@@ -24,8 +24,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool IsDelayChecking;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class UTowerData* TowerData;
+	/*UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	class UTowerData* TowerData;*/
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;

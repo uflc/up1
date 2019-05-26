@@ -6,8 +6,7 @@
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "TowerDefense.h" //log 
-#include "TDWeaponCommonData.h"
-#include "WeaponComponent.h"
+
 
 ATower::ATower()
 {
@@ -17,18 +16,13 @@ ATower::ATower()
 
 void ATower::BeginPlay()
 {
-	//Super::BeginPlay();
+	Super::BeginPlay();
 
-	if (!TowerData->WeaponData)return;
-	if (!AttackComp->IsValidLowLevelFast()) {
-		AttackCompClass=TowerData->WeaponData->GetWeaponClass();
-		AttackComp = NewObject<UWeaponComponent>(this, AttackCompClass);
+	const UTowerData* TowerData = Cast<UTowerData>(Common);
+	if (TowerData)
+	{
+		TotalCost = TowerData->Cost;
 	}
-	// Create from UnitCommonData
-	AddOwnedComponent(AttackComp);
-	AttackComp->SetCommonData(TowerData->WeaponData);
-
-	TotalCost = TowerData->Cost;
 }
 
 void ATower::OnDeselected()
@@ -43,7 +37,7 @@ void ATower::ShowActionMenu()
 
 UPaperFlipbook * ATower::GetDesiredAnimation()
 {
-	return TowerData ? TowerData->GetMatchingAnim(Direction, UnitState) : nullptr;
+	return Common ? Common->Animations[((uint8)Direction) + ((uint8)UnitState * 4/*EDirection::NumEnums*/)].Get() : nullptr;
 }
 
 bool ATower::UpdateAnimation()
@@ -70,11 +64,14 @@ void ATower::UpdateDirection()
 
 bool ATower::Upgrade_Implementation(ETowerType UpType)
 {
+	UTowerData* TowerData = Cast<UTowerData>(Common);
+	if (!TowerData) return false;
+
 	UTowerData* Upgraded = TowerData->GetNextUpgraded(UpType);
 
 	if (!Upgraded) return false;
 
-	TowerData = Upgraded;
+	Common = Upgraded;
 
 	AttackDamage = Upgraded->AttackDamage;
 	AttackRange = Upgraded->AttackRange;
