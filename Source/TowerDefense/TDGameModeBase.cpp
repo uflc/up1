@@ -6,7 +6,6 @@
 #include "TDPlayerController.h"//
 #include "HUDWidget.h"//
 #include "Engine/AssetManager.h"
-#include "Engine/World.h"
 #include "TowerDefense.h"
 #include "TDWeaponCommonData.h"
 
@@ -30,16 +29,16 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 
 	for (auto& TDUnitCommon : InUsingTDUnitCommons)
 	{
-		//if (TDUnitCommon->IsInitialized)
-		//{
-		//	UnloadedTDUnitCommonNum--;
-		//	AlreadyLoadedNum++;
-		//	continue;
-		//}
+		if (TDUnitCommon->IsInitialized)
+		{
+			UnloadedTDUnitCommonNum--;
+			AlreadyLoadedNum++;
+			continue;
+		}
 		
 		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
-		UE_LOG(TowerDefense, Warning,TEXT("%s"),TDUnitCommon->GetName().GetCharArray().GetData());
+		TD_LOG(Warning,TEXT("%s"),TDUnitCommon->GetName().GetCharArray().GetData());
 	}
 
 	//로드할 것이 없을 때 로드 완료

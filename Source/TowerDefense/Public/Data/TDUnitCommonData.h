@@ -20,7 +20,7 @@ public:
 protected:
 	friend class ATDGameModeBase;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool IsInitialized;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
