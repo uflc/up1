@@ -10,7 +10,7 @@ UDamagerComponent::UDamagerComponent():Damage(0)
 
 void UDamagerComponent::Effect(ATDCharacter* Target)
 {
-	Target->TDUnitTakeDamage(0.0f,0.2f,Damage);
+	Target->TDUnitTakeDamage(4.0f,0.2f,Damage);
 }
 
 void UDamagerComponent::InitializeDamagerComp(float iEffectRange, int iDamage)

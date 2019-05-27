@@ -30,12 +30,12 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 
 	for (auto& TDUnitCommon : InUsingTDUnitCommons)
 	{
-		if (TDUnitCommon->IsInitialized)
-		{
-			UnloadedTDUnitCommonNum--;
-			AlreadyLoadedNum++;
-			continue;
-		}
+		//if (TDUnitCommon->IsInitialized)
+		//{
+		//	UnloadedTDUnitCommonNum--;
+		//	AlreadyLoadedNum++;
+		//	continue;
+		//}
 		
 		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
