@@ -15,7 +15,8 @@ class TOWERDEFENSE_API UTDUnitCommonData : public UDataAsset
 	GENERATED_BODY()
 
 	DECLARE_DELEGATE(FLoadCompletedSignature);
-
+public:
+	UTDUnitCommonData();
 protected:
 	friend class ATDGameModeBase;
 

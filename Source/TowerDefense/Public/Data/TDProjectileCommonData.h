@@ -39,7 +39,8 @@ public:
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
 
-	UFUNCTION()
+	UTDProjectileCommonData();
+
 	void Initialize();
 
 	UFUNCTION()

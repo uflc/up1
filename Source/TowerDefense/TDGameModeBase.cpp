@@ -8,6 +8,7 @@
 #include "Engine/AssetManager.h"
 #include "Engine/World.h"
 #include "TowerDefense.h"
+#include "TDWeaponCommonData.h"
 
 
 UUserWidget * ATDGameModeBase::GetCurrentWidget()
@@ -38,6 +39,7 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 		
 		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
+		UE_LOG(TowerDefense, Warning,TEXT("%s"),TDUnitCommon->GetName().GetCharArray().GetData());
 	}
 
 	//로드할 것이 없을 때 로드 완료
@@ -59,6 +61,8 @@ void ATDGameModeBase::LoadTowerResources(UTowerData * InTowerDataTree)
 	{
 		AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
 	}
+
+	if(InTowerDataTree->WeaponData)InTowerDataTree->WeaponData->Initialize();
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &ATDGameModeBase::LoadTowerResourcesDeffered));
 

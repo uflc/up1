@@ -7,9 +7,11 @@
 #include "Engine/AssetManager.h"
 //#include "Runtime/Engine/Classes/Engine/World.h"
 
+UTDProjectileCommonData::UTDProjectileCommonData():IsInitialized(false){}
+
 void UTDProjectileCommonData::Initialize()
 {
-	//if (IsInitialized) return; //하나만 따로 테스트 하는 경우 체크 필요. 실제로는 Iterate 하는 쪽에서 Bind 때문에 체크를 할 것이므로 불필요. 
+	if (IsInitialized) return;
 
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
@@ -19,6 +21,8 @@ void UTDProjectileCommonData::Initialize()
 		AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
 	}
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
+
+	IsInitialized=true;
 }
 
 void UTDProjectileCommonData::LoadFlipbooksDeffered()

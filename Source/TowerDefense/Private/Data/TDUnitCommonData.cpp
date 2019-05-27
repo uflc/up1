@@ -2,9 +2,14 @@
 
 
 #include "TDUnitCommonData.h"
+#include "TDWeaponCommonData.h"
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
+
+UTDUnitCommonData::UTDUnitCommonData():IsInitialized(false)
+{
+}
 
 void UTDUnitCommonData::Initialize()
 {
@@ -19,7 +24,9 @@ void UTDUnitCommonData::Initialize()
 	}
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
 
-	IsInitialized = true;
+	if(WeaponData)	WeaponData->Initialize();
+
+//	IsInitialized = true;
 }
 
 void UTDUnitCommonData::LoadFlipbooksDeffered()

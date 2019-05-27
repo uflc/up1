@@ -2,13 +2,19 @@
 
 
 #include "TDWeaponCommonData.h"
+#include "TDProjectileCommonData.h"
 #include "WeaponComponent.h"
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
 #include "Engine/World.h"
 
+
+UTDWeaponCommonData::UTDWeaponCommonData():IsInitialized(false){}
+
 void UTDWeaponCommonData::Initialize()
 {
+	if (IsInitialized) return;
+
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
@@ -16,6 +22,10 @@ void UTDWeaponCommonData::Initialize()
 	AssetsToLoad.AddUnique(EffectFlipbook.ToSoftObjectPath());
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
+
+	if(ProjectileData)	ProjectileData->Initialize();
+
+	IsInitialized=true;
 }
 
 void UTDWeaponCommonData::LoadFlipbooksDeffered()

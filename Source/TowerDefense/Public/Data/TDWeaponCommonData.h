@@ -61,7 +61,8 @@ public:
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
 
-	UFUNCTION()
+	UTDWeaponCommonData();
+
 	void Initialize();
 
 	UFUNCTION()
