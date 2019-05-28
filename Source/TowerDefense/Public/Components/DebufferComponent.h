@@ -13,16 +13,12 @@ class TOWERDEFENSE_API UDebufferComponent : public UEffectorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UDebufferComponent();
-
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FDebuffSet> DebuffSetArray;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float DebuffChance;
+	float DebuffChance = 0;
 
 public:	
 	UFUNCTION(BlueprintCallable)

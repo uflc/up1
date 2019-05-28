@@ -17,9 +17,8 @@ class TOWERDEFENSE_API UDirectWeaponComponent : public UWeaponComponent
 
 
 protected:
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UPaperFlipbook* EffectFlipbook;
+	class UPaperFlipbook* EffectFlipbook = nullptr;
 
 public:
 	// Change to virtual?

@@ -75,10 +75,12 @@ struct  FDebuffSet {
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EDebuffType Type;
-
+	
+	// Sec
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Duration;
 
+	// 0~100
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Power;
 };

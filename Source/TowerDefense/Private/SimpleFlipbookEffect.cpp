@@ -14,8 +14,10 @@ void ASimpleFlipbookEffect::SetupEffect(UPaperFlipbook* InFlipbook)
 	}
 
 	UPaperFlipbookComponent* FlipbookComp = GetRenderComponent();
+
 	FlipbookComp->SetFlipbook(InFlipbook);
 	FlipbookComp->SetLooping(false);
 	FlipbookComp->PlayFromStart();
+
 	SetLifeSpan(InFlipbook->GetTotalDuration());
 }

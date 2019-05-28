@@ -30,7 +30,7 @@ void ATower::BeginPlay()
 
 void ATower::OnDeselected()
 {
-	IsSelected = false;
+	bIsSelected = false;
 }
 
 void ATower::ShowActionMenu()
@@ -88,8 +88,8 @@ void ATower::NotifyActorOnClicked(FKey ButtonPressed)
 
 	TD_LOG_CALLONLY(Warning);////
 
-	if (IsSelected) return;
+	if (bIsSelected) return;
 
-	IsSelected = true;
+	bIsSelected = true;
 	ShowActionMenu();
 }

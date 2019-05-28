@@ -2,11 +2,10 @@
 
 
 #include "DebufferComponent.h"
-
-// Sets default values for this component's properties
-UDebufferComponent::UDebufferComponent()
-{
-}
+#include "TDTypes.h"
+#include "TDCharacter.h"
+#include "GameFramework\FloatingPawnMovement.h"
+#include "TDComponent.h"
 
 void UDebufferComponent::InitializeDebuffComp (float InEffectRange, const TArray<FDebuffSet>& Arr, float InChance)
 {
@@ -18,5 +17,51 @@ void UDebufferComponent::InitializeDebuffComp (float InEffectRange, const TArray
 
 void UDebufferComponent::Effect(ATDCharacter * Target)
 {
-	//Target->Debuff(~~);
+	// How can we setup Timers?
+
+	//*UFloatingPawnMovement* Movement;
+	//TArray<UActorComponent*> TDComponentArray;
+	//
+	//if (Target->IsValidLowLevel()&& Target->GetMovementComponent()->IsValidLowLevel())
+	//{
+	//	Movement = Cast<UFloatingPawnMovement>(Target->GetMovementComponent());
+	//}
+
+	//for (FDebuffSet DebuffInfo : DebuffSetArray)
+	//{
+	//	EDebuffType Type=DebuffInfo.Type;
+	//	switch (Type) 
+	//	{
+	//		case EDebuffType::Slow:
+	//			if (Movement)
+	//			{
+	//				Movement->MaxSpeed *= (DebuffInfo.Power / 100.0f);
+	//			}
+	//			break;
+
+	//		case EDebuffType::Snared:
+	//			if (Movement)
+	//			{
+	//				Movement->MaxSpeed = 0;
+	//			}
+	//			break;
+
+	//		case EDebuffType::Stun:
+	//			if (Movement)
+	//			{
+	//				Movement->MaxSpeed = 0;
+	//			}
+
+	//			TDComponentArray = Target->GetComponentsByClass(UTDComponent::StaticClass());
+
+	//			for(UActorComponent* Comp : TDComponentArray)
+	//			{
+	//				(UTDComponent*)Comp->Deactivate();
+	//			}
+	//			break;
+
+	//		default:
+	//			return;
+	//	}
+	//}*/
 }

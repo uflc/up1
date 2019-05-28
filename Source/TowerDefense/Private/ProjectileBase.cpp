@@ -18,9 +18,9 @@ AProjectileBase::AProjectileBase()
 	RootComponent = Animation;
 }
 
-void AProjectileBase::SetTarget(ATDCharacter * InTarget) { Target = InTarget; }
+FORCEINLINE void AProjectileBase::SetTarget(ATDCharacter * InTarget) { Target = InTarget; }
 
-void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData) { ProjectileCommon = InData; }
+FORCEINLINE void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData) { ProjectileCommon = InData; }
 
 void AProjectileBase::Initialize()
 {
@@ -29,7 +29,7 @@ void AProjectileBase::Initialize()
 	Velocity = Data->Velocity;
 	IsDirectable = Data->Directable;
 
-	auto FlipbookSoftPtr =  Data->FlipbookMap.Find(EWeaponFlipbookType::Projectile);
+	TSoftObjectPtr<UPaperFlipbook>* FlipbookSoftPtr =  Data->FlipbookMap.Find(EWeaponFlipbookType::Projectile);
 	if (FlipbookSoftPtr == nullptr) return;
 
 	Animation->SetFlipbook(FlipbookSoftPtr->Get());
@@ -37,7 +37,7 @@ void AProjectileBase::Initialize()
 
 void AProjectileBase::BulletDestroy()
 {
-	auto FlipbookSoftPtr = ProjectileCommon->FlipbookMap.Find(EWeaponFlipbookType::Effect);
+	TSoftObjectPtr<UPaperFlipbook>* FlipbookSoftPtr = ProjectileCommon->FlipbookMap.Find(EWeaponFlipbookType::Effect);
 
 	if (FlipbookSoftPtr == nullptr) 
 	{

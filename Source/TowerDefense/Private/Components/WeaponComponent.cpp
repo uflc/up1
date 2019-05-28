@@ -11,7 +11,7 @@
 
 
 // Sets default values for this component's properties
-UWeaponComponent::UWeaponComponent():Target(nullptr), SplashRange(0),Cooldown(0),Range(0),Damage(0)
+UWeaponComponent::UWeaponComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
 }
@@ -19,9 +19,14 @@ UWeaponComponent::UWeaponComponent():Target(nullptr), SplashRange(0),Cooldown(0)
 bool UWeaponComponent::TargetValidCheck()
 {
 	//TODO Event freom BB?
+
+	const ATDUnit* Owner = (ATDUnit*)GetOwner();
+	const AAIController* AICon = (AAIController*)Owner->GetController();
+	ATDCharacter* BBTarget = (ATDCharacter*)AICon->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
+
 	if (Target == nullptr || !Target->IsTargetable())
 	{
-		Target = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
+		Target = BBTarget;
 	}
 
 	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) return true;
@@ -32,9 +37,9 @@ bool UWeaponComponent::TargetValidCheck()
 void UWeaponComponent::InitializeWeaponComp()
 {
 	SplashRange	= WeaponData->DefaultSplashRange;
-	Cooldown	= WeaponData->DefaultCooldown;
-	Range		= WeaponData->DefaultRange;
-	Damage		= WeaponData->DefaultDamage;
+	Cooldown		= WeaponData->DefaultCooldown;
+	Range				= WeaponData->DefaultRange;
+	Damage			= WeaponData->DefaultDamage;
 
 	if (Damage > 0)	
 	{

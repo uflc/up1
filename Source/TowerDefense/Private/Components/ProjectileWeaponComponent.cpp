@@ -20,7 +20,7 @@ void UProjectileWeaponComponent::UseWeapon()
 		AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &CaculatedSpawnPoint);
 
 		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-		for (const auto& Effector : Effectors) // 문제있음
+		for (const auto& Effector : Effectors) 
 		{
 			UEffectorComponent* CopyEffector = DuplicateObject<UEffectorComponent>((UEffectorComponent*)Effector, SpawnedProjectile);
 			SpawnedProjectile->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);

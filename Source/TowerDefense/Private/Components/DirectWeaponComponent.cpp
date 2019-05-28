@@ -20,8 +20,10 @@ void UDirectWeaponComponent::UseWeapon()
 
 	if (TargetValidCheck()) 
 	{
-		if (EffectFlipbook)		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
-
+		if (EffectFlipbook)	
+		{
+			(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
+		}
 		const TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 
 		for (const auto& Effector : Effectors)

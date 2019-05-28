@@ -20,7 +20,7 @@ protected:
 	//Need it for cache?
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float EffectRange;
+	float EffectRange = 0;
 
 	//	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//TMap<> AffectRateByDistanceMap;

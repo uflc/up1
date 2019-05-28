@@ -13,12 +13,10 @@ UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpa
 class TOWERDEFENSE_API UDamagerComponent : public UEffectorComponent
 {
 	GENERATED_BODY()
-	
-	UDamagerComponent();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Damage;
+	int Damage=0;
 
 public:
 	virtual void Effect(class ATDCharacter* Target) override;

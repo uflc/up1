@@ -18,11 +18,8 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	bool IsSelected;
+	bool bIsSelected;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	bool IsDelayChecking;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;
 

@@ -18,25 +18,25 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class ATDCharacter* Target;
+	class ATDCharacter* Target	 = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
-	class UTDWeaponCommonData* WeaponData;
+	class UTDWeaponCommonData* WeaponData = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
-	float SplashRange;
+	float	SplashRange		= 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	float Cooldown;
+	float	Cooldown			= 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	float Range;
+	float	Range					= 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	int Damage;
+	int		Damage				= 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	float UpgradedLevel;
+	int		UpgradedLevel	= 0;
 
 public:	
 	bool TargetValidCheck();

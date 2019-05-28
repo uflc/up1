@@ -4,13 +4,11 @@
 #include "DamagerComponent.h"
 #include "TDCharacter.h"
 
-UDamagerComponent::UDamagerComponent():Damage(0)
-{
-}
-
 void UDamagerComponent::Effect(ATDCharacter* Target)
 {
-	Target->TDUnitTakeDamage(4.0f,0.2f,Damage);
+	const float DefaultShakePower= 4.0f;
+	const float DefaultShakeDuration= 0.2f;
+	Target->TDUnitTakeDamage(DefaultShakePower,DefaultShakeDuration,Damage);
 }
 
 void UDamagerComponent::InitializeDamagerComp(float InEffectRange, int InDamage)
