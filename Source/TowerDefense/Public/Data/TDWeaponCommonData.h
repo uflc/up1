@@ -23,7 +23,7 @@ protected:
 	friend UWeaponComponent;	
 	friend class ATDGameModeBase;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
 	bool IsInitialized;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")

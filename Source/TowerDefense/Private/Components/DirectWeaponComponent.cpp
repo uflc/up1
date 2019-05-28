@@ -6,11 +6,6 @@
 #include "SimpleFlipbookEffect.h"
 #include "EffectorComponent.h"
 
-UDirectWeaponComponent::UDirectWeaponComponent():EffectFlipbook(nullptr)
-{
-
-}
-
 
 //inline void UDirectWeaponComponent::InitializeDirectWeaponComp() {
 //	UWeaponComponent::InitializeWeaponComp();
@@ -25,13 +20,13 @@ void UDirectWeaponComponent::UseWeapon()
 
 	if (TargetValidCheck()) 
 	{
-		if (EffectFlipbook)		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(vTarget->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
+		if (EffectFlipbook)		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
 
-		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
+		const TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 
-		for (auto& Effector : Effectors)
+		for (const auto& Effector : Effectors)
 		{
-			((UEffectorComponent*)Effector)->AffectTarget(vTarget);
+			((UEffectorComponent*) Effector)->AffectTarget(Target);
 		}
 	}
 }

@@ -18,7 +18,7 @@ UTowerData * UTowerData::GetNextUpgraded(const ETowerType & UpType)
 
 UTowerData * UTowerData::GetUpgraded(const TArray<ETowerType>& UpTypeTree)
 {
-	auto Upgraded = this;
+	UTowerData* Upgraded = this;
 
 	for (const auto& UpType : UpTypeTree)
 	{

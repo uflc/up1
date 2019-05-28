@@ -12,6 +12,8 @@ ATower::ATower()
 {
 	static FName TowerCollisionProfileName(TEXT("BlockAll"));
 	Animation->SetCollisionProfileName(TowerCollisionProfileName);
+
+	Team = EUnitTeam::Player;
 }
 
 void ATower::BeginPlay()
@@ -19,6 +21,7 @@ void ATower::BeginPlay()
 	Super::BeginPlay();
 
 	const UTowerData* TowerData = Cast<UTowerData>(UnitData);
+
 	if (TowerData)
 	{
 		TotalCost = TowerData->Cost;

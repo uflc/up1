@@ -5,6 +5,7 @@
 #include "TDProjectileCommonData.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
+
 // Sets default values
 AProjectileBase::AProjectileBase()
 {
@@ -17,19 +18,19 @@ AProjectileBase::AProjectileBase()
 	RootComponent = Animation;
 }
 
-void AProjectileBase::SetTarget(ATDCharacter * iTarget) { Target = iTarget; }
+void AProjectileBase::SetTarget(ATDCharacter * InTarget) { Target = InTarget; }
 
-void AProjectileBase::SetCommonData(UTDProjectileCommonData* iData) { ProjectileCommon = iData; }
+void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData) { ProjectileCommon = InData; }
 
 void AProjectileBase::Initialize()
 {
-	auto Data = ProjectileCommon;
+	UTDProjectileCommonData* Data = ProjectileCommon;
 
-	Velocity=Data->Velocity;
-	IsDirectable=Data->Directable;
+	Velocity = Data->Velocity;
+	IsDirectable = Data->Directable;
 
 	auto FlipbookSoftPtr =  Data->FlipbookMap.Find(EWeaponFlipbookType::Projectile);
-	if(FlipbookSoftPtr==nullptr) return;
+	if (FlipbookSoftPtr == nullptr) return;
 
 	Animation->SetFlipbook(FlipbookSoftPtr->Get());
 }
@@ -38,10 +39,13 @@ void AProjectileBase::BulletDestroy()
 {
 	auto FlipbookSoftPtr = ProjectileCommon->FlipbookMap.Find(EWeaponFlipbookType::Effect);
 
-	if (FlipbookSoftPtr==nullptr) {Destroy(); return;}
+	if (FlipbookSoftPtr == nullptr) 
+	{
+		Destroy(); 
+		return;
+	}
 
 	Animation->SetFlipbook(FlipbookSoftPtr->Get());
 	Animation->SetLooping(false);
 	SetLifeSpan(Animation->GetFlipbookLength());
 }
-

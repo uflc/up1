@@ -13,9 +13,8 @@ void UDamagerComponent::Effect(ATDCharacter* Target)
 	Target->TDUnitTakeDamage(4.0f,0.2f,Damage);
 }
 
-void UDamagerComponent::InitializeDamagerComp(float iEffectRange, int iDamage)
+void UDamagerComponent::InitializeDamagerComp(float InEffectRange, int InDamage)
 {
-	UEffectorComponent::InitializeEffectorComponent(iEffectRange);
-	//EffectRange = iEffectRange;
-	Damage=iDamage;
+	UEffectorComponent::InitializeEffectorComponent(InEffectRange);
+	Damage = InDamage;
 }

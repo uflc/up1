@@ -26,7 +26,7 @@ protected:
 
 public:	
 	UFUNCTION(BlueprintCallable)
-	void InitializeDebuffComp(float inEffectRange, const TArray<FDebuffSet>& inArr, float inChance);
+	void InitializeDebuffComp(float InEffectRange, const TArray<FDebuffSet>& InArr, float InChance);
 	
 	//virtual void Work() override;
 

@@ -22,7 +22,7 @@ protected:
 	friend class AProjectileBase;
 	friend class ATDGameModeBase;
 
-		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
 	bool IsInitialized;
 public:
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
@@ -38,8 +38,6 @@ public:
 	bool Directable;
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
-
-	UTDProjectileCommonData();
 
 	void Initialize();
 

@@ -18,7 +18,7 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class ATDCharacter* vTarget;
+	class ATDCharacter* Target;
 
 	UPROPERTY(BlueprintReadOnly)
 	class UTDWeaponCommonData* WeaponData;
@@ -45,7 +45,7 @@ public:
 	void InitializeWeaponComp();
 
 	//UFUNCTION(BlueprintCallable)
-	void SetCommonData(UTDWeaponCommonData* iData);
+	void SetCommonData(UTDWeaponCommonData* InData);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void UseWeapon();

@@ -8,7 +8,6 @@
 #include "Tower.generated.h"
 
 
-//@TODO disable movement
 UCLASS(Abstract, BluePrintable)
 class TOWERDEFENSE_API ATower : public ATDUnit
 {
@@ -23,9 +22,6 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool IsDelayChecking;
-
-	/*UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class UTowerData* TowerData;*/
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;
@@ -48,11 +44,11 @@ public:
 
 	virtual void UpdateDirection() override;
 
-	//@TODO 실제 속성(데미지, 불렛타입 등) 업그레이드
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "TDUnit|Tower")
 	bool Upgrade(ETowerType UpType);
 	virtual bool Upgrade_Implementation(ETowerType UpType);
 
+	////
 	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
 
 	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)

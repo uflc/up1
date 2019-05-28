@@ -11,13 +11,10 @@
 
 ATDUnit::ATDUnit()
 {
-	UnitData = CreateDefaultSubobject<UTDUnitCommonData>(TEXT("UnitData0"));
-	if (UnitData->IsDefaultSubobject())
-	{
-		TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
-	}
+	//TODO Data as Subobject?
+	//UnitData = CreateDefaultSubobject<UTDUnitCommonData>(TEXT("UnitData0"));
+	
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook0"));
-	//TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
 	
 	RootComponent = Animation;
@@ -46,7 +43,7 @@ void ATDUnit::BeginPlay()
 	//AddOwnedComponent(AttackComp);
 	if (!AttackComp)
 	{
-		//TD_LOG(Warning, TEXT("%s: AttackComp is not valid!"), *GetArchetype()->GetName());
+		//TD_LOG(Warning, TEXT("%s: AttackComp is not valid!"), *GetClass()->GetName());
 		return;
 	}
 
@@ -55,21 +52,14 @@ void ATDUnit::BeginPlay()
 
 void ATDUnit::PostInitializeComponents()
 {
-	if (UnitData->IsDefaultSubobject())
-	{
-		TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
-	}
 	Super::PostInitializeComponents();
 
-	if (UnitData->IsDefaultSubobject())
-	{
-		TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
-	}
+	////Test
+	//if (UnitData->IsDefaultSubobject())
+	//{
+	//	TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
+	//}
 
-	for (const auto& Function : GetClass()->NativeFunctionLookupTable)
-	{
-		TD_LOG(Warning, TEXT("%s"), *Function.Name.ToString());
-	}
 }
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()
@@ -119,36 +109,4 @@ bool ATDUnit::IsTargetable()
 
 	return true;
 }
-
-//void ATDUnit::StartAttack()
-//{
-//	IsDelayChecking=true;
-//
-//	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("StartAttack"));
-//	AttackGuider();
-//	GetWorldTimerManager().SetTimer(ActionTimerHandle,this, &ATDUnit::AttackGuider, UnitAttackDelay,true);
-//}
-//
-//void ATDUnit::AttackGuider()
-//{
-//
-////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("GuiderCall"));
-//	IsDelayChecking = false;
-//
-//	if (UnitState == EUnitState::Attacking && IsValid(AggroTarget) )
-//	{
-//		if (AggroTarget->UnitState == EUnitState::Dead) {goto EndOfLogic;}
-//
-//		UpdateAnimation();
-//		ExecuteAttack();
-//		IsDelayChecking = true;
-//		return;
-//	}
-//
-//EndOfLogic:
-//
-//	AggroTarget=nullptr;
-//	GetWorldTimerManager().ClearTimer(ActionTimerHandle);
-////	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, TEXT("End Of Logic"));
-//}
 

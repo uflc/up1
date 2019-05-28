@@ -5,22 +5,19 @@
 #include "WorldCollision.h"
 #include "TDCharacter.h"
 
-UEffectorComponent::UEffectorComponent():EffectRange(0)
-{
 
+void UEffectorComponent::InitializeEffectorComponent(float InEffectRange)
+{
+	EffectRange = InEffectRange;
 }
 
-void UEffectorComponent::InitializeEffectorComponent(float iEffectRange)
+void UEffectorComponent::AffectTarget(ATDCharacter* MainTarget)
 {
-	EffectRange=iEffectRange;
-}
+	const FVector TargetLocation = MainTarget->GetActorLocation();
+	const EUnitTeam TargetTeam = MainTarget->Team;
 
-void UEffectorComponent::AffectTarget(ATDCharacter * MainTarget)
-{
-	FVector TargetLocation = (MainTarget)->GetActorLocation();
-	EUnitTeam TargetTeam = MainTarget->Team;
-
-	if(EffectRange>0){
+	if (EffectRange > 0)
+	{
 
 		TArray<FHitResult> OutResults;
 
@@ -29,10 +26,10 @@ void UEffectorComponent::AffectTarget(ATDCharacter * MainTarget)
 
 		GetWorld()->SweepMultiByChannel(OutResults, TargetLocation, (TargetLocation + FVector(0, 0, 0.1f)), FQuat::Identity, ECC_GameTraceChannel1, FCollisionShape::MakeSphere(EffectRange)/*, QueryParam*/);
 
-		for (auto HitResult : OutResults)
+		for (const auto& HitResult : OutResults)
 		{
 			ATDCharacter* HitTDCharacter = Cast<ATDCharacter>(HitResult.Actor.Get());
-			if (!HitTDCharacter)continue;
+			if (!HitTDCharacter) continue;
 
 			if (HitTDCharacter->Team == TargetTeam)
 				Effect(HitTDCharacter);

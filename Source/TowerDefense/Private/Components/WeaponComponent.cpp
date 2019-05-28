@@ -11,22 +11,20 @@
 
 
 // Sets default values for this component's properties
-UWeaponComponent::UWeaponComponent():vTarget(nullptr), SplashRange(0),Cooldown(0),Range(0),Damage(0)
+UWeaponComponent::UWeaponComponent():Target(nullptr), SplashRange(0),Cooldown(0),Range(0),Damage(0)
 {
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
 bool UWeaponComponent::TargetValidCheck()
 {
-	if (vTarget == nullptr)	{goto EndofCheck;}
+	//TODO Event freom BB?
+	if (Target == nullptr || !Target->IsTargetable())
+	{
+		Target = (ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
+	}
 
-	else if(!vTarget->IsTargetable()) 	{goto EndofCheck;}
-
-EndofCheck:
-
-	vTarget=(ATDCharacter*)((AAIController*)((ATDUnit*)GetOwner())->GetController())->GetBlackboardComponent()->GetValueAsObject(FName(TEXT("AggroTarget")));
-
-	if (vTarget->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) return true;
+	if (Target->IsValidLowLevelFast() && GetOwner()->IsValidLowLevelFast()) return true;
 
 	return false;
 }
@@ -56,9 +54,9 @@ void UWeaponComponent::InitializeWeaponComp()
 	}
 }
 
-void UWeaponComponent::SetCommonData(UTDWeaponCommonData* iData) 
+void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData) 
 { 
-	WeaponData = iData; 
+	WeaponData = InData; 
 	InitializeWeaponComp(); 
 }
 

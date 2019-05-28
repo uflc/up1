@@ -3,8 +3,8 @@
 #include "TDGameModeBase.h"
 #include "TDUnitCommonData.h"
 #include "TowerDataTree.h"
-#include "TDPlayerController.h"//
-#include "HUDWidget.h"//
+#include "TDPlayerController.h"//sea line 106
+#include "HUDWidget.h"//sea line 106
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
 #include "TDWeaponCommonData.h"
@@ -22,12 +22,12 @@ void ATDGameModeBase::BeginPlay()
 }
 
 
-void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
+void ATDGameModeBase::LoadTDUnitCommons(const TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
 {
 	UnloadedTDUnitCommonNum = InUsingTDUnitCommons.Num();
 	int AlreadyLoadedNum = 0;
 
-	for (auto& TDUnitCommon : InUsingTDUnitCommons)
+	for (const auto& TDUnitCommon : InUsingTDUnitCommons)
 	{
 		if (TDUnitCommon->IsInitialized)
 		{
@@ -38,7 +38,6 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 		
 		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
-		TD_LOG(Warning,TEXT("%s"),*TDUnitCommon->GetName());
 	}
 
 	//로드할 것이 없을 때 로드 완료
@@ -48,7 +47,7 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 void ATDGameModeBase::LoadTowerResources(UTowerData * InTowerDataTree)
 {
 	if (!InTowerDataTree) return;
-	TD_LOG_CALLONLY(Warning);
+
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 	TArray<FSoftObjectPath> AssetsToLoad;
 
@@ -79,7 +78,7 @@ void ATDGameModeBase::LoadTowerResourcesDeffered()
 	TD_LOG_CALLONLY(Warning);
 }
 
-//처음 로드된 것들이 있을 때 사용할 모든 것들이 완료됬는지 체크.
+//처음 로드된 것이 있을 때 전부 완료됬는지 체크.
 void ATDGameModeBase::OnTDUnitFlipbooksLoaded()
 {
 	if (--UnloadedTDUnitCommonNum == 0)

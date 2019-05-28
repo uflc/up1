@@ -26,7 +26,7 @@ public:
 	//UFUNCTION(BlueprintCallable)
 	//virtual void Work(){}
 
-	void SetParent(UTDComponent* iComp) { Parent = iComp; }
+	void SetParent(UTDComponent* InComp) { Parent = InComp; }
 
 	//void AddSubComponent(UTDComponent* inComp);
 	

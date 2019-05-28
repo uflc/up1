@@ -2,12 +2,9 @@
 
 
 #include "TDProjectileCommonData.h"
-
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
-//#include "Runtime/Engine/Classes/Engine/World.h"
 
-UTDProjectileCommonData::UTDProjectileCommonData():IsInitialized(false){}
 
 void UTDProjectileCommonData::Initialize()
 {
@@ -16,13 +13,13 @@ void UTDProjectileCommonData::Initialize()
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
-	for (auto& it : FlipbookMap)
+	for (const auto& it : FlipbookMap)
 	{
 		AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
 	}
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
 
-	IsInitialized=true;
+	IsInitialized = true;
 }
 
 void UTDProjectileCommonData::LoadFlipbooksDeffered()

@@ -14,8 +14,6 @@ UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpa
 class TOWERDEFENSE_API UProjectileWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()
-public:
-	UProjectileWeaponComponent();
 
 protected:
 
@@ -28,6 +26,5 @@ protected:
 public:
 	// Change to virtual?
 	//virtual void InitializeWeaponComp() override;
-	virtual void BeginPlay() override;
 	virtual void UseWeapon() override;
 };

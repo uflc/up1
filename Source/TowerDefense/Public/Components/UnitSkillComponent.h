@@ -21,9 +21,9 @@ protected:
 public:
 	// Change to virtual?
 	UFUNCTION(BlueprintCallable)
-	virtual void InitializeSkillComp(const float iCooldown);
+	virtual void InitializeSkillComp(const float InCooldown);
 
 	// Need?
 	UFUNCTION(BlueprintCallable)
-	virtual void CastSkill(class UObject* Target) {}
+	virtual void CastSkill(class UObject* InTarget) {}
 };

@@ -9,14 +9,12 @@
 /**
  * 
  */
-class ATDCharacter;
 
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOWERDEFENSE_API UDirectWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()
 
-	UDirectWeaponComponent();
 
 protected:
 

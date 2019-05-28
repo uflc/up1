@@ -15,7 +15,7 @@ void UTDUnitCommonData::Initialize()
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
-	for (auto& Animation : Animations)
+	for (const auto& Animation : Animations)
 	{
 		AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
 	}
@@ -32,15 +32,14 @@ void UTDUnitCommonData::Initialize()
 
 void UTDUnitCommonData::LoadFlipbooksDeffered()
 {
-	for (auto& Animation : Animations)
+	for (const auto& Animation : Animations)
 	{
 		if (!Animation.Get())
 		{
-			TD_LOG_CALLONLY(Warning);
+			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
 			return;
 		}
 	}
-
 
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

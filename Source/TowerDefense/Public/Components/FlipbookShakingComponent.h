@@ -18,11 +18,10 @@ public:
 	UFlipbookShakingComponent();
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
 	float ShakePower;
 	float ShakeDuration;
+
+	UPROPERTY()
 	UPaperFlipbookComponent* Flipbook;
 
 public:	
@@ -30,5 +29,5 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
-	void Initialize(float iShakePower, float iShakeDuration);
+	void Initialize(float InShakePower, float InShakeDuration);
 };

@@ -13,25 +13,19 @@ UFlipbookShakingComponent::UFlipbookShakingComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
-
-	ShakePower=0;
-	ShakeDuration=0;
-	Flipbook=nullptr;
-}
-
-
-// Called when the game starts
-void UFlipbookShakingComponent::BeginPlay()
-{
-	Super::BeginPlay();
 }
 
 
 // Called every frame
 void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	if(!Flipbook) { DestroyComponent(); return; }
-	ShakeDuration-=DeltaTime;
+	if (!Flipbook) 
+	{ 
+		DestroyComponent(); 
+		return; 
+	}
+
+	ShakeDuration -= DeltaTime;
 	if (ShakeDuration < 0)
 	{
 		//Flipbook->SetRelativeLocation(FVector::ZeroVector);
@@ -45,18 +39,18 @@ void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	ShakeVector.Z = 0;
 
 	ShakeVector.Normalize();
-	ShakeVector*=ShakePower;
+	ShakeVector *= ShakePower;
 
 	//Flipbook->AddLocalOffset(ShakeVector);
-	Flipbook->SetRelativeLocation(Flipbook->RelativeLocation+ShakeVector);
+	Flipbook->SetRelativeLocation(Flipbook->RelativeLocation + ShakeVector);
 	
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UFlipbookShakingComponent::Initialize(float iShakePower, float iShakeDuration)
+void UFlipbookShakingComponent::Initialize(float InShakePower, float InShakeDuration)
 {
-	ShakePower= iShakePower; 
-	ShakeDuration=iShakeDuration; 
+	ShakePower = InShakePower; 
+	ShakeDuration = InShakeDuration; 
 	Flipbook = Cast<UPaperFlipbookComponent>(GetOwner()->GetComponentByClass(UPaperFlipbookComponent::StaticClass()));
 }
 

@@ -15,8 +15,7 @@ UCLASS(Blueprintable, Abstract, ClassGroup = (Custom))
 class TOWERDEFENSE_API UEffectorComponent : public UTDComponent
 {
 	GENERATED_BODY()
-public:
-	UEffectorComponent();
+
 protected:
 	//Need it for cache?
 
@@ -27,9 +26,9 @@ protected:
 	//TMap<> AffectRateByDistanceMap;
 
 public:
-	virtual void Effect(ATDCharacter* Target){}
+	virtual void Effect(ATDCharacter* Target) {}
 
-	void InitializeEffectorComponent(float iEffectRange);
+	void InitializeEffectorComponent(float InEffectRange);
 
 	UFUNCTION(BlueprintCallable)
 	void AffectTarget(ATDCharacter* MainTarget);

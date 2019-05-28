@@ -4,15 +4,18 @@
 #include "SimpleFlipbookEffect.h"
 #include "PaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
-//#include "TimerManager.h"
 
-void ASimpleFlipbookEffect::SetupEffect(UPaperFlipbook* inFlipbook) {
+void ASimpleFlipbookEffect::SetupEffect(UPaperFlipbook* InFlipbook) 
+{
+	if (!InFlipbook) 
+	{
+		Destroy();
+		return;
+	}
 
-	if(!inFlipbook) {Destroy();return;}
-
-	auto FlipbookComp = GetRenderComponent();
-	FlipbookComp->SetFlipbook(inFlipbook);
+	UPaperFlipbookComponent* FlipbookComp = GetRenderComponent();
+	FlipbookComp->SetFlipbook(InFlipbook);
 	FlipbookComp->SetLooping(false);
 	FlipbookComp->PlayFromStart();
-	SetLifeSpan(inFlipbook->GetTotalDuration());
+	SetLifeSpan(InFlipbook->GetTotalDuration());
 }

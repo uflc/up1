@@ -7,29 +7,14 @@
 #include "EffectorComponent.h"
 #include "TDWeaponCommonData.h"
 #include "TDProjectileCommonData.h"
-//#include "Tower.h"
 #include "AIController.h"
 #include "BehaviorTree\BlackboardComponent.h"
 
-UProjectileWeaponComponent::UProjectileWeaponComponent():ProjectileRelativeSpawnPoint(FVector(0,0,0)), ProjectileisDirectable(false)
-{
-
-}
-
-void UProjectileWeaponComponent::BeginPlay()
-{
-}
 
 void UProjectileWeaponComponent::UseWeapon()
 {
 	if (TargetValidCheck())
 	{
-		//TSubclassOf<AProjectileBase> ProjectileClass = WeaponCommon->ProjectileClass;
-
-		//if(!Data->IsValidLowLevelFast())return; 
-
-		//if (!Data->ProjectileClass->IsValidLowLevelFast())return;
-
 		FVector CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 
 		AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &CaculatedSpawnPoint);
@@ -37,14 +22,12 @@ void UProjectileWeaponComponent::UseWeapon()
 		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
 		for (const auto& Effector : Effectors) // 문제있음
 		{
-			
 			UEffectorComponent* CopyEffector = DuplicateObject<UEffectorComponent>((UEffectorComponent*)Effector, SpawnedProjectile);
-			//NewObject<UTDComponent>(Local_Bullet, Effector->StaticClass());
 			SpawnedProjectile->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);
 		}
 
 		SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
-		SpawnedProjectile->SetTarget(vTarget);
+		SpawnedProjectile->SetTarget(Target);
 		SpawnedProjectile->Initialize();
 
 	}

@@ -13,8 +13,8 @@ UUnitSkillComponent::UUnitSkillComponent()
 	// ...
 }
 
-inline void UUnitSkillComponent::InitializeSkillComp(const float iCooldown=0) 
+inline void UUnitSkillComponent::InitializeSkillComp(const float InCooldown = 0) 
 { 
 	UWeaponComponent::InitializeWeaponComp();
-	Cooldown = iCooldown; 
+	Cooldown = InCooldown; 
 }

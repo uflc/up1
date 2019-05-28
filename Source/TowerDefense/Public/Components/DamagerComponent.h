@@ -22,5 +22,5 @@ public:
 
 public:
 	virtual void Effect(class ATDCharacter* Target) override;
-	void InitializeDamagerComp(float iEffectRange, int iDamage);
+	void InitializeDamagerComp(float InEffectRange, int InDamage);
 };
