@@ -6,10 +6,7 @@
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
-
-UTDUnitCommonData::UTDUnitCommonData():IsInitialized(false)
-{
-}
+//#include "TDUnit.h"b
 
 void UTDUnitCommonData::Initialize()
 {
@@ -24,9 +21,13 @@ void UTDUnitCommonData::Initialize()
 	}
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
 
-	if(WeaponData)	WeaponData->Initialize();
+	IsInitialized = true;
+	TD_LOG_CALLONLY(Warning);
+	if (WeaponData)
+	{
+		WeaponData->Initialize();
+	}
 
-//	IsInitialized = true;
 }
 
 void UTDUnitCommonData::LoadFlipbooksDeffered()
@@ -39,5 +40,6 @@ void UTDUnitCommonData::LoadFlipbooksDeffered()
 			return;
 		}
 	}
+	//TD_LOG(Warning, TEXT("%s"), *GetOuter()->GetClass()->GetName());
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

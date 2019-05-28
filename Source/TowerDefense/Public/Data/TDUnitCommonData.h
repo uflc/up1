@@ -15,8 +15,7 @@ class TOWERDEFENSE_API UTDUnitCommonData : public UDataAsset
 	GENERATED_BODY()
 
 	DECLARE_DELEGATE(FLoadCompletedSignature);
-public:
-	UTDUnitCommonData();
+
 protected:
 	friend class ATDGameModeBase;
 
@@ -25,9 +24,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
-
-	//UPROPERTY(EditAnywhere, Category = "TDUnit|Property")
-	//float DefaultAttackRange;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	TSubclassOf<class UWeaponComponent> WeaponClass;
@@ -39,7 +35,7 @@ public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
 
 	UFUNCTION()
-	void Initialize();
+	virtual void Initialize();
 
 	UFUNCTION()
 	void LoadFlipbooksDeffered();

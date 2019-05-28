@@ -38,7 +38,7 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 		
 		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
-		TD_LOG(Warning,TEXT("%s"),TDUnitCommon->GetName().GetCharArray().GetData());
+		TD_LOG(Warning,TEXT("%s"),*TDUnitCommon->GetName());
 	}
 
 	//로드할 것이 없을 때 로드 완료
@@ -48,7 +48,7 @@ void ATDGameModeBase::LoadTDUnitCommons(UPARAM(ref) TArray<TSoftObjectPtr<UTDUni
 void ATDGameModeBase::LoadTowerResources(UTowerData * InTowerDataTree)
 {
 	if (!InTowerDataTree) return;
-
+	TD_LOG_CALLONLY(Warning);
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 	TArray<FSoftObjectPath> AssetsToLoad;
 
@@ -61,7 +61,10 @@ void ATDGameModeBase::LoadTowerResources(UTowerData * InTowerDataTree)
 		AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
 	}
 
-	if(InTowerDataTree->WeaponData)InTowerDataTree->WeaponData->Initialize();
+	if (InTowerDataTree->WeaponData)
+	{
+		InTowerDataTree->WeaponData->Initialize();
+	}
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &ATDGameModeBase::LoadTowerResourcesDeffered));
 

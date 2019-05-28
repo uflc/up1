@@ -16,7 +16,7 @@ void UTDProjectileCommonData::Initialize()
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
-	for (auto it : FlipbookMap)
+	for (auto& it : FlipbookMap)
 	{
 		AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
 	}
@@ -27,7 +27,7 @@ void UTDProjectileCommonData::Initialize()
 
 void UTDProjectileCommonData::LoadFlipbooksDeffered()
 {
-	for (auto it : FlipbookMap)
+	for (auto& it : FlipbookMap)
 	{
 		TSoftObjectPtr<UPaperFlipbook> NewFlipbook = it.Value;
 		if (NewFlipbook) NewFlipbook.Get();

@@ -39,17 +39,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Cost;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	//int32 AttackDamage;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	//int32 AttackRange;
-
-	////@Note Per Second
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	//float AttackSpeed;
-
 public:
+	virtual void Initialize() override;
+
 	//@return nullptr when UpType is not valid.
 	UFUNCTION(BlueprintPure)
 	UTowerData* GetNextUpgraded(const ETowerType& UpType);

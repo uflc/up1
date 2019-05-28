@@ -38,7 +38,7 @@ void ATower::ShowActionMenu()
 UPaperFlipbook * ATower::GetDesiredAnimation()
 {
 	//Animation of current level, direction and state, 플립북 배열 순서가 아래 식과 매칭 되야 함.
-	return UnitData ? UnitData->GetAnimations()[((uint8)Direction) + ((uint8)UnitState * 4/*EDirection::NumEnums*/)].Get() : nullptr;
+	return UnitData ? UnitData->GetAnimations()[((uint8) Direction * 2) + (uint8)UnitState].Get() : nullptr;
 }
 
 bool ATower::UpdateAnimation()

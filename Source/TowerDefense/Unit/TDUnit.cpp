@@ -11,13 +11,15 @@
 
 ATDUnit::ATDUnit()
 {
-	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook Animation"));
+	//UnitData = CreateDefaultSubobject<UTDUnitCommonData>(TEXT("UnitData0"));
+
+	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook0"));
 	//TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
 	
 	RootComponent = Animation;
 
-	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow"));
+	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow0"));
 
 	if (Shadow)
 	{
@@ -41,7 +43,7 @@ void ATDUnit::BeginPlay()
 	//AddOwnedComponent(AttackComp);
 	if (!AttackComp)
 	{
-		TD_LOG_CALLONLY(Warning);
+		TD_LOG(Warning, TEXT("%s: AttackComp is not valid!"), *GetArchetype()->GetName());
 		return;
 	}
 	AttackComp->SetCommonData(UnitData->GetWeaponData());
@@ -55,13 +57,29 @@ UPaperFlipbook * ATDUnit::GetDesiredAnimation()
 bool ATDUnit::UpdateAnimation()
 {
 	UPaperFlipbook* DesiredAnim = GetDesiredAnimation();
+	TD_LOG_CALLONLY(Warning);
 
 	if (DesiredAnim)
 	{
+		TD_LOG_CALLONLY(Warning);
 		Animation->SetFlipbook(DesiredAnim);
+		TD_LOG_CALLONLY(Warning);
 		Animation->PlayFromStart();
-		if(UnitState==EUnitState::Attacking) Animation->SetLooping(false);
-		else  Animation->SetLooping(true);
+		TD_LOG_CALLONLY(Warning);
+
+		if (UnitState == EUnitState::Attacking)
+		{
+			Animation->SetLooping(false);
+			TD_LOG_CALLONLY(Warning);
+
+		}
+		else
+		{
+			Animation->SetLooping(true);
+			TD_LOG_CALLONLY(Warning);
+
+		}
+
 		return true;
 	}
 	
