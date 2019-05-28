@@ -35,8 +35,6 @@ protected:
 	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadWrite)
 	class UWeaponComponent* AttackComp;
 
-	virtual void BeginPlay() override;
-
 	//@Note AnimState for now
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
 	EUnitState UnitState;
@@ -52,7 +50,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	class UTDUnitCommonData* UnitData;
 
+	virtual void BeginPlay() override;
+
+
 public:
+	virtual void PostInitializeComponents() override;
+
 	UFUNCTION()
 	virtual class UPaperFlipbook* GetDesiredAnimation();
 

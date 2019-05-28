@@ -11,8 +11,11 @@
 
 ATDUnit::ATDUnit()
 {
-	//UnitData = CreateDefaultSubobject<UTDUnitCommonData>(TEXT("UnitData0"));
-
+	UnitData = CreateDefaultSubobject<UTDUnitCommonData>(TEXT("UnitData0"));
+	if (UnitData->IsDefaultSubobject())
+	{
+		TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
+	}
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook0"));
 	//TD에서는 XY평면을 쓸 것이기 때문에 스프라이트 롤을 90도 돌린다.
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
@@ -25,7 +28,7 @@ ATDUnit::ATDUnit()
 	{
 		Shadow->SetupAttachment(Animation);
 	}
-
+	
 	//AttackComp = CreateDefaultSubobject<UMeleeAttackComponent>("AttackComponent");
 	//AddOwnedComponent(AttackComp);
 }
@@ -43,10 +46,30 @@ void ATDUnit::BeginPlay()
 	//AddOwnedComponent(AttackComp);
 	if (!AttackComp)
 	{
-		TD_LOG(Warning, TEXT("%s: AttackComp is not valid!"), *GetArchetype()->GetName());
+		//TD_LOG(Warning, TEXT("%s: AttackComp is not valid!"), *GetArchetype()->GetName());
 		return;
 	}
+
 	AttackComp->SetCommonData(UnitData->GetWeaponData());
+}
+
+void ATDUnit::PostInitializeComponents()
+{
+	if (UnitData->IsDefaultSubobject())
+	{
+		TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
+	}
+	Super::PostInitializeComponents();
+
+	if (UnitData->IsDefaultSubobject())
+	{
+		TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
+	}
+
+	for (const auto& Function : GetClass()->NativeFunctionLookupTable)
+	{
+		TD_LOG(Warning, TEXT("%s"), *Function.Name.ToString());
+	}
 }
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()
@@ -57,27 +80,20 @@ UPaperFlipbook * ATDUnit::GetDesiredAnimation()
 bool ATDUnit::UpdateAnimation()
 {
 	UPaperFlipbook* DesiredAnim = GetDesiredAnimation();
-	TD_LOG_CALLONLY(Warning);
 
 	if (DesiredAnim)
 	{
-		TD_LOG_CALLONLY(Warning);
 		Animation->SetFlipbook(DesiredAnim);
-		TD_LOG_CALLONLY(Warning);
 		Animation->PlayFromStart();
-		TD_LOG_CALLONLY(Warning);
 
 		if (UnitState == EUnitState::Attacking)
 		{
 			Animation->SetLooping(false);
-			TD_LOG_CALLONLY(Warning);
 
 		}
 		else
 		{
 			Animation->SetLooping(true);
-			TD_LOG_CALLONLY(Warning);
-
 		}
 
 		return true;
