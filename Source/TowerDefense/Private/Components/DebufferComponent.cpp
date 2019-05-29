@@ -19,49 +19,5 @@ void UDebufferComponent::Effect(ATDCharacter * Target)
 {
 	// How can we setup Timers?
 
-	//*UFloatingPawnMovement* Movement;
-	//TArray<UActorComponent*> TDComponentArray;
-	//
-	//if (Target->IsValidLowLevel()&& Target->GetMovementComponent()->IsValidLowLevel())
-	//{
-	//	Movement = Cast<UFloatingPawnMovement>(Target->GetMovementComponent());
-	//}
 
-	//for (FDebuffSet DebuffInfo : DebuffSetArray)
-	//{
-	//	EDebuffType Type=DebuffInfo.Type;
-	//	switch (Type) 
-	//	{
-	//		case EDebuffType::Slow:
-	//			if (Movement)
-	//			{
-	//				Movement->MaxSpeed *= (DebuffInfo.Power / 100.0f);
-	//			}
-	//			break;
-
-	//		case EDebuffType::Snared:
-	//			if (Movement)
-	//			{
-	//				Movement->MaxSpeed = 0;
-	//			}
-	//			break;
-
-	//		case EDebuffType::Stun:
-	//			if (Movement)
-	//			{
-	//				Movement->MaxSpeed = 0;
-	//			}
-
-	//			TDComponentArray = Target->GetComponentsByClass(UTDComponent::StaticClass());
-
-	//			for(UActorComponent* Comp : TDComponentArray)
-	//			{
-	//				(UTDComponent*)Comp->Deactivate();
-	//			}
-	//			break;
-
-	//		default:
-	//			return;
-	//	}
-	//}*/
 }

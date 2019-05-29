@@ -19,17 +19,17 @@ protected:
 	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
 	class UTDProjectileCommonData* ProjectileCommon;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Velocity;
+	UPROPERTY(Category = Unit,EditAnywhere, BlueprintReadWrite)
+	float Velocity = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = Unit,EditAnywhere, BlueprintReadWrite)
 	class ATDCharacter* Target;
 
 	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
 	class UPaperFlipbookComponent* Animation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool IsDirectable;
+	bool bIsDirectable=false;
 public:	
 	//UFUNCTION(BlueprintCallable)
 	void SetTarget(ATDCharacter* InTarget);
