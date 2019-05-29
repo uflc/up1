@@ -46,7 +46,7 @@ protected:
 
 	//@TODO 더 좋은 로딩 방법
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
-	void LoadTDUnitCommons(const TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons);
+	void LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons);
 
 	int8 UnloadedTDUnitCommonNum;
 

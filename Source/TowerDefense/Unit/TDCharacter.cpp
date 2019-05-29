@@ -67,9 +67,12 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 	Health -= Damage;
 	if (Health <= 0)  Die();
 
-	// FlipbookShakingComponent 효과
-	auto ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
-	if (ShakeComp) ShakeComp->DestroyComponent();
+	// FlipbookShakingComponent 효과 //TODO 효과적인 방법?
+	UActorComponent* ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
+	if (ShakeComp)
+	{
+		ShakeComp->DestroyComponent();
+	}
 	ShakeComp = NewObject<UFlipbookShakingComponent>(this, "FlipbookShakingComponent");
 	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
 	ShakeComp->RegisterComponent();
@@ -82,7 +85,7 @@ void ATDCharacter::Die_Implementation()
 	ChangeState(EUnitState::Dying);
 	Animation->SetLooping(false);
 
-	// BTService Aggro Check trace 방지
+	// BTService AggroCheck() Trace Hit 방지
 	Team = EUnitTeam::None;
 
 	// detach the controller

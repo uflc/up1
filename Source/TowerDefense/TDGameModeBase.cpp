@@ -22,7 +22,7 @@ void ATDGameModeBase::BeginPlay()
 }
 
 
-void ATDGameModeBase::LoadTDUnitCommons(const TArray<TSoftObjectPtr<UTDUnitCommonData>>& InUsingTDUnitCommons)
+void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons)
 {
 	UnloadedTDUnitCommonNum = InUsingTDUnitCommons.Num();
 	int AlreadyLoadedNum = 0;
