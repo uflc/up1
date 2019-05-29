@@ -32,18 +32,6 @@ void AWaveSpawner::StartLevelWave(const TArray<ATargetPoint*>& InSpawnPoints, co
 	SpawnPoints = InSpawnPoints;
 	Destinations = InDestinations;
 
-	//for (const auto& SpawnPoint : InSpawnPoints)
-	//{
-	//	SpawnPoints.Add(SpawnPoint->GetActorLocation());
-	//	////SpawnPoint->Destroy();
-	//}
-
-	//for (const auto& Destination : InDestinations)
-	//{
-	//	Destinations.Add(Destination->GetActorLocation());
-	//	////Destination->Destroy();
-	//}
-
 	WaveIdx = 0;
 	SubWaveIdx = 0;
 

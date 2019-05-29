@@ -8,7 +8,8 @@
 #include "TDGameModeBase.generated.h"
 
 /**
- 리소스 로드 및 사용할 위젯 관리
+ *리소스 로드 및 사용할 위젯 관리
+ *todo: ~~
  */
 UCLASS()
 class TOWERDEFENSE_API ATDGameModeBase : public AGameModeBase
@@ -40,11 +41,11 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
 	UUserWidget* CurrentWidget;
 
-	////@ TD 유닛 데이터. 특히 필드 유닛의 플립북. //TODO Config
+	//TODO Config?
 	//UPROPERTY(EditAnywhere, Category = "TDUnit")
 	//TArray<class UTDUnitCommonData*> TDUnitCommons;
 
-	//@TODO 더 좋은 로딩 방법
+	//TODO 더 좋은 로딩 방법
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
 	void LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons);
 

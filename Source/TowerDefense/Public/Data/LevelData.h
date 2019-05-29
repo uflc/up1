@@ -17,7 +17,7 @@ class TOWERDEFENSE_API ULevelData : public UDataAsset
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class ULevelWaveData* LevelWave;
+	ULevelWaveData* LevelWave;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 DefaultCoin;
