@@ -24,7 +24,7 @@ void UTDProjectileCommonData::Initialize()
 
 void UTDProjectileCommonData::LoadFlipbooksDeffered()
 {
-	for (auto& it : FlipbookMap)
+	for (const auto& it : FlipbookMap)
 	{
 		TSoftObjectPtr<UPaperFlipbook> NewFlipbook = it.Value;
 		if (NewFlipbook) NewFlipbook.Get();

@@ -29,6 +29,12 @@ const FSubWaveData& AWaveSpawner::GetCurrentSubWaveData() const
 
 void AWaveSpawner::StartLevelWave(const TArray<ATargetPoint*>& InSpawnPoints, const TArray<ATargetPoint*>& InDestinations)
 {
+	if (InSpawnPoints.Num() == 0 || InDestinations.Num() == 0)
+	{
+		TD_LOG(Warning, TEXT("InSpawnPoints or InDestinations Array is Empty!"));
+		return;
+	}
+
 	SpawnPoints = InSpawnPoints;
 	Destinations = InDestinations;
 
@@ -42,14 +48,19 @@ void AWaveSpawner::StartSubWave()
 {
 	const FSubWaveData& SubWave = GetCurrentSubWaveData();
 		
-	if (SubWave.Amount <= 0) return;
+	if (SubWave.Amount <= 0
+	 ||!SpawnPoints.IsValidIndex(SubWave.SpawnLocationIdx)
+	 ||!Destinations.IsValidIndex(SubWave.DestinationIdx))
+	{
+		TD_LOG(Warning, TEXT("Invalid SpawnPoint or Destination or zero SpawnAmount! #%d Wave #%d Subwave"));
+		return;
+	}
 
 	WaveSpawnRemaining = SubWave.Amount;
 
 	GetWorldTimerManager().SetTimer(SpawnTimer, FTimerDelegate::CreateUObject(this, &AWaveSpawner::SpawnWaveActor), SubWave.Delay, true);
 }
 
-//todo safe!
 void AWaveSpawner::SetTimerToStartSubWave()
 {
 	const float NextSubWaveDelay = GetCurrentSubWaveData().StartingTime;

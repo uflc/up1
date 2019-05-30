@@ -22,9 +22,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void Initialize(const FDebuffSet& InDebuffInfo);
 
-	UFUNCTION(BlueprintCallable)
+	/*UFUNCTION(BlueprintCallable)
 	void ActivateDebuff();
 
 	UFUNCTION(BlueprintCallable)
-	void DeactivateDebuff();
+	void DeactivateDebuff();*/
 };

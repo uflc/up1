@@ -6,7 +6,7 @@
 #include "TDComponent.h"
 #include "WeaponComponent.generated.h"
 
-
+//todo accessor
 UCLASS(Blueprintable, Abstract, ClassGroup=(Custom))
 class TOWERDEFENSE_API UWeaponComponent : public UTDComponent
 {
@@ -24,19 +24,19 @@ protected:
 	class UTDWeaponCommonData* WeaponData = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
-	float	SplashRange		= 0;
+	float SplashRange = 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	float	Cooldown			= 0;
+	float Cooldown = 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	float	Range					= 0;
+	float Range = 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	int		Damage				= 0;
+	int	Damage = 0;
 
 	UPROPERTY(BlueprintReadOnly)
-	int		UpgradedLevel	= 0;
+	int	UpgradedLevel = 0;
 
 public:	
 	bool TargetValidCheck();
@@ -48,5 +48,5 @@ public:
 	void SetCommonData(UTDWeaponCommonData* InData);
 
 	UFUNCTION(BlueprintCallable)
-	virtual void UseWeapon();
+	virtual void UseWeapon() {}
 };

@@ -9,22 +9,21 @@
 
 void UDebuffComponent::Initialize(const FDebuffSet & InDebuffInfo)
 {
-	DebuffInfo= InDebuffInfo;
+	DebuffInfo = InDebuffInfo;
 
-	FTimerHandle Handle;
+	//FTimerHandle Handle;
 
 
-
-	ATDCharacter* Target=(ATDCharacter*)GetOwner();
-	UFloatingPawnMovement* Movement;
+	ATDCharacter* Target = (ATDCharacter*)GetOwner();
+	UFloatingPawnMovement* Movement = nullptr;
 	TArray<UActorComponent*> TDComponentArray;
 
-	if (Target->IsValidLowLevel()&& Target->GetMovementComponent()->IsValidLowLevel())
+	if (Target->IsValidLowLevel() && Target->GetMovementComponent()->IsValidLowLevel())
 	{
 		Movement = Cast<UFloatingPawnMovement>(Target->GetMovementComponent());
 	}
 	
-	EDebuffType Type=DebuffInfo.Type;
+	EDebuffType Type = DebuffInfo.Type;
 
 
 	switch (Type) 
@@ -51,9 +50,9 @@ void UDebuffComponent::Initialize(const FDebuffSet & InDebuffInfo)
 
 			TDComponentArray = Target->GetComponentsByClass(UTDComponent::StaticClass());
 
-			for(UActorComponent* Comp : TDComponentArray)
+			for (UActorComponent* Comp : TDComponentArray)
 			{
-				(UTDComponent*)Comp->Deactivate();
+				((UTDComponent*)Comp)->Deactivate();
 			}
 			break;
 
@@ -62,5 +61,5 @@ void UDebuffComponent::Initialize(const FDebuffSet & InDebuffInfo)
 	}
 	
 
-	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateUObject(this, &UDebuffComponent::DeactivateDebuff), DebuffInfo.Duration, false);
+	//GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateUObject(this, &UDebuffComponent::DeactivateDebuff), DebuffInfo.Duration, false);
 }

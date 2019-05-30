@@ -25,7 +25,8 @@ void AHomingProjectile::BeginPlay()
 // Called every frame
 void AHomingProjectile::Tick(float DeltaTime)
 {
-	if (!Target) {
+	if (!Target) 
+	{
 		SetActorTickEnabled(false);
 		BulletDestroy();
 		return;
@@ -35,11 +36,12 @@ void AHomingProjectile::Tick(float DeltaTime)
 	DistanceVec.Z = 0;
 	float Distance = DistanceVec.Size();
 
+	////
 	if (Distance <= 40.0f)
 	{
 		//Target->TDUnitTakeDamage(8.0f, 0.15f, Damage);
-		auto Effectors = GetComponentsByClass(UEffectorComponent::StaticClass());
-		for (auto Effector : Effectors)
+		const TArray<UActorComponent*>& Effectors = GetComponentsByClass(UEffectorComponent::StaticClass());
+		for (const auto& Effector : Effectors)
 		{
 			((UEffectorComponent*)Effector)->AffectTarget(Target);
 		}
@@ -51,9 +53,10 @@ void AHomingProjectile::Tick(float DeltaTime)
 
 	DistanceVec.Normalize();
 	CalcVelocityVec(DistanceVec);
-//
-//	DirectionVec *= (Velocity * DeltaTime);
 
 	SetActorLocation(GetActorLocation() + VelocityVec * DeltaTime);
-	if (IsDirectable)	SetActorRotation(FRotator(0, (VelocityVec/** DeltaTime*/*-1).Rotation().Yaw,-90.0f));
+	if (bIsDirectable)	
+	{
+		SetActorRotation(FRotator(0, (VelocityVec * -1).Rotation().Yaw, -90.0f));
+	}
 }

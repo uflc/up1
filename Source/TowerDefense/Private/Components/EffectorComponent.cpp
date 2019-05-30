@@ -18,7 +18,6 @@ void UEffectorComponent::AffectTarget(ATDCharacter* MainTarget)
 
 	if (EffectRange > 0)
 	{
-
 		TArray<FHitResult> OutResults;
 
 		//FCollisionQueryParams QueryParam;
@@ -32,9 +31,13 @@ void UEffectorComponent::AffectTarget(ATDCharacter* MainTarget)
 			if (!HitTDCharacter) continue;
 
 			if (HitTDCharacter->Team == TargetTeam)
+			{
 				Effect(HitTDCharacter);
+			}
 		}
-
 	}
-	else Effect(MainTarget);
+	else
+	{
+		Effect(MainTarget);
+	}
 }

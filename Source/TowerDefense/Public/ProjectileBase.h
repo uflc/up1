@@ -20,7 +20,7 @@ protected:
 	class UTDProjectileCommonData* ProjectileCommon;
 
 	UPROPERTY(Category = Unit,EditAnywhere, BlueprintReadWrite)
-	float Velocity = 0;
+	float Velocity;
 
 	UPROPERTY(Category = Unit,EditAnywhere, BlueprintReadWrite)
 	class ATDCharacter* Target;
@@ -29,7 +29,7 @@ protected:
 	class UPaperFlipbookComponent* Animation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bIsDirectable=false;
+	bool bIsDirectable;
 public:	
 	//UFUNCTION(BlueprintCallable)
 	void SetTarget(ATDCharacter* InTarget);
