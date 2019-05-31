@@ -16,6 +16,7 @@ ATDUnit::ATDUnit()
 	
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook0"));
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
+	Animation->SetWorldLocation(FVector::ZeroVector);
 	
 	RootComponent = Animation;
 

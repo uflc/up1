@@ -16,7 +16,7 @@ class TOWERDEFENSE_API UDamagerComponent : public UEffectorComponent
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Damage=0;
+	int32 Damage;
 
 public:
 	virtual void Effect(class ATDCharacter* Target) override;

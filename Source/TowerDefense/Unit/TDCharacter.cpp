@@ -42,7 +42,7 @@ void ATDCharacter::UpdateDirection()
 {	
 	if (GetVelocity().X > 0)
 	{
-		Animation->SetRelativeRotation(FRotator(180, 0, -90));
+		Animation->SetRelativeRotation(FRotator(-180, 0, -90));
 	}
 	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함 // ?
 	{
@@ -65,7 +65,10 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 
 	// 사망.
 	Health -= Damage;
-	if (Health <= 0)  Die();
+	if (Health <= 0)
+	{
+		Die();
+	}
 
 	// FlipbookShakingComponent 효과 //TODO 효과적인 방법?
 	UActorComponent* ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
