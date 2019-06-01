@@ -6,7 +6,6 @@
 #include "WeaponComponent.h"
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
-#include "Engine/World.h"
 
 
 void UTDWeaponCommonData::Initialize()
@@ -21,15 +20,18 @@ void UTDWeaponCommonData::Initialize()
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
 
-	if(ProjectileData)	ProjectileData->Initialize();
+	if (ProjectileData)
+	{
+		ProjectileData->Initialize();
+	}
 
-	IsInitialized=true;
+	IsInitialized = true;
 }
 
 void UTDWeaponCommonData::LoadFlipbooksDeffered()
 {
-	if (EffectFlipbook) EffectFlipbook.Get();
-	OnFlipbooksLoaded.ExecuteIfBound();
+	if (EffectFlipbook.Get())
+	{
+		OnFlipbooksLoaded.ExecuteIfBound();
+	}
 }
-
-//inline UClass * UTDWeaponCommonData::GetWeaponClass() { return WeaponClass.Get(); }

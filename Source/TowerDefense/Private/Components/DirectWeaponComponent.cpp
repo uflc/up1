@@ -6,6 +6,7 @@
 #include "SimpleFlipbookEffect.h"
 #include "EffectorComponent.h"
 #include "TDCharacter.h"
+#include "PaperFlipbook.h"
 
 
 UDirectWeaponComponent::UDirectWeaponComponent()
@@ -24,10 +25,18 @@ void UDirectWeaponComponent::UseWeapon()
 {	
 	if (!IsTargetLocked()) return;
 	
+	Effector->InflictAoE(Target);
+
+	//
+	//임시 공격 효과 스폰
+	UPaperFlipbook* EffectFlipbook = WeaponData->EffectFlipbook.Get();
 	if (EffectFlipbook)
 	{
-		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator::ZeroRotator))->SetupEffect(EffectFlipbook);
+		ASimpleFlipbookEffect* AttackEffect = GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator::ZeroRotator);
+		
+		if (AttackEffect)
+		{
+			AttackEffect->SetupEffect(EffectFlipbook);
+		}
 	}
-
-	Effector->InflictAoE(Target);
 }

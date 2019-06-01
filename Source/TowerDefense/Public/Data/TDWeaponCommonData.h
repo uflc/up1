@@ -21,13 +21,9 @@ protected:
 	friend class UWeaponComponent;
 	friend class ATDGameModeBase;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool IsInitialized;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	//TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
-
-//for a test
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	class UTDProjectileCommonData* ProjectileData;
@@ -45,13 +41,13 @@ public:
 	float DefaultCooldown;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
-	int DefaultDamage;
+	uint32 DefaultDamage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
-	TArray<FDebuff> DebuffSetArray;
+	TArray<FDebuff> DebuffArray;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
 	float DefaultDebuffChance;
@@ -63,6 +59,4 @@ public:
 
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
-
-	//UClass* GetWeaponClass();
 };

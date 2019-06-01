@@ -18,15 +18,11 @@ public:
 	UDirectWeaponComponent();
 
 protected:
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY()
 	class UEffectorComponent* Effector;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UPaperFlipbook* EffectFlipbook = nullptr;
 
 public:
 	virtual void SetCommonData(UTDWeaponCommonData* InData) override;
 
 	virtual void UseWeapon() override;
-
 };
