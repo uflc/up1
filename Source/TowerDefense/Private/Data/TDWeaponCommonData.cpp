@@ -9,8 +9,6 @@
 #include "Engine/World.h"
 
 
-UTDWeaponCommonData::UTDWeaponCommonData():IsInitialized(false){}
-
 void UTDWeaponCommonData::Initialize()
 {
 	if (IsInitialized) return;

@@ -18,9 +18,9 @@ void AParabolicHomingProjectile::Tick(float DeltaTime)
 
 }
 
-void AParabolicHomingProjectile::Initialize()
+void AParabolicHomingProjectile::SetCommonData(UTDProjectileCommonData* InData)
 {
-	Super::Initialize();
+	Super::SetCommonData(InData);
 	
 	CurveScale = 0.72f*1000.0f / Velocity;
 	TickCounter = 0;

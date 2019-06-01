@@ -15,7 +15,6 @@ void AHomingProjectile::CalcVelocityVec(const FVector& DirectionVec)
 	VelocityVec = DirectionVec * Velocity;
 }
 
-
 // Called when the game starts or when spawned
 void AHomingProjectile::BeginPlay()
 {
@@ -37,13 +36,12 @@ void AHomingProjectile::Tick(float DeltaTime)
 	float Distance = DistanceVec.Size();
 
 	////
+	//GetSimpleCollisionRadius();
 	if (Distance <= 40.0f)
 	{
-		//Target->TDUnitTakeDamage(8.0f, 0.15f, Damage);
-		const TArray<UActorComponent*>& Effectors = GetComponentsByClass(UEffectorComponent::StaticClass());
-		for (const auto& Effector : Effectors)
+		if (Effector)
 		{
-			((UEffectorComponent*)Effector)->AffectTarget(Target);
+			Effector->InflictAoE(Target);
 		}
 
 		SetActorTickEnabled(false);

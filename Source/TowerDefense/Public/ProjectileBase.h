@@ -16,28 +16,29 @@ public:
 	AProjectileBase();
 
 protected:
-	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
 	class UTDProjectileCommonData* ProjectileCommon;
 
-	UPROPERTY(Category = Unit,EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadWrite)
 	float Velocity;
 
-	UPROPERTY(Category = Unit,EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadWrite)
 	class ATDCharacter* Target;
 
-	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
 	class UPaperFlipbookComponent* Animation;
+
+	UPROPERTY()
+	class UEffectorComponent* Effector;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsDirectable;
 public:	
-	//UFUNCTION(BlueprintCallable)
-	void SetTarget(ATDCharacter* InTarget);
+	void SetTarget(ATDCharacter* InTarget) { Target = InTarget; }
 
-	void SetCommonData(UTDProjectileCommonData* InData);
+	virtual void SetCommonData(UTDProjectileCommonData* InData);
 
-	virtual void Initialize();
+	virtual void SetEffector(float EffectRange, uint32 Damage);
 
-	//UFUNCTION(BlueprintCallable)
 	virtual void BulletDestroy();
 };

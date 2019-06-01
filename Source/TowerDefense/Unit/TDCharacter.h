@@ -42,6 +42,10 @@ public:
 	//@TODO any Event?
 	virtual void UpdateDirection();
 
+	//EUnitState Dying or Dead
+	UFUNCTION(BlueprintPure)
+	bool IsLethal();
+
 	//@TODO AActor::TakeDamge override?
 	UFUNCTION(BlueprintCallable)
 	void TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage);

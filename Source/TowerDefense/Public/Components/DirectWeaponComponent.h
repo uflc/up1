@@ -9,20 +9,23 @@
 /**
  * 
  */
-
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOWERDEFENSE_API UDirectWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()
-
+	
+public:
+	UDirectWeaponComponent();
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
+	class UEffectorComponent* Effector;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UPaperFlipbook* EffectFlipbook = nullptr;
 
 public:
-	// Change to virtual?
-	//virtual void InitializeWeaponComp() override;
+	virtual void SetCommonData(UTDWeaponCommonData* InData) override;
 
 	virtual void UseWeapon() override;
 

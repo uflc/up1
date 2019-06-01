@@ -5,6 +5,7 @@
 #include "TDProjectileCommonData.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
+#include "EffectorComponent.h"
 
 // Sets default values
 AProjectileBase::AProjectileBase()
@@ -16,16 +17,18 @@ AProjectileBase::AProjectileBase()
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
 
 	RootComponent = Animation;
+
+	Effector = CreateDefaultSubobject<UEffectorComponent>(TEXT("Effector0"));
 }
 
-FORCEINLINE void AProjectileBase::SetTarget(ATDCharacter* InTarget) { Target = InTarget; }
 
-FORCEINLINE void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData) { ProjectileCommon = InData; }
+void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData) 
+{ 
+	ProjectileCommon = InData; 
 
-void AProjectileBase::Initialize()
-{
-	//if (!ProjectileCommon) return; //SetCommonData할때 다 하면 되지 않나
-	Velocity = ProjectileCommon->Velocity;
+	if (!ProjectileCommon) return;
+
+	Velocity	  = ProjectileCommon->Velocity;
 	bIsDirectable = ProjectileCommon->Directable;
 
 	//
@@ -33,6 +36,12 @@ void AProjectileBase::Initialize()
 	if (!Flipbook) return;
 
 	Animation->SetFlipbook(Flipbook);
+}
+
+//임시 데이터 전달
+void AProjectileBase::SetEffector(float EffectRange, uint32 Damage)
+{
+	Effector->Initialize(EffectRange, Damage);
 }
 
 void AProjectileBase::BulletDestroy()

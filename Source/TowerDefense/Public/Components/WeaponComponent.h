@@ -12,41 +12,30 @@ class TOWERDEFENSE_API UWeaponComponent : public UTDComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UWeaponComponent();
-
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class ATDCharacter* Target	 = nullptr;
+	class ATDCharacter* Target;
 
 	UPROPERTY(BlueprintReadOnly)
-	class UTDWeaponCommonData* WeaponData = nullptr;
+	class UTDWeaponCommonData* WeaponData;
 
 	UPROPERTY(BlueprintReadOnly)
-	float SplashRange = 0;
+	float Cooldown;
 
 	UPROPERTY(BlueprintReadOnly)
-	float Cooldown = 0;
+	float Range;
 
-	UPROPERTY(BlueprintReadOnly)
-	float Range = 0;
-
-	UPROPERTY(BlueprintReadOnly)
-	int	Damage = 0;
-
-	UPROPERTY(BlueprintReadOnly)
-	int	UpgradedLevel = 0;
+	/*UPROPERTY(BlueprintReadOnly)
+	int	UpgradedLevel = 0*/
 
 public:	
-	bool TargetValidCheck();
+	virtual void SetCommonData(UTDWeaponCommonData* InData);
 
-	UFUNCTION(BlueprintCallable)
-	void InitializeWeaponComp();
-
-	//UFUNCTION(BlueprintCallable)
-	void SetCommonData(UTDWeaponCommonData* InData);
+	UFUNCTION(BlueprintSetter)
+	void SetTarget(ATDCharacter* const NewTarget);
 
 	UFUNCTION(BlueprintCallable)
 	virtual void UseWeapon() {}
+
+	virtual bool IsTargetLocked();
 };

@@ -6,38 +6,48 @@
 #include "TDCharacter.h"
 
 
-void UEffectorComponent::InitializeEffectorComponent(float InEffectRange)
+void UEffectorComponent::InflictEffect(ATDCharacter* Target)
 {
-	EffectRange = InEffectRange;
+	if (!Target) return;
+
+	static const float ShakePower = 4.0f;
+	static const float ShakeDuration = 0.2f;
+	Target->TDUnitTakeDamage(ShakePower, ShakeDuration, Damage);
+
+	//todo InflictDebuff and fun gameplay logic
 }
 
-void UEffectorComponent::AffectTarget(ATDCharacter* MainTarget)
+void UEffectorComponent::Initialize(float InEffectRange, uint32 InDamage)
 {
+	EffectRange = InEffectRange;
+	Damage		= InDamage;
+}
+
+void UEffectorComponent::InflictAoE(ATDCharacter* MainTarget)
+{
+	if (!MainTarget) return;
+
 	const FVector TargetLocation = MainTarget->GetActorLocation();
-	const EUnitTeam TargetTeam = MainTarget->Team;
+	const EUnitTeam TargetTeam	 = MainTarget->Team;
+
+	static const FVector SweepDistance = FVector(0, 0, 0.1f);
 
 	if (EffectRange > 0)
 	{
 		TArray<FHitResult> OutResults;
-
-		//FCollisionQueryParams QueryParam;
-		//QueryParam.AddIgnoredActor(MainTarget);
-
-		GetWorld()->SweepMultiByChannel(OutResults, TargetLocation, (TargetLocation + FVector(0, 0, 0.1f)), FQuat::Identity, ECC_GameTraceChannel1, FCollisionShape::MakeSphere(EffectRange)/*, QueryParam*/);
-
+		GetWorld()->SweepMultiByChannel(OutResults, TargetLocation, (TargetLocation + SweepDistance), FQuat::Identity, ECC_GameTraceChannel1, FCollisionShape::MakeSphere(EffectRange)/*, QueryParam*/);
 		for (const auto& HitResult : OutResults)
 		{
 			ATDCharacter* HitTDCharacter = Cast<ATDCharacter>(HitResult.Actor.Get());
-			if (!HitTDCharacter) continue;
 
-			if (HitTDCharacter->Team == TargetTeam)
+			if (HitTDCharacter && HitTDCharacter->Team == TargetTeam)
 			{
-				Effect(HitTDCharacter);
+				InflictEffect(HitTDCharacter);
 			}
 		}
 	}
 	else
 	{
-		Effect(MainTarget);
+		InflictEffect(MainTarget);
 	}
 }

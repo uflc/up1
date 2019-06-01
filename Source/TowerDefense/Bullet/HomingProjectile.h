@@ -19,8 +19,6 @@ protected:
 
 	FVector VelocityVec;
 
-	float SplashRange;
-
 	FVector GetDistanceVecToTarget();
 
 	virtual void CalcVelocityVec(const FVector& DirectionVec);

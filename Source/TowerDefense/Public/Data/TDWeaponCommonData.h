@@ -10,8 +10,6 @@
 /**
  * 
  */
-class UWeaponComponent;
-
 UCLASS(Blueprintable, BlueprintType)
 class TOWERDEFENSE_API UTDWeaponCommonData : public UDataAsset
 {
@@ -20,7 +18,7 @@ class TOWERDEFENSE_API UTDWeaponCommonData : public UDataAsset
 	DECLARE_DELEGATE(FLoadCompletedSignature);
 
 protected:
-	friend UWeaponComponent;	
+	friend class UWeaponComponent;
 	friend class ATDGameModeBase;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
@@ -40,28 +38,26 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class UPaperFlipbook> EffectFlipbook;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
 	float DefaultSplashRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultCooldown;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
-	float DefaultRange;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
 	int DefaultDamage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
-	TArray<FDebuffSet> DebuffSetArray;
+	float DefaultRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
+	TArray<FDebuff> DebuffSetArray;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
 	float DefaultDebuffChance;
 
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
-
-	UTDWeaponCommonData();
 
 	void Initialize();
 

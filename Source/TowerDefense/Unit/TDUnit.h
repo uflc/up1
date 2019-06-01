@@ -72,7 +72,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	EUnitTeam Team;
-
-	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
-	bool IsTargetable();
 };

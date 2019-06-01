@@ -2,33 +2,32 @@
 
 
 #include "DirectWeaponComponent.h"
-#include "TDCharacter.h"
+#include "TDWeaponCommonData.h"
 #include "SimpleFlipbookEffect.h"
 #include "EffectorComponent.h"
+#include "TDCharacter.h"
 
 
-//inline void UDirectWeaponComponent::InitializeDirectWeaponComp() {
-//	UWeaponComponent::InitializeWeaponComp();
-//
-//	// Additional Work
-//}
+UDirectWeaponComponent::UDirectWeaponComponent()
+{
+	Effector = CreateDefaultSubobject<UEffectorComponent>(TEXT("Effector0"));
+}
 
-// Have to test
+void UDirectWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
+{
+	Super::SetCommonData(InData);
+
+	Effector->Initialize(WeaponData->DefaultSplashRange, WeaponData->DefaultDamage);
+}
+
 void UDirectWeaponComponent::UseWeapon()
 {	
-	// Gonna change to using common data
-
-	if (TargetValidCheck()) 
+	if (!IsTargetLocked()) return;
+	
+	if (EffectFlipbook)
 	{
-		if (EffectFlipbook)	
-		{
-			(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator()))->SetupEffect(EffectFlipbook);
-		}
-		const TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-
-		for (const auto& Effector : Effectors)
-		{
-			((UEffectorComponent*) Effector)->AffectTarget(Target);
-		}
+		(GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator::ZeroRotator))->SetupEffect(EffectFlipbook);
 	}
+
+	Effector->InflictAoE(Target);
 }

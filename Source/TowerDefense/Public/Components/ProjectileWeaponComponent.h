@@ -9,22 +9,15 @@
 /**
  * 
  */
-class ATDCharacter;
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOWERDEFENSE_API UProjectileWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()
 
 protected:
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector ProjectileRelativeSpawnPoint;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool ProjectileisDirectable;
-
 public:
-	// Change to virtual?
-	//virtual void InitializeWeaponComp() override;
 	virtual void UseWeapon() override;
 };

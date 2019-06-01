@@ -22,12 +22,9 @@ protected:
 	friend class AProjectileBase;
 	friend class ATDGameModeBase;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool IsInitialized;
 public:
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
-	TSubclassOf<AProjectileBase> ProjectileClass;*/
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
 

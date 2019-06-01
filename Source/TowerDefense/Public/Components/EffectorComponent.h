@@ -4,32 +4,35 @@
 
 #include "CoreMinimal.h"
 #include "TDComponent.h"
+#include "TDTypes.h"
 #include "EffectorComponent.generated.h"
 
 /**
  * 
  */
  class ATDCharacter;
-
 UCLASS(Blueprintable, Abstract, ClassGroup = (Custom))
 class TOWERDEFENSE_API UEffectorComponent : public UTDComponent
 {
 	GENERATED_BODY()
 
 protected:
-	//Need it for cache?
+	UPROPERTY()
+	uint32 Damage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float EffectRange = 0;
+	UPROPERTY()
+	float EffectRange;
 
-	//	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//TMap<> AffectRateByDistanceMap;
+	UPROPERTY()
+	TArray<FDebuff> Debuffs;
 
+	//todo some useful vars for fun like DamageIncreaseRate, Stack, Timer, etc...
 public:
-	virtual void Effect(ATDCharacter* Target) {}
+	virtual void InflictEffect(ATDCharacter* Target);
 
-	void InitializeEffectorComponent(float InEffectRange);
+	//todo DebuffSet... DataAsset or Structure or Archetype
+	void Initialize(float InEffectRange, uint32 InDamage);
 
 	UFUNCTION(BlueprintCallable)
-	void AffectTarget(ATDCharacter* MainTarget);
+	virtual void InflictAoE(ATDCharacter* MainTarget);
 };

@@ -50,6 +50,11 @@ void ATDCharacter::UpdateDirection()
 	}
 }
 
+bool ATDCharacter::IsLethal()
+{
+	return UnitState == EUnitState::Dead || UnitState == EUnitState::Dying;
+}
+
 
 bool ATDCharacter::UpdateAnimation()
 {
@@ -60,8 +65,7 @@ bool ATDCharacter::UpdateAnimation()
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
 {
-	// Already dying or dead
-	if (UnitState == EUnitState::Dead || UnitState == EUnitState::Dying) return;
+	if (IsLethal()) return;
 
 	// »ç¸Á.
 	Health -= Damage;
@@ -87,9 +91,6 @@ void ATDCharacter::Die_Implementation()
 	// Play Dying anim once
 	ChangeState(EUnitState::Dying);
 	Animation->SetLooping(false);
-
-	// BTService AggroCheck() Trace Hit ¹æÁö
-	Team = EUnitTeam::None;
 
 	// detach the controller
 	if (Controller != nullptr)

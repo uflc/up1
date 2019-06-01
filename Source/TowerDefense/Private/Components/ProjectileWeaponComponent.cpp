@@ -3,39 +3,18 @@
 
 #include "ProjectileWeaponComponent.h"
 #include "ProjectileBase.h"
-#include "TDCharacter.h"
-#include "EffectorComponent.h"
 #include "TDWeaponCommonData.h"
 #include "TDProjectileCommonData.h"
-#include "AIController.h"
-#include "BehaviorTree\BlackboardComponent.h"
 
 
 void UProjectileWeaponComponent::UseWeapon()
 {
-	if (TargetValidCheck())
-	{
-		FVector CaculatedSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
+	if (!IsTargetLocked()) return;
 
-		AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &CaculatedSpawnPoint);
+	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
+	AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &ProjectileSpawnPoint);
 
-		TArray<UTDComponent*> Effectors = GetSubComponentsByClass(UEffectorComponent::StaticClass());
-		for (const auto& Effector : Effectors) 
-		{
-			UEffectorComponent* CopyEffector = DuplicateObject<UEffectorComponent>((UEffectorComponent*)Effector, SpawnedProjectile);
-			SpawnedProjectile->AddOwnedComponent(/*(UEffectorComponent*)*/CopyEffector);
-		}
-
-		SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
-		SpawnedProjectile->SetTarget(Target);
-		SpawnedProjectile->Initialize();
-
-	}
+	SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
+	SpawnedProjectile->SetTarget(Target);
+	SpawnedProjectile->SetEffector(WeaponData->DefaultSplashRange, WeaponData->DefaultDamage);
 }
-
-//void UProjectileWeaponComponent::InitializeWeaponComp()
-//{
-//	Super::InitializeWeaponComp();
-//
-//	// Additional Work
-//}
