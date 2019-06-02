@@ -23,7 +23,7 @@ void UDirectWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 
 void UDirectWeaponComponent::UseWeapon()
 {	
-	if(!bIsActive) return;
+	if (!bIsActive) return;
 	if (!IsTargetLocked()) return;
 	
 	Effector->InflictAoE(Target);

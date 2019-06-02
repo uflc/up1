@@ -46,6 +46,7 @@ UPaperFlipbook * ATower::GetDesiredAnimation()
 
 bool ATower::UpdateAnimation()
 {
+	UpdateDirection();
 	if (!Super::UpdateAnimation()) return false;
 
 	return true;
@@ -53,17 +54,15 @@ bool ATower::UpdateAnimation()
 
 void ATower::UpdateDirection()
 {
-	EDirection OldDirection = Direction;
-
 	//@TODO Aggro Target AActor
+	if (!AggroTarget) return;
+
 	FVector DirectionVec= ((AActor*) AggroTarget)->GetActorLocation() - GetActorLocation();
 
+	//탑뷰인 XY 평면에서 X는 오른쪽이 양수, Y는 아래쪽이 양수.
 	Direction = DirectionVec.X > 0 ?
-				(DirectionVec.Y > 0 ? EDirection::RT : EDirection::RD)
-			  : (DirectionVec.Y > 0 ? EDirection::LT : EDirection::LD);
-
-	if (!(OldDirection == Direction))
-		UpdateAnimation();
+				(DirectionVec.Y < 0 ? EDirection::RT : EDirection::RD)
+			  : (DirectionVec.Y < 0 ? EDirection::LT : EDirection::LD);
 }
 
 bool ATower::Upgrade_Implementation(ETowerType UpType)
