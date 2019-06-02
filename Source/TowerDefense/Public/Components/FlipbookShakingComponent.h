@@ -18,7 +18,7 @@ public:
 	UFlipbookShakingComponent();
 
 protected:
-	float ShakePower			= 0;
+	float ShakePower	= 0;
 	float ShakeDuration	= 0;
 
 	UPROPERTY()
