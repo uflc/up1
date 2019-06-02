@@ -9,6 +9,7 @@
 #include "AIController.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "TowerDefense.h"
+#include "UnitDebuffComponent.h"
 
 ATDCharacter::ATDCharacter()
 {
@@ -18,6 +19,9 @@ ATDCharacter::ATDCharacter()
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 	//Movement->
 	Movement->UpdatedComponent = Animation;
+
+	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
+	//DebuffControll->
 }
 
 void ATDCharacter::BeginPlay()
@@ -85,6 +89,12 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
 	ShakeComp->RegisterComponent();
 	AddOwnedComponent(ShakeComp);
+}
+
+void ATDCharacter::TDUnitTakeDebuff(FDebuff& InDebuff)
+{
+	if (IsLethal()) return;
+	DebuffControll->RegDebuff(InDebuff);
 }
 
 void ATDCharacter::Die_Implementation()

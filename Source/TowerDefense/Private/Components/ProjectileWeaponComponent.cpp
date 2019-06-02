@@ -17,4 +17,5 @@ void UProjectileWeaponComponent::UseWeapon()
 	SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
 	SpawnedProjectile->SetTarget(Target);
 	SpawnedProjectile->SetEffector(WeaponData->DefaultSplashRange, WeaponData->DefaultDamage);
+	SpawnedProjectile->SetEffector(WeaponData->DebuffArray);
 }

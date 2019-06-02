@@ -14,6 +14,10 @@ void UEffectorComponent::InflictEffect(ATDCharacter* Target)
 	static const float ShakeDuration = 0.2f;
 	Target->TDUnitTakeDamage(ShakePower, ShakeDuration, Damage);
 
+	for ( FDebuff Debuff : Debuffs )
+	{
+		Target->TDUnitTakeDebuff(Debuff);
+	}
 	//todo InflictDebuff and fun gameplay logic
 }
 
@@ -21,6 +25,11 @@ void UEffectorComponent::Initialize(float InEffectRange, uint32 InDamage)
 {
 	EffectRange = InEffectRange;
 	Damage		= InDamage;
+}
+
+void UEffectorComponent::Initialize(const TArray<FDebuff>& InDebuffArray)
+{
+	Debuffs = InDebuffArray;
 }
 
 void UEffectorComponent::InflictAoE(ATDCharacter* MainTarget)

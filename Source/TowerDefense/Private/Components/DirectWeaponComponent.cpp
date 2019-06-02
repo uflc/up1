@@ -19,6 +19,7 @@ void UDirectWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 	Super::SetCommonData(InData);
 
 	Effector->Initialize(WeaponData->DefaultSplashRange, WeaponData->DefaultDamage);
+	Effector->Initialize(WeaponData->DebuffArray);
 }
 
 void UDirectWeaponComponent::UseWeapon()

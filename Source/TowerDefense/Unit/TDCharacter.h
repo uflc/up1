@@ -22,6 +22,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UPawnMovementComponent* Movement;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UUnitDebuffComponent* DebuffControll;
+
 	UPROPERTY(BlueprintReadOnly, Category = "TDChar")
 	float DrawingAggroRange;
 
@@ -49,6 +52,9 @@ public:
 	//@TODO AActor::TakeDamge override?
 	UFUNCTION(BlueprintCallable)
 	void TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage);
+
+	UFUNCTION(BlueprintCallable)
+	void TDUnitTakeDebuff(FDebuff & InDebuff);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Die();

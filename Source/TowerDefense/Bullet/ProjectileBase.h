@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "TDTypes.h"
 #include "ProjectileBase.generated.h"
 
 UCLASS(Abstract)
@@ -40,5 +41,7 @@ public:
 
 	virtual void SetEffector(float EffectRange, uint32 Damage);
 
+	virtual void SetEffector(const TArray<FDebuff>& InDebuffArray);
+	
 	virtual void BulletDestroy();
 };

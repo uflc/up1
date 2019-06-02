@@ -33,6 +33,9 @@ public:
 	//todo DebuffSet... DataAsset or Structure or Archetype
 	void Initialize(float InEffectRange, uint32 InDamage);
 
+	void Initialize(const TArray<FDebuff>& InDebuffArray);
+
+
 	UFUNCTION(BlueprintCallable)
 	virtual void InflictAoE(ATDCharacter* MainTarget);
 };

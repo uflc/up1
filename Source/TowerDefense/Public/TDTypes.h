@@ -83,16 +83,26 @@ public:
 
 	// 0~100
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Power;
+	float Power;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float PowerPerStack;
 
 	// Stack with ID
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int ID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int MaxStack;
+	int MaxStack = 1;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int CurrentStack = 0;
 	//TickInterval
+
+	float GetCalculatedPower() const 
+	{
+		return Power + PowerPerStack * ( ( CurrentStack < 0 ? 0 : CurrentStack ) - 1);
+	}
 
 	//MaxTick
 	bool operator == (const FDebuff& InDebuff) 

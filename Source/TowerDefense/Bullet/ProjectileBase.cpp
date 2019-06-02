@@ -44,6 +44,11 @@ void AProjectileBase::SetEffector(float EffectRange, uint32 Damage)
 	Effector->Initialize(EffectRange, Damage);
 }
 
+void AProjectileBase::SetEffector(const TArray<FDebuff>& InDebuffArray)
+{
+	Effector->Initialize(InDebuffArray);
+}
+
 void AProjectileBase::BulletDestroy()
 {
 	//
