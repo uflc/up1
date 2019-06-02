@@ -13,14 +13,13 @@ UCLASS()
 class TOWERDEFENSE_API ATDAIController : public AAIController
 {
 	GENERATED_BODY()
-	
-private:
-	//class UBlackboardComponent* Blackboard;
-
-protected:
-	//todo runbehavior tree use blackboard
-	//void BeginPlay() override;
 
 public:
+	static const FName DestinationKey;
+	static const FName AggroTargetKey;
+
+	//todo runbehavior tree use blackboard
+	virtual void OnPossess(APawn* InPawn) override;
+
 	virtual void SetDestination(const FVector Destination);
 };

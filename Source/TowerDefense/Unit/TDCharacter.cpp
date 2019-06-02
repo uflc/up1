@@ -3,9 +3,6 @@
 
 #include "TDCharacter.h"
 #include "TDCharData.h"
-
-#include "UnitDebuffComponent.h"
-//#include "PaperSpriteComponent.h" //shadow
 #include "PaperFlipbookComponent.h" //anim
 #include "FlipbookShakingComponent.h"
 #include "TimerManager.h"
@@ -86,11 +83,6 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
 	ShakeComp->RegisterComponent();
 	AddOwnedComponent(ShakeComp);
-}
-
-void ATDCharacter::TDUnitTakeDebuff(const FDebuff& InDebuff)
-{
-	DebuffController;
 }
 
 void ATDCharacter::Die_Implementation()
