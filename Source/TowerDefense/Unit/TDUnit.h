@@ -56,6 +56,9 @@ protected:
 public:
 	virtual void PostInitializeComponents() override;
 
+	//AttackComp weapon is Unique
+	virtual void CreateUniqueWeapon();
+
 	UFUNCTION()
 	virtual class UPaperFlipbook* GetDesiredAnimation();
 
@@ -67,7 +70,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
 	void ChangeState(EUnitState InState);
 
-	UFUNCTION(BlueprintCallable, Category = "TDUnit|State")
+	UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
 	virtual void UpdateDirection();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")

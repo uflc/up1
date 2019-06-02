@@ -29,6 +29,7 @@ void ATDCharacter::BeginPlay()
 	{
 		AggroDrawnRange = CharData->GetAggroDrawnRange();
 		DrawingAggroRange = CharData->GetDrawingAggroRange();
+		Health = CharData->GetHealth();
 	}
 }
 
@@ -43,7 +44,7 @@ void ATDCharacter::UpdateDirection()
 	{
 		Animation->SetRelativeRotation(FRotator(-180, 0, -90));
 	}
-	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함 // ?
+	else //if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함 // ?
 	{
 		Animation->SetRelativeRotation(FRotator(0, 0, -90));
 	}

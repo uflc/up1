@@ -22,14 +22,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UPawnMovementComponent* Movement;
 
-	UPROPERTY(BlueprintReadOnly, Category = "TDUnit|Property")
+	UPROPERTY(BlueprintReadOnly, Category = "TDChar")
 	float DrawingAggroRange;
 
-	UPROPERTY(BlueprintReadOnly, Category = "TDUnit|Property")
+	UPROPERTY(BlueprintReadOnly, Category = "TDChar")
 	float AggroDrawnRange;
 
-	//todo data
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 Health;
 
 public:

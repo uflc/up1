@@ -4,13 +4,6 @@
 #include "PaperFlipbook.h"
 
 
-void UTowerData::Initialize()
-{
-	Super::Initialize();
-
-	//todo load UpPreviews here // 현재 GM이 하는중.
-}
-
 UTowerData * UTowerData::GetNextUpgraded(const ETowerType & UpType)
 {
 	return UpTypes[(uint8)UpType].Upgrade;

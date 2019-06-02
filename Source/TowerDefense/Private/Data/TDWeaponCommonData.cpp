@@ -6,32 +6,34 @@
 #include "WeaponComponent.h"
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
+#include "TowerDefense.h"
 
 
 void UTDWeaponCommonData::Initialize()
 {
-	if (IsInitialized) return;
+	if (!IsInitialized)
+	{
+		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
-	auto& AssetLoader = UAssetManager::GetStreamableManager();
-
-	TArray<FSoftObjectPath> AssetsToLoad;
-
-	AssetsToLoad.AddUnique(EffectFlipbook.ToSoftObjectPath());
-
-	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
-
+		TArray<FSoftObjectPath> AssetsToLoad;
+		AssetsToLoad.AddUnique(EffectFlipbook.ToSoftObjectPath());
+		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
+	}
+	
 	if (ProjectileData)
 	{
 		ProjectileData->Initialize();
 	}
-
-	IsInitialized = true;
 }
 
 void UTDWeaponCommonData::LoadFlipbooksDeffered()
 {
-	if (EffectFlipbook.Get())
+	if (!EffectFlipbook.Get())
 	{
-		OnFlipbooksLoaded.ExecuteIfBound();
+		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+		return;
 	}
+
+	IsInitialized = true;
+	OnFlipbooksLoaded.ExecuteIfBound();
 }

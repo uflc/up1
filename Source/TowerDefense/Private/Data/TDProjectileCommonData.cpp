@@ -4,30 +4,33 @@
 #include "TDProjectileCommonData.h"
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
-
+#include "TowerDefense.h"
 
 void UTDProjectileCommonData::Initialize()
 {
-	if (IsInitialized) return;
-
-	auto& AssetLoader = UAssetManager::GetStreamableManager();
-
-	TArray<FSoftObjectPath> AssetsToLoad;
-	for (const auto& it : FlipbookMap)
+	if (!IsInitialized)
 	{
-		AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
-	}
-	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
+		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
-	IsInitialized = true;
+		TArray<FSoftObjectPath> AssetsToLoad;
+		for (const auto& it : FlipbookMap)
+		{
+			AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
+		}
+		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
+	}
 }
 
 void UTDProjectileCommonData::LoadFlipbooksDeffered()
 {
 	for (const auto& it : FlipbookMap)
 	{
-		TSoftObjectPtr<UPaperFlipbook> NewFlipbook = it.Value;
-		if (NewFlipbook) NewFlipbook.Get();
+		if (!it.Value.Get())
+		{
+			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+			return;
+		}
 	}
+	IsInitialized = true;
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

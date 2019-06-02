@@ -8,9 +8,9 @@
 
 void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData) 
 { 
-	WeaponData = InData; 
+	if (!InData || WeaponData == InData) return;
 
-	if (!WeaponData) return;
+	WeaponData = InData; 
 
 	Cooldown = WeaponData->DefaultCooldown;
 	Range	 = WeaponData->DefaultRange;

@@ -15,7 +15,6 @@ class TOWERDEFENSE_API UTDProjectileCommonData : public UDataAsset
 {
 	GENERATED_BODY()
 	
-protected:
 	DECLARE_DELEGATE(FLoadCompletedSignature);
 
 protected:
@@ -25,14 +24,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool IsInitialized;
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	float Velocity;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
-	bool Directable;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
+	bool bIsDirectable;
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
 

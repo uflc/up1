@@ -5,6 +5,7 @@
 #include "TDPlayerController.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
+#include "WeaponComponent.h" //upgrade
 #include "TowerDefense.h" //log 
 
 
@@ -24,7 +25,7 @@ void ATower::BeginPlay()
 
 	if (TowerData)
 	{
-		TotalCost = TowerData->Cost;
+		TotalCost = TowerData->GetCost();
 	}
 }
 
@@ -74,7 +75,9 @@ bool ATower::Upgrade_Implementation(ETowerType UpType)
 	if (!Upgraded) return false;
 
 	UnitData = Upgraded;
-	TotalCost += Upgraded->Cost;
+	TotalCost += Upgraded->GetCost();
+
+	CreateUniqueWeapon();
 
 	UpdateAnimation();
 

@@ -10,6 +10,7 @@
 /**
  * 
  */
+//todo accessor
 UCLASS(Blueprintable, BlueprintType)
 class TOWERDEFENSE_API UTDWeaponCommonData : public UDataAsset
 {

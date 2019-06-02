@@ -35,20 +35,7 @@ void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Create AttackComponent(Weapon) if not already have one.
-	TSubclassOf<UWeaponComponent> WeaponClass = UnitData->GetWeaponClass();
-	if (WeaponClass && !AttackComp->IsValidLowLevelFast()) 
-	{
-		AttackComp = NewObject<UWeaponComponent>(this, WeaponClass);
-	}
-	//AddOwnedComponent(AttackComp);
-	if (!AttackComp)
-	{
-		//TD_LOG(Warning, TEXT("%s: AttackComp is not valid!"), *GetClass()->GetName());
-		return;
-	}
-
-	AttackComp->SetCommonData(UnitData->GetWeaponData());
+	CreateUniqueWeapon();
 }
 
 void ATDUnit::PostInitializeComponents()
@@ -61,6 +48,34 @@ void ATDUnit::PostInitializeComponents()
 	//	TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
 	//}
 
+}
+
+void ATDUnit::CreateUniqueWeapon()
+{
+	if (!UnitData)
+	{
+		TD_LOG(Warning, TEXT("No UnitData!"));
+		return;
+	}
+
+	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
+	if (NewWeaponClass && (!AttackComp || NewWeaponClass != AttackComp->GetClass()))
+	{
+		AttackComp = NewObject<UWeaponComponent>(this, NewWeaponClass);
+	}
+	if (!AttackComp)
+	{
+		TD_LOG(Warning, TEXT("%s: No AttackComp!"), *GetClass()->GetName());
+		return;
+	}
+	
+	UTDWeaponCommonData* NewWeaponData = UnitData->GetWeaponData();
+	if (!NewWeaponData)
+	{
+		TD_LOG(Warning, TEXT("%s: No WeaponData!"), *GetClass()->GetName());
+		return;
+	}
+	AttackComp->SetCommonData(NewWeaponData);
 }
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()

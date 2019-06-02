@@ -29,7 +29,7 @@ void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData)
 	if (!ProjectileCommon) return;
 
 	Velocity	  = ProjectileCommon->Velocity;
-	bIsDirectable = ProjectileCommon->Directable;
+	bIsDirectable = ProjectileCommon->bIsDirectable;
 
 	//
 	UPaperFlipbook* Flipbook = ProjectileCommon->FlipbookMap.Find(EWeaponFlipbookType::Projectile)->Get();

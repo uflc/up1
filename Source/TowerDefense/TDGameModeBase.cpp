@@ -44,29 +44,34 @@ void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsin
 	if (AlreadyLoadedNum == InUsingTDUnitCommons.Num()) OnAllTDUnitFlipbooksLoaded.Broadcast();
 }
 
-void ATDGameModeBase::LoadTowerResources(UTowerData * InTowerDataTree)
+void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 {
 	if (!InTowerDataTree) return;
 
-	auto& AssetLoader = UAssetManager::GetStreamableManager();
-	TArray<FSoftObjectPath> AssetsToLoad;
-
-	for (const auto& UpType : InTowerDataTree->GetUpTypesInfo())
+	if (!InTowerDataTree->IsInitialized)
 	{
-		AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
-	}
-	for (const auto& Animation : InTowerDataTree->Animations)
-	{
-		AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
-	}
+		auto& AssetLoader = UAssetManager::GetStreamableManager();
+		TArray<FSoftObjectPath> AssetsToLoad;
 
-	if (InTowerDataTree->WeaponData)
-	{
-		InTowerDataTree->WeaponData->Initialize();
+		for (const auto& UpType : InTowerDataTree->GetUpTypesInfo())
+		{
+			AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
+		}
+		for (const auto& Animation : InTowerDataTree->Animations)
+		{
+			AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
+		}
+
+		if (InTowerDataTree->WeaponData)
+		{
+			InTowerDataTree->WeaponData->Initialize();
+		}
+
+		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &ATDGameModeBase::LoadTowerResourcesDeffered));
+		////
+		InTowerDataTree->IsInitialized = true;
 	}
-
-	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &ATDGameModeBase::LoadTowerResourcesDeffered));
-
+	
 	for (int i = 0; i < 2; i++)
 	{
 		LoadTowerResources(InTowerDataTree->GetNextUpgraded((ETowerType)i));
