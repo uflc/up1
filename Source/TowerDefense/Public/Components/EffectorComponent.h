@@ -11,7 +11,7 @@
  * 
  */
  class ATDCharacter;
-UCLASS(Blueprintable, Abstract, ClassGroup = (Custom))
+UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom))
 class TOWERDEFENSE_API UEffectorComponent : public UTDComponent
 {
 	GENERATED_BODY()

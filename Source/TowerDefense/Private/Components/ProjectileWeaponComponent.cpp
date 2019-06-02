@@ -9,6 +9,7 @@
 
 void UProjectileWeaponComponent::UseWeapon()
 {
+	if (!bIsActive) return;
 	if (!IsTargetLocked()) return;
 
 	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;

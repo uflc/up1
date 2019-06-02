@@ -85,6 +85,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Power;
 
+	// Stack with ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int ID;
+
 	//MaxStack
 
 	//TickInterval

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "TDUnit.h"
+#include "TDTypes.h"
 #include "TDCharacter.generated.h"
 
 /**
@@ -20,6 +21,9 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UPawnMovementComponent* Movement;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UUnitDebuffComponent* DebuffController;
 
 	UPROPERTY(BlueprintReadOnly, Category = "TDUnit|Property")
 	float DrawingAggroRange;
@@ -49,6 +53,11 @@ public:
 	//@TODO AActor::TakeDamge override?
 	UFUNCTION(BlueprintCallable)
 	void TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage);
+	
+	//Have to think about this
+	UFUNCTION(BlueprintCallable)
+	void TDUnitTakeDebuff(const FDebuff& InDebuff);
+
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Die();

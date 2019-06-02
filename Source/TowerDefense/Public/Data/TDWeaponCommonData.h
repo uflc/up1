@@ -41,7 +41,7 @@ public:
 	float DefaultCooldown;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
-	uint32 DefaultDamage;
+	int32 DefaultDamage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultRange;
