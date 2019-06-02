@@ -10,10 +10,10 @@ void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 { 
 	if (!InData || WeaponData == InData) return;
 
-	WeaponData = InData; 
+	WeaponData		=		InData; 
 
-	Cooldown = WeaponData->DefaultCooldown;
-	Range	 = WeaponData->DefaultRange;
+	Cooldown			=		WeaponData->DefaultCooldown;
+	Range					=		WeaponData->DefaultRange;
 }
 
 void UWeaponComponent::SetTarget(ATDCharacter* const NewTarget)

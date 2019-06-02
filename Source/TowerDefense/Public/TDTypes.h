@@ -71,7 +71,7 @@ enum class EValueType : uint8
 USTRUCT(BlueprintType)
 struct  FDebuff
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -89,11 +89,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int ID;
 
-	//MaxStack
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int MaxStack;
 
 	//TickInterval
 
 	//MaxTick
+	bool operator == (const FDebuff& InDebuff) 
+	{
+		//return ( (Type == InDebuff.Type) && ( Duration == InDebuff.Duration ) && ( Power == InDebuff.Power) && ( ID == InDebuff.ID) );
+
+		return ( ID == InDebuff.ID );
+	}
 };
 
 //@TODO How to use Enum as Byte as arrry index
