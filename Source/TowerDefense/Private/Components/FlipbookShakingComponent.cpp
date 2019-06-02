@@ -19,6 +19,8 @@ UFlipbookShakingComponent::UFlipbookShakingComponent()
 // Called every frame
 void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
 	if (!Flipbook) 
 	{ 
 		DestroyComponent(); 
@@ -44,7 +46,6 @@ void UFlipbookShakingComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	//Flipbook->AddLocalOffset(ShakeVector);
 	Flipbook->SetRelativeLocation(Flipbook->RelativeLocation + ShakeVector);
 	
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
 void UFlipbookShakingComponent::Initialize(float InShakePower, float InShakeDuration)
