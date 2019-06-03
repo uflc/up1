@@ -15,7 +15,6 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& Debuff)
 
 	FTimerHandle*		Handle;
 	FTimerDelegate	TimerDel;
-	FTimerHandle		NewHandle;
 
 	TimerDel.BindUFunction(this, FName("UnregDebuff"), Debuff);
 
@@ -30,17 +29,13 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& Debuff)
 
 		Handle = TimerMap.Find(Debuff.ID);
 
-		TD_LOG(Warning, TEXT("%f"), GetWorld()->GetTimerManager().GetTimerElapsed(*Handle));
-
 		GetWorld()->GetTimerManager().ClearTimer(*Handle);
 	
 		// Replace old timer
-		// TimerMap.Remove(Debuff.ID);
+		TimerMap.Remove(Debuff.ID);
 
-		// Handle = &NewHandle;
-
-		// TimerMap.Add(Debuff.ID, NewHandle);
-
+		TimerMap.Add(Debuff.ID, FTimerHandle());
+		
 		if ( Debuff.MaxStack > RegisteredDebuff->CurrentStack )
 		{
 			// Debuff.CurrentStack is Additional Stack. Set this when intialize debuff info
@@ -53,12 +48,12 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& Debuff)
 
 	else 
 	{
-		Handle = &NewHandle;
-
-		TimerMap.Add(Debuff.ID, NewHandle);
+		TimerMap.Add(Debuff.ID, FTimerHandle());
 
 		DebuffMap.Add(Debuff.Type, Debuff);
 	}
+
+	Handle = TimerMap.Find(Debuff.ID);
 
 	GetWorld()->GetTimerManager().SetTimer(*Handle, TimerDel, Debuff.Duration, false);
 
@@ -68,6 +63,8 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& Debuff)
 
 void UUnitDebuffComponent::UnregDebuff(FDebuff& Debuff)
 {
+	TD_LOG(Warning, TEXT("UnReg"));
+
 	if( Debuff.CurrentStack - 1 <= 0 )
 	{ 
 		DebuffMap.RemoveSingle(Debuff.Type, Debuff);
@@ -105,9 +102,10 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 
 	TArray<FDebuff>							DebuffArr;
 
+	static float DefaultSpeed = 600.0f; // Owner's default speed
+	static float MinSpeed = 50.0f;
 
 	// Overlappable ( Slow, Exhaust { AttkSpd,MovementSpd }, etc )
-
 	if ( IsDebuffTypeOverlappable(InDebuff.Type) )
 	{
 		const float PowerToPercent = (1 - ( InDebuff.GetCalculatedPower() / 100));
@@ -117,11 +115,17 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 			case EDebuffType::Slow:
 				if ( bDebuffStart )
 				{
-					Movement->MaxSpeed *= PowerToPercent;
+					DefaultSpeed *= PowerToPercent;
+					Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
+
+					//Movement->MaxSpeed *= PowerToPercent;
 				}
 				else
 				{
-					Movement->MaxSpeed /= PowerToPercent;
+					DefaultSpeed /= PowerToPercent;
+					Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
+
+					//Movement->MaxSpeed /= PowerToPercent;
 				}
 				break;
 
@@ -144,6 +148,7 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 			//}
 			//}
 			//break;
+
 			default:
 				break;
 		}
