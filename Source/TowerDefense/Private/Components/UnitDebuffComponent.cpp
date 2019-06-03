@@ -9,84 +9,90 @@
 #include "Engine\World.h"
 #include "TimerManager.h"
 
-void UUnitDebuffComponent::RegDebuff(const FDebuff& Debuff)
+void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 {
-	const bool bIsDuplicated = TimerMap.Contains(Debuff.ID);
+	const bool bIsDuplicated = TimerMap.Contains(InDebuff.ID);
 
 	FTimerHandle*		Handle;
 	FTimerDelegate	TimerDel;
-
-	TimerDel.BindUFunction(this, FName("UnregDebuff"), Debuff);
+	
+	FDebuff* RegisteredDebuff;
 
 	// I don't know why but cannot do this
 	//FTimerDelegate TimerDel = FTimerDelegate::CreateUObject(this,&UUnitDebuffComponent::UnregDebuff,Debuff);
 
 	if ( bIsDuplicated )
 	{
-		UpdateStat(Debuff, false);
+		RegisteredDebuff = DebuffMap.FindPair(InDebuff.Type, InDebuff);
 
-		FDebuff* RegisteredDebuff = DebuffMap.FindPair(Debuff.Type, Debuff);
+		UpdateStat(*RegisteredDebuff, false);
 
-		Handle = TimerMap.Find(Debuff.ID);
+		Handle = TimerMap.Find(InDebuff.ID);
 
 		GetWorld()->GetTimerManager().ClearTimer(*Handle);
 	
 		// Replace old timer
-		TimerMap.Remove(Debuff.ID);
+		TimerMap.Remove(InDebuff.ID);
 
-		TimerMap.Add(Debuff.ID, FTimerHandle());
+		TimerMap.Add(InDebuff.ID, FTimerHandle());
 		
-		if ( Debuff.MaxStack > RegisteredDebuff->CurrentStack )
+		if ( InDebuff.MaxStack > RegisteredDebuff->CurrentStack )
 		{
 			// Debuff.CurrentStack is Additional Stack. Set this when intialize debuff info
-			RegisteredDebuff->CurrentStack += Debuff.CurrentStack;
+			RegisteredDebuff->CurrentStack += InDebuff.CurrentStack;
 
 			// Decrease to MaxStack 
-			RegisteredDebuff->CurrentStack = Debuff.MaxStack <= RegisteredDebuff->CurrentStack ? Debuff.MaxStack : RegisteredDebuff->CurrentStack ;
+			RegisteredDebuff->CurrentStack = InDebuff.MaxStack <= RegisteredDebuff->CurrentStack ? InDebuff.MaxStack : RegisteredDebuff->CurrentStack ;
 		}
 	}
 
 	else 
 	{
-		TimerMap.Add(Debuff.ID, FTimerHandle());
+		TimerMap.Add(InDebuff.ID, FTimerHandle());
 
-		DebuffMap.Add(Debuff.Type, Debuff);
+		//DebuffMap.Add(InDebuff.Type, InDebuff);
+
+		RegisteredDebuff = &DebuffMap.Add(InDebuff.Type, InDebuff); 
+
+		//DebuffMap.FindPair(InDebuff.Type, InDebuff);
 	}
 
-	Handle = TimerMap.Find(Debuff.ID);
+	TimerDel.BindUFunction(this, FName("UnregDebuff"), *RegisteredDebuff);
 
-	GetWorld()->GetTimerManager().SetTimer(*Handle, TimerDel, Debuff.Duration, false);
+	Handle = TimerMap.Find(InDebuff.ID);
 
-	UpdateStat(Debuff, true);
-
+	GetWorld()->GetTimerManager().SetTimer(*Handle, TimerDel, InDebuff.Duration, false);
+	
+	UpdateStat(*RegisteredDebuff, true);
 }
 
-void UUnitDebuffComponent::UnregDebuff(FDebuff& Debuff)
+void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 {
-	TD_LOG(Warning, TEXT("UnReg"));
+	/*TD_LOG(Warning,TEXT("%d"), InDebuff.CurrentStack);*/
 
-	if( Debuff.CurrentStack - 1 <= 0 )
+	if( InDebuff.CurrentStack - 1 <= 0 )
 	{ 
-		DebuffMap.RemoveSingle(Debuff.Type, Debuff);
-		TimerMap.Remove(Debuff.ID);
-		UpdateStat(Debuff, false);
+		DebuffMap.RemoveSingle(InDebuff.Type, InDebuff);
+		TimerMap.Remove(InDebuff.ID);
+		UpdateStat(InDebuff, false);
 	}
 
 	else
 	{
-		UpdateStat(Debuff, false);
+		UpdateStat(InDebuff, false);
 
-		Debuff.CurrentStack--;
+
+		InDebuff.CurrentStack--;
 		FTimerHandle*		Handle;
 		FTimerDelegate	TimerDel;
 
-		Handle = TimerMap.Find(Debuff.ID);
+		Handle = TimerMap.Find(InDebuff.ID);
 
-		TimerDel.BindUFunction(this, FName("UnregDebuff"), Debuff);
+		TimerDel.BindUFunction(this, FName("UnregDebuff"), InDebuff);
 
-		GetWorld()->GetTimerManager().SetTimer(*Handle, TimerDel, Debuff.Duration, false);
+		GetWorld()->GetTimerManager().SetTimer(*Handle, TimerDel, InDebuff.Duration, false);
 
-		UpdateStat(Debuff, true);
+		UpdateStat(InDebuff, true);
 	}
 
 	
@@ -108,24 +114,27 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 	// Overlappable ( Slow, Exhaust { AttkSpd,MovementSpd }, etc )
 	if ( IsDebuffTypeOverlappable(InDebuff.Type) )
 	{
-		const float PowerToPercent = (1 - ( InDebuff.GetCalculatedPower() / 100));
+		//FDebuff* RegisteredDebuff = DebuffMap.FindPair(InDebuff.Type, InDebuff);
+
+		//if (!RegisteredDebuff) return;
+
+		const float PowerToPercent = (1 - (InDebuff.GetCalculatedPower() / 100));
 
 		switch ( InDebuff.Type )
 		{
 			case EDebuffType::Slow:
 				if ( bDebuffStart )
 				{
-					DefaultSpeed *= PowerToPercent;
-					Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
+					//DefaultSpeed *= PowerToPercent;
+					//Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
 
-					//Movement->MaxSpeed *= PowerToPercent;
+					Movement->MaxSpeed *= PowerToPercent;
 				}
 				else
 				{
-					DefaultSpeed /= PowerToPercent;
-					Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
-
-					//Movement->MaxSpeed /= PowerToPercent;
+					//DefaultSpeed /= PowerToPercent;
+					//Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
+					Movement->MaxSpeed /= PowerToPercent;
 				}
 				break;
 

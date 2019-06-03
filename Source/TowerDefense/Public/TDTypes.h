@@ -93,10 +93,10 @@ public:
 	int ID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int MaxStack = 1;
+	int MaxStack;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int CurrentStack = 0;
+	int CurrentStack;
 	//TickInterval
 
 	float GetCalculatedPower() const 
