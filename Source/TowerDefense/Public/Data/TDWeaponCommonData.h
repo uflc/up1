@@ -50,9 +50,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
 	TArray<FDebuff> DebuffArray;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
-	float DefaultDebuffChance;
-
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
 

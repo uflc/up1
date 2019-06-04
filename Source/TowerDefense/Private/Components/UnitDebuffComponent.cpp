@@ -49,17 +49,21 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 
 void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 {
-	UpdateStat(InDebuff, false);
+	//¼­¼ø
+	//UpdateStat(InDebuff, false);
 
 	if (--InDebuff.CurrentStack <= 0 )
 	{ 
 		DebuffMap.RemoveSingle(InDebuff.Type, InDebuff);
 		TimerMap.Remove(InDebuff.ID);
+		UpdateStat(InDebuff, false);
 	}
 	else
 	{
 		FTimerHandle*  HandlePtr;
 		FTimerDelegate TimerDel;
+
+		UpdateStat(InDebuff, false);
 
 		HandlePtr = TimerMap.Find(InDebuff.ID);
 		TimerDel.BindUFunction(this, FName("UnregDebuff"), InDebuff);

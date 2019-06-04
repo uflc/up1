@@ -83,10 +83,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Duration;
 
-	// 0~100
+	// 0 ~100
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Power;
 
+	// 0 ~100
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PowerPerStack;
 
@@ -97,9 +98,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MaxStack;
 
+	// It also means how much do you stacking in registered one
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentStack;
-	//TickInterval
+
+	// 0 ~100
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int DebuffChance;
 
 	float GetCalculatedPower() const 
 	{
