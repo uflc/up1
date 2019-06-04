@@ -41,7 +41,7 @@ enum class EDirection : uint8
 };
 
 
-//@타워 어떤 레벨에서의 업그레이드 타입
+//타워 업그레이드 타입
 UENUM(BlueprintType)
 enum class ETowerType : uint8
 {
@@ -71,9 +71,11 @@ enum class EValueType : uint8
 USTRUCT(BlueprintType)
 struct  FDebuff
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 
 public:
+	//Debuffs with same Type are considered to be blendable.
+	//This will affect BT logic.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EDebuffType Type;
 	
@@ -88,7 +90,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PowerPerStack;
 
-	// Stack with ID
+	//Unique ID for a Debuff Ability
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int ID;
 

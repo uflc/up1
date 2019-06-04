@@ -5,111 +5,86 @@
 #include "TDCharacter.h"
 #include "GameFramework\FloatingPawnMovement.h"
 #include "WeaponComponent.h"
-
-#include "Engine\World.h"
 #include "TimerManager.h"
 
 void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 {
-	const bool bIsDuplicated = TimerMap.Contains(InDebuff.ID);
-
-	FTimerHandle*		Handle;
-	FTimerDelegate	TimerDel;
+	FTimerHandle*   HandlePtr;
+	FTimerDelegate  TimerDel;
 	
-	FDebuff* RegisteredDebuff;
+	FDebuff* DebuffPtr;
 
-	// I don't know why but cannot do this
-	//FTimerDelegate TimerDel = FTimerDelegate::CreateUObject(this,&UUnitDebuffComponent::UnregDebuff,Debuff);
-
-	if ( bIsDuplicated )
+	const bool bIsStacked = TimerMap.Contains(InDebuff.ID);
+	if ( bIsStacked )
 	{
-		RegisteredDebuff = DebuffMap.FindPair(InDebuff.Type, InDebuff);
-
-		UpdateStat(*RegisteredDebuff, false);
-
-		Handle = TimerMap.Find(InDebuff.ID);
-
-		GetWorld()->GetTimerManager().ClearTimer(*Handle);
-	
-		// Replace old timer
-		TimerMap.Remove(InDebuff.ID);
-
-		TimerMap.Add(InDebuff.ID, FTimerHandle());
+		//Find and deactive current stacked debuff cause we re-calculate and re-set it based on new data: especialy, CurrentStack count.
+		DebuffPtr = DebuffMap.FindPair(InDebuff.Type, InDebuff);
+		UpdateStat(*DebuffPtr, false);
 		
-		if ( InDebuff.MaxStack > RegisteredDebuff->CurrentStack )
+		if ( InDebuff.MaxStack > DebuffPtr->CurrentStack )
 		{
-			// Debuff.CurrentStack is Additional Stack. Set this when intialize debuff info
-			RegisteredDebuff->CurrentStack += InDebuff.CurrentStack;
+			// Debuff.CurrentStack is Additional Stack.
+			DebuffPtr->CurrentStack += InDebuff.CurrentStack;
 
-			// Decrease to MaxStack 
-			RegisteredDebuff->CurrentStack = InDebuff.MaxStack <= RegisteredDebuff->CurrentStack ? InDebuff.MaxStack : RegisteredDebuff->CurrentStack ;
+			// Validate Debuff stack count which should not over MaxStack
+			DebuffPtr->CurrentStack = InDebuff.MaxStack <= DebuffPtr->CurrentStack ? InDebuff.MaxStack : DebuffPtr->CurrentStack ;
 		}
 	}
-
 	else 
 	{
+		//Create new timer for new debuff
 		TimerMap.Add(InDebuff.ID, FTimerHandle());
-
-		//DebuffMap.Add(InDebuff.Type, InDebuff);
-
-		RegisteredDebuff = &DebuffMap.Add(InDebuff.Type, InDebuff); 
-
-		//DebuffMap.FindPair(InDebuff.Type, InDebuff);
+		DebuffPtr = &DebuffMap.Add(InDebuff.Type, InDebuff); 
 	}
 
-	TimerDel.BindUFunction(this, FName("UnregDebuff"), *RegisteredDebuff);
+	//Set debuff duration.
+	TimerDel.BindUFunction(this, FName("UnregDebuff"), *DebuffPtr);
+	HandlePtr = TimerMap.Find(InDebuff.ID);
+	GetWorld()->GetTimerManager().SetTimer(*HandlePtr, TimerDel, InDebuff.Duration, false);
+	TD_LOG(Warning, TEXT("SetDebuffTimer"));
 
-	Handle = TimerMap.Find(InDebuff.ID);
-
-	GetWorld()->GetTimerManager().SetTimer(*Handle, TimerDel, InDebuff.Duration, false);
-	
-	UpdateStat(*RegisteredDebuff, true);
+	//Apply new data
+	UpdateStat(*DebuffPtr, true);
 }
 
 void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 {
-	/*TD_LOG(Warning,TEXT("%d"), InDebuff.CurrentStack);*/
+	UpdateStat(InDebuff, false);
 
-	if( InDebuff.CurrentStack - 1 <= 0 )
+	if (--InDebuff.CurrentStack <= 0 )
 	{ 
 		DebuffMap.RemoveSingle(InDebuff.Type, InDebuff);
 		TimerMap.Remove(InDebuff.ID);
-		UpdateStat(InDebuff, false);
 	}
-
 	else
 	{
-		UpdateStat(InDebuff, false);
+		FTimerHandle*  HandlePtr;
+		FTimerDelegate TimerDel;
 
-
-		InDebuff.CurrentStack--;
-		FTimerHandle*		Handle;
-		FTimerDelegate	TimerDel;
-
-		Handle = TimerMap.Find(InDebuff.ID);
-
+		HandlePtr = TimerMap.Find(InDebuff.ID);
 		TimerDel.BindUFunction(this, FName("UnregDebuff"), InDebuff);
-
-		GetWorld()->GetTimerManager().SetTimer(*Handle, TimerDel, InDebuff.Duration, false);
+		GetWorld()->GetTimerManager().SetTimer(*HandlePtr, TimerDel, InDebuff.Duration, false);
 
 		UpdateStat(InDebuff, true);
 	}
-
-	
 }
 
 void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart)
 {
+	//CharacterStats
+	const ATDCharacter*      Owner     = (ATDCharacter*)GetOwner();
+	UFloatingPawnMovement*   Movement  = (UFloatingPawnMovement*)Owner->GetMovementComponent();
+	TArray<UActorComponent*> WeaponArr = Owner->GetComponentsByClass(UWeaponComponent::StaticClass());
+	//
+
+	//StatDefaults todo data input
 	static const float StopMovementValue = 0.00001f;
-
-	const			ATDCharacter*			Owner					=		(ATDCharacter*)GetOwner();
-	UFloatingPawnMovement*		Movement			=		(UFloatingPawnMovement*)Owner->GetMovementComponent();
-	TArray<UActorComponent*>	WeaponArr			=		Owner->GetComponentsByClass(UWeaponComponent::StaticClass());
-
-	TArray<FDebuff>							DebuffArr;
-
-	static float DefaultSpeed = 600.0f; // Owner's default speed
+	static float DefaultSpeed = 600.0f;
 	static float MinSpeed = 50.0f;
+	//
+
+	//Found Debuffs in map will be stored here.
+	TArray<FDebuff> DebuffArr;
 
 	// Overlappable ( Slow, Exhaust { AttkSpd,MovementSpd }, etc )
 	if ( IsDebuffTypeOverlappable(InDebuff.Type) )
@@ -129,12 +104,14 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 					//Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
 
 					Movement->MaxSpeed *= PowerToPercent;
+					TD_LOG(Warning, TEXT("Speed Debuffed: %f"), Movement->MaxSpeed);
 				}
 				else
 				{
 					//DefaultSpeed /= PowerToPercent;
 					//Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
 					Movement->MaxSpeed /= PowerToPercent;
+					TD_LOG(Warning, TEXT("Speed Reset: %f"), Movement->MaxSpeed);
 				}
 				break;
 
@@ -162,9 +139,7 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 				break;
 		}
 	}
-
-	// Not Overlappable ( Stun, Snared, Taunt, Sleep, etc )
-	else 
+	else 	// Not Overlappable ( Stun, Snared, Taunt, Sleep, etc )
 	{
 		DebuffMap.MultiFind(InDebuff.Type, DebuffArr);
 
@@ -210,7 +185,7 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 	}
 }
 
-FORCEINLINE bool UUnitDebuffComponent::IsDebuffTypeOverlappable(const EDebuffType & InDebuffType)
+bool UUnitDebuffComponent::IsDebuffTypeOverlappable(const EDebuffType & InDebuffType)
 {
 	bool RetVal;
 	switch (InDebuffType)

@@ -16,10 +16,10 @@ class TOWERDEFENSE_API UUnitDebuffComponent : public UTDComponent
 {
 	GENERATED_BODY()
 	
-protected:	
+protected:
 	TMultiMap<EDebuffType,FDebuff> DebuffMap;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPROPERTY()
 	TMap<int,FTimerHandle> TimerMap;
 
 public:

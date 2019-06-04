@@ -62,14 +62,14 @@ void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 			AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
 		}
 
-		if (InTowerDataTree->WeaponData)
-		{
-			InTowerDataTree->WeaponData->Initialize();
-		}
-
 		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &ATDGameModeBase::LoadTowerResourcesDeffered));
 		////
 		InTowerDataTree->IsInitialized = true;
+	}
+
+	if (InTowerDataTree->WeaponData)
+	{
+		InTowerDataTree->WeaponData->Initialize();
 	}
 	
 	for (int i = 0; i < 2; i++)
