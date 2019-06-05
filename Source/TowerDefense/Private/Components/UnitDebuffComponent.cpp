@@ -21,7 +21,7 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 		DebuffPtr = DebuffMap.FindPair(InDebuff.Type, InDebuff);
 		UpdateStat(*DebuffPtr, false);
 		
-		if ( InDebuff.MaxStack > DebuffPtr->CurrentStack )
+		if ( IsDebuffTypeOverlappable(DebuffPtr->Type)&& InDebuff.MaxStack > DebuffPtr->CurrentStack )
 		{
 			// Debuff.CurrentStack is Additional Stack.
 			DebuffPtr->CurrentStack += InDebuff.CurrentStack;
@@ -52,7 +52,7 @@ void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 	//¼­¼ø
 	//UpdateStat(InDebuff, false);
 
-	if (--InDebuff.CurrentStack <= 0 )
+	if (InDebuff.CurrentStack-1 <= 0 )
 	{ 
 		DebuffMap.RemoveSingle(InDebuff.Type, InDebuff);
 		TimerMap.Remove(InDebuff.ID);
@@ -64,6 +64,8 @@ void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 		FTimerDelegate TimerDel;
 
 		UpdateStat(InDebuff, false);
+
+		InDebuff.CurrentStack--;
 
 		HandlePtr = TimerMap.Find(InDebuff.ID);
 		TimerDel.BindUFunction(this, FName("UnregDebuff"), InDebuff);
@@ -155,12 +157,18 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 				if ( bIsDebuffRemain )
 				{
 					//Movement->Deactivate();
+					if(bIsStopped)break;
 					Movement->MaxSpeed *= StopMovementValue;
+					TD_LOG(Warning, TEXT("Speed Debuffed: %f"), Movement->MaxSpeed);
+					bIsStopped=true;
 				}
 				else
 				{
 					//Movement->Activate();
+					if (!bIsStopped)break;
 					Movement->MaxSpeed /= StopMovementValue;
+					TD_LOG(Warning, TEXT("Speed Reset: %f"), Movement->MaxSpeed);
+					bIsStopped=false;
 				}
 				break;
 
