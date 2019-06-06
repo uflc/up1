@@ -11,13 +11,11 @@ void UProjectileWeaponComponent::UseWeapon()
 {
 	if (!IsTargetLocked()) return;
 	
-	TD_LOG_CALLONLY(Warning);
-
 	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 	AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &ProjectileSpawnPoint);
 
-	SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
 	SpawnedProjectile->SetTarget(Target);
+	SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
 	SpawnedProjectile->SetEffector(WeaponData->DefaultSplashRange, WeaponData->DefaultDamage);
 	SpawnedProjectile->SetEffector(WeaponData->DebuffArray);
 }
