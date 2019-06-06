@@ -156,16 +156,14 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 			case EDebuffType::Snared:
 				if ( bIsDebuffRemain )
 				{
-					//Movement->Deactivate();
-					if(bIsStopped)break;
+					if (bIsStopped) break;
 					Movement->MaxSpeed *= StopMovementValue;
 					TD_LOG(Warning, TEXT("Speed Debuffed: %f"), Movement->MaxSpeed);
 					bIsStopped=true;
 				}
 				else
 				{
-					//Movement->Activate();
-					if (!bIsStopped)break;
+					if (!bIsStopped) break;
 					Movement->MaxSpeed /= StopMovementValue;
 					TD_LOG(Warning, TEXT("Speed Reset: %f"), Movement->MaxSpeed);
 					bIsStopped=false;
@@ -175,19 +173,12 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 			case EDebuffType::Stun:
 				if ( bIsDebuffRemain )
 				{
-					Movement->MaxSpeed *= StopMovementValue;
-					for ( auto WeaponComp : WeaponArr )
-					{
-						WeaponComp->Deactivate();
-					}
+					TD_LOG(Warning, TEXT("Stun"));
 				}
 				else
 				{
-					Movement->MaxSpeed /= StopMovementValue;
-					for ( auto WeaponComp : WeaponArr )
-					{
-						WeaponComp->Activate();
-					}
+					TD_LOG(Warning, TEXT("Stun End"));
+
 				}				
 				break;
 

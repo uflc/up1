@@ -19,10 +19,10 @@ struct FTowerUpInfo
 };
 
 
-//@Note TArray with FixedAlloc or c++ fixed array reference BP 미지원
-//@ https://docs.unrealengine.com/en-us/Programming/Development/CodingStandard#stongly-typedenums 흠..
-//@타워 타입 업그레이드 트리
-//@TODO BlueprintPure or const or FORCEINLINE ??
+//Note TArray with FixedAlloc or c++ fixed array reference BP 미지원
+// https://docs.unrealengine.com/en-us/Programming/Development/CodingStandard#stongly-typedenums 흠..
+//타워 타입 업그레이드 트리
+//TODO BlueprintPure or const or FORCEINLINE ??
 UCLASS(BlueprintType)
 class TOWERDEFENSE_API UTowerData : public UTDUnitCommonData
 {
@@ -48,11 +48,11 @@ public:
 	UFUNCTION(BlueprintPure)
 	UTowerData* GetNextUpgraded(const ETowerType& UpType);
 
-	//@현재 타입에서 가능한 업그레이드 트리
+	//현재 타입에서 가능한 업그레이드 트리 not usefull?
 	UFUNCTION(BlueprintPure)
 	UTowerData* GetUpgraded(const TArray<ETowerType>& UpTypeTree);
 
-	//@Note BP용. c++에서는 TArray에 카피할 필요가 전혀 없다. see class note
+	//BP용. c++에서는 TArray에 카피할 필요가 전혀 없다. see class note
 	UFUNCTION(BlueprintPure)
 	TArray<FTowerUpInfo> GetUpTypesInfo();
 
