@@ -5,11 +5,13 @@
 #include "ProjectileBase.h"
 #include "TDWeaponCommonData.h"
 #include "TDProjectileCommonData.h"
-
+#include "TowerDefense.h"
 
 void UProjectileWeaponComponent::UseWeapon()
 {
 	if (!IsTargetLocked()) return;
+	
+	TD_LOG_CALLONLY(Warning);
 
 	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 	AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &ProjectileSpawnPoint);

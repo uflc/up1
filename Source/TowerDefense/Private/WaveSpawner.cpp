@@ -5,8 +5,7 @@
 #include "WaveData.h"
 #include "Engine/TargetPoint.h"
 #include "TimerManager.h"
-#include "AIController.h"//
-#include "BehaviorTree/BlackboardComponent.h"//
+#include "TDAIController.h"
 #include "TDCharacter.h"
 #include "TowerDefense.h"
 
@@ -75,8 +74,7 @@ void AWaveSpawner::SpawnWaveActor()
 	const FVector Destination = Destinations[SubWave.DestinationIdx]->GetActorLocation();
 
 	ATDCharacter* SpawnedUnit= (ATDCharacter*)GetWorld()->SpawnActor(SubWave.SpawnUnitClass, &SpawnPoint);
-	//임시. todo 구현 AAIEnimyController->SetDestination(Destination);
-	SpawnedUnit->GetController<AAIController>()->GetBlackboardComponent()->SetValueAsVector(FName(TEXT("Destination")), Destination);
+	SpawnedUnit->GetController<ATDAIController>()->SetDestination(Destination);
 	TD_LOG_CALLONLY(Warning);
 
 	//SubWave의 끝 체크

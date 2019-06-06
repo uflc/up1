@@ -22,6 +22,8 @@ class TOWERDEFENSE_API ATDUnit : public APawn
 	//static FName ShadowComponentName;
 	//static FName AttackComponentName;
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FWeaponChangeSignature);
+
 public:
 	ATDUnit();
 
@@ -56,23 +58,33 @@ protected:
 public:
 	virtual void PostInitializeComponents() override;
 
+	FWeaponChangeSignature OnWeaponChanged;
+
 	//AttackComp weapon is Unique
 	virtual void CreateUniqueWeapon();
 
 	UFUNCTION()
 	virtual class UPaperFlipbook* GetDesiredAnimation();
 
-	//@Note 현재 상태에 맞는 애니메이션으로 업데이트
+	//현재 상태에 맞는 애니메이션으로 업데이트
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
 	virtual bool UpdateAnimation();
 
-	//@Note this will call UpdateAnimation
+	//this will call UpdateAnimation
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
 	void ChangeState(EUnitState InState);
 
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
-	virtual void UpdateDirection();
+	virtual void UpdateDirection() {}
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
 	EUnitTeam Team;
+
+	//By default we use attack range as aggro range. Also, this is called in BTService AggroCheck to see if enemy is in aggro range.
+	UFUNCTION(BlueprintPure)
+	virtual float GetAggroRange() const;
+
+	////- for global range?
+	UFUNCTION(BlueprintPure)
+	float GetAttackRange() const;
 };

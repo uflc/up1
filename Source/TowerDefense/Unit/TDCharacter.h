@@ -61,4 +61,6 @@ public:
 	virtual void Die_Implementation();
 
 	void OnDeath();
+
+	virtual float GetAggroRange() const override;
 };

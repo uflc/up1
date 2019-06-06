@@ -38,4 +38,7 @@ public:
 	virtual void UseWeapon() {}
 
 	virtual bool IsTargetLocked();
+
+	FORCEINLINE float GetRange() const { return Range; }
+	FORCEINLINE float GetCooldown() const { return Cooldown; }
 };

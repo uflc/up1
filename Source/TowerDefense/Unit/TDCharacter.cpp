@@ -122,3 +122,8 @@ void ATDCharacter::OnDeath()
 	SetLifeSpan(3.5f); //@TODO: 
 }
 
+float ATDCharacter::GetAggroRange() const
+{
+	return AggroDrawnRange != 0.0f ? AggroDrawnRange : Super::GetAggroRange();
+}
+

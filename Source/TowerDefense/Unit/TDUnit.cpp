@@ -76,6 +76,7 @@ void ATDUnit::CreateUniqueWeapon()
 		return;
 	}
 	AttackComp->SetCommonData(NewWeaponData);
+	OnWeaponChanged.Broadcast();
 }
 
 UPaperFlipbook * ATDUnit::GetDesiredAnimation()
@@ -114,7 +115,12 @@ void ATDUnit::ChangeState(EUnitState InState)
 	UpdateAnimation();
 }
 
-void ATDUnit::UpdateDirection()
+float ATDUnit::GetAggroRange() const
 {
+	return	GetAttackRange();
+}
 
+float ATDUnit::GetAttackRange() const
+{
+	return AttackComp ? AttackComp->GetRange() : 0.0f;
 }

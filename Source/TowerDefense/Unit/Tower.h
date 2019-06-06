@@ -47,10 +47,4 @@ public:
 
 	////
 	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
-
-	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
-	void StartAction();
-
-	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable)
-	void ActionExecute();
 };

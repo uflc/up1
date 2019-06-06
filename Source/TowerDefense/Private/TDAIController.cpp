@@ -3,37 +3,35 @@
 
 #include "TDAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "BehaviorTree/BlackboardData.h"
+#include "BehaviorTree/BehaviorTree.h"
 #include "TDCharacter.h"
+#include "TDUnit.h"
 #include "Tower.h"
 #include "TowerDefense.h"
 
 const FName ATDAIController::DestinationKey(TEXT("Destination"));
 const FName ATDAIController::AggroTargetKey(TEXT("AggroTarget"));
+const FName ATDAIController::AttackRangeKey(TEXT("AttackRange"));
 
 void ATDAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	//todo findobject BBAsset, BTAsset then use / run.
-
 	UClass* PawnClass = InPawn->GetClass();
 	TD_LOG(Warning, TEXT("PawnClass: %s"), *PawnClass->GetName());
 
-	if (PawnClass == ATDUnit::StaticClass())
-	{
-		TD_LOG(Warning, TEXT("ATDUnit"));
-	}
-
-	if (PawnClass == ATDCharacter::StaticClass())
-	{
-		TD_LOG(Warning, TEXT("ATDCharacter"));
-	}
-
-	if (PawnClass == ATower::StaticClass())
-	{
-		TD_LOG(Warning, TEXT("ATower"));
-	}
+	TDUnit = Cast<ATDUnit>(InPawn);
+	if (!TDUnit) return;
 	
+	TDUnit->OnWeaponChanged.AddDynamic(this, &ATDAIController::ReceiveWeaponChange);
+	ReceiveWeaponChange();
+
+	if (BBAsset && BTAsset)
+	{
+		UseBlackboard(BBAsset, Blackboard);
+		RunBehaviorTree(BTAsset);
+	}
 }
 
 void ATDAIController::SetDestination(const FVector Destination)
@@ -41,4 +39,18 @@ void ATDAIController::SetDestination(const FVector Destination)
 	if (!Blackboard) return;
 
 	Blackboard->SetValueAsVector(DestinationKey, Destination);
+}
+
+void ATDAIController::SetAttackRange(const float AttackRange)
+{
+	if (!Blackboard) return;
+
+	Blackboard->SetValueAsFloat(AttackRangeKey, AttackRange);
+}
+
+void ATDAIController::ReceiveWeaponChange()
+{
+	if (!TDUnit) return;
+
+	SetAttackRange(TDUnit->GetAttackRange());
 }
