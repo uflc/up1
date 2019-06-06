@@ -52,7 +52,7 @@ void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 	//¼­¼ø
 	//UpdateStat(InDebuff, false);
 
-	if (InDebuff.CurrentStack-1 <= 0 )
+	if ( IsDebuffTypeOverlappable(InDebuff.Type) || InDebuff.CurrentStack-1 <= 0 )
 	{ 
 		DebuffMap.RemoveSingle(InDebuff.Type, InDebuff);
 		TimerMap.Remove(InDebuff.ID);
