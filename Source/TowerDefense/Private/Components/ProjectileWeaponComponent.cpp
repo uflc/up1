@@ -5,7 +5,7 @@
 #include "ProjectileBase.h"
 #include "TDWeaponCommonData.h"
 #include "TDProjectileCommonData.h"
-#include "TowerDefense.h"
+
 
 void UProjectileWeaponComponent::UseWeapon()
 {

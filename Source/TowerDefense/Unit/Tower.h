@@ -41,7 +41,7 @@ public:
 
 	virtual void UpdateDirection() override;
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "TDUnit|Tower")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Tower")
 	bool Upgrade(ETowerType UpType);
 	virtual bool Upgrade_Implementation(ETowerType UpType);
 

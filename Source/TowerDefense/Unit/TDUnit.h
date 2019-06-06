@@ -28,28 +28,28 @@ public:
 	ATDUnit();
 
 protected:
-	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
 	class UPaperFlipbookComponent* Animation;
 
-	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
 	class UPaperSpriteComponent* Shadow;
 
-	UPROPERTY(Category = Unit, VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
 	class UWeaponComponent* AttackComp;
 
 	//@Note AnimState for now
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	EUnitState UnitState;
 
 	//@TODO Tower Only?
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|State")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	EDirection Direction;
 
 	//@TODO ÇÊ¿ä or BT only?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class ATDCharacter* AggroTarget;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	class UTDUnitCommonData* UnitData;
 
 	virtual void BeginPlay() override;
@@ -77,7 +77,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")
 	virtual void UpdateDirection() {}
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	EUnitTeam Team;
 
 	//By default we use attack range as aggro range. Also, this is called in BTService AggroCheck to see if enemy is in aggro range.
