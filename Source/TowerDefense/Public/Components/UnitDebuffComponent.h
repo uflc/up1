@@ -22,6 +22,8 @@ protected:
 	UPROPERTY()
 	TMap<int,FTimerHandle> TimerMap;
 
+	bool bIsStopped;
+
 public:
 	UFUNCTION()
 	void RegDebuff(const FDebuff& Debuff);

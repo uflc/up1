@@ -106,6 +106,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int DebuffChance;
 
+	//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFullyLoadedDelegate);
+
+	//UPROPERTY(BlueprintAssignable, Category = "TDUnit")
+	//FFullyLoadedDelegate OnAllTDUnitFlipbooksLoaded;
+
 	float GetCalculatedPower() const 
 	{
 		return Power + PowerPerStack * ( ( CurrentStack < 0 ? 0 : CurrentStack ) - 1);
