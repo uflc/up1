@@ -22,15 +22,9 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 			return;
 		}
 		
-		if (InDebuff.MaxStack > DebuffPtr->CurrentStack)
+		if (InDebuff.MaxStack > HandlesPtr->Num())
 		{
-			// Stack InDebuff.
-			DebuffPtr->CurrentStack += InDebuff.CurrentStack;
-
-			// Validate Debuff stack count which should not over MaxStack
-			DebuffPtr->CurrentStack = InDebuff.MaxStack < DebuffPtr->CurrentStack ? InDebuff.MaxStack : DebuffPtr->CurrentStack;
-
-			// Each Debuff instance need timer to call UnregDebuff().
+			// Each Debuff instance need timer to Unreg itself.
 			HandlesPtr->Add(FTimerHandle());
 		}
 		else // MaxStack
@@ -41,7 +35,7 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 				// if InDebuff duration is lesser then debuff remaining time and debuff stack is max, there'no update.
 				return;
 			}
-
+			// Since this debuff is already applying maximum effect we do not update stat. We can just reset last Debuff duration.
 			bNeedUpdate = false;
 		}
 	}
@@ -59,7 +53,7 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 		//Set Base value of modifier if not yet set.
 		if (BuffMod.BaseVal == 0.0f)
 		{
-			////todo setter 만들고 Owner의 PostInitialzeComponents에서 set.
+			////todo:타이머에 영향을 줄 정도의 속도 문제가 있다면 아래 변수를 멤버로 TweakPtr에 저장. setter 만들고 Owner의 PostInitialzeComponents에서 set.
 			TArray<UObject*> SubObjects;
 			GetOwner()->GetDefaultSubobjects(SubObjects);
 
@@ -75,7 +69,6 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 
 	//Set debuff duration.
 	GetWorld()->GetTimerManager().SetTimer(HandlesPtr->Last(), FTimerDelegate::CreateUFunction(this, FName("UnregDebuff"), *DebuffPtr), InDebuff.Duration, false);
-	TD_LOG(Warning, TEXT("SetDebuffTimer"));
 
 	//Apply Debuff
 	if (bNeedUpdate)
@@ -86,19 +79,18 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 
 void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 {
-	TD_LOG(Warning, TEXT("UnregDebuff"));
-
 	UpdateStat(InDebuff, false);
 
-	if ( IsBlendable(InDebuff.Type) || InDebuff.CurrentStack <= 1 )
+	auto TimersPtr = BuffIDTimersMap.Find(InDebuff.ID);
+
+	if ( IsBlendable(InDebuff.Type) || TimersPtr->Num() <= 1 )
 	{ 
 		BuffTypeDataMap.RemoveSingle(InDebuff.Type, InDebuff);
 		BuffIDTimersMap.Remove(InDebuff.ID);
 	}
 	else
 	{
-		InDebuff.CurrentStack--;
-		BuffIDTimersMap.Find(InDebuff.ID)->RemoveAt(0);
+		TimersPtr->RemoveAt(0);
 	}
 }
 
@@ -118,17 +110,13 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffOn)
 	// ( Slow, Exhaust { AttkSpd,MovementSpd }, etc )
 	if ( IsBlendable(InDebuff.Type) )
 	{
-		//FDebuff* RegisteredDebuff = DebuffMap.FindPair(InDebuff.Type, InDebuff);
-
-		//if (!RegisteredDebuff) return;
-
 		FBuffModifier* BuffMod = BuffTypeModMap.Find(InDebuff.Type);
 		if (!BuffMod)
 		{
 			TD_LOG(Warning, TEXT("No BuffMod!"));
 			return;
 		}
-		const float ModifiedVal = BuffMod->SetModifier(InDebuff.bIsAdditive, bDebuffOn, InDebuff.PowerPerStack);
+		const float ModifiedVal = BuffMod->SetModifier(InDebuff.bIsAdditive, bDebuffOn, InDebuff.Power);
 
 		switch ( InDebuff.Type )
 		{
@@ -155,14 +143,14 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffOn)
 					if (bIsStopped) break;
 					Movement->MaxSpeed *= SnaredMoveSpeedModifier;
 					TD_LOG(Warning, TEXT("Speed Debuffed: %f"), Movement->MaxSpeed);
-					bIsStopped=true;
+					bIsStopped = true;
 				}
 				else
 				{
 					if (!bIsStopped) break;
 					Movement->MaxSpeed /= SnaredMoveSpeedModifier;
 					TD_LOG(Warning, TEXT("Speed Reset: %f"), Movement->MaxSpeed);
-					bIsStopped=false;
+					bIsStopped = false;
 				}
 				break;
 

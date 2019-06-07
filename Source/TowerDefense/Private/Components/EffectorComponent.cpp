@@ -16,10 +16,9 @@ void UEffectorComponent::InflictEffect(ATDCharacter* Target)
 
 	for ( FDebuff Debuff : Debuffs )
 	{
-		if (FMath::FRandRange(0, 99.99f) <= Debuff.DebuffChance)
+		if (FMath::FRandRange(0, 99.99f) <= Debuff.Chance)
 		Target->TDUnitTakeDebuff(Debuff);
 	}
-	//todo InflictDebuff and fun gameplay logic
 }
 
 void UEffectorComponent::Initialize(float InEffectRange, uint32 InDamage)

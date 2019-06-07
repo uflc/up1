@@ -3,7 +3,6 @@
 #include "CoreMinimal.h"
 #include "TDTypes.generated.h"
 
-//@TODO End 추가 타입
 
 UENUM(BlueprintType)
 enum class EUnitTeam : uint8
@@ -50,6 +49,8 @@ enum class ETowerType : uint8
 	THREE
 };
 
+#define	 UPGRADES_NUM 3//TODO use Enum as Byte as arrry index ?
+
 UENUM(BlueprintType)
 enum class EDebuffType : uint8
 {
@@ -74,47 +75,39 @@ struct  FDebuff
 	GENERATED_BODY()
 
 public:
-	//Debuffs with same Type are considered to be blendable if not exclusive.
-	//This will affect BT logic.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EDebuffType Type;
-	
-	// if > 1, will be applied over time 
-	////uint8 TickCount = 1; //TickInterval = Duration / TickCount
-
-	// Sec
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Duration;
-
-	// if true power is additive modifier, false is multiplication modifier.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bIsAdditive;
-
-	//// bool bIsPrimary;
-
-	// 0 ~100
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Power;
-
-	// 0 ~100
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float PowerPerStack;
-
 	//Unique ID for a Debuff Ability. Debuffs with same ID are considered as same Debuff,
 	//means when same debuff is applied, it might be stacked or discarded or replace old one.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int ID;
 
+	//Debuffs with same Type are considered to be blendable if not exclusive.
+	////This will affect BT logic.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int MaxStack;
+	EDebuffType Type;
 
-	// It also means how much do you stacking in registered one
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int CurrentStack;
+	//// bool bIsPrimary;
 
-	// 0 ~100
+	// if true power is additive modifier, false is multiplication modifier.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int DebuffChance;
+	bool bIsAdditive;
+
+	// As Multipication modifier, this is percent.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Power;
+
+	// Sec
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Duration;
+
+	// if > 1, will be applied over time 
+	////uint8 TickCount = 1; //TickInterval = Duration / TickCount
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	uint8 MaxStack;
+
+	// %. if >= 99.99 성공.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Chance;
 
 	bool operator == (const FDebuff& InDebuff) 
 	{
@@ -123,6 +116,3 @@ public:
 		return ( ID == InDebuff.ID );
 	}
 };
-
-
-#define	 UPGRADES_NUM 3//TODO use Enum as Byte as arrry index ?
