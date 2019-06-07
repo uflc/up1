@@ -34,6 +34,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 Health;
 
+	/*UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "TDChar")
+	TSet<EDebuffType> Disables;*/
+
 public:
 	virtual void BeginPlay() override;
 

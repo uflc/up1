@@ -9,73 +9,100 @@
 
 void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 {
-	FTimerHandle*   HandlePtr;
-	FTimerDelegate  TimerDel;
-	
+	bool bNeedUpdate = true;
 	FDebuff* DebuffPtr;
-
-	const bool bIsStacked = TimerMap.Contains(InDebuff.ID);
-	if ( bIsStacked )
+	TArray<FTimerHandle>* HandlesPtr = BuffIDTimersMap.Find(InDebuff.ID);
+	if (HandlesPtr)
 	{
-		//Find and deactive current stacked debuff cause we re-calculate and re-set it based on new data: especialy, CurrentStack count.
-		DebuffPtr = DebuffMap.FindPair(InDebuff.Type, InDebuff);
-		UpdateStat(*DebuffPtr, false);
-		
-		if ( IsDebuffTypeOverlappable(DebuffPtr->Type)&& InDebuff.MaxStack > DebuffPtr->CurrentStack )
+		// Find stacked debuff.
+		DebuffPtr = BuffTypeDataMap.FindPair(InDebuff.Type, InDebuff);
+		if (!DebuffPtr)
 		{
-			// Debuff.CurrentStack is Additional Stack.
+			TD_LOG(Warning, TEXT("BuffTypeDataMap.FindPair returned nullptr. This should never happen. UnregDebuff() failed or something is wrong"));
+			return;
+		}
+		
+		if (InDebuff.MaxStack > DebuffPtr->CurrentStack)
+		{
+			// Stack InDebuff.
 			DebuffPtr->CurrentStack += InDebuff.CurrentStack;
 
 			// Validate Debuff stack count which should not over MaxStack
-			DebuffPtr->CurrentStack = InDebuff.MaxStack <= DebuffPtr->CurrentStack ? InDebuff.MaxStack : DebuffPtr->CurrentStack ;
+			DebuffPtr->CurrentStack = InDebuff.MaxStack < DebuffPtr->CurrentStack ? InDebuff.MaxStack : DebuffPtr->CurrentStack;
+
+			// Each Debuff instance need timer to call UnregDebuff().
+			HandlesPtr->Add(FTimerHandle());
+		}
+		else // MaxStack
+		{
+			const float DebuffRemaining = GetWorld()->GetTimerManager().GetTimerRemaining(HandlesPtr->Last());
+			if (InDebuff.Duration < DebuffRemaining)
+			{
+				// if InDebuff duration is lesser then debuff remaining time and debuff stack is max, there'no update.
+				return;
+			}
+
+			bNeedUpdate = false;
 		}
 	}
-	else 
+	else // New Entry
 	{
-		//Create new timer for new debuff
-		TimerMap.Add(InDebuff.ID, FTimerHandle());
-		DebuffPtr = &DebuffMap.Add(InDebuff.Type, InDebuff); 
+		HandlesPtr = &BuffIDTimersMap.Add(InDebuff.ID, TArray<FTimerHandle>());
+		HandlesPtr->Add(FTimerHandle());
+		DebuffPtr = &BuffTypeDataMap.Add(InDebuff.Type, InDebuff); 
+	}	
+
+	if (IsBlendable(InDebuff.Type))
+	{
+		FBuffModifier& BuffMod = BuffTypeModMap.FindOrAdd(InDebuff.Type);
+
+		//Set Base value of modifier if not yet set.
+		if (BuffMod.BaseVal == 0.0f)
+		{
+			////todo setter 만들고 Owner의 PostInitialzeComponents에서 set.
+			TArray<UObject*> SubObjects;
+			GetOwner()->GetDefaultSubobjects(SubObjects);
+
+			if (InDebuff.Type == EDebuffType::Slow)
+			{
+				UFloatingPawnMovement* Movement = nullptr;
+				SubObjects.FindItemByClass<UFloatingPawnMovement>(&Movement);
+				BuffMod.BaseVal = Movement ? Movement->MaxSpeed : 400.0f;
+			}
+			//else...
+		}
 	}
 
 	//Set debuff duration.
-	TimerDel.BindUFunction(this, FName("UnregDebuff"), *DebuffPtr);
-	HandlePtr = TimerMap.Find(InDebuff.ID);
-	GetWorld()->GetTimerManager().SetTimer(*HandlePtr, TimerDel, InDebuff.Duration, false);
+	GetWorld()->GetTimerManager().SetTimer(HandlesPtr->Last(), FTimerDelegate::CreateUFunction(this, FName("UnregDebuff"), *DebuffPtr), InDebuff.Duration, false);
 	TD_LOG(Warning, TEXT("SetDebuffTimer"));
 
-	//Apply new data
-	UpdateStat(*DebuffPtr, true);
+	//Apply Debuff
+	if (bNeedUpdate)
+	{
+		UpdateStat(*DebuffPtr, true);
+	}
 }
 
 void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 {
-	//서순
-	//UpdateStat(InDebuff, false);
+	TD_LOG(Warning, TEXT("UnregDebuff"));
 
-	if ( IsDebuffTypeOverlappable(InDebuff.Type) || InDebuff.CurrentStack-1 <= 0 )
+	UpdateStat(InDebuff, false);
+
+	if ( IsBlendable(InDebuff.Type) || InDebuff.CurrentStack <= 1 )
 	{ 
-		DebuffMap.RemoveSingle(InDebuff.Type, InDebuff);
-		TimerMap.Remove(InDebuff.ID);
-		UpdateStat(InDebuff, false);
+		BuffTypeDataMap.RemoveSingle(InDebuff.Type, InDebuff);
+		BuffIDTimersMap.Remove(InDebuff.ID);
 	}
 	else
 	{
-		FTimerHandle*  HandlePtr;
-		FTimerDelegate TimerDel;
-
-		UpdateStat(InDebuff, false);
-
 		InDebuff.CurrentStack--;
-
-		HandlePtr = TimerMap.Find(InDebuff.ID);
-		TimerDel.BindUFunction(this, FName("UnregDebuff"), InDebuff);
-		GetWorld()->GetTimerManager().SetTimer(*HandlePtr, TimerDel, InDebuff.Duration, false);
-
-		UpdateStat(InDebuff, true);
+		BuffIDTimersMap.Find(InDebuff.ID)->RemoveAt(0);
 	}
 }
 
-void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart)
+void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffOn)
 {
 	//CharacterStats
 	const ATDCharacter*      Owner     = (ATDCharacter*)GetOwner();
@@ -83,71 +110,40 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 	TArray<UActorComponent*> WeaponArr = Owner->GetComponentsByClass(UWeaponComponent::StaticClass());
 	//
 
-	//StatDefaults todo data input
-	static const float StopMovementValue = 0.00001f;
-	static float DefaultSpeed = 600.0f;
-	static float MinSpeed = 50.0f;
-	//
+	////임시
+	static const float SnaredMoveSpeedModifier = 0.00001f;
 
-	//Found Debuffs in map will be stored here.
 	TArray<FDebuff> DebuffArr;
 
-	// Overlappable ( Slow, Exhaust { AttkSpd,MovementSpd }, etc )
-	if ( IsDebuffTypeOverlappable(InDebuff.Type) )
+	// ( Slow, Exhaust { AttkSpd,MovementSpd }, etc )
+	if ( IsBlendable(InDebuff.Type) )
 	{
 		//FDebuff* RegisteredDebuff = DebuffMap.FindPair(InDebuff.Type, InDebuff);
 
 		//if (!RegisteredDebuff) return;
 
-		const float PowerToPercent = (1 - (InDebuff.GetCalculatedPower() / 100));
+		FBuffModifier* BuffMod = BuffTypeModMap.Find(InDebuff.Type);
+		if (!BuffMod)
+		{
+			TD_LOG(Warning, TEXT("No BuffMod!"));
+			return;
+		}
+		const float ModifiedVal = BuffMod->SetModifier(InDebuff.bIsAdditive, bDebuffOn, InDebuff.PowerPerStack);
 
 		switch ( InDebuff.Type )
 		{
 			case EDebuffType::Slow:
-				if ( bDebuffStart )
-				{
-					//DefaultSpeed *= PowerToPercent;
-					//Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
-
-					Movement->MaxSpeed *= PowerToPercent;
-					TD_LOG(Warning, TEXT("Speed Debuffed: %f"), Movement->MaxSpeed);
-				}
-				else
-				{
-					//DefaultSpeed /= PowerToPercent;
-					//Movement->MaxSpeed = DefaultSpeed >= MinSpeed ? DefaultSpeed : MinSpeed;
-					Movement->MaxSpeed /= PowerToPercent;
-					TD_LOG(Warning, TEXT("Speed Reset: %f"), Movement->MaxSpeed);
-				}
+				Movement->MaxSpeed = ModifiedVal;
+				TD_LOG(Warning, TEXT("Speed Modified: %f"), Movement->MaxSpeed);
 				break;
-
-			//case EDebuffType::Exhaust:
-			//if (bDebuffStart)
-			//{
-			//	Movement->MaxSpeed *= PowerToPercent;
-			//	for ( auto WeaponComp : WeaponArr )
-			//		{
-			//		WeaponComp->SetDelay();
-			//		}
-			//}
-			//else
-			//{
-			//	Movement->MaxSpeed /= PowerToPercent;
-			//	for ( auto WeaponComp : WeaponArr )
-			//		{
-			//		WeaponComp->SetDelay();
-			//		}
-			//}
-			//}
-			//break;
 
 			default:
 				break;
 		}
 	}
-	else 	// Not Overlappable ( Stun, Snared, Taunt, Sleep, etc )
+	else // ( Stun, Snare, Taunt, Sleep, etc )
 	{
-		DebuffMap.MultiFind(InDebuff.Type, DebuffArr);
+		BuffTypeDataMap.MultiFind(InDebuff.Type, DebuffArr);
 
 		bool bIsDebuffRemain = (DebuffArr.Num() != 0);
 
@@ -157,14 +153,14 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 				if ( bIsDebuffRemain )
 				{
 					if (bIsStopped) break;
-					Movement->MaxSpeed *= StopMovementValue;
+					Movement->MaxSpeed *= SnaredMoveSpeedModifier;
 					TD_LOG(Warning, TEXT("Speed Debuffed: %f"), Movement->MaxSpeed);
 					bIsStopped=true;
 				}
 				else
 				{
 					if (!bIsStopped) break;
-					Movement->MaxSpeed /= StopMovementValue;
+					Movement->MaxSpeed /= SnaredMoveSpeedModifier;
 					TD_LOG(Warning, TEXT("Speed Reset: %f"), Movement->MaxSpeed);
 					bIsStopped=false;
 				}
@@ -178,7 +174,6 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 				else
 				{
 					TD_LOG(Warning, TEXT("Stun End"));
-
 				}				
 				break;
 
@@ -188,21 +183,17 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 	}
 }
 
-bool UUnitDebuffComponent::IsDebuffTypeOverlappable(const EDebuffType & InDebuffType)
+
+bool UUnitDebuffComponent::IsBlendable(const EDebuffType& InDebuffType)
 {
-	bool RetVal;
 	switch (InDebuffType)
 	{
 		case EDebuffType::Slow:
-			RetVal = true;
-			break;
+			return true;
 
 		case EDebuffType::Snared:
 		case EDebuffType::Stun:
 		default:
-			RetVal = false;
-			break;
-
+			return false;
 	}
-	return RetVal;
 }
