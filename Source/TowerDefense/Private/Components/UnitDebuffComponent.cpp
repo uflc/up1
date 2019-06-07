@@ -63,10 +63,13 @@ void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 		FTimerHandle*  HandlePtr;
 		FTimerDelegate TimerDel;
 
+		// Rollback former stat
 		UpdateStat(InDebuff, false);
 
+		// Decrease stack
 		InDebuff.CurrentStack--;
 
+		// Update with decreased one.
 		HandlePtr = TimerMap.Find(InDebuff.ID);
 		TimerDel.BindUFunction(this, FName("UnregDebuff"), InDebuff);
 		GetWorld()->GetTimerManager().SetTimer(*HandlePtr, TimerDel, InDebuff.Duration, false);
@@ -158,7 +161,7 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 				{
 					if (bIsStopped) break;
 					Movement->MaxSpeed *= StopMovementValue;
-					TD_LOG(Warning, TEXT("Speed Debuffed: %f"), Movement->MaxSpeed);
+					TD_LOG(Warning, TEXT("Speed Snared: %f"), Movement->MaxSpeed);
 					bIsStopped=true;
 				}
 				else
@@ -171,15 +174,20 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffStart
 				break;
 
 			case EDebuffType::Stun:
-				if ( bIsDebuffRemain )
+				if (bIsDebuffRemain)
 				{
-					TD_LOG(Warning, TEXT("Stun"));
+					if (bIsStopped) break;
+					Movement->MaxSpeed *= StopMovementValue;
+					TD_LOG(Warning, TEXT("Speed Snared: %f"), Movement->MaxSpeed);
+					bIsStopped = true;
 				}
 				else
 				{
-					TD_LOG(Warning, TEXT("Stun End"));
-
-				}				
+					if (!bIsStopped) break;
+					Movement->MaxSpeed /= StopMovementValue;
+					TD_LOG(Warning, TEXT("Speed Reset: %f"), Movement->MaxSpeed);
+					bIsStopped = false;
+				}
 				break;
 
 			default:
