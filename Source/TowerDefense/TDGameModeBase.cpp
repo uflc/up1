@@ -10,18 +10,6 @@
 #include "TDWeaponCommonData.h"
 
 
-UUserWidget * ATDGameModeBase::GetCurrentWidget()
-{
-	return CurrentWidget;
-}
-
-void ATDGameModeBase::BeginPlay()
-{
-	Super::BeginPlay();
-	ChangeMenuWidget(StartingWidgetClass);
-}
-
-
 void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons)
 {
 	UnloadedTDUnitCommonNum = InUsingTDUnitCommons.Num();

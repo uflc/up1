@@ -24,14 +24,12 @@ public:
 	void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
-	UUserWidget* GetCurrentWidget();
+	UUserWidget* GetCurrentWidget() { return CurrentWidget; }
 
 	UPROPERTY(BlueprintAssignable, Category = "TDUnit")
 	FFullyLoadedDelegate OnAllTDUnitFlipbooksLoaded;
 
 protected:
-	/** Called when the game starts. */
-	virtual void BeginPlay() override;
 
 	/** The widget class we will use as our menu when the game starts. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
@@ -56,10 +54,5 @@ protected:
 	void LoadTowerResources(UTowerData* InTowerDataTree);
 	void LoadTowerResourcesDeffered();
 
-public:	
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "UI|HUD")
-	void ChangeTower(class ATower* InInteractingTower, TSubclassOf<ATower> NewTowerClass);
-
 	void OnTDUnitFlipbooksLoaded();
-
 };
