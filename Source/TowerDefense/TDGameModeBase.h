@@ -19,26 +19,10 @@ class TOWERDEFENSE_API ATDGameModeBase : public AGameModeBase
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFullyLoadedDelegate);
 
 public:
-	/** Remove the current menu widget and create a new one from the specified class, if provided. */
-	UFUNCTION(BlueprintCallable, Category = "UI")
-	void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
-
-	UFUNCTION(BlueprintCallable, Category = "UI")
-	UUserWidget* GetCurrentWidget() { return CurrentWidget; }
-
 	UPROPERTY(BlueprintAssignable, Category = "TDUnit")
 	FFullyLoadedDelegate OnAllTDUnitFlipbooksLoaded;
 
 protected:
-
-	/** The widget class we will use as our menu when the game starts. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
-	TSubclassOf<UUserWidget> StartingWidgetClass;
-
-	/** The widget instance that we are using as our menu. */
-	UPROPERTY(BlueprintReadOnly, Category = "UI")
-	UUserWidget* CurrentWidget;
-
 	//TODO Config?
 	//UPROPERTY(EditAnywhere, Category = "TDUnit")
 	//TArray<class UTDUnitCommonData*> TDUnitCommons;

@@ -14,30 +14,29 @@ class TOWERDEFENSE_API ATDPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-friend class ATDGameModeBase;
-
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "UI|HUD")
 	class UHUDWidget* HUDWidget;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Property")
+	UPROPERTY(EditAnywhere, Category = "UI|HUD")
+	TSubclassOf<UHUDWidget> HUDWidgetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDPlayer")
 	int32 Coin;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDPlayer")
 	int32 Life;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Property")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDPlayer")
 	int32 Mana;
 
-public:
 	virtual void BeginPlay() override;
 
+public:
 	//@TODO 분리, Health
-	//@TODO 불필요한 콜스택 제거.
 	UFUNCTION(BlueprintCallable)
 	void UpdateValue(int32 Value, EValueType Type);
 
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
-	void ShowTowerActionMenu(class ATower* InInteractingTower);
-	
+	void ShowTowerActionMenu(class ATower* InInteractingTower);	
 };

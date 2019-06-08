@@ -9,8 +9,7 @@
 
 /**
  * 
- UI Manager
- My~GameMode가 소유. TDGamePlayerController도 생각해봐야 함.
+ * UI Manager Base
  */
 UCLASS()
 class TOWERDEFENSE_API UHUDWidget : public UUserWidget

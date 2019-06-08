@@ -9,6 +9,19 @@ void ATDPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	SetInputMode(FInputModeGameAndUI());
+
+	if (HUDWidgetClass)
+	{
+		HUDWidget = CreateWidget<UHUDWidget>(GetWorld(), HUDWidgetClass);
+		if (HUDWidget)
+		{
+			HUDWidget->AddToViewport();
+
+			HUDWidget->UpdateValue(Coin, EValueType::Coin);
+			HUDWidget->UpdateValue(Life, EValueType::Life);
+			HUDWidget->UpdateValue(Mana, EValueType::Mana);
+		}
+	}
 }
 
 void ATDPlayerController::UpdateValue(int32 Value, EValueType Type)

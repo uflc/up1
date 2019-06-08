@@ -3,11 +3,9 @@
 #include "TDGameModeBase.h"
 #include "TDUnitCommonData.h"
 #include "TowerDataTree.h"
-#include "TDPlayerController.h"//sea line 106
-#include "HUDWidget.h"//sea line 106
+#include "TDWeaponCommonData.h"
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
-#include "TDWeaponCommonData.h"
 
 
 void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons)
@@ -79,26 +77,3 @@ void ATDGameModeBase::OnTDUnitFlipbooksLoaded()
 		OnAllTDUnitFlipbooksLoaded.Broadcast();
 	}
 }
-
-
-void ATDGameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass)
-{
-	if (CurrentWidget != nullptr)
-	{
-		CurrentWidget->RemoveFromViewport();
-		CurrentWidget = nullptr;
-	}
-	if (NewWidgetClass != nullptr)
-	{
-		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), NewWidgetClass);
-		if (CurrentWidget != nullptr)
-		{
-			CurrentWidget->AddToViewport();
-		}
-		
-		//@TODO move all UI stuff to ATDPlayerController?
-		GetWorld()->GetFirstPlayerController<ATDPlayerController>()->HUDWidget = Cast<UHUDWidget>(CurrentWidget);
-	}
-}
-
-
