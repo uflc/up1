@@ -15,7 +15,6 @@ class TOWERDEFENSE_API UTDCharWidget : public UUserWidget
 	GENERATED_BODY()
 	
 protected:
-
 	UPROPERTY(BlueprintReadOnly)
 	class ATDCharacter* Owner;
 

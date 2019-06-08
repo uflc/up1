@@ -21,23 +21,19 @@ ATDCharacter::ATDCharacter()
 	Animation->SetCollisionProfileName(TDCollisionProfileName);
 
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
-	//Movement->
 	Movement->UpdatedComponent = Animation;
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
-	//DebuffControll->
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
 	HealthBar->SetupAttachment(Animation);
 	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
-	HealthBar->SetRelativeLocation(FVector(0.0f, -300.0f, 0.0f));
 	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));
 	if (HealthBarWidget.Succeeded())
 	{
 		HealthBar->SetWidgetClass(HealthBarWidget.Class);
 		HealthBar->SetDrawAtDesiredSize(true);
-		//HealthBar->SetDrawSize(FVector2D(50.0f, 10.0f));
 	}
 }
 
@@ -128,6 +124,7 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 void ATDCharacter::TDUnitTakeDebuff(FDebuff& InDebuff)
 {
 	if (IsLethal()) return;
+
 	DebuffControll->RegDebuff(InDebuff);
 }
 
