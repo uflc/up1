@@ -27,5 +27,7 @@ protected:
 public:
 	FORCEINLINE const float& GetAggroDrawnRange() const { return DefaultAggroDrawnRange; }
 	FORCEINLINE const float& GetDrawingAggroRange() const { return DefaultDrawingAggroRange; }
-	FORCEINLINE const int32& GetHealth() const { return DefaultHealth; }
+
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE int32 GetHealth() const { return DefaultHealth; }
 };
