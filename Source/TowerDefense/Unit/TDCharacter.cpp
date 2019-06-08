@@ -4,12 +4,16 @@
 #include "TDCharacter.h"
 #include "TDCharData.h"
 #include "PaperFlipbookComponent.h" //anim
+#include "PaperFlipbook.h"
 #include "FlipbookShakingComponent.h"
 #include "TimerManager.h"
 #include "AIController.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "TowerDefense.h"
 #include "UnitDebuffComponent.h"
+#include "WidgetComponent.h"
+#include "TDCharWidget.h"
+
 
 ATDCharacter::ATDCharacter()
 {
@@ -22,25 +26,54 @@ ATDCharacter::ATDCharacter()
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 	//DebuffControll->
+
+	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
+	HealthBar->SetupAttachment(Animation);
+	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
+	HealthBar->SetRelativeLocation(FVector(0.0f, -300.0f, 0.0f));
+	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));
+	if (HealthBarWidget.Succeeded())
+	{
+		HealthBar->SetWidgetClass(HealthBarWidget.Class);
+		HealthBar->SetDrawAtDesiredSize(true);
+		//HealthBar->SetDrawSize(FVector2D(50.0f, 10.0f));
+	}
 }
 
 void ATDCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ATDCharacter::Tick(float DeltaTime)
+{
+	UpdateDirection();
+}
+
+void ATDCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
 
 	UTDCharData* CharData = Cast<UTDCharData>(UnitData);
-
 	if (CharData)
 	{
 		AggroDrawnRange = CharData->GetAggroDrawnRange();
 		DrawingAggroRange = CharData->GetDrawingAggroRange();
 		Health = CharData->GetHealth();
 	}
-}
 
-void ATDCharacter::Tick(float DeltaTime)
-{
-	UpdateDirection();
+	//Without calling this HealthBar->GetUserWidgetObject() returns nullptr for some reason. don't know why.
+	HealthBar->InitWidget();
+	UTDCharWidget* HealthBarWidget = Cast<UTDCharWidget>(HealthBar->GetUserWidgetObject());
+	if (HealthBarWidget)
+	{
+		HealthBarWidget->SetOwner(this);
+	}
+	else
+	{
+		TD_LOG(Warning, TEXT("err Init %s"), *HealthBar->GetWidgetClass()->GetName());
+	}
 }
 
 void ATDCharacter::UpdateDirection()
@@ -74,6 +107,7 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 
 	// »ç¸Á.
 	Health -= Damage;
+	OnHealthChanged.Broadcast();
 	if (Health <= 0)
 	{
 		Die();

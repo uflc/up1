@@ -15,6 +15,8 @@ class TOWERDEFENSE_API ATDCharacter : public ATDUnit
 {
 	GENERATED_BODY()
 	
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHealthChangeSignature);
+	
 public:
 	ATDCharacter();
 
@@ -25,6 +27,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UUnitDebuffComponent* DebuffControll;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UWidgetComponent* HealthBar;
+
 	UPROPERTY(BlueprintReadOnly, Category = "TDChar")
 	float DrawingAggroRange;
 
@@ -34,6 +39,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 Health;
 
+	UPROPERTY(BlueprintAssignable)
+	FHealthChangeSignature OnHealthChanged;
+
 	/*UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "TDChar")
 	TSet<EDebuffType> Disables;*/
 
@@ -41,6 +49,8 @@ public:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void PostInitializeComponents() override;
 
 	virtual bool UpdateAnimation() override;
 
