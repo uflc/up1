@@ -13,6 +13,8 @@ UCLASS()
 class TOWERDEFENSE_API ATDPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+	
+	//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FActionUnlockSignature, uint8);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "UI|HUD")

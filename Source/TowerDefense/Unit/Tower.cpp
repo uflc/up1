@@ -11,8 +11,8 @@
 
 ATower::ATower()
 {
-	static FName TowerCollisionProfileName(TEXT("BlockAll"));
-	Animation->SetCollisionProfileName(TowerCollisionProfileName);
+	/*static FName TowerCollisionProfileName(TEXT("BlockAll"));
+	Animation->SetCollisionProfileName(TowerCollisionProfileName);*/
 
 	Team = EUnitTeam::Player;
 }
