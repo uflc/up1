@@ -35,8 +35,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void ShowActionMenu();
 
-	virtual class UPaperFlipbook* GetDesiredAnimation() override;
-
 	virtual bool UpdateAnimation() override;
 
 	virtual void UpdateDirection() override;

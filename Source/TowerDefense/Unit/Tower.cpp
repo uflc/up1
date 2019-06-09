@@ -39,17 +39,6 @@ void ATower::ShowActionMenu()
 	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->ShowTowerActionMenu(this);
 }
 
-UPaperFlipbook * ATower::GetDesiredAnimation()
-{
-	//Animation of current level, direction and state, 플립북 배열 순서가 아래 식과 매칭 되야 함.
-	if(UnitData->GetAnimations().Num()>= 4 )
-	{
-		return UnitData ? UnitData->GetAnimations()[((uint8) Direction * 2) + (uint8)UnitState].Get() : nullptr;
-	}
-
-	return UnitData ? UnitData->GetAnimations()[(uint8)UnitState].Get() : nullptr;
-}
-
 bool ATower::UpdateAnimation()
 {
 	UpdateDirection();

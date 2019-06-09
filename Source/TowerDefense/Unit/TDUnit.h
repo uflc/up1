@@ -63,8 +63,9 @@ public:
 	//AttackComp weapon is Unique
 	virtual void CreateUniqueWeapon();
 
-	UFUNCTION()
-	virtual class UPaperFlipbook* GetDesiredAnimation();
+	UFUNCTION(BlueprintNativeEvent)
+	class UPaperFlipbook* GetDesiredAnimation();
+	virtual UPaperFlipbook* GetDesiredAnimation_Implementation();
 
 	//현재 상태에 맞는 애니메이션으로 업데이트
 	UFUNCTION(BlueprintCallable, Category = "TDUnit|Animation")

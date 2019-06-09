@@ -81,7 +81,7 @@ void ATDUnit::CreateUniqueWeapon()
 	OnWeaponChanged.Broadcast();
 }
 
-UPaperFlipbook * ATDUnit::GetDesiredAnimation()
+UPaperFlipbook * ATDUnit::GetDesiredAnimation_Implementation()
 {
 	return UnitData ? UnitData->GetAnimations()[(uint8)UnitState].Get() : nullptr;
 }
