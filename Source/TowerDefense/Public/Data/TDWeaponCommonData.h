@@ -35,6 +35,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class UPaperFlipbook> EffectFlipbook;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
+	TSoftObjectPtr<class USoundCue> FireSoundEffect;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effector")
 	float DefaultSplashRange;
 

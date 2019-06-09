@@ -13,7 +13,9 @@
 #include "UnitDebuffComponent.h"
 #include "WidgetComponent.h"
 #include "TDCharWidget.h"
-
+#include "Sound\SoundCue.h"
+#include "Kismet/GameplayStatics.h"
+#include "ConstructorHelpers.h"
 
 ATDCharacter::ATDCharacter()
 {
@@ -133,12 +135,31 @@ void ATDCharacter::Die_Implementation()
 	// Play Dying anim once
 	ChangeState(EUnitState::Dying);
 	Animation->SetLooping(false);
+	
+	USoundBase* Sound = nullptr;
+
+	bool bIsDyingSoundExist = UnitData->GetSounds().IsValidIndex((uint8)ESoundType::Dying);
+
+	if ( bIsDyingSoundExist )
+	{
+		Sound = ( UnitData ? UnitData->GetSounds()[(uint8)ESoundType::Dying].Get() : nullptr );
+	}
+
+	if ( Sound != nullptr )
+	{
+		UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound, 1, 1, 0);
+	}
 
 	// detach the controller
 	if (Controller != nullptr)
 	{
 		//Controller->UnPossess(); //testing if this affect ai logic
 		Controller->Destroy();
+	}
+
+	if (HealthBar != nullptr)
+	{
+		HealthBar->DestroyComponent();
 	}
 
 	// After Dying anim 사후경직

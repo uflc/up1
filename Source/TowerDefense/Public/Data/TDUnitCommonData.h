@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sound")
+	TArray<TSoftObjectPtr<class USoundCue>> Sounds;
+
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	TSubclassOf<class UWeaponComponent> WeaponClass;
 
@@ -41,6 +44,7 @@ public:
 	void LoadFlipbooksDeffered();
 
 	FORCEINLINE const TArray<TSoftObjectPtr<class UPaperFlipbook>>& GetAnimations() const { return Animations; }
+	FORCEINLINE const TArray<TSoftObjectPtr<class USoundCue>>& GetSounds() const { return Sounds; }
 	FORCEINLINE TSubclassOf<UWeaponComponent> GetWeaponClass() const { return WeaponClass; }
 	FORCEINLINE UTDWeaponCommonData* GetWeaponData() { return WeaponData; }
 };

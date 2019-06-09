@@ -31,6 +31,7 @@ public:
 
 	virtual void OnPossess(APawn* InPawn) override;
 
+	UFUNCTION(BlueprintCallable)
 	virtual void SetDestination(const FVector Destination);
 	virtual void SetAttackRange(const float AttackRange);
 

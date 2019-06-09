@@ -11,6 +11,8 @@ void UProjectileWeaponComponent::UseWeapon()
 {
 	if (!IsTargetLocked()) return;
 	
+	Super::UseWeapon();
+
 	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
 	AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &ProjectileSpawnPoint);
 

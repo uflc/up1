@@ -19,6 +19,10 @@ void UTDUnitCommonData::Initialize()
 		{
 			AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
 		}
+		for (const auto& Sound : Sounds)
+		{
+			AssetsToLoad.AddUnique(Sound.ToSoftObjectPath());
+		}
 		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
 	}
 	

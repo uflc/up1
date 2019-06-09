@@ -35,7 +35,7 @@ public:
 	void SetTarget(ATDCharacter* const NewTarget);
 
 	UFUNCTION(BlueprintCallable)
-	virtual void UseWeapon() {}
+		virtual void UseWeapon();
 
 	virtual bool IsTargetLocked();
 

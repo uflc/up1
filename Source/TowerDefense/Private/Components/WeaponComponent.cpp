@@ -4,7 +4,8 @@
 #include "WeaponComponent.h"
 #include "TDCharacter.h"
 #include "TDWeaponCommonData.h"
-
+#include "Sound\SoundCue.h"
+#include "Kismet/GameplayStatics.h"
 
 void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData) 
 { 
@@ -19,6 +20,15 @@ void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 void UWeaponComponent::SetTarget(ATDCharacter* const NewTarget)
 {
 	Target = NewTarget;
+}
+
+void UWeaponComponent::UseWeapon() 
+{
+	USoundBase* Sound 	= WeaponData->FireSoundEffect.Get();
+	if (Sound != nullptr)
+	{
+		UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound,1,1,0);
+	}
 }
 
 bool UWeaponComponent::IsTargetLocked()

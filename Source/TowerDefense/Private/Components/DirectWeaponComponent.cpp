@@ -27,6 +27,8 @@ void UDirectWeaponComponent::UseWeapon()
 	if (!bIsActive) return;
 	if (!IsTargetLocked()) return;
 	
+	Super::UseWeapon();
+
 	Effector->InflictAoE(Target);
 
 	//
