@@ -6,7 +6,6 @@
 #include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "TDCharacter.h"
-#include "TDUnit.h"
 #include "Tower.h"
 #include "TowerDefense.h"
 

@@ -22,6 +22,9 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UBoxComponent* Box;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UPawnMovementComponent* Movement;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -73,7 +76,9 @@ public:
 	void Die();
 	virtual void Die_Implementation();
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void OnDeath();
+	virtual void OnDeath_Implementation();
 
 	virtual float GetAggroRange() const override;
 };
