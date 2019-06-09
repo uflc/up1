@@ -26,3 +26,8 @@ bool UWeaponComponent::IsTargetLocked()
 	return !(Target == nullptr || Target->IsLethal());
 }
 
+int32 UWeaponComponent::GetDamage() const
+{
+	return WeaponData ? WeaponData->DefaultDamage : 0;
+}
+

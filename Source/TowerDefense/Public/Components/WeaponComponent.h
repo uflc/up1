@@ -41,4 +41,7 @@ public:
 
 	FORCEINLINE float GetRange() const { return Range; }
 	FORCEINLINE float GetCooldown() const { return Cooldown; }
+
+	UFUNCTION(BlueprintPure)
+	int32 GetDamage() const;
 };

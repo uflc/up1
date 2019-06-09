@@ -124,3 +124,13 @@ float ATDUnit::GetAttackRange() const
 {
 	return AttackComp ? AttackComp->GetRange() : 0.0f;
 }
+
+int32 ATDUnit::GetAttackDamage() const
+{
+	return AttackComp ? AttackComp->GetDamage() : 0;
+}
+
+float ATDUnit::GetAttackSpeed() const
+{
+	return AttackComp ? AttackComp->GetCooldown() : 0.0f;
+}

@@ -87,4 +87,10 @@ public:
 	////- for global range?
 	UFUNCTION(BlueprintPure)
 	float GetAttackRange() const;
+
+	UFUNCTION(BlueprintPure)
+	int32 GetAttackDamage() const;
+
+	UFUNCTION(BlueprintPure)
+	float GetAttackSpeed() const;
 };

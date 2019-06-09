@@ -38,7 +38,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 Health;
-
+	
 	UPROPERTY(BlueprintAssignable)
 	FHealthChangeSignature OnHealthChanged;
 
