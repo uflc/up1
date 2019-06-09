@@ -51,3 +51,10 @@ void ATDPlayerController::ShowTowerActionMenu(ATower * InInteractingTower)
 
 	HUDWidget->ShowTowerActionMenu(InInteractingTower);
 }
+
+void ATDPlayerController::HideTowerActionMenu()
+{
+	if (!HUDWidget) return;
+
+	HUDWidget->HideTowerActionMenu();
+}

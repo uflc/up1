@@ -41,4 +41,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void ShowTowerActionMenu(class ATower* InInteractingTower);	
+
+	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
+	void HideTowerActionMenu();
 };

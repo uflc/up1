@@ -20,6 +20,9 @@ ATDCharacter::ATDCharacter()
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 	Movement->UpdatedComponent = Animation;
 
+	static FName TDCollisionProfileName(TEXT("OverlapAllTDUnit"));
+	Animation->SetCollisionProfileName(TDCollisionProfileName);
+
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));

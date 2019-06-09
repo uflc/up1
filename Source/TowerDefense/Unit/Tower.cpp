@@ -82,7 +82,7 @@ void ATower::NotifyActorOnClicked(FKey ButtonPressed)
 {
 	Super::NotifyActorOnClicked(ButtonPressed);
 
-	TD_LOG_CALLONLY(Warning);////
+	TD_LOG_CALLONLY(Warning);//
 
 	if (bIsSelected) return;
 
