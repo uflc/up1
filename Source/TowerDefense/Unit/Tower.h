@@ -39,6 +39,10 @@ public:
 
 	virtual void UpdateDirection() override;
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Tower")
+	float GetTowerRange();
+	virtual float GetTowerRange_Implementation();
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Tower")
 	bool Upgrade(ETowerType UpType);
 	virtual bool Upgrade_Implementation(ETowerType UpType);

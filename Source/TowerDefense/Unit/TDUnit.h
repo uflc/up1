@@ -37,15 +37,15 @@ protected:
 	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
 	class UWeaponComponent* AttackComp;
 
-	//@Note AnimState for now
+	//Note AnimState for now
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	EUnitState UnitState;
 
-	//@TODO Tower Only?
+	//TODO Tower Only?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	EDirection Direction;
 
-	//@TODO 필요 or BT only?
+	//TODO 필요 or BT only? weak ptr?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class ATDCharacter* AggroTarget;
 
@@ -81,7 +81,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
 	EUnitTeam Team;
 
-	//By default we use attack range as aggro range. Also, this is called in BTService AggroCheck to see if enemy is in aggro range.
+	//this is called in BTService AggroCheck to see if enemy is in aggro range.
 	UFUNCTION(BlueprintPure)
 	virtual float GetAggroRange() const;
 
