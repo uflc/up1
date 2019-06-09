@@ -13,25 +13,22 @@
 #include "UnitDebuffComponent.h"
 #include "WidgetComponent.h"
 #include "TDCharWidget.h"
-#include "Components/BoxComponent.h"
-
+#include "Sound\SoundCue.h"
+#include "Kismet/GameplayStatics.h"
+#include "ConstructorHelpers.h"
 
 ATDCharacter::ATDCharacter()
 {
-	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box0"));
-	RootComponent = Box;
-
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
-	Movement->UpdatedComponent = Box;
+	Movement->UpdatedComponent = Animation;
 
 	static FName TDCollisionProfileName(TEXT("OverlapAllTDUnit"));
 	Animation->SetCollisionProfileName(TDCollisionProfileName);
-	Animation->SetupAttachment(Box);
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
-	HealthBar->SetupAttachment(Box);
+	HealthBar->SetupAttachment(Animation);
 	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
 	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));
@@ -138,6 +135,20 @@ void ATDCharacter::Die_Implementation()
 	// Play Dying anim once
 	ChangeState(EUnitState::Dying);
 	Animation->SetLooping(false);
+	
+	USoundBase* Sound = nullptr;
+
+	bool bIsDyingSoundExist = UnitData->GetSounds().IsValidIndex((uint8)ESoundType::Dying);
+
+	if ( bIsDyingSoundExist )
+	{
+		Sound = ( UnitData ? UnitData->GetSounds()[(uint8)ESoundType::Dying].Get() : nullptr );
+	}
+
+	if ( Sound != nullptr )
+	{
+		UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound, 1, 1, 0);
+	}
 
 	// detach the controller
 	if (Controller != nullptr)
@@ -146,12 +157,17 @@ void ATDCharacter::Die_Implementation()
 		Controller->Destroy();
 	}
 
+	if (HealthBar != nullptr)
+	{
+		HealthBar->DestroyComponent();
+	}
+
 	// After Dying anim 사후경직
 	FTimerHandle  Timer;
 	GetWorldTimerManager().SetTimer(Timer, this, &ATDCharacter::OnDeath, Animation->GetFlipbookLength(), false);
 }
 
-void ATDCharacter::OnDeath_Implementation()
+void ATDCharacter::OnDeath()
 {
 	ChangeState(EUnitState::Dead);
 

@@ -7,7 +7,7 @@
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
-
+#include "Sound\SoundCue.h"
 
 void UTDWeaponCommonData::Initialize()
 {
@@ -17,6 +17,7 @@ void UTDWeaponCommonData::Initialize()
 
 		TArray<FSoftObjectPath> AssetsToLoad;
 		AssetsToLoad.AddUnique(EffectFlipbook.ToSoftObjectPath());
+		AssetsToLoad.AddUnique(FireSoundEffect.ToSoftObjectPath());
 		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
 	}
 	
@@ -33,7 +34,7 @@ void UTDWeaponCommonData::LoadFlipbooksDeffered()
 		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
 		return;
 	}
-
+	
 	IsInitialized = true;
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

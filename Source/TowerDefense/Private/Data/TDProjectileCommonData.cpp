@@ -17,6 +17,7 @@ void UTDProjectileCommonData::Initialize()
 		{
 			AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
 		}
+		AssetsToLoad.AddUnique(HitSoundEffect.ToSoftObjectPath());
 		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
 	}
 }
