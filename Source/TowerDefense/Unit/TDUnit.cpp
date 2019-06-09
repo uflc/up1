@@ -117,6 +117,7 @@ void ATDUnit::ChangeState(EUnitState InState)
 
 float ATDUnit::GetAggroRange() const
 {
+	//By default we use attack range as aggro range.
 	return	GetAttackRange();
 }
 

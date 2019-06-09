@@ -60,6 +60,11 @@ void ATower::UpdateDirection()
 			  : (DirectionVec.Y < 0 ? EDirection::LT : EDirection::LD);
 }
 
+float ATower::GetTowerRange_Implementation()
+{
+	return GetAttackRange();
+}
+
 bool ATower::Upgrade_Implementation(ETowerType UpType)
 {
 	UTowerData* TowerData = Cast<UTowerData>(UnitData);
