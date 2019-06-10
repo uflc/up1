@@ -7,6 +7,7 @@
 #include "PaperSpriteComponent.h" //shadow
 #include "WeaponComponent.h"
 #include "TDWeaponCommonData.h"
+#include "Components/BoxComponent.h"
 #include "TowerDefense.h"
 
 ATDUnit::ATDUnit()
@@ -14,15 +15,17 @@ ATDUnit::ATDUnit()
 	//TODO Data as Subobject?
 	//UnitData = CreateDefaultSubobject<UTDUnitCommonData>(TEXT("UnitData0"));
 	
+	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box0"));
+	RootComponent = Box;
+
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook0"));
-	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
-	
-	RootComponent = Animation;
+	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
 
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow0"));
-
 	if (Shadow)
 	{
+		static const FName ShadowCollisionProfileName(TEXT("NoCollision"));
+		Shadow->SetCollisionProfileName(ShadowCollisionProfileName);
 		Shadow->SetupAttachment(Animation);
 	}
 	

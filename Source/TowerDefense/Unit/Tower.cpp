@@ -12,13 +12,15 @@
 
 ATower::ATower()
 {
-	static const FVector BoxExtent = FVector(30.0f, 50.0f, 10.0f);
-	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box0"));
+	static FName TowerCollisionProfileName(TEXT("BlockAll"));
+	static const FVector BoxExtent(125.0f, 75.0f, 50.0f);
 	Box->InitBoxExtent(BoxExtent);
-	RootComponent = Box;
+	Box->SetCollisionProfileName(TowerCollisionProfileName);
+	Box->SetCanEverAffectNavigation(false);
 
-	static FName VisibiltyProfileName(TEXT("UI"));
-	Animation->SetCollisionProfileName(VisibiltyProfileName);
+	/*static FName VisibiltyProfileName(TEXT("UI"));
+	Animation->SetCollisionProfileName(VisibiltyProfileName);*/
+	Animation->SetRelativeLocation(FVector(0.0f, -150.0f, 0.0f));
 	Animation->SetupAttachment(Box);
 
 	Team = EUnitTeam::Player;

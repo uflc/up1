@@ -14,8 +14,9 @@ AProjectileBase::AProjectileBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook Animation"));
-	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.f));
-
+	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
+	static FName TDProjCollisionProfileName(TEXT("TDPawn"));
+	Animation->SetCollisionProfileName(TDProjCollisionProfileName);
 	RootComponent = Animation;
 
 	Effector = CreateDefaultSubobject<UEffectorComponent>(TEXT("Effector0"));

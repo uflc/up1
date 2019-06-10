@@ -16,10 +16,7 @@ class TOWERDEFENSE_API ATower : public ATDUnit
 public:
 	ATower();
 
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class UBoxComponent* Box;
-	
+protected:	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bIsSelected;
 	

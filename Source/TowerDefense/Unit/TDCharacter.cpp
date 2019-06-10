@@ -14,26 +14,26 @@
 #include "TDCharWidget.h"
 #include "Sound\SoundCue.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/BoxComponent.h"
 #include "TowerDefense.h"
 
 
 ATDCharacter::ATDCharacter()
 {
-	DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
-	RootComponent = DummyRoot;
-
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 
-	static FName TDCollisionProfileName(TEXT("OverlapAllTDUnit"));
-	Animation->SetCollisionProfileName(TDCollisionProfileName);
-	Animation->SetupAttachment(DummyRoot);
+	static FName TDCharCollisionProfileName(TEXT("TDPawn"));
+	Animation->SetCollisionProfileName(TDCharCollisionProfileName);
+	Animation->SetRelativeLocation(FVector(-15.0f, -75.0f, 0.0f));
+	Animation->SetupAttachment(Box);
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
-	HealthBar->SetupAttachment(DummyRoot);
+	HealthBar->SetupAttachment(Animation);
 	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
+	HealthBar->bAbsoluteRotation = true;
 	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));
 	if (HealthBarWidget.Succeeded())
 	{

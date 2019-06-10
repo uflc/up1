@@ -28,6 +28,9 @@ public:
 	ATDUnit();
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UBoxComponent* Box;
+
 	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
 	class UPaperFlipbookComponent* Animation;
 

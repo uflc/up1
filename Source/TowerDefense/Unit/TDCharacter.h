@@ -22,9 +22,6 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class USceneComponent* DummyRoot;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UPawnMovementComponent* Movement;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
