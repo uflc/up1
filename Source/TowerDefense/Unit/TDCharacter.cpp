@@ -23,17 +23,22 @@ ATDCharacter::ATDCharacter()
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 
 	static FName TDCharCollisionProfileName(TEXT("TDPawn"));
+	Box->SetCollisionProfileName(TDCharCollisionProfileName);
+	static const FVector BoxExtent(32.0f, 32.0f, 1.0f);
+	Box->InitBoxExtent(BoxExtent);
+
+	static const FVector SpriteOffset(-15.0f, -50.0f, 0.0f);
 	Animation->SetCollisionProfileName(TDCharCollisionProfileName);
-	Animation->SetRelativeLocation(FVector(-15.0f, -75.0f, 0.0f));
+	Animation->SetRelativeLocation(SpriteOffset);
 	Animation->SetupAttachment(Box);
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
-	HealthBar->SetupAttachment(Animation);
+	HealthBar->SetupAttachment(Box);
+	HealthBar->SetRelativeLocation(SpriteOffset);
 	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
-	HealthBar->bAbsoluteRotation = true;
 	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));
 	if (HealthBarWidget.Succeeded())
 	{
