@@ -18,6 +18,9 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UBoxComponent* Box;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bIsSelected;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

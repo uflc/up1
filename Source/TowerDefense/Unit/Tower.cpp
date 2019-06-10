@@ -6,13 +6,20 @@
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "WeaponComponent.h" //upgrade
+#include "Components/BoxComponent.h"
 #include "TowerDefense.h" //log 
 
 
 ATower::ATower()
 {
-	static FName TowerCollisionProfileName(TEXT("UI"));
-	Animation->SetCollisionProfileName(TowerCollisionProfileName);
+	static const FVector BoxExtent = FVector(30.0f, 50.0f, 10.0f);
+	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box0"));
+	Box->InitBoxExtent(BoxExtent);
+	RootComponent = Box;
+
+	static FName VisibiltyProfileName(TEXT("UI"));
+	Animation->SetCollisionProfileName(VisibiltyProfileName);
+	Animation->SetupAttachment(Box);
 
 	Team = EUnitTeam::Player;
 }
