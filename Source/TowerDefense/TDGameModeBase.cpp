@@ -58,7 +58,7 @@ void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 		InTowerDataTree->WeaponData->Initialize();
 	}
 	
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < UPGRADES_NUM; i++)
 	{
 		LoadTowerResources(InTowerDataTree->GetNextUpgraded((ETowerType)i));
 	}
