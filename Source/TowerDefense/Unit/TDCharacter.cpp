@@ -9,37 +9,29 @@
 #include "TimerManager.h"
 #include "AIController.h"
 #include "GameFramework/FloatingPawnMovement.h"
-#include "Components/BoxComponent.h"
 #include "UnitDebuffComponent.h"
 #include "WidgetComponent.h"
 #include "TDCharWidget.h"
-#include "Components/BoxComponent.h"
 #include "Sound\SoundCue.h"
 #include "Kismet/GameplayStatics.h"
-#include "TowerDefense.h"
-#include "Sound\SoundCue.h"
-#include "Kismet/GameplayStatics.h"
-#include "TowerDefense.h"
-#include "ConstructorHelpers.h"
 #include "TowerDefense.h"
 
 
 ATDCharacter::ATDCharacter()
 {
-	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box0"));
-	RootComponent = Box;
+	DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
+	RootComponent = DummyRoot;
 
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
-	Movement->UpdatedComponent = Box;
 
 	static FName TDCollisionProfileName(TEXT("OverlapAllTDUnit"));
 	Animation->SetCollisionProfileName(TDCollisionProfileName);
-	Animation->SetupAttachment(Box);
+	Animation->SetupAttachment(DummyRoot);
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
-	HealthBar->SetupAttachment(Box);
+	HealthBar->SetupAttachment(DummyRoot);
 	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
 	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));

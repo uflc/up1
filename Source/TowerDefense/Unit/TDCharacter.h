@@ -22,7 +22,7 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class UBoxComponent* Box;
+	class USceneComponent* DummyRoot;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UPawnMovementComponent* Movement;
