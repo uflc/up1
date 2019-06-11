@@ -84,14 +84,19 @@ void ATDCharacter::PostInitializeComponents()
 
 void ATDCharacter::UpdateDirection()
 {	
-	if (GetVelocity().X > 0)
+	const float& VelocityX = GetVelocity().X;
+	const static FRotator RightRot(-180.f, 0.f, -90.f);
+	const static FRotator LeftRot(0.f, 0.f, -90.f);
+
+	if (VelocityX > 0)
 	{
-		Animation->SetRelativeRotation(FRotator(-180, 0, -90));
+		Animation->SetRelativeRotation(RightRot);
 	}
-	else if (GetVelocity().X < 0) // 멈출 때 원래 보고 있던 방향 기억해야함 // ?
+	else if (VelocityX < 0)
 	{
-		Animation->SetRelativeRotation(FRotator(0, 0, -90));
+		Animation->SetRelativeRotation(LeftRot);
 	}
+	//멈췄을 때는 원래 방향 그대로 있어야 하므로 업데이트 하지 않음.
 }
 
 bool ATDCharacter::IsLethal()
