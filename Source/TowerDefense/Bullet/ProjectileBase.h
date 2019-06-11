@@ -20,18 +20,18 @@ protected:
 	class UTDProjectileCommonData* ProjectileCommon;
 
 	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
-	float Velocity;
+	float Speed;
 
 	UPROPERTY(Category = Attack, VisibleAnywhere, BlueprintReadOnly)
 	class ATDCharacter* Target;
 
-	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Category = Animation, VisibleAnywhere, BlueprintReadOnly)
 	class UPaperFlipbookComponent* Animation;
 
 	UPROPERTY(Category = Attack, VisibleAnywhere)
 	class UEffectorComponent* Effector;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
 	bool bIsDirectable;
 public:	
 	void SetTarget(ATDCharacter* InTarget) { Target = InTarget; }

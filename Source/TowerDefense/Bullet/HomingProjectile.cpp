@@ -12,7 +12,7 @@ FVector AHomingProjectile::GetDistanceVecToTarget()
 
 void AHomingProjectile::CalcVelocityVec(const FVector& DirectionVec)
 {
-	VelocityVec = DirectionVec * Velocity;
+	VelocityVec = DirectionVec * Speed;
 }
 
 // Called when the game starts or when spawned

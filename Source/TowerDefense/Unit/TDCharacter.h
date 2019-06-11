@@ -52,22 +52,16 @@ public:
 
 	virtual void PostInitializeComponents() override;
 
-	virtual bool UpdateAnimation() override;
-
 	//Tick마다 콜. 좌우 방향을 체크해서 스프라이트 로테이트. 
 	//TODO any Event?
 	virtual void UpdateDirection();
-
-	//EUnitState Dying or Dead
-	UFUNCTION(BlueprintPure)
-	bool IsLethal();
 
 	//TODO AActor::TakeDamge override?
 	UFUNCTION(BlueprintCallable)
 	void TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage);
 
 	UFUNCTION(BlueprintCallable)
-	void TDUnitTakeDebuff(FDebuff & InDebuff);
+	void TDUnitTakeDebuff(FDebuff& InDebuff);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Die();
@@ -78,4 +72,8 @@ public:
 	virtual void OnDeath_Implementation();
 
 	virtual float GetAggroRange() const override;
+
+	//EUnitState Dying or Dead
+	UFUNCTION(BlueprintPure)
+	bool IsLethal();
 };

@@ -104,14 +104,6 @@ bool ATDCharacter::IsLethal()
 	return UnitState == EUnitState::Dead || UnitState == EUnitState::Dying;
 }
 
-
-bool ATDCharacter::UpdateAnimation()
-{
-	if (!Super::UpdateAnimation()) return false;
-
-	return true;
-}
-
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
 {
 	if (IsLethal()) return;
@@ -184,11 +176,11 @@ void ATDCharacter::OnDeath_Implementation()
 {
 	ChangeState(EUnitState::Dead);
 
-	SetLifeSpan(3.5f); //@TODO: 
+	const static float DeadBodyRemainTime = 3.5f;
+	SetLifeSpan(DeadBodyRemainTime);
 }
 
 float ATDCharacter::GetAggroRange() const
 {
 	return AggroDrawnRange != 0.0f ? AggroDrawnRange : Super::GetAggroRange();
 }
-

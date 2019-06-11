@@ -15,10 +15,7 @@ class TOWERDEFENSE_API AParabolicHomingProjectile : public AHomingProjectile
 	GENERATED_BODY()
 	
 protected:
-	////UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//FVector VelocityVec;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//UPROPERTY(EditAnywhere)
 	float CurveScale;
 
 	float TickCounter;

@@ -7,15 +7,13 @@
 #include "PaperFlipbookComponent.h"
 #include "EffectorComponent.h"
 
-// Sets default values
 AProjectileBase::AProjectileBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook Animation"));
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
-	static FName TDProjCollisionProfileName(TEXT("TDPawn"));
+	static FName TDProjCollisionProfileName(TEXT("TDProjectile"));
 	Animation->SetCollisionProfileName(TDProjCollisionProfileName);
 	RootComponent = Animation;
 
@@ -29,7 +27,7 @@ void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData)
 
 	if (!ProjectileCommon) return;
 
-	Velocity	  = ProjectileCommon->Velocity;
+	Speed         = ProjectileCommon->Velocity;
 	bIsDirectable = ProjectileCommon->bIsDirectable;
 
 	//

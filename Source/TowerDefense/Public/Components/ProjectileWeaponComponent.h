@@ -15,7 +15,7 @@ class TOWERDEFENSE_API UProjectileWeaponComponent : public UWeaponComponent
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FVector ProjectileRelativeSpawnPoint;
 
 public:

@@ -31,10 +31,13 @@ public:
 
 	virtual void OnPossess(APawn* InPawn) override;
 
-	UFUNCTION(BlueprintCallable)
-	virtual void SetDestination(const FVector Destination);
-	virtual void SetAttackRange(const float AttackRange);
-
 	UFUNCTION()
-	virtual void ReceiveWeaponChange();
+	void ReceiveWeaponChange();
+
+	UFUNCTION(BlueprintCallable)
+	void SetDestination(const FVector Destination);
+	void SetAttackRange(const float AttackRange);
+
+	class AActor* GetAggroTarget();
+	float GetDestination();
 };

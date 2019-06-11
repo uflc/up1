@@ -12,9 +12,6 @@
 
 ATDUnit::ATDUnit()
 {
-	//TODO Data as Subobject?
-	//UnitData = CreateDefaultSubobject<UTDUnitCommonData>(TEXT("UnitData0"));
-	
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box0"));
 	RootComponent = Box;
 
@@ -42,13 +39,6 @@ void ATDUnit::BeginPlay()
 void ATDUnit::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-
-	////Test
-	//if (UnitData->IsDefaultSubobject())
-	//{
-	//	TD_LOG(Warning, TEXT("%s is DefSubObj"), *UnitData->GetName());
-	//}
-
 }
 
 void ATDUnit::CreateUniqueWeapon()
@@ -76,42 +66,44 @@ void ATDUnit::CreateUniqueWeapon()
 		TD_LOG(Warning, TEXT("%s: No WeaponData!"), *GetClass()->GetName());
 		return;
 	}
+
+	//////There IS an AttackComp.//////
+
 	AttackComp->SetCommonData(NewWeaponData);
 	OnWeaponChanged.Broadcast();
 }
 
-UPaperFlipbook * ATDUnit::GetDesiredAnimation_Implementation()
+UPaperFlipbook* ATDUnit::GetDesiredAnimation_Implementation()
 {
 	return UnitData ? UnitData->GetAnimations()[(uint8)UnitState].Get() : nullptr;
 }
 
-bool ATDUnit::UpdateAnimation()
+void ATDUnit::UpdateAnimation()
 {
+	if (!Animation) return;
+
+	UPaperFlipbook* OldAnim = Animation->GetFlipbook();
 	UPaperFlipbook* DesiredAnim = GetDesiredAnimation();
 
-	if (DesiredAnim)
+	if (DesiredAnim && DesiredAnim != OldAnim)
 	{
-		Animation->SetFlipbook(DesiredAnim);
-		Animation->PlayFromStart();
-
 		if (UnitState == EUnitState::Attacking)
 		{
 			Animation->SetLooping(false);
-
 		}
 		else
 		{
 			Animation->SetLooping(true);
 		}
 
-		return true;
+		Animation->SetFlipbook(DesiredAnim);
 	}
-	
-	return false;
 }
 
 void ATDUnit::ChangeState(EUnitState InState)
 {
+	if (InState == UnitState) return;
+
 	UnitState = InState;
 	UpdateAnimation();
 }

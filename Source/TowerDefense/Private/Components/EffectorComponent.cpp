@@ -37,7 +37,7 @@ void UEffectorComponent::InflictAoE(ATDCharacter* MainTarget)
 	if (!MainTarget) return;
 
 	const FVector TargetLocation = MainTarget->GetActorLocation();
-	const EUnitTeam TargetTeam	 = MainTarget->Team;
+	const EUnitTeam TargetTeam	 = MainTarget->GetTeam();
 
 	static const FVector SweepDistance = FVector(0, 0, 0.1f);
 
@@ -49,7 +49,7 @@ void UEffectorComponent::InflictAoE(ATDCharacter* MainTarget)
 		{
 			ATDCharacter* HitTDCharacter = Cast<ATDCharacter>(HitResult.Actor.Get());
 
-			if (HitTDCharacter && HitTDCharacter->Team == TargetTeam)
+			if (HitTDCharacter && HitTDCharacter->GetTeam() == TargetTeam)
 			{
 				InflictEffect(HitTDCharacter);
 			}

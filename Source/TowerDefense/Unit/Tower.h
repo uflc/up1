@@ -25,19 +25,20 @@ protected:
 
 public:	
 	virtual void BeginPlay() override;
+	
+	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void FaceTo(AActor* Target);
+
+	UFUNCTION(BlueprintCallable)
+	void FaceToAggroTarget();
 
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void OnDeselected();
 
-	/*UFUNCTION(BlueprintCallable, Category = "UI|HUD|Tower")
-	void OnSelected(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed);*/
-
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void ShowActionMenu();
-
-	virtual bool UpdateAnimation() override;
-
-	virtual void UpdateDirection() override;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Tower")
 	float GetTowerRange();
@@ -46,7 +47,4 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Tower")
 	bool Upgrade(ETowerType UpType);
 	virtual bool Upgrade_Implementation(ETowerType UpType);
-
-	////
-	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
 };

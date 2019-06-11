@@ -2,7 +2,8 @@
 
 #include "Tower.h"
 #include "TowerDataTree.h"
-#include "TDPlayerController.h"
+#include "TDPlayerController.h" ////showtoweractionmenu
+#include "TDAIController.h" //
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "WeaponComponent.h" //upgrade
@@ -48,25 +49,25 @@ void ATower::ShowActionMenu()
 	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->ShowTowerActionMenu(this);
 }
 
-bool ATower::UpdateAnimation()
+void ATower::FaceTo(AActor* Target)
 {
-	UpdateDirection();
-	if (!Super::UpdateAnimation()) return false;
+	if (!Target) return;
 
-	return true;
+	const EDirection OldDirection = Direction;
+	const FVector DirToTarget = Target->GetActorLocation() - GetActorLocation();
+	Direction = DirToTarget.X > 0 ? DirToTarget.Y > 0 ? EDirection::RD : EDirection::RT
+								  : DirToTarget.Y > 0 ? EDirection::LD : EDirection::LT;
+	if (OldDirection != Direction)
+	{
+		UpdateAnimation();
+	}
 }
 
-void ATower::UpdateDirection()
+void ATower::FaceToAggroTarget()
 {
-	//@TODO Aggro Target AActor
-	if (!AggroTarget) return;
-
-	FVector DirectionVec= ((AActor*) AggroTarget)->GetActorLocation() - GetActorLocation();
-
-	//탑뷰인 XY 평면에서 X는 오른쪽이 양수, Y는 아래쪽이 양수.
-	Direction = DirectionVec.X > 0 ?
-				(DirectionVec.Y < 0 ? EDirection::RT : EDirection::RD)
-			  : (DirectionVec.Y < 0 ? EDirection::LT : EDirection::LD);
+	if (!Controller) return;
+	
+	FaceTo(Cast<ATDAIController>(Controller)->GetAggroTarget());
 }
 
 float ATower::GetTowerRange_Implementation()

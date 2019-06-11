@@ -47,6 +47,16 @@ void ATDAIController::SetAttackRange(const float AttackRange)
 	Blackboard->SetValueAsFloat(AttackRangeKey, AttackRange);
 }
 
+AActor* ATDAIController::GetAggroTarget()
+{
+	return 	Blackboard ? Cast<AActor>(Blackboard->GetValueAsObject(AggroTargetKey)) : nullptr;
+}
+
+float ATDAIController::GetDestination()
+{
+	return Blackboard ? Blackboard->GetValueAsFloat(DestinationKey) : 0.0f;
+}
+
 void ATDAIController::ReceiveWeaponChange()
 {
 	if (!TDUnit) return;
