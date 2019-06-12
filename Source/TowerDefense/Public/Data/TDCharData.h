@@ -15,12 +15,15 @@ class TOWERDEFENSE_API UTDCharData : public UTDUnitCommonData
 	GENERATED_BODY()
 		
 protected:
+	//if 0.0f TDCharacter will use AttackRange as AggroRange.
 	UPROPERTY(EditAnywhere, Category = "TDChar")
 	float DefaultAggroDrawnRange;
 
+	//deprecated.
 	UPROPERTY(EditAnywhere, Category = "TDChar")
 	float DefaultDrawingAggroRange;
 
+	//Need? CDO also can set default Health...
 	UPROPERTY(EditAnywhere, Category = "TDChar")
 	int32 DefaultHealth;
 

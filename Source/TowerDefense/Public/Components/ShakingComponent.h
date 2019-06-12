@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "ShakingComponent.generated.h"
 
+//todo set tickinterval
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOWERDEFENSE_API UShakingComponent : public UActorComponent
 {
