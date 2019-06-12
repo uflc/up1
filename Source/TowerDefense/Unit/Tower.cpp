@@ -14,14 +14,14 @@
 ATower::ATower()
 {
 	static FName TowerCollisionProfileName(TEXT("BlockAll"));
-	static const FVector BoxExtent(125.0f, 100.0f, 50.0f);
+	static const FVector BoxExtent(112.5f, 100.0f, 50.0f);
 	Box->InitBoxExtent(BoxExtent);
 	Box->SetCollisionProfileName(TowerCollisionProfileName);
 	Box->SetCanEverAffectNavigation(false);
 
 	static FName VisibiltyProfileName(TEXT("UI"));
 	Animation->SetCollisionProfileName(VisibiltyProfileName);
-	Animation->SetRelativeLocation(FVector(0.0f, -150.0f, 0.0f));
+	Animation->SetRelativeLocation(FVector(0.0f, -125.0f, 0.0f));
 	Animation->SetupAttachment(Box);
 
 	Team = EUnitTeam::Player;

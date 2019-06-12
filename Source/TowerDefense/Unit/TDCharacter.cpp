@@ -5,7 +5,7 @@
 #include "TDCharData.h"
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperFlipbook.h"
-#include "FlipbookShakingComponent.h"
+#include "ShakingComponent.h"
 #include "TimerManager.h"
 #include "AIController.h"
 #include "GameFramework/FloatingPawnMovement.h"
@@ -118,16 +118,17 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 		Die();
 	}
 
-	// FlipbookShakingComponent 효과 //TODO 효과적인 방법?
-	UActorComponent* ShakeComp = GetComponentByClass(UFlipbookShakingComponent::StaticClass());
-	if (ShakeComp)
+	// Shaking 효과
+	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
+	if (!ShakeComp)
 	{
-		ShakeComp->DestroyComponent();
+		ShakeComp = NewObject<UShakingComponent>(this, "ShakingComponent");
+		if (!ShakeComp)
+		{
+			return;
+		}
 	}
-	ShakeComp = NewObject<UFlipbookShakingComponent>(this, "FlipbookShakingComponent");
-	Cast<UFlipbookShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
-	ShakeComp->RegisterComponent();
-	AddOwnedComponent(ShakeComp);
+	Cast<UShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
 }
 
 void ATDCharacter::TDUnitTakeDebuff(FDebuff& InDebuff)
@@ -157,6 +158,15 @@ void ATDCharacter::Die_Implementation()
 		UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound, 1, 1, 0);
 	}
 
+	if (Box)
+	{
+		Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+
+	if (Animation)
+	{
+		Animation->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
 	// detach the controller
 	if (Controller != nullptr)
 	{

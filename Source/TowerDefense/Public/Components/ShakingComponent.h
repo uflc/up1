@@ -4,30 +4,27 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "FlipbookShakingComponent.generated.h"
-
-class UPaperFlipbookComponent;
+#include "ShakingComponent.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class TOWERDEFENSE_API UFlipbookShakingComponent : public UActorComponent
+class TOWERDEFENSE_API UShakingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UFlipbookShakingComponent();
+	UShakingComponent();
 
 protected:
-	float ShakePower	= 0;
-	float ShakeDuration	= 0;
+	float ShakePower;
+	float ShakeDuration;
 
 	UPROPERTY()
-	UPaperFlipbookComponent* Flipbook;
+	USceneComponent* ShakingScene;
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UFUNCTION(BlueprintCallable)
-	void Initialize(float InShakePower, float InShakeDuration);
+	void Initialize(float InShakePower, float InShakeDuration, USceneComponent* InShakingScene = nullptr);
 };
