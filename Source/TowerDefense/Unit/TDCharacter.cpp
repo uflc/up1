@@ -23,12 +23,13 @@ ATDCharacter::ATDCharacter()
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 
 	static FName TDCharCollisionProfileName(TEXT("TDPawn"));
+	static const FVector BoxExtent(4.0f, 4.0f, 1.0f);
 	Box->SetCollisionProfileName(TDCharCollisionProfileName);
-	static const FVector BoxExtent(32.0f, 32.0f, 1.0f);
 	Box->InitBoxExtent(BoxExtent);
 
+	static FName TDCharAnimCollisionProfileName(TEXT("CharacterMesh"));
 	static const FVector SpriteOffset(-15.0f, -50.0f, 0.0f);
-	Animation->SetCollisionProfileName(TDCharCollisionProfileName);
+	Animation->SetCollisionProfileName(TDCharAnimCollisionProfileName);
 	Animation->SetRelativeLocation(SpriteOffset);
 	Animation->SetupAttachment(Box);
 
@@ -84,15 +85,16 @@ void ATDCharacter::PostInitializeComponents()
 
 void ATDCharacter::UpdateDirection()
 {	
-	const float& VelocityX = GetVelocity().X;
+	const FVector& VelocityCopy = GetVelocity();
+
 	const static FRotator RightRot(-180.f, 0.f, -90.f);
 	const static FRotator LeftRot(0.f, 0.f, -90.f);
 
-	if (VelocityX > 0)
+	if (VelocityCopy.X > 0)
 	{
 		Animation->SetRelativeRotation(RightRot);
 	}
-	else if (VelocityX < 0)
+	else if (VelocityCopy.X < 0)
 	{
 		Animation->SetRelativeRotation(LeftRot);
 	}

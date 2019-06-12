@@ -87,16 +87,19 @@ void ATDUnit::UpdateAnimation()
 
 	if (DesiredAnim && DesiredAnim != OldAnim)
 	{
+		Animation->SetFlipbook(DesiredAnim);
+
 		if (UnitState == EUnitState::Attacking)
 		{
 			Animation->SetLooping(false);
+			return;
 		}
 		else
 		{
 			Animation->SetLooping(true);
 		}
 
-		Animation->SetFlipbook(DesiredAnim);
+		Animation->PlayFromStart();
 	}
 }
 
