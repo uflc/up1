@@ -15,14 +15,14 @@ void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsin
 
 	for (const auto& TDUnitCommon : InUsingTDUnitCommons)
 	{
-		if (TDUnitCommon->IsInitialized)
+		if (TDUnitCommon->IsInitialzied())
 		{
 			UnloadedTDUnitCommonNum--;
 			AlreadyLoadedNum++;
 			continue;
 		}
 		
-		TDUnitCommon->OnFlipbooksLoaded.BindUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
+		TDUnitCommon->OnFlipbooksLoaded.AddUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		TDUnitCommon->Initialize();
 	}
 
@@ -34,7 +34,7 @@ void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 {
 	if (!InTowerDataTree) return;
 
-	if (!InTowerDataTree->IsInitialized)
+	if (!InTowerDataTree->bIsInitialized)
 	{
 		auto& AssetLoader = UAssetManager::GetStreamableManager();
 		TArray<FSoftObjectPath> AssetsToLoad;
@@ -50,7 +50,7 @@ void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 
 		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &ATDGameModeBase::LoadTowerResourcesDeffered));
 		////
-		InTowerDataTree->IsInitialized = true;
+		InTowerDataTree->bIsInitialized = true;
 	}
 
 	if (InTowerDataTree->WeaponData)

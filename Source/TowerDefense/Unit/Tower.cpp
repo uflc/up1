@@ -22,7 +22,6 @@ ATower::ATower()
 	static FName VisibiltyProfileName(TEXT("UI"));
 	Animation->SetCollisionProfileName(VisibiltyProfileName);
 	Animation->SetRelativeLocation(FVector(0.0f, -125.0f, 0.0f));
-	Animation->SetupAttachment(Box);
 
 	Team = EUnitTeam::Player;
 }
@@ -30,6 +29,11 @@ ATower::ATower()
 void ATower::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ATower::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
 
 	const UTowerData* TowerData = Cast<UTowerData>(UnitData);
 

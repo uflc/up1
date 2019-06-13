@@ -5,6 +5,7 @@
 #include "TDCharData.h"
 #include "PaperFlipbookComponent.h" //anim
 #include "PaperFlipbook.h"
+#include "Components/TDPaperFlipbookComponent.h" //anim
 #include "ShakingComponent.h"
 #include "TimerManager.h"
 #include "AIController.h"
@@ -29,9 +30,8 @@ ATDCharacter::ATDCharacter()
 
 	static FName TDCharAnimCollisionProfileName(TEXT("CharacterMesh"));
 	static const FVector SpriteOffset(-15.0f, -50.0f, 0.0f);
-	Animation->SetCollisionProfileName(TDCharAnimCollisionProfileName);
-	Animation->SetRelativeLocation(SpriteOffset);
-	Animation->SetupAttachment(Box);
+	AnimComp->SetCollisionProfileName(TDCharAnimCollisionProfileName);
+	AnimComp->SetRelativeLocation(SpriteOffset);
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
@@ -92,11 +92,11 @@ void ATDCharacter::UpdateDirection()
 
 	if (VelocityCopy.X > 0)
 	{
-		Animation->SetRelativeRotation(RightRot);
+		AnimComp->SetRelativeRotation(RightRot);
 	}
 	else if (VelocityCopy.X < 0)
 	{
-		Animation->SetRelativeRotation(LeftRot);
+		AnimComp->SetRelativeRotation(LeftRot);
 	}
 	//멈췄을 때는 원래 방향 그대로 있어야 하므로 업데이트 하지 않음.
 }

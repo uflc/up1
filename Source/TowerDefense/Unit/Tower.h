@@ -23,8 +23,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;
 
-public:	
 	virtual void BeginPlay() override;
+
+public:	
+	virtual void PostInitializeComponents() override;
 	
 	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
 

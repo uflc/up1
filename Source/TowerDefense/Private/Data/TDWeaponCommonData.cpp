@@ -5,9 +5,9 @@
 #include "TDProjectileCommonData.h"
 #include "WeaponComponent.h"
 #include "PaperFlipbook.h"
+#include "Sound\SoundCue.h"
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
-#include "Sound\SoundCue.h"
 
 void UTDWeaponCommonData::Initialize()
 {
@@ -29,7 +29,7 @@ void UTDWeaponCommonData::Initialize()
 
 void UTDWeaponCommonData::LoadFlipbooksDeffered()
 {
-	if (!EffectFlipbook.Get())
+	if (!EffectFlipbook.Get() || !FireSoundEffect.Get())
 	{
 		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
 		return;

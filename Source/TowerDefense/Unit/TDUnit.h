@@ -35,14 +35,17 @@ protected:
 	class UBoxComponent* Box;
 
 	//Visual representation.
-	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UPaperFlipbookComponent* Animation;
 
-	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	class UTDPaperFlipbookComponent* AnimComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UPaperSpriteComponent* Shadow;
 
 	//고유한 주 사용 무기(공격 방식).
-	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UWeaponComponent* AttackComp;
 	//TODO 다양한 WeaponComponent로 여러 공격 및 스킬 구현.
 
@@ -60,6 +63,8 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	void SetFlipbooks();
+
 public:
 	virtual void PostInitializeComponents() override;
 
@@ -68,15 +73,12 @@ public:
 	//AttackComp weapon is Unique
 	virtual void CreateUniqueWeapon();
 
-	//적절한 애니메이션으로 업데이트. 루핑 애니메이션은 재생됨. See UPaperFlipbookComponent::SetFlipbook()
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	virtual void UpdateAnimation();
 
-	//행동 상태를 바꾸고 적절한 애니메이션으로 업데이트. See UpdateAnimation()
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	void ChangeState(EUnitState InState);
 
-	//현재 상태에 알맞은 애니메이션을 구함.
 	UFUNCTION(BlueprintNativeEvent)
 	class UPaperFlipbook* GetDesiredAnimation();
 	virtual UPaperFlipbook* GetDesiredAnimation_Implementation();

@@ -3,7 +3,8 @@
 #include "TDUnit.h"
 #include "TDUnitCommonData.h"
 #include "PaperFlipbook.h" //anim
-#include "PaperFlipbookComponent.h" //anim
+#include "PaperFlipbookComponent.h"
+#include "Components/TDPaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h" //shadow
 #include "WeaponComponent.h"
 #include "TDWeaponCommonData.h"
@@ -17,6 +18,11 @@ ATDUnit::ATDUnit()
 
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook0"));
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
+	Animation->SetupAttachment(Box);
+
+	AnimComp = CreateDefaultSubobject<UTDPaperFlipbookComponent>(TEXT("Anim0"));
+	AnimComp->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
+	AnimComp->SetupAttachment(Box);
 
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow0"));
 	if (Shadow)
@@ -32,23 +38,33 @@ ATDUnit::ATDUnit()
 void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	CreateUniqueWeapon();
+void ATDUnit::SetFlipbooks()
+{
+	AnimComp->SetFlipbooks(UnitData->GetRealAnimations());
 }
 
 void ATDUnit::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
+
+	check(UnitData);
+
+	if (UnitData->IsInitialzied())
+	{
+		SetFlipbooks();
+	}
+	else
+	{
+		UnitData->OnFlipbooksLoaded.AddUObject(this, &ATDUnit::SetFlipbooks);
+	}
+
+	CreateUniqueWeapon();
 }
 
 void ATDUnit::CreateUniqueWeapon()
 {
-	if (!UnitData)
-	{
-		TD_LOG(Warning, TEXT("No UnitData!"));
-		return;
-	}
-
 	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
 	if (NewWeaponClass && (!AttackComp || NewWeaponClass != AttackComp->GetClass()))
 	{
@@ -108,7 +124,7 @@ void ATDUnit::ChangeState(EUnitState InState)
 	if (InState == UnitState) return;
 
 	UnitState = InState;
-	UpdateAnimation();
+	AnimComp->ChangeState(InState);
 }
 
 float ATDUnit::GetAggroRange() const

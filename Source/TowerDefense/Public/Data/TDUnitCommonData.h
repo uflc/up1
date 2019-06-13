@@ -8,22 +8,25 @@
 #include "TDUnitCommonData.generated.h"
 
 
-//@TODO
+//TODO
 UCLASS(Blueprintable, BlueprintType)
 class TOWERDEFENSE_API UTDUnitCommonData : public UDataAsset
 {
 	GENERATED_BODY()
 
-	DECLARE_DELEGATE(FLoadCompletedSignature);
+	DECLARE_EVENT(UTDUnitCommonData, FLoadCompletedSignature);
 
 protected:
 	friend class ATDGameModeBase;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	bool IsInitialized;
+	bool bIsInitialized;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
+
+	UPROPERTY()
+	TArray<UPaperFlipbook*> RealAnims;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sound")
 	TArray<TSoftObjectPtr<class USoundCue>> Sounds;
@@ -43,7 +46,9 @@ public:
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
 
+	FORCEINLINE bool IsInitialzied() const { return bIsInitialized; }
 	FORCEINLINE const TArray<TSoftObjectPtr<class UPaperFlipbook>>& GetAnimations() const { return Animations; }
+	FORCEINLINE const TArray<UPaperFlipbook*>& GetRealAnimations() const { return RealAnims; }
 	FORCEINLINE const TArray<TSoftObjectPtr<class USoundCue>>& GetSounds() const { return Sounds; }
 	FORCEINLINE TSubclassOf<UWeaponComponent> GetWeaponClass() const { return WeaponClass; }
 	FORCEINLINE UTDWeaponCommonData* GetWeaponData() { return WeaponData; }
