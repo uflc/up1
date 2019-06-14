@@ -3,19 +3,18 @@
 
 #include "TDCharacter.h"
 #include "TDCharData.h"
-#include "PaperFlipbookComponent.h" //anim
+#include "Components/BoxComponent.h"
 #include "PaperFlipbook.h"
 #include "Components/TDPaperFlipbookComponent.h" //anim
-#include "ShakingComponent.h"
-#include "TimerManager.h"
-#include "AIController.h"
-#include "GameFramework/FloatingPawnMovement.h"
-#include "UnitDebuffComponent.h"
 #include "WidgetComponent.h"
 #include "TDCharWidget.h"
+#include "GameFramework/FloatingPawnMovement.h"
+#include "UnitDebuffComponent.h"
 #include "Sound\SoundCue.h"
 #include "Kismet/GameplayStatics.h"
-#include "Components/BoxComponent.h"
+#include "TimerManager.h"
+#include "AIController.h"
+#include "ShakingComponent.h"
 #include "TowerDefense.h"
 
 
@@ -30,8 +29,8 @@ ATDCharacter::ATDCharacter()
 
 	static FName TDCharAnimCollisionProfileName(TEXT("CharacterMesh"));
 	static const FVector SpriteOffset(-15.0f, -50.0f, 0.0f);
-	AnimComp->SetCollisionProfileName(TDCharAnimCollisionProfileName);
-	AnimComp->SetRelativeLocation(SpriteOffset);
+	Animation->SetCollisionProfileName(TDCharAnimCollisionProfileName);
+	Animation->SetRelativeLocation(SpriteOffset);
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
@@ -92,18 +91,19 @@ void ATDCharacter::UpdateDirection()
 
 	if (VelocityCopy.X > 0)
 	{
-		AnimComp->SetRelativeRotation(RightRot);
+		Animation->SetRelativeRotation(RightRot);
 	}
 	else if (VelocityCopy.X < 0)
 	{
-		AnimComp->SetRelativeRotation(LeftRot);
+		Animation->SetRelativeRotation(LeftRot);
 	}
 	//멈췄을 때는 원래 방향 그대로 있어야 하므로 업데이트 하지 않음.
 }
 
 bool ATDCharacter::IsLethal()
 {
-	return UnitState == EUnitState::Dead || UnitState == EUnitState::Dying;
+	EUnitState State = Animation->GetState();
+	return  State == EUnitState::Dead || State == EUnitState::Dying;
 }
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
@@ -118,7 +118,7 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 		Die();
 	}
 
-	// Shaking 효과
+	// Shaking 효과 //todo defaultsubobject better?
 	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
 	if (!ShakeComp)
 	{
@@ -128,6 +128,7 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 			return;
 		}
 	}
+
 	Cast<UShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
 }
 
@@ -141,8 +142,8 @@ void ATDCharacter::TDUnitTakeDebuff(FDebuff& InDebuff)
 void ATDCharacter::Die_Implementation()
 {
 	// Play Dying anim once
-	ChangeState(EUnitState::Dying);
-	Animation->SetLooping(false);
+	Animation->ChangeState(EUnitState::Dying);
+	Animation->PlayFromStart();
 	
 	USoundBase* Sound = nullptr;
 
@@ -186,7 +187,7 @@ void ATDCharacter::Die_Implementation()
 
 void ATDCharacter::OnDeath_Implementation()
 {
-	ChangeState(EUnitState::Dead);
+	Animation->ChangeState(EUnitState::Dead);
 
 	const static float DeadBodyRemainTime = 3.5f;
 	SetLifeSpan(DeadBodyRemainTime);

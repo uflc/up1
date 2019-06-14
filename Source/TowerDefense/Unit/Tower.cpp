@@ -5,7 +5,7 @@
 #include "TDPlayerController.h" ////showtoweractionmenu
 #include "TDAIController.h" //
 #include "PaperFlipbook.h"
-#include "PaperFlipbookComponent.h"
+#include "Components/TDPaperFlipbookComponent.h"
 #include "WeaponComponent.h" //upgrade
 #include "Components/BoxComponent.h"
 #include "TowerDefense.h" //log 
@@ -53,27 +53,6 @@ void ATower::ShowActionMenu()
 	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->ShowTowerActionMenu(this);
 }
 
-void ATower::FaceTo(AActor* Target)
-{
-	if (!Target) return;
-
-	const EDirection OldDirection = Direction;
-	const FVector DirToTarget = Target->GetActorLocation() - GetActorLocation();
-	Direction = DirToTarget.X > 0 ? DirToTarget.Y > 0 ? EDirection::RD : EDirection::RT
-								  : DirToTarget.Y > 0 ? EDirection::LD : EDirection::LT;
-	if (OldDirection != Direction)
-	{
-		UpdateAnimation();
-	}
-}
-
-void ATower::FaceToAggroTarget()
-{
-	if (!Controller) return;
-	
-	FaceTo(Cast<ATDAIController>(Controller)->GetAggroTarget());
-}
-
 float ATower::GetTowerRange_Implementation()
 {
 	return GetAttackRange();
@@ -90,9 +69,7 @@ bool ATower::Upgrade_Implementation(ETowerType UpType)
 	UnitData = Upgraded;
 	TotalCost += Upgraded->GetCost();
 
-	CreateUniqueWeapon();
-
-	UpdateAnimation();
+	ApplyData();
 
 	return true;
 }

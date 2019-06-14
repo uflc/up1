@@ -4,7 +4,6 @@
 #include "TDPaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
-#include "TDUnitCommonData.h"
 #include "TowerDefense.h"
 
 void UTDPaperFlipbookComponent::SetState(EUnitState InState)
@@ -12,36 +11,38 @@ void UTDPaperFlipbookComponent::SetState(EUnitState InState)
 	UnitState = InState;
 }
 
-void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, EUnitState InitialState, int32 InMaxState)
+void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, EUnitState InitialState)
 {
-	if (!InFlipbooks.Num() == 0)
-	{
-		SourceFlipbooks = InFlipbooks;
-	}
-
-	if (InMaxState <= 0 ||InMaxState > SourceFlipbooks.Num())
-	{
-		MaxState = SourceFlipbooks.Num();
-	}
-	else
-	{
-		MaxState = InMaxState;
-	}
-
+	FlipbooksNum = InFlipbooks.Num();
+	SourceFlipbooks = InFlipbooks;
+	
 	ChangeState(InitialState);
 }
 
-void UTDPaperFlipbookComponent::ChangeState(EUnitState InState)
+bool UTDPaperFlipbookComponent::SetFlipbookIndex(int32 Index)
+{
+	if (Index < FlipbooksNum)
+	{
+		return SetFlipbook(SourceFlipbooks[Index]);
+	}
+	return false;
+}
+
+void UTDPaperFlipbookComponent::ChangeState(EUnitState InState, bool bShouldUpdate)
 {
 	if (UnitState == InState) return;
 
 	SetState(InState);
-	UpdateAnimation();
+
+	if (bShouldUpdate)
+	{
+		UpdateAnimation();
+	}
 }
 
 void UTDPaperFlipbookComponent::UpdateAnimation()
 {
-	if (SetFlipbook(GetDesiredAnimation()))
+	if (SetFlipbookIndex(GetDesiredAnimationIndex()))
 	{
 		switch (UnitState)
 		{
@@ -58,9 +59,7 @@ void UTDPaperFlipbookComponent::UpdateAnimation()
 	}
 }
 
-UPaperFlipbook* UTDPaperFlipbookComponent::GetDesiredAnimation()
+int32 UTDPaperFlipbookComponent::GetDesiredAnimationIndex()
 {
-	if (MaxState == 0) return nullptr;
-
-	return SourceFlipbooks[(int32) UnitState];
+	return (int32) UnitState;
 }

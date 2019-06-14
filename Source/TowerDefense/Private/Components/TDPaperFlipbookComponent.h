@@ -16,9 +16,6 @@ class UTDPaperFlipbookComponent : public UPaperFlipbookComponent
 	GENERATED_BODY()
 	
 protected:
-	/*UPROPERTY()
-	class UTDUnitCommonData* UnitData;*/
-
 	UPROPERTY()
 	TArray<UPaperFlipbook*> SourceFlipbooks;
 
@@ -27,22 +24,27 @@ protected:
 	EUnitState UnitState;
 
 	UPROPERTY()
-	int32 MaxState;
+	int32 FlipbooksNum;
 
 	void SetState(EUnitState InState);
-	
-public:
-	//virtual void SetUnitData(UTDUnitCommonData* InData);
-
-	void SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, EUnitState InitialState = EUnitState::Idle, int32 InMaxState = 0);
-
-	//행동 상태를 바꾸고 적절한 애니메이션으로 업데이트. See UpdateAnimation()
-	UFUNCTION(BlueprintCallable)
-	virtual void ChangeState(EUnitState InState);
 
 	//적절한 애니메이션으로 업데이트. 루핑 애니메이션은 재생됨. See UPaperFlipbookComponent::SetFlipbook()
 	virtual void UpdateAnimation();
+	
+public:
+
+	void SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, EUnitState InitialState = EUnitState::Idle);
+
+	bool SetFlipbookIndex(int32 Index);
+
+	//행동 상태를 바꾸고 적절한 애니메이션으로 업데이트. See UpdateAnimation()
+	UFUNCTION(BlueprintCallable)
+	virtual void ChangeState(EUnitState InState, bool bShouldUpdate = true);
 
 	//현재 상태에 알맞은 애니메이션을 구함.
-	virtual UPaperFlipbook* GetDesiredAnimation();
+	virtual int32 GetDesiredAnimationIndex();
+
+	FORCEINLINE EUnitState GetState() const { return UnitState; }
+	FORCEINLINE const TArray<UPaperFlipbook*>& GetFlipbooks() { return SourceFlipbooks; }
+	FORCEINLINE int32 GetFlipbooksNum() const { return FlipbooksNum; }
 };

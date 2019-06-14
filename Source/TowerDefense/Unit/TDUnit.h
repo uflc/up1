@@ -27,7 +27,7 @@ public:
 	ATDUnit();
 
 protected:
-	UPROPERTY(Category = TDUnit, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UTDUnitCommonData* UnitData;
 
 	//Root. Collision.
@@ -36,10 +36,7 @@ protected:
 
 	//Visual representation.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class UPaperFlipbookComponent* Animation;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class UTDPaperFlipbookComponent* AnimComp;
+	class UTDPaperFlipbookComponent* Animation;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UPaperSpriteComponent* Shadow;
@@ -48,22 +45,18 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UWeaponComponent* AttackComp;
 	//TODO 다양한 WeaponComponent로 여러 공격 및 스킬 구현.
+	/*UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
+	TArray<UWeaponComponent*> Weapons;*/
 
 	//피아 식별. Player는 Enemy에게 어그로가 끌리며 역도 성립. 기본값인 None은 깍두기.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EUnitTeam Team;
-
-	//행동 상태. 이에 따라 애니메이션이 결정됨.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TDUnit")
-	EUnitState UnitState;
-
-	//바라보는 방향. 이에 따라 애니메이션이 결정됨. //TODO Tower Only? But 타워 외에도 방향에 따른 애니메이션 추가 될지 모름.
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDUnit")
-	EDirection Direction;
 
 	virtual void BeginPlay() override;
 
-	void SetFlipbooks();
+	virtual void SetFlipbooks();
+
+	virtual void ApplyData();
 
 public:
 	virtual void PostInitializeComponents() override;
@@ -72,16 +65,6 @@ public:
 
 	//AttackComp weapon is Unique
 	virtual void CreateUniqueWeapon();
-
-	UFUNCTION(BlueprintCallable, Category = "Animation")
-	virtual void UpdateAnimation();
-
-	UFUNCTION(BlueprintCallable, Category = "Animation")
-	void ChangeState(EUnitState InState);
-
-	UFUNCTION(BlueprintNativeEvent)
-	class UPaperFlipbook* GetDesiredAnimation();
-	virtual UPaperFlipbook* GetDesiredAnimation_Implementation();
 
 	//this is called in BTService AggroCheck() to see if enemy is in aggro range.
 	UFUNCTION(BlueprintPure)
@@ -97,5 +80,8 @@ public:
 	UFUNCTION(BlueprintPure)
 	float GetAttackSpeed() const;
 
-	EUnitTeam GetTeam() const { return Team; }
+	FORCEINLINE EUnitTeam GetTeam() const { return Team; }
+
+	static FName AnimationComponentName;
+	FORCEINLINE UTDPaperFlipbookComponent* GetAnimation() const { return Animation; }
 };

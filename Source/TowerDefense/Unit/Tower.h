@@ -30,12 +30,6 @@ public:
 	
 	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
 
-	UFUNCTION(BlueprintCallable)
-	virtual void FaceTo(AActor* Target);
-
-	UFUNCTION(BlueprintCallable)
-	void FaceToAggroTarget();
-
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void OnDeselected();
 
