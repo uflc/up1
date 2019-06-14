@@ -66,6 +66,11 @@ void AWaveSpawner::SetTimerToStartSubWave()
 	GetWorldTimerManager().SetTimer(SubWaveTimer, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWave), NextSubWaveDelay, false);
 }
 
+void AWaveSpawner::NoticeUnitDestroyed(AActor* DestroyedActor)
+{
+	CurrentUnitNum--;
+}
+
 void AWaveSpawner::SpawnWaveActor()
 {
 	const FSubWaveData& SubWave = GetCurrentSubWaveData();
@@ -75,6 +80,11 @@ void AWaveSpawner::SpawnWaveActor()
 
 	ATDCharacter* SpawnedUnit= (ATDCharacter*)GetWorld()->SpawnActor(SubWave.SpawnUnitClass, &SpawnPoint);
 	SpawnedUnit->GetController<ATDAIController>()->SetDestination(Destination);
+
+	CurrentUnitNum++;
+	SpawnedUnit->OnDestroyed.Add();
+	SpawnedUnit->OnDestroyed.AddDynamic(this,&AWaveSpawner::NoticeUnitDestroyed);
+
 	TD_LOG_CALLONLY(Warning);
 
 	//SubWave의 끝 체크

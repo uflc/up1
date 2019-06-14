@@ -26,6 +26,8 @@ private:
 
 	uint8 WaveSpawnRemaining;
 
+	uint32 CurrentUnitNum;
+
 	FTimerHandle SubWaveTimer;
 	FTimerHandle SpawnTimer;
 
@@ -38,6 +40,9 @@ protected:
 	void StartSubWave();
 
 	void SetTimerToStartSubWave();
+
+	UFUNCTION()
+	void NoticeUnitDestroyed(AActor* DestroyedActor);
 
 	const struct FSubWaveData& GetCurrentSubWaveData() const;
 
