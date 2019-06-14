@@ -13,7 +13,7 @@ void UProjectileWeaponComponent::UseWeapon()
 	
 	Super::UseWeapon();
 
-	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
+	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint + FVector(0,0,1.0f);
 	AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &ProjectileSpawnPoint);
 
 	SpawnedProjectile->SetTarget(Target);
