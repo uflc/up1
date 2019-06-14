@@ -7,7 +7,7 @@
 #include "WeaponComponent.generated.h"
 
 //todo accessor
-UCLASS(Blueprintable, Abstract, ClassGroup=(Custom))
+UCLASS(Blueprintable, Abstract, EditInlineNew, meta = (BlueprintSpawnableComponent))
 class TOWERDEFENSE_API UWeaponComponent : public UTDComponent
 {
 	GENERATED_BODY()

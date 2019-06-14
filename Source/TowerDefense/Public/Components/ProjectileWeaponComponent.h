@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+UCLASS(Blueprintable)
 class TOWERDEFENSE_API UProjectileWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()

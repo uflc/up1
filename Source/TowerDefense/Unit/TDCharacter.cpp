@@ -3,18 +3,18 @@
 
 #include "TDCharacter.h"
 #include "TDCharData.h"
-#include "PaperFlipbookComponent.h" //anim
+#include "Components/BoxComponent.h"
 #include "PaperFlipbook.h"
-#include "ShakingComponent.h"
-#include "TimerManager.h"
-#include "AIController.h"
-#include "GameFramework/FloatingPawnMovement.h"
-#include "UnitDebuffComponent.h"
+#include "Components/TDPaperFlipbookComponent.h" //anim
 #include "WidgetComponent.h"
 #include "TDCharWidget.h"
+#include "GameFramework/FloatingPawnMovement.h"
+#include "UnitDebuffComponent.h"
 #include "Sound\SoundCue.h"
 #include "Kismet/GameplayStatics.h"
-#include "Components/BoxComponent.h"
+#include "TimerManager.h"
+#include "AIController.h"
+#include "ShakingComponent.h"
 #include "TowerDefense.h"
 
 
@@ -31,7 +31,6 @@ ATDCharacter::ATDCharacter()
 	static const FVector SpriteOffset(-15.0f, -50.0f, 0.0f);
 	Animation->SetCollisionProfileName(TDCharAnimCollisionProfileName);
 	Animation->SetRelativeLocation(SpriteOffset);
-	Animation->SetupAttachment(Box);
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
@@ -103,7 +102,8 @@ void ATDCharacter::UpdateDirection()
 
 bool ATDCharacter::IsLethal()
 {
-	return UnitState == EUnitState::Dead || UnitState == EUnitState::Dying;
+	EUnitState State = Animation->GetState();
+	return  State == EUnitState::Dead || State == EUnitState::Dying;
 }
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
@@ -118,7 +118,7 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 		Die();
 	}
 
-	// Shaking 효과
+	// Shaking 효과 //todo defaultsubobject better?
 	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
 	if (!ShakeComp)
 	{
@@ -128,6 +128,7 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 			return;
 		}
 	}
+
 	Cast<UShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
 }
 
@@ -141,8 +142,8 @@ void ATDCharacter::TDUnitTakeDebuff(FDebuff& InDebuff)
 void ATDCharacter::Die_Implementation()
 {
 	// Play Dying anim once
-	ChangeState(EUnitState::Dying);
-	Animation->SetLooping(false);
+	Animation->ChangeState(EUnitState::Dying);
+	Animation->PlayFromStart();
 	
 	USoundBase* Sound = nullptr;
 
@@ -186,7 +187,7 @@ void ATDCharacter::Die_Implementation()
 
 void ATDCharacter::OnDeath_Implementation()
 {
-	ChangeState(EUnitState::Dead);
+	Animation->ChangeState(EUnitState::Dead);
 
 	const static float DeadBodyRemainTime = 3.5f;
 	SetLifeSpan(DeadBodyRemainTime);

@@ -28,11 +28,9 @@ class TOWERDEFENSE_API UTowerData : public UTDUnitCommonData
 {
 	GENERATED_BODY()
 
-	friend class ATDGameModeBase;
-
 private:
-	//현재 타워데이터는 ATDGameModeBase::LoadTowerResources에서 트리를 탐색하면서 모든 리소스를 로딩하기 때문에 헷갈리지 말라고 막아둠.
-	virtual void Initialize() override {}
+	UPROPERTY(VisibleAnywhere)
+	bool bIsPreviewInitialized;
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -43,6 +41,9 @@ protected:
 	int32 Cost;
 
 public:
+	virtual void PostLoad() override;
+
+	void Initialize() override;
 
 	//@return nullptr when UpType is not valid.
 	UFUNCTION(BlueprintPure)

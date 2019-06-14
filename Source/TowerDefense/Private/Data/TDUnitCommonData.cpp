@@ -4,13 +4,21 @@
 #include "TDUnitCommonData.h"
 #include "TDWeaponCommonData.h"
 #include "PaperFlipbook.h"
+#include "Sound/SoundCue.h"
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
 #include "TDUnit.h"
 
+void UTDUnitCommonData::PostLoad()
+{
+	Super::PostLoad();
+
+	bIsInitialized = false;
+}
+
 void UTDUnitCommonData::Initialize()
 {
-	if (!IsInitialized)
+	if (!bIsInitialized)
 	{
 		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
@@ -36,13 +44,18 @@ void UTDUnitCommonData::LoadFlipbooksDeffered()
 {
 	for (const auto& Animation : Animations)
 	{
-		if (!Animation.Get())
+		RealAnims.Add(Animation.Get());
+	}
+
+	for (const auto& Sound : Sounds)
+	{
+		if (!Sound.Get())
 		{
 			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
 			return;
 		}
 	}
 
-	IsInitialized = true;
-	OnFlipbooksLoaded.ExecuteIfBound();
+	bIsInitialized = true;
+	OnFlipbooksLoaded.Broadcast();
 }
