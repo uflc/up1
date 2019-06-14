@@ -6,17 +6,34 @@
 #include "PaperFlipbookComponent.h"
 #include "TowerDefense.h"
 
+
+UTDPaperFlipbookComponent::UTDPaperFlipbookComponent()
+{
+	bWantsInitializeComponent = true;
+}
+
 void UTDPaperFlipbookComponent::SetState(EUnitState InState)
 {
 	UnitState = InState;
 }
 
+void UTDPaperFlipbookComponent::InitializeComponent()
+{
+	Super::InitializeComponent();
+	
+	OnFinishedPlaying.AddDynamic(this, &UTDPaperFlipbookComponent::ReceiveOnFinishedPlaying);
+}
+
 void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, EUnitState InitialState)
 {
+	if (SourceFlipbooks == InFlipbooks) return;
+
 	FlipbooksNum = InFlipbooks.Num();
+
 	SourceFlipbooks = InFlipbooks;
-	
+
 	ChangeState(InitialState);
+
 }
 
 bool UTDPaperFlipbookComponent::SetFlipbookIndex(int32 Index)
@@ -30,13 +47,21 @@ bool UTDPaperFlipbookComponent::SetFlipbookIndex(int32 Index)
 
 void UTDPaperFlipbookComponent::ChangeState(EUnitState InState, bool bShouldUpdate)
 {
-	if (UnitState == InState) return;
-
 	SetState(InState);
 
 	if (bShouldUpdate)
 	{
 		UpdateAnimation();
+	}
+}
+
+void UTDPaperFlipbookComponent::ReceiveOnFinishedPlaying()
+{
+	if (StatesQueue.Num() != 0)
+	{
+		EUnitState NextState = EUnitState::Idle;
+		StatesQueue.HeapPop(NextState);
+		ChangeState(NextState);
 	}
 }
 

@@ -36,7 +36,6 @@ protected:
 	//BaseTowerData로부터 모든 타워 데이터에 접근할 수 있기 때문에 일단 이렇게 함.
 	UFUNCTION(BlueprintCallable, Category = "Tower")
 	void LoadTowerResources(UTowerData* InTowerDataTree);
-	void LoadTowerResourcesDeffered();
 
 	void OnTDUnitFlipbooksLoaded();
 };

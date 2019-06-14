@@ -13,6 +13,16 @@
 
 ATower::ATower()
 {
+	InitializeDefaults();
+}
+
+ATower::ATower(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+{
+	InitializeDefaults();
+}
+
+void ATower::InitializeDefaults()
+{
 	static FName TowerCollisionProfileName(TEXT("BlockAll"));
 	static const FVector BoxExtent(112.5f, 100.0f, 50.0f);
 	Box->InitBoxExtent(BoxExtent);
@@ -78,7 +88,7 @@ void ATower::NotifyActorOnClicked(FKey ButtonPressed)
 {
 	Super::NotifyActorOnClicked(ButtonPressed);
 
-	TD_LOG_CALLONLY(Warning);//
+	TD_LOG_C(Warning);//
 
 	if (bIsSelected) return;
 

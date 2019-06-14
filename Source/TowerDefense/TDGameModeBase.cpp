@@ -34,39 +34,12 @@ void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 {
 	if (!InTowerDataTree) return;
 
-	if (!InTowerDataTree->bIsInitialized)
-	{
-		auto& AssetLoader = UAssetManager::GetStreamableManager();
-		TArray<FSoftObjectPath> AssetsToLoad;
-
-		for (const auto& UpType : InTowerDataTree->GetUpTypesInfo())
-		{
-			AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
-		}
-		for (const auto& Animation : InTowerDataTree->Animations)
-		{
-			AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
-		}
-
-		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &ATDGameModeBase::LoadTowerResourcesDeffered));
-		////
-		InTowerDataTree->bIsInitialized = true;
-	}
-
-	if (InTowerDataTree->WeaponData)
-	{
-		InTowerDataTree->WeaponData->Initialize();
-	}
+	InTowerDataTree->Initialize();
 	
 	for (int i = 0; i < UPGRADES_NUM; i++)
 	{
 		LoadTowerResources(InTowerDataTree->GetNextUpgraded((ETowerType)i));
 	}
-}
-
-void ATDGameModeBase::LoadTowerResourcesDeffered()
-{
-	TD_LOG_CALLONLY(Warning);
 }
 
 //처음 로드된 것이 있을 때 전부 완료됬는지 체크.

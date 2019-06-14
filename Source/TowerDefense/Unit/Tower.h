@@ -8,13 +8,17 @@
 #include "Tower.generated.h"
 
 
-UCLASS(Abstract, BluePrintable)
+UCLASS(Blueprintable)
 class TOWERDEFENSE_API ATower : public ATDUnit
 {
 	GENERATED_BODY()
 	
 public:
 	ATower();
+	ATower(const FObjectInitializer& ObjectInitializer);
+
+private:
+	void InitializeDefaults();
 
 protected:	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

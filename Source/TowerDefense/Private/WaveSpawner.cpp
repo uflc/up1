@@ -75,7 +75,7 @@ void AWaveSpawner::SpawnWaveActor()
 
 	ATDCharacter* SpawnedUnit= (ATDCharacter*)GetWorld()->SpawnActor(SubWave.SpawnUnitClass, &SpawnPoint);
 	SpawnedUnit->GetController<ATDAIController>()->SetDestination(Destination);
-	TD_LOG_CALLONLY(Warning);
+	TD_LOG_C(Warning);
 
 	//SubWave의 끝 체크
 	if (--WaveSpawnRemaining <= 0)

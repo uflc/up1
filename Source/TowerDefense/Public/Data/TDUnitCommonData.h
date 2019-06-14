@@ -16,12 +16,11 @@ class TOWERDEFENSE_API UTDUnitCommonData : public UDataAsset
 
 	DECLARE_EVENT(UTDUnitCommonData, FLoadCompletedSignature);
 
-protected:
-	friend class ATDGameModeBase;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+private:
+	UPROPERTY(VisibleAnywhere)
 	bool bIsInitialized;
 
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
 
@@ -39,6 +38,8 @@ protected:
 
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
+
+	virtual void PostLoad() override;
 
 	UFUNCTION()
 	virtual void Initialize();

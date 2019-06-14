@@ -3,7 +3,7 @@
 #include "TDUnit.h"
 #include "TDUnitCommonData.h"
 #include "Components/BoxComponent.h"
-#include "Components/TDPaperFlipbookComponent.h"
+#include "Components/DirTDPaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
 #include "PaperSpriteComponent.h"
 #include "WeaponComponent.h"
@@ -14,10 +14,20 @@ FName ATDUnit::AnimationComponentName(TEXT("Flipbook0"));
 
 ATDUnit::ATDUnit()
 {
+	InitializeDefaults();
+}
+
+ATDUnit::ATDUnit(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+{
+	InitializeDefaults();
+}
+
+void ATDUnit::InitializeDefaults()
+{
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box0"));
 	RootComponent = Box;
 
-	Animation = CreateDefaultSubobject<UTDPaperFlipbookComponent>(AnimationComponentName);
+	Animation = CreateAbstractDefaultSubobject<UTDPaperFlipbookComponent>(AnimationComponentName);
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
 	Animation->SetupAttachment(Box);
 
@@ -37,6 +47,19 @@ void ATDUnit::BeginPlay()
 	Super::BeginPlay();
 }
 
+void ATDUnit::PreRegisterAllComponents()
+{
+	if (IsSpriteDirectional())
+	{
+		TD_LOG_C(Warning);
+		/*Animation->DestroyComponent();
+		Animation = NewObject<UTDPaperFlipbookComponent>(this, UDirTDPaperFlipbookComponent::StaticClass());
+		Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
+		Animation->SetupAttachment(Box);
+		Animation->RegisterComponent();*/
+	}
+}
+
 void ATDUnit::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
@@ -46,7 +69,7 @@ void ATDUnit::PostInitializeComponents()
 
 void ATDUnit::ApplyData()
 {
-	check(UnitData);
+	if (!UnitData) return;
 
 	if (UnitData->IsInitialzied())
 	{
@@ -63,10 +86,20 @@ void ATDUnit::ApplyData()
 void ATDUnit::SetFlipbooks()
 {
 	Animation->SetFlipbooks(UnitData->GetRealAnimations());
+	if (IsSpriteDirectional())
+	{		
+		TD_LOG(Warning, TEXT("%s"), *Animation->GetClass()->GetName());
+		if (Animation->GetFlipbooksNum() > 0)
+		{
+			TD_LOG(Warning, TEXT("%s"), *Animation->GetFlipbooks()[0]->GetName());
+		}
+	}
 }
 
 void ATDUnit::CreateUniqueWeapon()
 {
+	if (!UnitData) return;
+
 	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
 	if (NewWeaponClass && (!AttackComp || NewWeaponClass != AttackComp->GetClass()))
 	{

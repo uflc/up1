@@ -2,7 +2,35 @@
 
 #include "TowerDataTree.h"
 #include "PaperFlipbook.h"
+#include "Engine/AssetManager.h"
+#include "TowerDefense.h"
 
+
+void UTowerData::PostLoad()
+{
+	Super::PostLoad();
+
+	bIsPreviewInitialized = false;
+}
+
+void UTowerData::Initialize()
+{
+	Super::Initialize();
+
+	auto& AssetLoader = UAssetManager::GetStreamableManager();
+
+	TArray<FSoftObjectPath> AssetsToLoad;
+
+	for (const auto& UpType : UpTypes)
+	{
+		AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
+	}
+
+	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateLambda([this] () -> void
+	{
+		//TD_LOG_C(Warning);
+	}));
+}
 
 UTowerData * UTowerData::GetNextUpgraded(const ETowerType & UpType)
 {

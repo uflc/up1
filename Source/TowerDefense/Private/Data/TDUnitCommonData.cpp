@@ -9,6 +9,13 @@
 #include "TowerDefense.h"
 #include "TDUnit.h"
 
+void UTDUnitCommonData::PostLoad()
+{
+	Super::PostLoad();
+
+	bIsInitialized = false;
+}
+
 void UTDUnitCommonData::Initialize()
 {
 	if (!bIsInitialized)

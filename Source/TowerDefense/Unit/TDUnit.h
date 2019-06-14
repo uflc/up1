@@ -13,7 +13,7 @@
  * 적을 공격할 수 있는 스프라이트 애니메이팅 폰.
  * TODO Access 
  */
-UCLASS(BluePrintable)
+UCLASS(Blueprintable)
 class TOWERDEFENSE_API ATDUnit : public APawn
 {
 	GENERATED_BODY()
@@ -25,9 +25,16 @@ class TOWERDEFENSE_API ATDUnit : public APawn
 
 public:
 	ATDUnit();
+	ATDUnit(const FObjectInitializer& ObjectInitializer);
+
+private:
+	UPROPERTY(EditAnywhere)
+	bool bIsSpriteDirectional;
+
+	void InitializeDefaults();
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	class UTDUnitCommonData* UnitData;
 
 	//Root. Collision.
@@ -48,6 +55,7 @@ protected:
 	/*UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
 	TArray<UWeaponComponent*> Weapons;*/
 
+
 	//피아 식별. Player는 Enemy에게 어그로가 끌리며 역도 성립. 기본값인 None은 깍두기.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EUnitTeam Team;
@@ -58,7 +66,12 @@ protected:
 
 	virtual void ApplyData();
 
+	FORCEINLINE bool IsSpriteDirectional() const { return bIsSpriteDirectional; }
+
+	
 public:
+	virtual void PreRegisterAllComponents() override;
+
 	virtual void PostInitializeComponents() override;
 
 	FWeaponChangeSignature OnWeaponChanged;

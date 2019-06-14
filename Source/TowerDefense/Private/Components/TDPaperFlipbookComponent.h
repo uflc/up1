@@ -10,11 +10,14 @@
 /**
  * 
  */
-UCLASS(EditInlineNew)
+UCLASS()
 class UTDPaperFlipbookComponent : public UPaperFlipbookComponent
 {
 	GENERATED_BODY()
 	
+public:
+	UTDPaperFlipbookComponent();
+
 protected:
 	UPROPERTY()
 	TArray<UPaperFlipbook*> SourceFlipbooks;
@@ -22,6 +25,9 @@ protected:
 	//행동 상태. 이에 따라 애니메이션이 결정됨.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	EUnitState UnitState;
+
+	UPROPERTY(BlueprintReadWrite)
+	TArray<EUnitState> StatesQueue;
 
 	UPROPERTY()
 	int32 FlipbooksNum;
@@ -32,6 +38,7 @@ protected:
 	virtual void UpdateAnimation();
 	
 public:
+	virtual void InitializeComponent() override;
 
 	void SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, EUnitState InitialState = EUnitState::Idle);
 
@@ -40,6 +47,9 @@ public:
 	//행동 상태를 바꾸고 적절한 애니메이션으로 업데이트. See UpdateAnimation()
 	UFUNCTION(BlueprintCallable)
 	virtual void ChangeState(EUnitState InState, bool bShouldUpdate = true);
+
+	UFUNCTION()
+	virtual void ReceiveOnFinishedPlaying();
 
 	//현재 상태에 알맞은 애니메이션을 구함.
 	virtual int32 GetDesiredAnimationIndex();
