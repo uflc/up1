@@ -5,13 +5,23 @@
 #include "TDPlayerController.h" ////showtoweractionmenu
 #include "TDAIController.h" //
 #include "PaperFlipbook.h"
-#include "PaperFlipbookComponent.h"
+#include "Components/TDPaperFlipbookComponent.h"
 #include "WeaponComponent.h" //upgrade
 #include "Components/BoxComponent.h"
 #include "TowerDefense.h" //log 
 
 
 ATower::ATower()
+{
+	InitializeDefaults();
+}
+
+ATower::ATower(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+{
+	InitializeDefaults();
+}
+
+void ATower::InitializeDefaults()
 {
 	static FName TowerCollisionProfileName(TEXT("BlockAll"));
 	static const FVector BoxExtent(112.5f, 100.0f, 50.0f);
@@ -22,7 +32,6 @@ ATower::ATower()
 	static FName VisibiltyProfileName(TEXT("UI"));
 	Animation->SetCollisionProfileName(VisibiltyProfileName);
 	Animation->SetRelativeLocation(FVector(0.0f, -125.0f, 0.0f));
-	Animation->SetupAttachment(Box);
 
 	Team = EUnitTeam::Player;
 }
@@ -30,6 +39,11 @@ ATower::ATower()
 void ATower::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ATower::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
 
 	const UTowerData* TowerData = Cast<UTowerData>(UnitData);
 
@@ -49,27 +63,6 @@ void ATower::ShowActionMenu()
 	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->ShowTowerActionMenu(this);
 }
 
-void ATower::FaceTo(AActor* Target)
-{
-	if (!Target) return;
-
-	const EDirection OldDirection = Direction;
-	const FVector DirToTarget = Target->GetActorLocation() - GetActorLocation();
-	Direction = DirToTarget.X > 0 ? DirToTarget.Y > 0 ? EDirection::RD : EDirection::RT
-								  : DirToTarget.Y > 0 ? EDirection::LD : EDirection::LT;
-	if (OldDirection != Direction)
-	{
-		UpdateAnimation();
-	}
-}
-
-void ATower::FaceToAggroTarget()
-{
-	if (!Controller) return;
-	
-	FaceTo(Cast<ATDAIController>(Controller)->GetAggroTarget());
-}
-
 float ATower::GetTowerRange_Implementation()
 {
 	return GetAttackRange();
@@ -86,9 +79,7 @@ bool ATower::Upgrade_Implementation(ETowerType UpType)
 	UnitData = Upgraded;
 	TotalCost += Upgraded->GetCost();
 
-	CreateUniqueWeapon();
-
-	UpdateAnimation();
+	ApplyData();
 
 	return true;
 }
@@ -97,7 +88,7 @@ void ATower::NotifyActorOnClicked(FKey ButtonPressed)
 {
 	Super::NotifyActorOnClicked(ButtonPressed);
 
-	TD_LOG_CALLONLY(Warning);//
+	TD_LOG_C(Warning);//
 
 	if (bIsSelected) return;
 

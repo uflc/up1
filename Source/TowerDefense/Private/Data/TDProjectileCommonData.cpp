@@ -3,6 +3,7 @@
 
 #include "TDProjectileCommonData.h"
 #include "PaperFlipbook.h"
+#include "Sound/SoundCue.h"
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
 
@@ -32,6 +33,13 @@ void UTDProjectileCommonData::LoadFlipbooksDeffered()
 			return;
 		}
 	}
+
+	if (!HitSoundEffect.Get())
+	{
+		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+		return;
+	}
+
 	IsInitialized = true;
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

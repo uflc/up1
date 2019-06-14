@@ -8,13 +8,17 @@
 #include "Tower.generated.h"
 
 
-UCLASS(Abstract, BluePrintable)
+UCLASS(Blueprintable)
 class TOWERDEFENSE_API ATower : public ATDUnit
 {
 	GENERATED_BODY()
 	
 public:
 	ATower();
+	ATower(const FObjectInitializer& ObjectInitializer);
+
+private:
+	void InitializeDefaults();
 
 protected:	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -23,16 +27,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;
 
-public:	
 	virtual void BeginPlay() override;
+
+public:	
+	virtual void PostInitializeComponents() override;
 	
 	virtual void NotifyActorOnClicked(FKey ButtonPressed) override;
-
-	UFUNCTION(BlueprintCallable)
-	virtual void FaceTo(AActor* Target);
-
-	UFUNCTION(BlueprintCallable)
-	void FaceToAggroTarget();
 
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void OnDeselected();
