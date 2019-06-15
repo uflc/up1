@@ -30,4 +30,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 DefaultHealth;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FName NextLevelName;
 };

@@ -8,6 +8,8 @@
 #include "TDAIController.h"
 #include "TDCharacter.h"
 #include "TowerDefense.h"
+#include "Engine\World.h"
+#include "TDGameModeBase.h"
 
 void AWaveSpawner::BeginPlay()
 {
@@ -84,7 +86,11 @@ void AWaveSpawner::NoticeUnitDestroyed(AActor* DestroyedActor)
 	if (SpawnedUnitNum <= 0 && bWaitingForFinishLevel)
 	{
 		TD_LOG(Warning, TEXT("Next Level"));
-		//Gamemode->CompleteLevel;
+		ATDGameModeBase* Gamemode = Cast<ATDGameModeBase>(GetWorld()->GetAuthGameMode());
+
+		if (!Gamemode) return;
+
+		Gamemode->StageComplete();
 	}
 }
 
@@ -126,7 +132,7 @@ void AWaveSpawner::SpawnSubWaveActor(const uint8 Index)
 			}
 			FTimerHandle NextWaveHandle;
 
-			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),0.0f,false,5.0f);
+			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),5.0f,false/*,5.0f*/);
 			//StartSubWaves();
 		}
 	}

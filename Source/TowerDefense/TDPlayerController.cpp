@@ -3,10 +3,12 @@
 #include "TDPlayerController.h"
 #include "HUDWidget.h"
 #include "TDTypes.h"
-
+#include "LevelData.h"
+#include "TowerDefense.h"
 
 void ATDPlayerController::BeginPlay()
 {
+	TD_LOG(Warning,TEXT("Begin Play"));
 	Super::BeginPlay();
 	SetInputMode(FInputModeGameAndUI());
 
@@ -43,6 +45,15 @@ void ATDPlayerController::UpdateValue(int32 Value, EValueType Type)
 	default:
 		return;
 	}
+}
+
+void ATDPlayerController::ApplyLevelData(ULevelData* InLevelData)
+{
+	LevelData = InLevelData;
+
+	Coin = LevelData->DefaultCoin;
+	Life = LevelData->DefaultLife;
+	Mana = LevelData->DefaultMana;
 }
 
 void ATDPlayerController::ShowTowerActionMenu(ATower * InInteractingTower)

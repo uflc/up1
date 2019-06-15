@@ -38,4 +38,8 @@ protected:
 	void LoadTowerResources(UTowerData* InTowerDataTree);
 
 	void OnTDUnitFlipbooksLoaded();
+
+public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void StageComplete();
 };

@@ -32,12 +32,18 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDPlayer")
 	int32 Mana;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	class ULevelData* LevelData;
+
 	virtual void BeginPlay() override;
 
 public:
 	//@TODO ºÐ¸®, Health
 	UFUNCTION(BlueprintCallable)
 	void UpdateValue(int32 Value, EValueType Type);
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyLevelData(ULevelData* InLevelData);
 
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void ShowTowerActionMenu(class ATower* InInteractingTower);	
