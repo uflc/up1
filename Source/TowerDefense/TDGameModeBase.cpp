@@ -28,8 +28,12 @@ void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsin
 
 		TDUnitCommon->Initialize();
 	}
-	//로드할 것이 없을 때 로드 완료
-	if (AlreadyLoadedNum == InUsingTDUnitCommons.Num()) OnAllTDUnitFlipbooksLoaded.Broadcast();
+
+	//로드할 것이 없을 때 완료.
+	if (AlreadyLoadedNum == InUsingTDUnitCommons.Num())
+	{
+		OnAllTDUnitFlipbooksLoaded.Broadcast();
+	}
 }
 
 void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
@@ -44,7 +48,7 @@ void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 	}
 }
 
-//처음 로드된 것이 있을 때 전부 완료됬는지 체크.
+//Common이 로드될 때마다 전부 완료됬는지 체크.
 void ATDGameModeBase::OnTDUnitFlipbooksLoaded()
 {
 	if (--UnloadedTDUnitCommonNum == 0)
