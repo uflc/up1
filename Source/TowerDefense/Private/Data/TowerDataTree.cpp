@@ -10,14 +10,14 @@ void UTowerData::PostLoad()
 {
 	Super::PostLoad();
 
-	bIsPreviewInitialized = false;
+	bArePreviewsValid = false;
 }
 
-void UTowerData::Initialize()
+void UTowerData::LoadResources()
 {
-	Super::Initialize();
+	Super::LoadResources();
 
-	if (bIsPreviewInitialized) return;
+	if (bArePreviewsValid) return;
 
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
@@ -33,7 +33,7 @@ void UTowerData::Initialize()
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateLambda([this] () -> void
 	{
-		bIsPreviewInitialized = true;
+		bArePreviewsValid = true;
 	}));
 }
 

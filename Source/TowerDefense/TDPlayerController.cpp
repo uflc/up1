@@ -8,7 +8,6 @@
 
 void ATDPlayerController::BeginPlay()
 {
-	TD_LOG(Warning,TEXT("Begin Play"));
 	Super::BeginPlay();
 	SetInputMode(FInputModeGameAndUI());
 

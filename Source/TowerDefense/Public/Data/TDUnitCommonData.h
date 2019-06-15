@@ -24,7 +24,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
 
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TArray<UPaperFlipbook*> RealAnims;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sound")
@@ -37,15 +37,13 @@ protected:
 	class UTDWeaponCommonData* WeaponData;	// or array
 
 public:
-	FLoadCompletedSignature OnFlipbooksLoaded;
+	FLoadCompletedSignature OnLoadCompleted;
 
 	virtual void PostLoad() override;
 
+	virtual void LoadResources();
 	UFUNCTION()
-	virtual void Initialize();
-
-	UFUNCTION()
-	void LoadFlipbooksDeffered();
+	void LoadResourcesDeffered();
 
 	FORCEINLINE bool IsInitialzied() const { return bIsInitialized; }
 	FORCEINLINE const TArray<TSoftObjectPtr<class UPaperFlipbook>>& GetAnimations() const { return Animations; }

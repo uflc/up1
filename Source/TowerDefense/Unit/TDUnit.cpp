@@ -59,7 +59,7 @@ void ATDUnit::ApplyData()
 	}
 	else
 	{
-		UnitData->OnFlipbooksLoaded.AddUObject(this, &ATDUnit::SetFlipbooks);
+		UnitData->OnLoadCompleted.AddUObject(this, &ATDUnit::SetFlipbooks);
 	}
 
 	CreateUniqueWeapon();
@@ -68,11 +68,6 @@ void ATDUnit::ApplyData()
 void ATDUnit::SetFlipbooks()
 {
 	Animation->SetFlipbooks(UnitData->GetRealAnimations());
-
-	for (const auto& Flipbook : Animation->GetFlipbooks())
-	{
-		TD_LOG(Warning, TEXT("%s"), *Flipbook->GetName())
-	}
 }
 
 void ATDUnit::CreateUniqueWeapon()

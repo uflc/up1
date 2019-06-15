@@ -35,14 +35,13 @@ protected:
 	bool bIsDirectable;
 
 public:
-	FLoadCompletedSignature OnFlipbooksLoaded;
+	FLoadCompletedSignature OnLoadCompleted;
 
 	virtual void PostLoad() override;
 
-	void Initialize();
-
+	void LoadResources();
 	UFUNCTION()
-	void LoadFlipbooksDeffered();
+	void LoadResourcesDeffered();
 
 	FORCEINLINE bool IsInitialzied() const { return bIsInitialized; }
 	FORCEINLINE bool IsDirectable() const { return bIsDirectable; }

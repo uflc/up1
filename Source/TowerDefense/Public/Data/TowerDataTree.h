@@ -30,7 +30,7 @@ class TOWERDEFENSE_API UTowerData : public UTDUnitCommonData
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	bool bIsPreviewInitialized;
+	bool bArePreviewsValid;
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -43,7 +43,7 @@ protected:
 public:
 	virtual void PostLoad() override;
 
-	void Initialize() override;
+	void LoadResources() override;
 
 	//@return nullptr when UpType is not valid.
 	UFUNCTION(BlueprintPure)

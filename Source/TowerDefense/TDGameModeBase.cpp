@@ -23,10 +23,10 @@ void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsin
 		}
 		else
 		{
-			TDUnitCommon->OnFlipbooksLoaded.AddUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
+			TDUnitCommon->OnLoadCompleted.AddUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
 		}
 
-		TDUnitCommon->Initialize();
+		TDUnitCommon->LoadResources();
 	}
 
 	//로드할 것이 없을 때 완료.
@@ -40,7 +40,7 @@ void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
 {
 	if (!InTowerDataTree) return;
 
-	InTowerDataTree->Initialize();
+	InTowerDataTree->LoadResources();
 	
 	for (int i = 0; i < UPGRADES_NUM; i++)
 	{

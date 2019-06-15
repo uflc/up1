@@ -14,7 +14,7 @@ void UTDProjectileCommonData::PostLoad()
 	bIsInitialized = false;
 }
 
-void UTDProjectileCommonData::Initialize()
+void UTDProjectileCommonData::LoadResources()
 {
 	if (!bIsInitialized)
 	{
@@ -36,16 +36,16 @@ void UTDProjectileCommonData::Initialize()
 
 		if (AssetsToLoad.Num() > 0)
 		{
-			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
+			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadResourcesDeffered));
 		}
 		else
 		{
-			LoadFlipbooksDeffered();
+			LoadResourcesDeffered();
 		}
 	}
 }
 
-void UTDProjectileCommonData::LoadFlipbooksDeffered()
+void UTDProjectileCommonData::LoadResourcesDeffered()
 {
 	for (const auto& it : FlipbookMap)
 	{
@@ -63,5 +63,5 @@ void UTDProjectileCommonData::LoadFlipbooksDeffered()
 	}
 
 	bIsInitialized = true;
-	OnFlipbooksLoaded.ExecuteIfBound();
+	OnLoadCompleted.ExecuteIfBound();
 }

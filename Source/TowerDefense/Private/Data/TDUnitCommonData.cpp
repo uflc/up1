@@ -16,7 +16,7 @@ void UTDUnitCommonData::PostLoad()
 	bIsInitialized = false;
 }
 
-void UTDUnitCommonData::Initialize()
+void UTDUnitCommonData::LoadResources()
 {
 	if (!bIsInitialized)
 	{
@@ -42,21 +42,21 @@ void UTDUnitCommonData::Initialize()
 
 		if (AssetsToLoad.Num() > 0)
 		{
-			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
+			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadResourcesDeffered));
 		}
 		else
 		{
-			LoadFlipbooksDeffered();
+			LoadResourcesDeffered();
 		}
 	}
 	
 	if (WeaponData)
 	{
-		WeaponData->Initialize();
+		WeaponData->LoadResources();
 	}
 }
 
-void UTDUnitCommonData::LoadFlipbooksDeffered()
+void UTDUnitCommonData::LoadResourcesDeffered()
 {
 	for (const auto& Animation : Animations)
 	{
@@ -70,11 +70,10 @@ void UTDUnitCommonData::LoadFlipbooksDeffered()
 	{
 		if (Sound.IsPending())
 		{
-			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
-			return;
+			TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid!"), *Sound.GetAssetName());
 		}
 	}
 
 	bIsInitialized = true;
-	OnFlipbooksLoaded.Broadcast();
+	OnLoadCompleted.Broadcast();
 }
