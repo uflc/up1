@@ -25,7 +25,10 @@ void UTowerData::Initialize()
 
 	for (const auto& UpType : UpTypes)
 	{
-		AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
+		if (UpType.UpPreview.IsPending())
+		{
+			AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
+		}
 	}
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateLambda([this] () -> void

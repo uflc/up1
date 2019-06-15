@@ -45,7 +45,7 @@ bool UTDPaperFlipbookComponent::SetFlipbookIndex(int32 Index)
 	return false;
 }
 
-void UTDPaperFlipbookComponent::ChangeState(ETDAnimState InState, bool bShouldUpdate)
+void UTDPaperFlipbookComponent::ChangeState(ETDAnimState InState, bool bShouldUpdate/*=true*/)
 {
 	SetState(InState);
 
@@ -79,7 +79,7 @@ void UTDPaperFlipbookComponent::UpdateAnimation()
 			SetLooping(false);
 			return;
 		}
-
+		//Play looping animation.
 		PlayFromStart();
 	}
 }

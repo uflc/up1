@@ -88,14 +88,6 @@ void ATDUnit::ApplyData()
 void ATDUnit::SetFlipbooks()
 {
 	Animation->SetFlipbooks(UnitData->GetRealAnimations());
-	if (IsSpriteDirectional())
-	{		
-		TD_LOG(Warning, TEXT("%s"), *Animation->GetClass()->GetName());
-		if (Animation->GetFlipbooksNum() > 0)
-		{
-			TD_LOG(Warning, TEXT("%s"), *Animation->GetFlipbooks()[0]->GetName());
-		}
-	}
 }
 
 void ATDUnit::CreateUniqueWeapon()

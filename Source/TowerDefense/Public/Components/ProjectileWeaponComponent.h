@@ -13,6 +13,9 @@ UCLASS(Blueprintable)
 class TOWERDEFENSE_API UProjectileWeaponComponent : public UWeaponComponent
 {
 	GENERATED_BODY()
+	
+public:
+	UProjectileWeaponComponent();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
