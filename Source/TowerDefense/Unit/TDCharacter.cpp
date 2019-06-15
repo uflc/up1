@@ -50,16 +50,6 @@ ATDCharacter::ATDCharacter()
 void ATDCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-void ATDCharacter::Tick(float DeltaTime)
-{
-	UpdateDirection();
-}
-
-void ATDCharacter::PostInitializeComponents()
-{
-	Super::PostInitializeComponents();
 
 	UTDCharData* CharData = Cast<UTDCharData>(UnitData);
 	if (CharData)
@@ -80,6 +70,11 @@ void ATDCharacter::PostInitializeComponents()
 	{
 		TD_LOG(Warning, TEXT("err Init %s"), *HealthBar->GetWidgetClass()->GetName());
 	}
+}
+
+void ATDCharacter::Tick(float DeltaTime)
+{
+	UpdateDirection();
 }
 
 void ATDCharacter::UpdateDirection()

@@ -69,9 +69,9 @@ protected:
 	FORCEINLINE bool IsSpriteDirectional() const { return bIsSpriteDirectional; }
 	
 public:
-	virtual void PostInitProperties() override;
-	virtual void PreRegisterAllComponents() override;
-	virtual void PostInitializeComponents() override;
+	//virtual void PostInitProperties() override;
+	//virtual void PreRegisterAllComponents() override;
+	//virtual void PostInitializeComponents() override;
 
 	FWeaponChangeSignature OnWeaponChanged;
 

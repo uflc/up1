@@ -47,10 +47,7 @@ protected:
 
 public:
 	virtual void BeginPlay() override;
-
 	virtual void Tick(float DeltaTime) override;
-
-	virtual void PostInitializeComponents() override;
 
 	//Tick마다 콜. 좌우 방향을 체크해서 스프라이트 로테이트. 
 	//TODO any Event?

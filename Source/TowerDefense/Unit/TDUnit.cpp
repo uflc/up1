@@ -49,26 +49,6 @@ void ATDUnit::BeginPlay()
 	ApplyData();
 }
 
-void ATDUnit::PostInitProperties()
-{
-	Super::PostInitProperties();
-
-	if (IsSpriteDirectional())
-	{
-		TD_LOG_C(Warning);
-	}
-}
-
-void ATDUnit::PreRegisterAllComponents()
-{
-	Super::PreRegisterAllComponents();
-}
-
-void ATDUnit::PostInitializeComponents()
-{
-	Super::PostInitializeComponents();
-}
-
 void ATDUnit::ApplyData()
 {
 	check(UnitData);
@@ -88,6 +68,11 @@ void ATDUnit::ApplyData()
 void ATDUnit::SetFlipbooks()
 {
 	Animation->SetFlipbooks(UnitData->GetRealAnimations());
+
+	for (const auto& Flipbook : Animation->GetFlipbooks())
+	{
+		TD_LOG(Warning, TEXT("%s"), *Flipbook->GetName())
+	}
 }
 
 void ATDUnit::CreateUniqueWeapon()
