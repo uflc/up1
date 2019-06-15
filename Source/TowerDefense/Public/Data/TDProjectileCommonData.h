@@ -10,37 +10,43 @@
 /**
  * 
  */
-UCLASS(Blueprintable, BlueprintType)
+UCLASS(BlueprintType)
 class TOWERDEFENSE_API UTDProjectileCommonData : public UDataAsset
 {
 	GENERATED_BODY()
 	
 	DECLARE_DELEGATE(FLoadCompletedSignature);
 
-protected:
-	friend class AProjectileBase;
-	friend class ATDGameModeBase;
+private:
+	UPROPERTY(VisibleAnywhere)
+	bool bIsInitialized;
 
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	bool IsInitialized;
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
-	TSoftObjectPtr<class USoundCue> HitSoundEffect;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSoftObjectPtr<class USoundCue> HitSound;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float Velocity;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool bIsDirectable;
+
 public:
 	FLoadCompletedSignature OnFlipbooksLoaded;
+
+	virtual void PostLoad() override;
 
 	void Initialize();
 
 	UFUNCTION()
 	void LoadFlipbooksDeffered();
 
+	FORCEINLINE bool IsInitialzied() const { return bIsInitialized; }
+	FORCEINLINE bool IsDirectable() const { return bIsDirectable; }
+	FORCEINLINE float GetVelocity() const { return Velocity; }
+	FORCEINLINE const TSoftObjectPtr<class USoundCue>& GetHitSound() const { return HitSound; }
+	FORCEINLINE const TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>>& GetFlipbookMap() const { return FlipbookMap; }
 };

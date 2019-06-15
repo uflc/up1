@@ -12,7 +12,7 @@ UTDPaperFlipbookComponent::UTDPaperFlipbookComponent()
 	bWantsInitializeComponent = true;
 }
 
-void UTDPaperFlipbookComponent::SetState(EUnitState InState)
+void UTDPaperFlipbookComponent::SetState(ETDAnimState InState)
 {
 	UnitState = InState;
 }
@@ -24,7 +24,7 @@ void UTDPaperFlipbookComponent::InitializeComponent()
 	OnFinishedPlaying.AddDynamic(this, &UTDPaperFlipbookComponent::ReceiveOnFinishedPlaying);
 }
 
-void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, EUnitState InitialState)
+void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, ETDAnimState InitialState)
 {
 	if (SourceFlipbooks == InFlipbooks) return;
 
@@ -45,7 +45,7 @@ bool UTDPaperFlipbookComponent::SetFlipbookIndex(int32 Index)
 	return false;
 }
 
-void UTDPaperFlipbookComponent::ChangeState(EUnitState InState, bool bShouldUpdate)
+void UTDPaperFlipbookComponent::ChangeState(ETDAnimState InState, bool bShouldUpdate/*=true*/)
 {
 	SetState(InState);
 
@@ -59,7 +59,7 @@ void UTDPaperFlipbookComponent::ReceiveOnFinishedPlaying()
 {
 	if (StatesQueue.Num() != 0)
 	{
-		EUnitState NextState = EUnitState::Idle;
+		ETDAnimState NextState = ETDAnimState::Idle;
 		StatesQueue.HeapPop(NextState);
 		ChangeState(NextState);
 	}
@@ -71,15 +71,15 @@ void UTDPaperFlipbookComponent::UpdateAnimation()
 	{
 		switch (UnitState)
 		{
-		case EUnitState::Running:
-		case EUnitState::Idle:
+		case ETDAnimState::Running:
+		case ETDAnimState::Idle:
 			SetLooping(true);
 			break;
 		default:
 			SetLooping(false);
 			return;
 		}
-
+		//Play looping animation.
 		PlayFromStart();
 	}
 }

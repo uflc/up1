@@ -7,19 +7,41 @@
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
 
+void UTDProjectileCommonData::PostLoad()
+{
+	Super::PostLoad();
+
+	bIsInitialized = false;
+}
+
 void UTDProjectileCommonData::Initialize()
 {
-	if (!IsInitialized)
+	if (!bIsInitialized)
 	{
 		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 		TArray<FSoftObjectPath> AssetsToLoad;
 		for (const auto& it : FlipbookMap)
 		{
-			AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
+			if (it.Value.IsPending())
+			{
+				AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
+			}
 		}
-		AssetsToLoad.AddUnique(HitSoundEffect.ToSoftObjectPath());
-		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
+
+		if (HitSound.IsPending())
+		{
+			AssetsToLoad.AddUnique(HitSound.ToSoftObjectPath());
+		}
+
+		if (AssetsToLoad.Num() > 0)
+		{
+			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
+		}
+		else
+		{
+			LoadFlipbooksDeffered();
+		}
 	}
 }
 
@@ -27,19 +49,19 @@ void UTDProjectileCommonData::LoadFlipbooksDeffered()
 {
 	for (const auto& it : FlipbookMap)
 	{
-		if (!it.Value.Get())
+		if (it.Value.IsPending())
 		{
-			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!"));
 			return;
 		}
 	}
 
-	if (!HitSoundEffect.Get())
+	if (HitSound.IsPending())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!"));
 		return;
 	}
 
-	IsInitialized = true;
+	bIsInitialized = true;
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

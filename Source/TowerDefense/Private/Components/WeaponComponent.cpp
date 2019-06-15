@@ -13,8 +13,8 @@ void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 
 	WeaponData = InData; 
 
-	Cooldown   = WeaponData->DefaultCooldown;
-	Range	   = WeaponData->DefaultRange;
+	Cooldown   = WeaponData->GetDefaultCooldown();
+	Range	   = WeaponData->GetDefaultRange();
 }
 
 void UWeaponComponent::SetTarget(ATDCharacter* const NewTarget)
@@ -24,7 +24,7 @@ void UWeaponComponent::SetTarget(ATDCharacter* const NewTarget)
 
 void UWeaponComponent::UseWeapon() 
 {
-	USoundBase* Sound 	= WeaponData->FireSoundEffect.Get();
+	USoundBase* Sound = WeaponData->GetAttackSound().Get();
 	if (Sound != nullptr)
 	{
 		UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound,1,1,0);
@@ -38,6 +38,6 @@ bool UWeaponComponent::IsTargetLocked()
 
 int32 UWeaponComponent::GetDamage() const
 {
-	return WeaponData ? WeaponData->DefaultDamage : 0;
+	return WeaponData ? WeaponData->GetDefaultDamage() : 0;
 }
 

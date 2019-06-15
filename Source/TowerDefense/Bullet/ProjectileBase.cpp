@@ -3,6 +3,7 @@
 
 #include "ProjectileBase.h"
 #include "TDProjectileCommonData.h"
+#include "TDWeaponCommonData.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "EffectorComponent.h"
@@ -10,6 +11,7 @@
 AProjectileBase::AProjectileBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	Animation = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("Flipbook Animation"));
 	Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
@@ -20,46 +22,41 @@ AProjectileBase::AProjectileBase()
 	Effector = CreateDefaultSubobject<UEffectorComponent>(TEXT("Effector0"));
 }
 
-
-void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData) 
+void AProjectileBase::SetCommonData(UTDProjectileCommonData* InData, FEffectorData EffectorData, bool bShouldTick)
 { 
-	ProjectileCommon = InData; 
+	if (!InData || ProjectileCommon == InData) return;
 
-	if (!ProjectileCommon) return;
+	ProjectileCommon = InData;
 
-	Speed         = ProjectileCommon->Velocity;
-	bIsDirectable = ProjectileCommon->bIsDirectable;
+	Effector->Initialize(EffectorData.DefaultSplashRange, EffectorData.DefaultDamage, EffectorData.DebuffArray);
 
 	//
-	UPaperFlipbook* Flipbook = ProjectileCommon->FlipbookMap.Find(EWeaponFlipbookType::Projectile)->Get();
+	const TSoftObjectPtr<UPaperFlipbook>* FlipbookSoftPtr = ProjectileCommon->GetFlipbookMap().Find(EWeaponFlipbookType::Projectile);
+	if (!FlipbookSoftPtr) return;
+	UPaperFlipbook* Flipbook = FlipbookSoftPtr->Get();
 	if (!Flipbook) return;
 
 	Animation->SetFlipbook(Flipbook);
-}
 
-//임시 데이터 전달
-void AProjectileBase::SetEffector(float EffectRange, uint32 Damage)
-{
-	Effector->Initialize(EffectRange, Damage);
-}
-
-void AProjectileBase::SetEffector(const TArray<FDebuff>& InDebuffArray)
-{
-	Effector->Initialize(InDebuffArray);
+	if (bShouldTick)
+	{
+		SetActorTickEnabled(true);
+	}
 }
 
 void AProjectileBase::BulletDestroy()
 {
 	//
-	TSoftObjectPtr<UPaperFlipbook>* FlipbookSoftPtr = ProjectileCommon->FlipbookMap.Find(EWeaponFlipbookType::Effect);
-
-	if (FlipbookSoftPtr == nullptr) 
+	const TSoftObjectPtr<UPaperFlipbook>* FlipbookSoftPtr = ProjectileCommon->GetFlipbookMap().Find(EWeaponFlipbookType::Effect);
+	if (FlipbookSoftPtr)
 	{
-		Destroy(); 
-		return;
+		UPaperFlipbook* Flipbook = FlipbookSoftPtr->Get();
+		if (Flipbook)
+		{
+			Animation->SetFlipbook(Flipbook);
+			Animation->SetLooping(false);
+		}
 	}
-
-	Animation->SetFlipbook(FlipbookSoftPtr->Get());
-	Animation->SetLooping(false);
-	SetLifeSpan(Animation->GetFlipbookLength());
+	const static float ProjectileRemainingTime = 0.5f;
+	SetLifeSpan(ProjectileRemainingTime);
 }

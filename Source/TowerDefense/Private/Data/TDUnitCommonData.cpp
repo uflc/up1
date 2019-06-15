@@ -23,15 +23,31 @@ void UTDUnitCommonData::Initialize()
 		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 		TArray<FSoftObjectPath> AssetsToLoad;
+
 		for (const auto& Animation : Animations)
 		{
-			AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
+			if (Animation.IsPending())
+			{
+				AssetsToLoad.AddUnique(Animation.ToSoftObjectPath());
+			}
 		}
+
 		for (const auto& Sound : Sounds)
 		{
-			AssetsToLoad.AddUnique(Sound.ToSoftObjectPath());
+			if (Sound.IsPending())
+			{
+				AssetsToLoad.AddUnique(Sound.ToSoftObjectPath());
+			}
 		}
-		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
+
+		if (AssetsToLoad.Num() > 0)
+		{
+			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDUnitCommonData::LoadFlipbooksDeffered));
+		}
+		else
+		{
+			LoadFlipbooksDeffered();
+		}
 	}
 	
 	if (WeaponData)
@@ -44,12 +60,15 @@ void UTDUnitCommonData::LoadFlipbooksDeffered()
 {
 	for (const auto& Animation : Animations)
 	{
-		RealAnims.Add(Animation.Get());
+		if (Animation.IsValid())
+		{
+			RealAnims.Add(Animation.Get());
+		}
 	}
 
 	for (const auto& Sound : Sounds)
 	{
-		if (!Sound.Get())
+		if (Sound.IsPending())
 		{
 			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
 			return;

@@ -102,8 +102,8 @@ void ATDCharacter::UpdateDirection()
 
 bool ATDCharacter::IsLethal()
 {
-	EUnitState State = Animation->GetState();
-	return  State == EUnitState::Dead || State == EUnitState::Dying;
+	ETDAnimState State = Animation->GetState();
+	return  State == ETDAnimState::Dead || State == ETDAnimState::Dying;
 }
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
@@ -142,7 +142,7 @@ void ATDCharacter::TDUnitTakeDebuff(FDebuff& InDebuff)
 void ATDCharacter::Die_Implementation()
 {
 	// Play Dying anim once
-	Animation->ChangeState(EUnitState::Dying);
+	Animation->ChangeState(ETDAnimState::Dying);
 	Animation->PlayFromStart();
 	
 	USoundBase* Sound = nullptr;
@@ -187,7 +187,7 @@ void ATDCharacter::Die_Implementation()
 
 void ATDCharacter::OnDeath_Implementation()
 {
-	Animation->ChangeState(EUnitState::Dead);
+	Animation->ChangeState(ETDAnimState::Dead);
 
 	const static float DeadBodyRemainTime = 3.5f;
 	SetLifeSpan(DeadBodyRemainTime);

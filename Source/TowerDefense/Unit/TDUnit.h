@@ -28,6 +28,7 @@ public:
 	ATDUnit(const FObjectInitializer& ObjectInitializer);
 
 private:
+	//test
 	UPROPERTY(EditAnywhere)
 	bool bIsSpriteDirectional;
 
@@ -55,7 +56,6 @@ protected:
 	/*UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
 	TArray<UWeaponComponent*> Weapons;*/
 
-
 	//피아 식별. Player는 Enemy에게 어그로가 끌리며 역도 성립. 기본값인 None은 깍두기.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EUnitTeam Team;
@@ -67,11 +67,10 @@ protected:
 	virtual void ApplyData();
 
 	FORCEINLINE bool IsSpriteDirectional() const { return bIsSpriteDirectional; }
-
 	
 public:
+	virtual void PostInitProperties() override;
 	virtual void PreRegisterAllComponents() override;
-
 	virtual void PostInitializeComponents() override;
 
 	FWeaponChangeSignature OnWeaponChanged;

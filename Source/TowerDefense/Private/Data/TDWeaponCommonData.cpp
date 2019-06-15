@@ -9,16 +9,39 @@
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
 
+void UTDWeaponCommonData::PostLoad()
+{
+	Super::PostLoad();
+
+	bIsInitialized = false;
+}
+
 void UTDWeaponCommonData::Initialize()
 {
-	if (!IsInitialized)
+	if (!bIsInitialized)
 	{
 		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 		TArray<FSoftObjectPath> AssetsToLoad;
-		AssetsToLoad.AddUnique(EffectFlipbook.ToSoftObjectPath());
-		AssetsToLoad.AddUnique(FireSoundEffect.ToSoftObjectPath());
-		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
+
+		if (HitFlipbook.IsPending())
+		{
+			AssetsToLoad.AddUnique(HitFlipbook.ToSoftObjectPath());
+		}
+
+		if (AttackSound.IsPending())
+		{
+			AssetsToLoad.AddUnique(AttackSound.ToSoftObjectPath());
+		}
+
+		if (AssetsToLoad.Num() > 0)
+		{
+			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
+		}
+		else
+		{
+			LoadFlipbooksDeffered();
+		}
 	}
 	
 	if (ProjectileData)
@@ -29,12 +52,13 @@ void UTDWeaponCommonData::Initialize()
 
 void UTDWeaponCommonData::LoadFlipbooksDeffered()
 {
-	if (!EffectFlipbook.Get() || !FireSoundEffect.Get())
+	if (HitFlipbook.IsPending() 
+	 || AttackSound.IsPending())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid"));
 		return;
 	}
 	
-	IsInitialized = true;
+	bIsInitialized = true;
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

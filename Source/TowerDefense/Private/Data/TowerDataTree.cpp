@@ -17,18 +17,23 @@ void UTowerData::Initialize()
 {
 	Super::Initialize();
 
+	if (bIsPreviewInitialized) return;
+
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
 
 	for (const auto& UpType : UpTypes)
 	{
-		AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
+		if (UpType.UpPreview.IsPending())
+		{
+			AssetsToLoad.AddUnique(UpType.UpPreview.ToSoftObjectPath());
+		}
 	}
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateLambda([this] () -> void
 	{
-		//TD_LOG_C(Warning);
+		bIsPreviewInitialized = true;
 	}));
 }
 

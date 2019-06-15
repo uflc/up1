@@ -20,13 +20,14 @@ void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsin
 		{
 			UnloadedTDUnitCommonNum--;
 			AlreadyLoadedNum++;
-			continue;
 		}
-		
-		TDUnitCommon->OnFlipbooksLoaded.AddUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
+		else
+		{
+			TDUnitCommon->OnFlipbooksLoaded.AddUObject(this, &ATDGameModeBase::OnTDUnitFlipbooksLoaded);
+		}
+
 		TDUnitCommon->Initialize();
 	}
-
 	//로드할 것이 없을 때 로드 완료
 	if (AlreadyLoadedNum == InUsingTDUnitCommons.Num()) OnAllTDUnitFlipbooksLoaded.Broadcast();
 }

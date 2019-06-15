@@ -7,7 +7,7 @@
 UTDComponent::UTDComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-	bIsActive = true;
+	bAutoActivate = true;
 }
 
 

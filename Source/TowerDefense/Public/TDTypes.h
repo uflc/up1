@@ -12,9 +12,19 @@ enum class EUnitTeam : uint8
 	Enemy	UMETA(DisplayName = "Enemy"),
 };
 
+//불필요?
+UENUM(BlueprintType)
+enum class EValueType : uint8
+{
+	Coin		UMETA(DisplayName = "Player Coin"),
+	Life 		UMETA(DisplayName = "Player Life"),
+	Mana		UMETA(DisplayName = "Player Mana"),
+	//HeroHP		UMETA(DisplayName = "HeroHP")
+};
+
 //TDUnit의 애니메이션 타입
 UENUM(BlueprintType)
-enum class EUnitState : uint8
+enum class ETDAnimState : uint8
 {
 	Idle		UMETA(DisplayName = "Idle Animation"),
 	Attacking	UMETA(DisplayName = "Attaking Animation"),
@@ -66,18 +76,8 @@ enum class EDebuffType : uint8
 	Slow
 };
 
-//불필요?
-UENUM(BlueprintType)
-enum class EValueType : uint8
-{
-	Coin		UMETA(DisplayName = "Player Coin"),
-	Life 		UMETA(DisplayName = "Player Life"),
-	Mana		UMETA(DisplayName = "Player Mana"),
-	//HeroHP		UMETA(DisplayName = "HeroHP")
-};
-
 USTRUCT(BlueprintType)
-struct  FDebuff
+struct FDebuff
 {
 	GENERATED_BODY()
 
@@ -122,4 +122,20 @@ public:
 
 		return ( ID == InDebuff.ID );
 	}
+};
+
+USTRUCT(BlueprintType)
+struct FEffectorData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 DefaultDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float DefaultSplashRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FDebuff> DebuffArray;
+
 };

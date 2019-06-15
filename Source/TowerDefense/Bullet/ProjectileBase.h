@@ -19,9 +19,6 @@ protected:
 	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
 	class UTDProjectileCommonData* ProjectileCommon;
 
-	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
-	float Speed;
-
 	UPROPERTY(Category = Attack, VisibleAnywhere, BlueprintReadOnly)
 	class ATDCharacter* Target;
 
@@ -31,16 +28,12 @@ protected:
 	UPROPERTY(Category = Attack, VisibleAnywhere)
 	class UEffectorComponent* Effector;
 
-	UPROPERTY(Category = Projectile, VisibleAnywhere, BlueprintReadOnly)
-	bool bIsDirectable;
-public:	
+public:
 	void SetTarget(ATDCharacter* InTarget) { Target = InTarget; }
 
-	virtual void SetCommonData(UTDProjectileCommonData* InData);
-
-	virtual void SetEffector(float EffectRange, uint32 Damage);
-
-	virtual void SetEffector(const TArray<FDebuff>& InDebuffArray);
+	virtual void SetCommonData(UTDProjectileCommonData* InData, FEffectorData EffectorData, bool bShouldTick = false);
 	
 	virtual void BulletDestroy();
+
+	FORCEINLINE UEffectorComponent* GetEffector() const { return Effector; }
 };

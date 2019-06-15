@@ -19,7 +19,6 @@ void ASimpleFlipbookEffect::SetupEffect(UPaperFlipbook* InFlipbook)
 	FlipbookComp->AddLocalOffset(FVector(0,0,0.5f));
 	FlipbookComp->SetFlipbook(InFlipbook);
 	FlipbookComp->SetLooping(false);
-	FlipbookComp->PlayFromStart();
 
 	SetLifeSpan(InFlipbook->GetTotalDuration());
 }
