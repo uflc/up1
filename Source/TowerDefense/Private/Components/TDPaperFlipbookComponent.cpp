@@ -24,7 +24,7 @@ void UTDPaperFlipbookComponent::InitializeComponent()
 	OnFinishedPlaying.AddDynamic(this, &UTDPaperFlipbookComponent::ReceiveOnFinishedPlaying);
 }
 
-void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, ETDAnimState InitialState)
+void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, bool bShouldUpdate/* = true*/)
 {
 	if (SourceFlipbooks == InFlipbooks) return;
 
@@ -32,8 +32,10 @@ void UTDPaperFlipbookComponent::SetFlipbooks(const TArray<UPaperFlipbook*>& InFl
 
 	SourceFlipbooks = InFlipbooks;
 
-	ChangeState(InitialState);
-
+	if (bShouldUpdate)
+	{
+		UpdateAnimation();
+	}
 }
 
 bool UTDPaperFlipbookComponent::SetFlipbookIndex(int32 Index)

@@ -40,7 +40,7 @@ protected:
 public:
 	virtual void InitializeComponent() override;
 
-	void SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, ETDAnimState InitialState = ETDAnimState::Idle);
+	void SetFlipbooks(const TArray<UPaperFlipbook*>& InFlipbooks, bool bShouldUpdate = true);
 
 	bool SetFlipbookIndex(int32 Index);
 
