@@ -16,7 +16,7 @@ void UTDWeaponCommonData::PostLoad()
 	bIsInitialized = false;
 }
 
-void UTDWeaponCommonData::Initialize()
+void UTDWeaponCommonData::LoadResources()
 {
 	if (!bIsInitialized)
 	{
@@ -36,21 +36,21 @@ void UTDWeaponCommonData::Initialize()
 
 		if (AssetsToLoad.Num() > 0)
 		{
-			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
+			AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadResourcesDeffered));
 		}
 		else
 		{
-			LoadFlipbooksDeffered();
+			LoadResourcesDeffered();
 		}
 	}
 	
 	if (ProjectileData)
 	{
-		ProjectileData->Initialize();
+		ProjectileData->LoadResources();
 	}
 }
 
-void UTDWeaponCommonData::LoadFlipbooksDeffered()
+void UTDWeaponCommonData::LoadResourcesDeffered()
 {
 	if (HitFlipbook.IsPending() 
 	 || AttackSound.IsPending())
@@ -60,5 +60,5 @@ void UTDWeaponCommonData::LoadFlipbooksDeffered()
 	}
 	
 	bIsInitialized = true;
-	OnFlipbooksLoaded.ExecuteIfBound();
+	OnLoadCompleted.ExecuteIfBound();
 }

@@ -45,14 +45,13 @@ protected:
 	FEffectorData EffectorData;
 
 public:
-	FLoadCompletedSignature OnFlipbooksLoaded;
+	FLoadCompletedSignature OnLoadCompleted;
 
 	virtual void PostLoad() override;
 
-	void Initialize();
-
+	void LoadResources();
 	UFUNCTION()
-	void LoadFlipbooksDeffered();
+	void LoadResourcesDeffered();
 
 	FORCEINLINE bool IsInitialzied() const { return bIsInitialized; }
 	FORCEINLINE UTDProjectileCommonData* GetProjectileData() const { return ProjectileData; }
