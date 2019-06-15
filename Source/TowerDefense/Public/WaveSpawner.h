@@ -22,24 +22,43 @@ private:
 	class ULevelWaveData* LevelWaveData;
 
 	uint8 WaveIdx;
-	uint8 SubWaveIdx;
 
-	uint8 WaveSpawnRemaining;
+	//uint8 SubWaveIdx;
+	//uint8 WaveSpawnRemaining;
 
-	FTimerHandle SubWaveTimer;
-	FTimerHandle SpawnTimer;
+	//FTimerHandle SubWaveTimer;
+	//FTimerHandle SpawnTimer;
+
+	uint32 SpawnedUnitNum;
+
+	uint8 SubWaveRemaining;
+
+	TArray<FTimerHandle> SubWaveTimerArr;
+	TArray<uint8> SubWaveSpawnRemainingArr;
+	bool bWaitingForFinishLevel;
+
 
 protected:
 	virtual void BeginPlay() override;
 
+	void StartSubWaves();
+
+	UFUNCTION()
+	void NoticeUnitDestroyed(AActor* DestroyedActor);
+
+	UFUNCTION()
+	void SpawnSubWaveActor(const uint8 Index);
+
+	const struct FSubWaveData& GetSubWaveData(const uint8 Index) const;
+
+	//void StartSubWave();
+
+	//void SetTimerToStartSubWave();
+
 	//타이머에 의해 루프할 스폰 루틴. See StartSubWave()
-	void SpawnWaveActor();
+	//void SpawnWaveActor();
 
-	void StartSubWave();
-
-	void SetTimerToStartSubWave();
-
-	const struct FSubWaveData& GetCurrentSubWaveData() const;
+	//const struct FSubWaveData& GetCurrentSubWaveData() const;
 
 public:
 	UFUNCTION(BlueprintCallable)

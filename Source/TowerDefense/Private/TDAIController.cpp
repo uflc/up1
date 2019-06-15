@@ -18,7 +18,7 @@ void ATDAIController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 
 	UClass* PawnClass = InPawn->GetClass();
-	TD_LOG(Warning, TEXT("PawnClass: %s"), *PawnClass->GetName());
+	//TD_LOG(Warning, TEXT("PawnClass: %s"), *PawnClass->GetName());
 
 	TDUnit = Cast<ATDUnit>(InPawn);
 	if (!TDUnit) return;
