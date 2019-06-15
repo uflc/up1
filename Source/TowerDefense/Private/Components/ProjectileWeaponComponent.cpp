@@ -4,6 +4,7 @@
 #include "ProjectileWeaponComponent.h"
 #include "ProjectileBase.h"
 #include "TDWeaponCommonData.h"
+#include "EffectorComponent.h"
 #include "TDProjectileCommonData.h"
 
 
@@ -14,10 +15,8 @@ void UProjectileWeaponComponent::UseWeapon()
 	Super::UseWeapon();
 
 	const FVector ProjectileSpawnPoint = GetOwner()->GetActorLocation() + ProjectileRelativeSpawnPoint;
-	AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->ProjectileClass, &ProjectileSpawnPoint);
+	AProjectileBase* SpawnedProjectile = (AProjectileBase*) GetWorld()->SpawnActor(WeaponData->GetProjectileClass(), &ProjectileSpawnPoint);
 
 	SpawnedProjectile->SetTarget(Target);
-	SpawnedProjectile->SetCommonData(WeaponData->ProjectileData);
-	SpawnedProjectile->SetEffector(WeaponData->DefaultSplashRange, WeaponData->DefaultDamage);
-	SpawnedProjectile->SetEffector(WeaponData->DebuffArray);
+	SpawnedProjectile->SetCommonData(WeaponData->GetProjectileData(), WeaponData->GetEffectorData(), true);
 }

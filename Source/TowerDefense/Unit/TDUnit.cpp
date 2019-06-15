@@ -45,31 +45,33 @@ void ATDUnit::InitializeDefaults()
 void ATDUnit::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ApplyData();
+}
+
+void ATDUnit::PostInitProperties()
+{
+	Super::PostInitProperties();
+
+	if (IsSpriteDirectional())
+	{
+		TD_LOG_C(Warning);
+	}
 }
 
 void ATDUnit::PreRegisterAllComponents()
 {
-	if (IsSpriteDirectional())
-	{
-		TD_LOG_C(Warning);
-		/*Animation->DestroyComponent();
-		Animation = NewObject<UTDPaperFlipbookComponent>(this, UDirTDPaperFlipbookComponent::StaticClass());
-		Animation->SetRelativeRotation(FRotator(0.0f, 0.0f, -90.0f));
-		Animation->SetupAttachment(Box);
-		Animation->RegisterComponent();*/
-	}
+	Super::PreRegisterAllComponents();
 }
 
 void ATDUnit::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-
-	ApplyData();
 }
 
 void ATDUnit::ApplyData()
 {
-	if (!UnitData) return;
+	check(UnitData);
 
 	if (UnitData->IsInitialzied())
 	{
@@ -98,7 +100,7 @@ void ATDUnit::SetFlipbooks()
 
 void ATDUnit::CreateUniqueWeapon()
 {
-	if (!UnitData) return;
+	check(UnitData);
 
 	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
 	if (NewWeaponClass && (!AttackComp || NewWeaponClass != AttackComp->GetClass()))
@@ -107,7 +109,7 @@ void ATDUnit::CreateUniqueWeapon()
 	}
 	if (!AttackComp)
 	{
-		TD_LOG(Warning, TEXT("%s: No AttackComp!"), *GetClass()->GetName());
+		//TD_LOG(Warning, TEXT("%s: No AttackComp!"), *GetClass()->GetName());
 		return;
 	}
 	
@@ -118,7 +120,7 @@ void ATDUnit::CreateUniqueWeapon()
 		return;
 	}
 
-	//////There IS an AttackComp.//////
+	//////There are AttackComp and Data.//////
 
 	AttackComp->SetCommonData(NewWeaponData);
 	OnWeaponChanged.Broadcast();

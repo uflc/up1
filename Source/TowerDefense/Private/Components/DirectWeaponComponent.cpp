@@ -16,15 +16,16 @@ UDirectWeaponComponent::UDirectWeaponComponent()
 
 void UDirectWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 {
+	if (!InData || WeaponData == InData) return;
+
 	Super::SetCommonData(InData);
 
-	Effector->Initialize(WeaponData->DefaultSplashRange, WeaponData->DefaultDamage);
-	Effector->Initialize(WeaponData->DebuffArray);
+	Effector->Initialize(WeaponData->GetDefaultSplashRange(), WeaponData->GetDefaultDamage(), WeaponData->GetDebuffArray());
 }
 
 void UDirectWeaponComponent::UseWeapon()
 {	
-	if (!bIsActive) return;
+	//if (!bIsActive) return;
 	if (!IsTargetLocked()) return;
 	
 	Super::UseWeapon();
@@ -33,7 +34,7 @@ void UDirectWeaponComponent::UseWeapon()
 
 	//
 	//임시 공격 효과 스폰
-	UPaperFlipbook* EffectFlipbook = WeaponData->EffectFlipbook.Get();
+	UPaperFlipbook* EffectFlipbook = WeaponData->GetHitFlipbook().Get();
 	if (EffectFlipbook)
 	{
 		ASimpleFlipbookEffect* AttackEffect = GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator::ZeroRotator);

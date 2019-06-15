@@ -2,6 +2,7 @@
 
 
 #include "ParabolicHomingProjectile.h"
+#include "TDProjectileCommonData.h"
 
 void AParabolicHomingProjectile::CalcVelocityVec(const FVector& DirectionVec)
 {
@@ -20,11 +21,13 @@ void AParabolicHomingProjectile::Tick(float DeltaTime)
 	}
 }
 
-void AParabolicHomingProjectile::SetCommonData(UTDProjectileCommonData* InData)
+void AParabolicHomingProjectile::SetCommonData(UTDProjectileCommonData* InData, FEffectorData EffectorData, bool bShouldTick)
 {
-	Super::SetCommonData(InData);
+	if (!InData || ProjectileCommon == InData) return;
+
+	Super::SetCommonData(InData, EffectorData);
 	
-	CurveScale = 0.72f * 1000.0f / Speed;
+	CurveScale = 0.72f * 1000.0f / ProjectileCommon->GetVelocity();
 	TickCounter = 0.0f;
 
 	DefVelocityVec = GetDistanceVecToTarget();
@@ -33,10 +36,14 @@ void AParabolicHomingProjectile::SetCommonData(UTDProjectileCommonData* InData)
 	DefVecSize = DefVelocityVec.Size() / 600.0f >= 1.0f ? 1.0f : DefVelocityVec.Size() / 1000.0f;
 
 	DefVelocityVec.Normalize();
-	DefVelocityVec *= Speed;
+	DefVelocityVec *= ProjectileCommon->GetVelocity();
 
-	DefVelocityVec.Y -= (CurveScale * Speed);
-	
+	DefVelocityVec.Y -= (CurveScale * ProjectileCommon->GetVelocity());
+
+	if (bShouldTick)
+	{
+		SetActorTickEnabled(true);
+	}
 }
 
 

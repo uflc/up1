@@ -18,7 +18,6 @@ void ASimpleFlipbookEffect::SetupEffect(UPaperFlipbook* InFlipbook)
 	FlipbookComp->SetRelativeRotation(FRotator(0,0,-90.0f));
 	FlipbookComp->SetFlipbook(InFlipbook);
 	FlipbookComp->SetLooping(false);
-	FlipbookComp->PlayFromStart();
 
 	SetLifeSpan(InFlipbook->GetTotalDuration());
 }

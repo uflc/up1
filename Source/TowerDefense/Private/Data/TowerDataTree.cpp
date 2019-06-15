@@ -17,6 +17,8 @@ void UTowerData::Initialize()
 {
 	Super::Initialize();
 
+	if (bIsPreviewInitialized) return;
+
 	auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 	TArray<FSoftObjectPath> AssetsToLoad;
@@ -28,7 +30,7 @@ void UTowerData::Initialize()
 
 	AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateLambda([this] () -> void
 	{
-		//TD_LOG_C(Warning);
+		bIsPreviewInitialized = true;
 	}));
 }
 

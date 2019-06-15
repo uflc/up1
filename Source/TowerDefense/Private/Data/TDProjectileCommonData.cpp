@@ -7,9 +7,16 @@
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
 
+void UTDProjectileCommonData::PostLoad()
+{
+	Super::PostLoad();
+
+	bIsInitialized = false;
+}
+
 void UTDProjectileCommonData::Initialize()
 {
-	if (!IsInitialized)
+	if (!bIsInitialized)
 	{
 		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
@@ -18,7 +25,7 @@ void UTDProjectileCommonData::Initialize()
 		{
 			AssetsToLoad.AddUnique(it.Value.ToSoftObjectPath());
 		}
-		AssetsToLoad.AddUnique(HitSoundEffect.ToSoftObjectPath());
+		AssetsToLoad.AddUnique(HitSound.ToSoftObjectPath());
 		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDProjectileCommonData::LoadFlipbooksDeffered));
 	}
 }
@@ -29,17 +36,17 @@ void UTDProjectileCommonData::LoadFlipbooksDeffered()
 	{
 		if (!it.Value.Get())
 		{
-			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!"));
 			return;
 		}
 	}
 
-	if (!HitSoundEffect.Get())
+	if (!HitSound.Get())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!"));
 		return;
 	}
 
-	IsInitialized = true;
+	bIsInitialized = true;
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

@@ -21,15 +21,11 @@ void UEffectorComponent::InflictEffect(ATDCharacter* Target)
 	}
 }
 
-void UEffectorComponent::Initialize(float InEffectRange, uint32 InDamage)
+void UEffectorComponent::Initialize(float InEffectRange, uint32 InDamage, const TArray<FDebuff>& InDebuffArray)
 {
 	EffectRange = InEffectRange;
 	Damage		= InDamage;
-}
-
-void UEffectorComponent::Initialize(const TArray<FDebuff>& InDebuffArray)
-{
-	Debuffs = InDebuffArray;
+	Debuffs     = InDebuffArray;
 }
 
 void UEffectorComponent::InflictAoE(ATDCharacter* MainTarget)

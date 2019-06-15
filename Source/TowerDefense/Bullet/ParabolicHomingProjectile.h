@@ -30,5 +30,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void SetCommonData(UTDProjectileCommonData* InData) override;
+	virtual void SetCommonData(UTDProjectileCommonData* InData, FEffectorData EffectorData, bool bShouldTick = false) override;
 };

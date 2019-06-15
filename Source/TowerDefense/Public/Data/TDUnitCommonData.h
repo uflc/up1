@@ -9,7 +9,7 @@
 
 
 //TODO
-UCLASS(Blueprintable, BlueprintType)
+UCLASS(BlueprintType)
 class TOWERDEFENSE_API UTDUnitCommonData : public UDataAsset
 {
 	GENERATED_BODY()

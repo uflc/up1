@@ -9,15 +9,22 @@
 #include "Engine/AssetManager.h"
 #include "TowerDefense.h"
 
+void UTDWeaponCommonData::PostLoad()
+{
+	Super::PostLoad();
+
+	bIsInitialized = false;
+}
+
 void UTDWeaponCommonData::Initialize()
 {
-	if (!IsInitialized)
+	if (!bIsInitialized)
 	{
 		auto& AssetLoader = UAssetManager::GetStreamableManager();
 
 		TArray<FSoftObjectPath> AssetsToLoad;
-		AssetsToLoad.AddUnique(EffectFlipbook.ToSoftObjectPath());
-		AssetsToLoad.AddUnique(FireSoundEffect.ToSoftObjectPath());
+		AssetsToLoad.AddUnique(HitFlipbook.ToSoftObjectPath());
+		AssetsToLoad.AddUnique(AttackSound.ToSoftObjectPath());
 		AssetLoader.RequestAsyncLoad(AssetsToLoad, FStreamableDelegate::CreateUObject(this, &UTDWeaponCommonData::LoadFlipbooksDeffered));
 	}
 	
@@ -29,12 +36,12 @@ void UTDWeaponCommonData::Initialize()
 
 void UTDWeaponCommonData::LoadFlipbooksDeffered()
 {
-	if (!EffectFlipbook.Get() || !FireSoundEffect.Get())
+	if (!HitFlipbook.Get() || !AttackSound.Get())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!? This should never happen."));
+		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid"));
 		return;
 	}
 	
-	IsInitialized = true;
+	bIsInitialized = true;
 	OnFlipbooksLoaded.ExecuteIfBound();
 }

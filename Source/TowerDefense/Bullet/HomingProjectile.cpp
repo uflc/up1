@@ -2,6 +2,7 @@
 
 
 #include "HomingProjectile.h"
+#include "TDProjectileCommonData.h"
 #include "EffectorComponent.h"
 #include "TDCharacter.h"
 
@@ -12,7 +13,7 @@ FVector AHomingProjectile::GetDistanceVecToTarget()
 
 void AHomingProjectile::CalcVelocityVec(const FVector& DirectionVec)
 {
-	VelocityVec = DirectionVec * Speed;
+	VelocityVec = DirectionVec * ProjectileCommon->GetVelocity();
 }
 
 // Called when the game starts or when spawned
@@ -53,7 +54,7 @@ void AHomingProjectile::Tick(float DeltaTime)
 	CalcVelocityVec(DistanceVec);
 
 	SetActorLocation(GetActorLocation() + VelocityVec * DeltaTime);
-	if (bIsDirectable)	
+	if (ProjectileCommon->IsDirectable())
 	{
 		SetActorRotation(FRotator(0, (VelocityVec * -1).Rotation().Yaw, -90.0f));
 	}
