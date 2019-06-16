@@ -6,6 +6,7 @@
 #include "TDAIController.h" //
 #include "PaperFlipbook.h"
 #include "Components/TDPaperFlipbookComponent.h"
+#include "PaperSpriteComponent.h"
 #include "WeaponComponent.h" //upgrade
 #include "Components/BoxComponent.h"
 #include "TowerDefense.h" //log 
@@ -31,7 +32,12 @@ void ATower::InitializeDefaults()
 
 	static FName VisibiltyProfileName(TEXT("UI"));
 	Animation->SetCollisionProfileName(VisibiltyProfileName);
-	Animation->SetRelativeLocation(FVector(0.0f, -125.0f, 0.0f));
+	Animation->SetRelativeLocation(FVector(0.0f, -175.0f, 0.0f));
+
+	if (Shadow)
+	{
+		Shadow->SetRelativeLocation(FVector(0.0f, -0.1f, -240.0f));
+	}
 
 	Team = EUnitTeam::Player;
 }
