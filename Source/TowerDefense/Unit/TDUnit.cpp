@@ -39,6 +39,7 @@ void ATDUnit::InitializeDefaults()
 		Shadow->SetupAttachment(Animation);
 	}
 
+	SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 

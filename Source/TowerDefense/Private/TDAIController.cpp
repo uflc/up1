@@ -5,6 +5,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BehaviorTree.h"
+//#include "Navigation/CrowdFollowingComponent.h"
 #include "TDCharacter.h"
 #include "Tower.h"
 #include "TowerDefense.h"
@@ -13,12 +14,11 @@ const FName ATDAIController::DestinationKey(TEXT("Destination"));
 const FName ATDAIController::AggroTargetKey(TEXT("AggroTarget"));
 const FName ATDAIController::AttackRangeKey(TEXT("AttackRange"));
 
+ATDAIController::ATDAIController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer/*.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent"))*/) {}
+
 void ATDAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-
-	UClass* PawnClass = InPawn->GetClass();
-	//TD_LOG(Warning, TEXT("PawnClass: %s"), *PawnClass->GetName());
 
 	TDUnit = Cast<ATDUnit>(InPawn);
 	if (!TDUnit) return;

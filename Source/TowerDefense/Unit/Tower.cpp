@@ -24,7 +24,7 @@ ATower::ATower(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitia
 void ATower::InitializeDefaults()
 {
 	static FName TowerCollisionProfileName(TEXT("BlockAll"));
-	static const FVector BoxExtent(112.5f, 100.0f, 50.0f);
+	static const FVector BoxExtent(125.0f, 100.0f, 5.0f);
 	Box->InitBoxExtent(BoxExtent);
 	Box->SetCollisionProfileName(TowerCollisionProfileName);
 	Box->SetCanEverAffectNavigation(false);

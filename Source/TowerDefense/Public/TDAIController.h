@@ -14,6 +14,9 @@ class TOWERDEFENSE_API ATDAIController : public AAIController
 {
 	GENERATED_BODY()
 	
+public:
+	ATDAIController(const FObjectInitializer& ObjectInitializer);
+	
 private:
 	UPROPERTY(EditAnywhere)
 	class UBehaviorTree*   BTAsset;
