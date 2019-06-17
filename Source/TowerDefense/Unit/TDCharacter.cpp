@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "PaperFlipbook.h"
 #include "Components/TDPaperFlipbookComponent.h" //anim
+#include "PaperSpriteComponent.h"
 #include "WidgetComponent.h"
 #include "TDCharWidget.h"
 #include "GameFramework/FloatingPawnMovement.h"
@@ -28,23 +29,28 @@ ATDCharacter::ATDCharacter()
 	Box->InitBoxExtent(BoxExtent);
 
 	static FName TDCharAnimCollisionProfileName(TEXT("CharacterMesh"));
-	static const FVector SpriteOffset(-15.0f, -50.0f, 0.0f);
+	//static const FVector SpriteOffset(-15.0f, -50.0f, 5.0f);
 	Animation->SetCollisionProfileName(TDCharAnimCollisionProfileName);
-	Animation->SetRelativeLocation(SpriteOffset);
+	//Animation->SetRelativeLocation(SpriteOffset);
+	if (Shadow)
+	{
+		Shadow->SetRelativeLocation(FVector(0.0f, -0.1f, 0.0f));
+	}
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
-	HealthBar->SetupAttachment(Box);
-	HealthBar->SetRelativeLocation(SpriteOffset);
+	HealthBar->SetWidgetSpace(EWidgetSpace::World);
+	HealthBar->SetRelativeRotation(FRotator(90.0f, 90.0f, 0.0f));
+	HealthBar->SetRelativeLocation(FVector(0.0f, -120.0f, 10.0f));
 	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
 	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));
 	if (HealthBarWidget.Succeeded())
 	{
 		HealthBar->SetWidgetClass(HealthBarWidget.Class);
-		HealthBar->SetDrawAtDesiredSize(true);
+		HealthBar->SetDrawSize(FVector2D(60.0f, 12.5f));
 	}
+	HealthBar->SetupAttachment(Box);
 }
 
 void ATDCharacter::BeginPlay()

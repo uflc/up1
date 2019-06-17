@@ -32,7 +32,7 @@ void ATower::InitializeDefaults()
 
 	static FName VisibiltyProfileName(TEXT("UI"));
 	Animation->SetCollisionProfileName(VisibiltyProfileName);
-	Animation->SetRelativeLocation(FVector(0.0f, -100.0f, 0.0f));
+	Animation->SetRelativeLocation(FVector(0.0f, -150.0f, 0.0f));
 
 	if (Shadow)
 	{
