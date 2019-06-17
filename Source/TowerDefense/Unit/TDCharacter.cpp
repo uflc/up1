@@ -23,7 +23,7 @@ ATDCharacter::ATDCharacter()
 	Movement = CreateDefaultSubobject<UPawnMovementComponent, UFloatingPawnMovement>(TEXT("Movement"));
 
 	static FName TDCharCollisionProfileName(TEXT("TDPawn"));
-	static const FVector BoxExtent(4.0f, 4.0f, 1.0f);
+	static const FVector BoxExtent(8.0f, 4.0f, 1.0f);
 	Box->SetCollisionProfileName(TDCharCollisionProfileName);
 	Box->InitBoxExtent(BoxExtent);
 

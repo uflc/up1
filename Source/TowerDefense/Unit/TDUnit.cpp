@@ -34,8 +34,8 @@ void ATDUnit::InitializeDefaults()
 	Shadow = CreateOptionalDefaultSubobject<UPaperSpriteComponent>(TEXT("Shadow0"));
 	if (Shadow)
 	{
-		static const FName ShadowCollisionProfileName(TEXT("NoCollision"));
-		Shadow->SetCollisionProfileName(ShadowCollisionProfileName);
+		Shadow->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		Shadow->SetCanEverAffectNavigation(false);
 		Shadow->SetupAttachment(Animation);
 	}
 

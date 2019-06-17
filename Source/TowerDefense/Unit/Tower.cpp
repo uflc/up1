@@ -2,14 +2,15 @@
 
 #include "Tower.h"
 #include "TowerDataTree.h"
-#include "TDPlayerController.h" ////showtoweractionmenu
-#include "TDAIController.h" //
+#include "TDPlayerController.h"
+#include "TDAIController.h"
 #include "PaperFlipbook.h"
 #include "Components/TDPaperFlipbookComponent.h"
 #include "PaperSpriteComponent.h"
-#include "WeaponComponent.h" //upgrade
+#include "WeaponComponent.h"
 #include "Components/BoxComponent.h"
-#include "TowerDefense.h" //log 
+#include "NavArea_Null.h"
+#include "TowerDefense.h"
 
 
 ATower::ATower()
@@ -24,15 +25,14 @@ ATower::ATower(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitia
 
 void ATower::InitializeDefaults()
 {
-	static FName TowerCollisionProfileName(TEXT("BlockAll"));
-	static const FVector BoxExtent(125.0f, 100.0f, 5.0f);
+	static const FVector BoxExtent(137.5f, 100.0f, 5.0f);
 	Box->InitBoxExtent(BoxExtent);
-	Box->SetCollisionProfileName(TowerCollisionProfileName);
-	Box->SetCanEverAffectNavigation(false);
+	Box->bDynamicObstacle = true;
+	Box->AreaClass = UNavArea_Null::StaticClass();
 
 	static FName VisibiltyProfileName(TEXT("UI"));
 	Animation->SetCollisionProfileName(VisibiltyProfileName);
-	Animation->SetRelativeLocation(FVector(0.0f, -175.0f, 0.0f));
+	Animation->SetRelativeLocation(FVector(0.0f, -100.0f, 0.0f));
 
 	if (Shadow)
 	{

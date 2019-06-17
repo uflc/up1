@@ -43,4 +43,8 @@ public:
 
 	class AActor* GetAggroTarget();
 	float GetDestination();
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE ATDUnit* GetTDUnit() const { return TDUnit; }
+
 };
