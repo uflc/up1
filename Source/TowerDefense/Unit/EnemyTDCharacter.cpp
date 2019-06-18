@@ -16,3 +16,10 @@ void AEnemyTDCharacter::Die_Implementation()
 
 	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->UpdateValue(Bounty, EValueType::Coin);
 }
+
+void AEnemyTDCharacter::Finish()
+{
+	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->UpdateValue(-LifeDamage, EValueType::Life);
+
+	Destroy();
+}

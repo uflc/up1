@@ -73,4 +73,5 @@ public:
 	//EUnitState Dying or Dead
 	UFUNCTION(BlueprintPure)
 	bool IsLethal();
+
 };
