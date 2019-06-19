@@ -42,7 +42,7 @@ ATDCharacter::ATDCharacter()
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
 	HealthBar->SetWidgetSpace(EWidgetSpace::World);
 	HealthBar->SetRelativeRotation(FRotator(90.0f, 90.0f, 0.0f));
-	HealthBar->SetRelativeLocation(FVector(0.0f, -120.0f, 10.0f));
+	HealthBar->SetRelativeLocation(FVector(0.0f, -120.0f, 1.0f));
 	HealthBar->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	static ConstructorHelpers::FClassFinder<UUserWidget> HealthBarWidget(TEXT("WidgetBlueprint'/Game/Blueprint/UI/CharacterHealthBar.CharacterHealthBar_C'"));
 	if (HealthBarWidget.Succeeded())
@@ -118,6 +118,8 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 	if (Health <= 0)
 	{
 		Die();
+		//todo OnDied.Broadcast()
+		return;
 	}
 
 	// Shaking È¿°ú //todo defaultsubobject better?
