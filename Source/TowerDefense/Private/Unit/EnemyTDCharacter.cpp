@@ -16,7 +16,7 @@ void AEnemyTDCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	//웨이브에서 스폰된 후(목적지 분기가 정해진 후)에 true로 설정. 이후, 레벨에 존재하는 트리거들이 발동될 것.
+	//목적지(분기)가 정해진 후에 true로 설정. 이후, 레벨에 존재하는 트리거들이 발동되며 다음 목적지를 정해줄 것.
 	SetActorEnableCollision(false);
 }
 
