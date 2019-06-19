@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Unit/Tower.h"
 #include "UObject/ObjectMacros.h"
-
 #include "DirectionalTower.generated.h"
 
 /**
@@ -18,4 +17,6 @@ class TOWERDEFENSE_API ADirectionalTower : public ATower
 	
 public:
 	ADirectionalTower(const FObjectInitializer& ObjectInitializer);
+
+	void SetFlipbooks() override;
 };

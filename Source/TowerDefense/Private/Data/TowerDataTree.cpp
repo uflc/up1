@@ -37,12 +37,12 @@ void UTowerData::LoadResources()
 	}));
 }
 
-UTowerData * UTowerData::GetNextUpgraded(const ETowerType & UpType)
+UTowerData* UTowerData::GetNextUpgraded(const ETowerType & UpType)
 {
 	return UpTypes[(uint8)UpType].Upgrade;
 }
 
-UTowerData * UTowerData::GetUpgraded(const TArray<ETowerType>& UpTypeTree)
+UTowerData* UTowerData::GetUpgraded(const TArray<ETowerType>& UpTypeTree)
 {
 	UTowerData* Upgraded = this;
 

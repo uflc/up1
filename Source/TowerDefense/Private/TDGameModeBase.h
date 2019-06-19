@@ -9,7 +9,6 @@
 
 /**
  *리소스 로드 및 사용할 위젯 관리
- *todo: ~~
  */
 UCLASS()
 class TOWERDEFENSE_API ATDGameModeBase : public AGameModeBase
@@ -27,6 +26,9 @@ protected:
 	//UPROPERTY(EditAnywhere, Category = "TDUnit")
 	//TArray<class UTDUnitCommonData*> TDUnitCommons;
 
+	//UPROPERTY(EditAnywhere, Category = "Tower")
+	//UTowerData* BaseTowerData;
+
 	//TODO 더 좋은 로딩 방법
 	UFUNCTION(BlueprintCallable, Category = "TDUnit")
 	void LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons);
@@ -35,7 +37,7 @@ protected:
 
 	//BaseTowerData로부터 모든 타워 데이터에 접근할 수 있기 때문에 일단 이렇게 함.
 	UFUNCTION(BlueprintCallable, Category = "Tower")
-	void LoadTowerResources(UTowerData* InTowerDataTree);
+	void LoadTowerResources(UTowerData* BaseTowerData);
 
 	void OnTDUnitFlipbooksLoaded();
 

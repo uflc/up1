@@ -36,15 +36,15 @@ void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsin
 	}
 }
 
-void ATDGameModeBase::LoadTowerResources(UTowerData* InTowerDataTree)
+void ATDGameModeBase::LoadTowerResources(UTowerData* BaseTowerData)
 {
-	if (!InTowerDataTree) return;
+	if (!BaseTowerData) return;
 
-	InTowerDataTree->LoadResources();
+	BaseTowerData->LoadResources();
 	
 	for (int i = 0; i < UPGRADES_NUM; i++)
 	{
-		LoadTowerResources(InTowerDataTree->GetNextUpgraded((ETowerType)i));
+		LoadTowerResources(BaseTowerData->GetNextUpgraded((ETowerType)i));
 	}
 }
 

@@ -7,11 +7,6 @@
 #include "EffectorComponent.h"
 #include "TDProjectileCommonData.h"
 
-UProjectileWeaponComponent::UProjectileWeaponComponent()
-{
-	ProjectileRelativeSpawnPoint = FVector(0.0f, 0.0f, 1.0f);
-}
-
 void UProjectileWeaponComponent::UseWeapon()
 {
 	if (!IsTargetLocked()) return;

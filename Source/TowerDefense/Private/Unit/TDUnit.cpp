@@ -54,6 +54,8 @@ void ATDUnit::ApplyData()
 {
 	check(UnitData);
 
+	CreateUniqueWeapon();
+
 	if (UnitData->IsInitialzied())
 	{
 		SetFlipbooks();
@@ -62,8 +64,6 @@ void ATDUnit::ApplyData()
 	{
 		UnitData->OnLoadCompleted.AddUObject(this, &ATDUnit::SetFlipbooks);
 	}
-
-	CreateUniqueWeapon();
 }
 
 void ATDUnit::SetFlipbooks()
@@ -101,7 +101,6 @@ void ATDUnit::CreateUniqueWeapon()
 
 float ATDUnit::GetAggroRange() const
 {
-	//By default we use attack range as aggro range.
 	return	GetAttackRange();
 }
 

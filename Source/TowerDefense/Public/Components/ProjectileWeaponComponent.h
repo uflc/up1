@@ -15,12 +15,8 @@ class TOWERDEFENSE_API UProjectileWeaponComponent : public UWeaponComponent
 	GENERATED_BODY()
 	
 public:
-	UProjectileWeaponComponent();
-
-protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	FVector ProjectileRelativeSpawnPoint;
 
-public:
 	virtual void UseWeapon() override;
 };

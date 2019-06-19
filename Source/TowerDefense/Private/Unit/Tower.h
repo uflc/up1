@@ -20,7 +20,7 @@ public:
 private:
 	void InitializeDefaults();
 
-protected:	
+protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool bIsSelected;
 	
