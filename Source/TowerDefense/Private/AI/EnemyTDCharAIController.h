@@ -17,7 +17,4 @@ class TOWERDEFENSE_API AEnemyTDCharAIController : public ATDCharAIController
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<uint8> DestBranchIdxQ;
-
-	//UFUNCTION()
-	//void InitDestinationQueue(const TArray<uint8>& InDestinationQueue);
 };
