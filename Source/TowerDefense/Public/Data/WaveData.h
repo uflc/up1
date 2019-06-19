@@ -29,8 +29,9 @@ struct  FSubWaveData
 	UPROPERTY(EditAnywhere)
 	uint8 SpawnLocationIdx;
 
+	//다음 목적지에 분기가 있을 때, 목적지 배열 중 이 값으로 결정.
 	UPROPERTY(EditAnywhere)
-	uint8 DestinationIdx;
+	TArray<uint8> DestBranchIdxQ;
 
 	UPROPERTY(EditAnywhere)
 	float StartingTime;
@@ -61,5 +62,5 @@ protected:
 	TArray<FWaveData> WaveArray;
 
 public:
-	const TArray<FWaveData>& GetWaveArray() const { return WaveArray; }
+	FORCEINLINE const TArray<FWaveData>& GetWaveArray() const { return WaveArray; }
 };

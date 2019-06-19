@@ -13,21 +13,12 @@ class TOWERDEFENSE_API AWaveSpawner : public AActor
 	
 private:
 	UPROPERTY()
-	TArray<class ATargetPoint*> SpawnPoints;
-
-	UPROPERTY()
-	TArray<class ATargetPoint*> Destinations;
+	TArray<AActor*> SpawnPoints;
 
 	UPROPERTY(EditInstanceOnly)
 	class ULevelWaveData* LevelWaveData;
 
 	uint8 WaveIdx;
-
-	//uint8 SubWaveIdx;
-	//uint8 WaveSpawnRemaining;
-
-	//FTimerHandle SubWaveTimer;
-	//FTimerHandle SpawnTimer;
 
 	uint32 SpawnedUnitNum;
 
@@ -51,16 +42,7 @@ protected:
 
 	const struct FSubWaveData& GetSubWaveData(const uint8 Index) const;
 
-	//void StartSubWave();
-
-	//void SetTimerToStartSubWave();
-
-	//타이머에 의해 루프할 스폰 루틴. See StartSubWave()
-	//void SpawnWaveActor();
-
-	//const struct FSubWaveData& GetCurrentSubWaveData() const;
-
 public:
 	UFUNCTION(BlueprintCallable)
-	void StartLevelWave(const TArray<class ATargetPoint*>& InSpawnPoints, const TArray<class ATargetPoint*>& InDestinations);
+	void StartLevelWave(const TArray<AActor*>& InSpawnPoints);
 };

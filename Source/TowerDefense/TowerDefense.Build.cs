@@ -16,11 +16,11 @@ public class TowerDefense : ModuleRules
         (
             new string[]
             {
-                "TowerDefense/Unit",
-                "TowerDefense/Bullet",
-                "TowerDefense/UI"
+                "TowerDefense/Private/Unit",
+                "TowerDefense/Private/Bullet",
+                "TowerDefense/Private/UI",
+                "TowerDefense/Private/AI"
             }
         );
-
     }
 }

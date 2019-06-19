@@ -27,6 +27,8 @@ protected:
 	uint8 Bounty;
 
 public:
+	virtual void PostInitializeComponents() override;
+
 	// 임시로 플레이어에게 처치 현상금을 주도록 함.
 	virtual void Die_Implementation() override;
 

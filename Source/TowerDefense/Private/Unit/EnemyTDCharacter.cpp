@@ -2,12 +2,20 @@
 
 
 #include "EnemyTDCharacter.h"
+#include "EnemyTDCharAIController.h"
 #include "TDPlayerController.h"
-
 
 AEnemyTDCharacter::AEnemyTDCharacter()
 {
 	Team = EUnitTeam::Enemy;
+
+	AIControllerClass = AEnemyTDCharAIController::StaticClass();
+}
+
+void AEnemyTDCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	SetActorEnableCollision(false);
 }
 
 void AEnemyTDCharacter::Die_Implementation()

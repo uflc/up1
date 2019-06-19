@@ -15,7 +15,7 @@ class TOWERDEFENSE_API ATDAIController : public AAIController
 	GENERATED_BODY()
 	
 public:
-	ATDAIController(const FObjectInitializer& ObjectInitializer);
+	//ATDAIController(const FObjectInitializer& ObjectInitializer);
 	
 private:
 	UPROPERTY(EditAnywhere)
@@ -27,8 +27,8 @@ private:
 	//Cache of Pawn as TDUnit
 	UPROPERTY(VisibleAnywhere)
 	class ATDUnit* TDUnit;
+
 public:
-	static const FName DestinationKey;
 	static const FName AggroTargetKey;
 	static const FName AttackRangeKey;
 
@@ -37,12 +37,9 @@ public:
 	UFUNCTION()
 	void ReceiveWeaponChange();
 
-	UFUNCTION(BlueprintCallable)
-	void SetDestination(const FVector Destination);
 	void SetAttackRange(const float AttackRange);
 
 	class AActor* GetAggroTarget();
-	float GetDestination();
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE ATDUnit* GetTDUnit() const { return TDUnit; }

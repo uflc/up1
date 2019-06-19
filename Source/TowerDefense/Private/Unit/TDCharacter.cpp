@@ -50,6 +50,7 @@ ATDCharacter::ATDCharacter()
 		HealthBar->SetWidgetClass(HealthBarWidget.Class);
 		HealthBar->SetDrawSize(FVector2D(60.0f, 12.5f));
 	}
+
 	HealthBar->SetupAttachment(Box);
 }
 

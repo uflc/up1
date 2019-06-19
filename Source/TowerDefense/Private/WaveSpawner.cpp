@@ -3,10 +3,9 @@
 
 #include "WaveSpawner.h"
 #include "WaveData.h"
-#include "Engine/TargetPoint.h"
 #include "TimerManager.h"
-#include "TDAIController.h"
-#include "TDCharacter.h"
+#include "EnemyTDCharAIController.h"
+#include "EnemyTDCharacter.h"
 #include "TowerDefense.h"
 #include "Engine\World.h"
 #include "TDGameModeBase.h"
@@ -22,16 +21,15 @@ void AWaveSpawner::BeginPlay()
 	}
 }
 
-void AWaveSpawner::StartLevelWave(const TArray<ATargetPoint*>& InSpawnPoints, const TArray<ATargetPoint*>& InDestinations)
+void AWaveSpawner::StartLevelWave(const TArray<AActor*>& InSpawnPoints)
 {
-	if (InSpawnPoints.Num() == 0 || InDestinations.Num() == 0)
+	if (InSpawnPoints.Num() == 0)
 	{
-		TD_LOG(Warning, TEXT("InSpawnPoints or InDestinations Array is Empty!"));
+		TD_LOG(Warning, TEXT("InSpawnPoints array is Empty!"));
 		return;
 	}
 
 	SpawnPoints = InSpawnPoints;
-	Destinations = InDestinations;
 
 	WaveIdx = 0;
 	bWaitingForFinishLevel = false;
@@ -54,11 +52,9 @@ void AWaveSpawner::StartSubWaves()
 
 	for ( FSubWaveData SubWave : SubWaves )
 	{
-		if (SubWave.Amount <= 0
-			|| !SpawnPoints.IsValidIndex(SubWave.SpawnLocationIdx)
-			|| !Destinations.IsValidIndex(SubWave.DestinationIdx))
+		if (SubWave.Amount <= 0 || !SpawnPoints.IsValidIndex(SubWave.SpawnLocationIdx))
 		{
-			TD_LOG(Warning, TEXT("Invalid SpawnPoint or Destination or zero SpawnAmount! #%d Wave #%d Subwave"));
+			TD_LOG(Warning, TEXT("Invalid or zero SpawnPoint! #%d Wave #%d Subwave"));
 			return;
 		}
 
@@ -95,10 +91,10 @@ void AWaveSpawner::SpawnSubWaveActor(const uint8 Index)
 	const FSubWaveData& SubWave = GetSubWaveData(Index);
 
 	const FVector SpawnPoint = SpawnPoints[SubWave.SpawnLocationIdx]->GetActorLocation();
-	const FVector Destination = Destinations[SubWave.DestinationIdx]->GetActorLocation();
 
-	ATDCharacter* SpawnedUnit = (ATDCharacter*)GetWorld()->SpawnActor(SubWave.SpawnUnitClass, &SpawnPoint);
-	SpawnedUnit->GetController<ATDAIController>()->SetDestination(Destination);
+	AEnemyTDCharacter* SpawnedUnit = Cast<AEnemyTDCharacter>(GetWorld()->SpawnActor(SubWave.SpawnUnitClass, &SpawnPoint));
+	SpawnedUnit->GetController<AEnemyTDCharAIController>()->DestBranchIdxQ = SubWave.DestBranchIdxQ;
+	SpawnedUnit->SetActorEnableCollision(true);
 
 	SpawnedUnitNum++;
 	SpawnedUnit->OnDestroyed.AddDynamic(this, &AWaveSpawner::NoticeUnitDestroyed);
