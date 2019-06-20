@@ -20,6 +20,5 @@ void ADirectionalTower::SetFlipbooks()
 	{
 		Launcher->ProjectileRelativeSpawnPoint = Animation->RelativeLocation;
 		Launcher->ProjectileRelativeSpawnPoint.Z += 1.0f;
-		TD_LOG(Warning, TEXT("LaunchPoint: %s"), *Launcher->ProjectileRelativeSpawnPoint.ToString());
 	}
 }
