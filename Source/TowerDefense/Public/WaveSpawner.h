@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "TowerDefense.h"
 #include "WaveSpawner.generated.h"
 
 UCLASS(HideCategories=(Actor,Collision,Input))

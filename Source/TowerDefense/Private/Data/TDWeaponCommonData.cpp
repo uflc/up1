@@ -7,7 +7,7 @@
 #include "PaperFlipbook.h"
 #include "Sound\SoundCue.h"
 #include "Engine/AssetManager.h"
-#include "TowerDefense.h"
+
 
 void UTDWeaponCommonData::PostLoad()
 {

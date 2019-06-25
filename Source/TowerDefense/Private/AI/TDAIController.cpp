@@ -8,7 +8,6 @@
 //#include "Navigation/CrowdFollowingComponent.h"
 #include "TDCharacter.h"
 #include "Tower.h"
-#include "TowerDefense.h"
 
 const FName ATDAIController::AggroTargetKey(TEXT("AggroTarget"));
 const FName ATDAIController::AttackRangeKey(TEXT("AttackRange"));

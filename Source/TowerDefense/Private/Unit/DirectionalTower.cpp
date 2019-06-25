@@ -4,7 +4,6 @@
 #include "DirectionalTower.h"
 #include "Components/DirTDPaperFlipbookComponent.h"
 #include "ProjectileWeaponComponent.h"
-#include "TowerDefense.h"
 
 ADirectionalTower::ADirectionalTower(const FObjectInitializer& ObjectInitializer) 
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UDirTDPaperFlipbookComponent>(ATDUnit::AnimationComponentName))

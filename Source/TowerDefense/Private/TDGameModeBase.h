@@ -2,9 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "GameFramework/GameModeBase.h"
+#include "TowerDefense.h"
 #include "TDGameModeBase.generated.h"
 
 /**

@@ -3,20 +3,13 @@
 
 #include "TDCharacter.h"
 #include "TDCharData.h"
-#include "Components/BoxComponent.h"
 #include "PaperFlipbook.h"
 #include "Components/TDPaperFlipbookComponent.h" //anim
 #include "PaperSpriteComponent.h"
 #include "WidgetComponent.h"
 #include "TDCharWidget.h"
-#include "GameFramework/FloatingPawnMovement.h"
 #include "UnitDebuffComponent.h"
-#include "Sound\SoundCue.h"
-#include "Kismet/GameplayStatics.h"
-#include "TimerManager.h"
-#include "AIController.h"
 #include "ShakingComponent.h"
-#include "TowerDefense.h"
 
 
 ATDCharacter::ATDCharacter()

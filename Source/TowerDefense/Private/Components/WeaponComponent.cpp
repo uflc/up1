@@ -5,7 +5,6 @@
 #include "TDCharacter.h"
 #include "TDWeaponCommonData.h"
 #include "Sound\SoundCue.h"
-#include "Kismet/GameplayStatics.h"
 
 void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData) 
 { 

@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "TowerDefense.h"
 #include "ShakingComponent.generated.h"
 
 //todo set tickinterval

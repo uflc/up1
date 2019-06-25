@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "TowerDefense.h"
 #include "TDComponent.generated.h"
 
 UCLASS(Blueprintable, Abstract, ClassGroup = (Custom))

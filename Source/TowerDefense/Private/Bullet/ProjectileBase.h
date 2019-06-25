@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "TowerDefense.h"
 #include "TDTypes.h"
 #include "ProjectileBase.generated.h"
 

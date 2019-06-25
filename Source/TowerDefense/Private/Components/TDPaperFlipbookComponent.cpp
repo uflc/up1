@@ -4,7 +4,6 @@
 #include "TDPaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
-#include "TowerDefense.h"
 
 
 UTDPaperFlipbookComponent::UTDPaperFlipbookComponent()

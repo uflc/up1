@@ -2,7 +2,6 @@
 
 
 #include "EffectorComponent.h"
-#include "WorldCollision.h"
 #include "TDCharacter.h"
 
 

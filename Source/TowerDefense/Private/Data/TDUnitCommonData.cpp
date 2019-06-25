@@ -3,11 +3,10 @@
 
 #include "TDUnitCommonData.h"
 #include "TDWeaponCommonData.h"
+#include "TDUnit.h"
 #include "PaperFlipbook.h"
 #include "Sound/SoundCue.h"
 #include "Engine/AssetManager.h"
-#include "TowerDefense.h"
-#include "TDUnit.h"
 
 void UTDUnitCommonData::PostLoad()
 {

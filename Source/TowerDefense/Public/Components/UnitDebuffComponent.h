@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "TowerDefense.h"
-#include "Components/TDComponent.h"
+#include "TDComponent.h"
 #include "TDTypes.h"
 #include "UnitDebuffComponent.generated.h"
 

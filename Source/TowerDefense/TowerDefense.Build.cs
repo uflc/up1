@@ -6,6 +6,8 @@ public class TowerDefense : ModuleRules
 {
 	public TowerDefense(ReadOnlyTargetRules Target) : base(Target)
 	{
+        PrivatePCHHeaderFile = "Public/TowerDefense.h";
+
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Paper2D", "AIModule", "NavigationSystem" });	

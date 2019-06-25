@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "TowerDefense.h"
 #include "TDPlayerController.generated.h"
 
 /**
@@ -23,17 +22,17 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "UI|HUD")
 	TSubclassOf<UHUDWidget> HUDWidgetClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDPlayer")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Coin;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDPlayer")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Life;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDPlayer")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Mana;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	class ULevelData* LevelData;
+	UPROPERTY(BlueprintReadOnly)
+	ULevelData* LevelData;
 
 	virtual void BeginPlay() override;
 
@@ -45,9 +44,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ApplyLevelData(ULevelData* InLevelData);
 
-	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
+	UFUNCTION(BlueprintCallable, Category = "UI|Tower")
 	void ShowTowerActionMenu(class ATower* InInteractingTower);	
 
-	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
+	UFUNCTION(BlueprintCallable, Category = "UI|Tower")
 	void HideTowerActionMenu();
 };

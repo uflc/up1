@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "ProjectileBase.h"
 #include "HomingProjectile.generated.h"
 

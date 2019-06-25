@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "TowerDefense.h"
 #include "AIController.h"
 #include "TDAIController.generated.h"
 

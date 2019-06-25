@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "TowerDefense.h"
 #include "PaperFlipbookComponent.h"
 #include "TDTypes.h"
 #include "TDPaperFlipbookComponent.generated.h"

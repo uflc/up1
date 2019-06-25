@@ -2,9 +2,7 @@
 
 #include "TDPlayerController.h"
 #include "HUDWidget.h"
-#include "TDTypes.h"
 #include "LevelData.h"
-#include "TowerDefense.h"
 
 void ATDPlayerController::BeginPlay()
 {

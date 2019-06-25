@@ -3,6 +3,6 @@
 #include "TowerDefense.h"
 //#include "Modules/ModuleManager.h"
 
-DEFINE_LOG_CATEGORY(TowerDefense);
+DEFINE_LOG_CATEGORY(LogTowerDefense);
 
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, TowerDefense, "TowerDefense" );

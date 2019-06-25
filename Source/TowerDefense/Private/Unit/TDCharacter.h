@@ -2,9 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "TDUnit.h"
-#include "TDTypes.h"
 #include "TDCharacter.generated.h"
 
 /**

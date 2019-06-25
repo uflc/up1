@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
+#include "TowerDefense.h"
 #include "TDTypes.h"
 #include "TDProjectileCommonData.generated.h"
 

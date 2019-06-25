@@ -2,9 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Unit/Tower.h"
-#include "UObject/ObjectMacros.h"
+#include "Tower.h"
 #include "DirectionalTower.generated.h"
 
 /**

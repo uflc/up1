@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFrameWork/Pawn.h"
+#include "TowerDefense.h"
 #include "TDTypes.h"
 #include "TDUnit.generated.h"
 

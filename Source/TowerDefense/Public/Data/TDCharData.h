@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "TDUnitCommonData.h"
 #include "TDCharData.generated.h"
 

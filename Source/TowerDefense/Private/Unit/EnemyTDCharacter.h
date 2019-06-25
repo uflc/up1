@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Unit/TDCharacter.h"
+#include "TDCharacter.h"
 #include "EnemyTDCharacter.generated.h"
 
 /**

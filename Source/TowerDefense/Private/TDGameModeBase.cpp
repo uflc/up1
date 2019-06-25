@@ -4,9 +4,6 @@
 #include "TDUnitCommonData.h"
 #include "TowerDataTree.h"
 #include "TDWeaponCommonData.h"
-#include "Engine/AssetManager.h"
-#include "TowerDefense.h"
-#include "Kismet/GameplayStatics.h"
 #include "TDPlayerController.h"
 
 void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons)

@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "WeaponComponent.h"
 #include "DirectWeaponComponent.generated.h"
 

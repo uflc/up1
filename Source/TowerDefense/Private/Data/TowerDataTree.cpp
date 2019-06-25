@@ -3,7 +3,6 @@
 #include "TowerDataTree.h"
 #include "PaperFlipbook.h"
 #include "Engine/AssetManager.h"
-#include "TowerDefense.h"
 
 
 void UTowerData::PostLoad()

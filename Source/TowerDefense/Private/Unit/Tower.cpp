@@ -8,9 +8,7 @@
 #include "Components/TDPaperFlipbookComponent.h"
 #include "PaperSpriteComponent.h"
 #include "WeaponComponent.h"
-#include "Components/BoxComponent.h"
 #include "NavArea_Null.h"
-#include "TowerDefense.h"
 
 
 ATower::ATower()

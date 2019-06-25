@@ -2,13 +2,11 @@
 
 #include "TDUnit.h"
 #include "TDUnitCommonData.h"
-#include "Components/BoxComponent.h"
 #include "Components/DirTDPaperFlipbookComponent.h"
 #include "PaperFlipbook.h"
 #include "PaperSpriteComponent.h"
 #include "WeaponComponent.h"
 #include "TDWeaponCommonData.h"
-#include "TowerDefense.h"
 
 FName ATDUnit::AnimationComponentName(TEXT("Flipbook0"));
 

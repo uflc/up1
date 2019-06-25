@@ -5,7 +5,6 @@
 #include "TDCharacter.h"
 #include "GameFramework\FloatingPawnMovement.h"
 #include "WeaponComponent.h"
-#include "TimerManager.h"
 
 void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 {

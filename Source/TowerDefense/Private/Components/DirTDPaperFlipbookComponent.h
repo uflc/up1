@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Components/TDPaperFlipbookComponent.h"
 #include "DirTDPaperFlipbookComponent.generated.h"
 

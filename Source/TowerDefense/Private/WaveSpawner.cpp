@@ -3,11 +3,8 @@
 
 #include "WaveSpawner.h"
 #include "WaveData.h"
-#include "TimerManager.h"
 #include "EnemyTDCharAIController.h"
 #include "EnemyTDCharacter.h"
-#include "TowerDefense.h"
-#include "Engine\World.h"
 #include "TDGameModeBase.h"
 
 void AWaveSpawner::BeginPlay()

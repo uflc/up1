@@ -3,8 +3,6 @@
 
 #include "ShakingComponent.h"
 #include "PaperFlipbookComponent.h"
-#include "GameFramework\Actor.h"
-#include "TowerDefense.h"
 
 UShakingComponent::UShakingComponent()
 {

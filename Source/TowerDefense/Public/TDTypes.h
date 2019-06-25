@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CoreMinimal.h"
 #include "TDTypes.generated.h"
 
 
@@ -137,5 +136,4 @@ struct FEffectorData
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<FDebuff> DebuffArray;
-
 };

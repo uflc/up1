@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "TDAIController.h"
 #include "TDCharAIController.generated.h"
 
