@@ -39,6 +39,7 @@ public:
 
 	virtual void PostLoad() override;
 
+	UFUNCTION(BlueprintCallable)
 	virtual void LoadResources();
 	UFUNCTION()
 	void LoadResourcesDeffered();

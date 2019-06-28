@@ -14,7 +14,7 @@ struct FTowerUpInfo
 	class UTowerData* Upgrade;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSoftObjectPtr<class UTexture2D> UpPreview;
+	UTexture2D* Preview;
 };
 
 
@@ -27,10 +27,6 @@ class TOWERDEFENSE_API UTowerData : public UTDUnitCommonData
 {
 	GENERATED_BODY()
 
-private:
-	UPROPERTY(VisibleAnywhere)
-	bool bArePreviewsValid;
-
 protected:
 	UPROPERTY(EditAnywhere)
 	FTowerUpInfo UpTypes[UPGRADES_NUM];
@@ -40,10 +36,6 @@ protected:
 	int32 Cost;
 
 public:
-	virtual void PostLoad() override;
-
-	void LoadResources() override;
-
 	//@return nullptr when UpType is not valid.
 	UFUNCTION(BlueprintPure)
 	UTowerData* GetNextUpgraded(const ETowerType& UpType);

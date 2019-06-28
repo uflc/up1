@@ -32,11 +32,6 @@ protected:
 	void LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsingTDUnitCommons);
 
 	int8 UnloadedTDUnitCommonNum;
-
-	//BaseTowerData로부터 모든 타워 데이터에 접근할 수 있기 때문에 일단 이렇게 함.
-	UFUNCTION(BlueprintCallable, Category = "Tower")
-	void LoadTowerResources(UTowerData* BaseTowerData);
-
 	void OnTDUnitFlipbooksLoaded();
 
 public:
