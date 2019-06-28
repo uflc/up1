@@ -6,6 +6,12 @@
 #include "GameFramework\FloatingPawnMovement.h"
 #include "WeaponComponent.h"
 
+void UUnitDebuffComponent::BeginPlay()
+{
+	//((ATDCharacter*)GetOwner())->GetTakeDamageDelegate()->AddDynamic(this,&UUnitDebuffComponent::TestFunc);
+	//((ATDCharacter*)GetOwner())->GetTakeDamageDelegate().
+}
+
 void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 {
 	bool bNeedUpdate = true;
@@ -183,4 +189,9 @@ bool UUnitDebuffComponent::IsBlendable(const EDebuffType& InDebuffType)
 		default:
 			return false;
 	}
+}
+
+void UUnitDebuffComponent::TakeDamage(const FDamage& InDamage)
+{
+	TD_LOG(Warning,TEXT("TESTFUNC"));
 }

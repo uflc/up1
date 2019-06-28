@@ -31,6 +31,8 @@ ATDCharacter::ATDCharacter()
 	}
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
+	OnTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
+
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
 	HealthBar->SetWidgetSpace(EWidgetSpace::World);
@@ -108,6 +110,7 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 	// »ç¸Á.
 	Health -= Damage;
 	OnHealthChanged.Broadcast();
+	OnTakeDamage.Broadcast(FDamage());
 	if (Health <= 0)
 	{
 		Die();

@@ -66,6 +66,8 @@ protected:
 	bool bIsStopped;
 
 public:
+	virtual void BeginPlay() override;
+
 	UFUNCTION()
 	void RegDebuff(const FDebuff& Debuff);
 
@@ -76,4 +78,7 @@ public:
 	void UpdateStat(const FDebuff& InDebuff, bool bDebuffStart); // Broadcast?
 
 	bool IsBlendable(const EDebuffType& InDebuffType);
+
+	UFUNCTION()
+	void TakeDamage(const FDamage& InDamage);
 };
