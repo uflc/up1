@@ -145,7 +145,7 @@ struct FDamage
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 DefaultDamage;
+	int32 Damage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<FDebuff> DebuffArray;

@@ -15,12 +15,14 @@ class TOWERDEFENSE_API UStatsComponent : public UTDComponent
 	GENERATED_BODY()
 	
 protected:
-
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 HP;
 
-
-public;
+public:
 	UFUNCTION()
 	void TakeDamage(const FDamage& InDamage);
+
+	FORCEINLINE int32 GetHP() const{ return HP; }
+
+	virtual void SetCommonData(class UTDCharData* InData);
 };

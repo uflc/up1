@@ -23,6 +23,9 @@ public:
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UStatsComponent* Stats;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UPawnMovementComponent* Movement;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -75,5 +78,5 @@ public:
 
 	//EUnitState Dying or Dead
 	UFUNCTION(BlueprintPure)
-	bool IsLethal();
+	bool IsLethal() const;
 };

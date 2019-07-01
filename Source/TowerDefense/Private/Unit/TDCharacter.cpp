@@ -10,7 +10,7 @@
 #include "TDCharWidget.h"
 #include "UnitDebuffComponent.h"
 #include "ShakingComponent.h"
-
+#include "StatsComponent.h"
 
 ATDCharacter::ATDCharacter()
 {
@@ -33,6 +33,9 @@ ATDCharacter::ATDCharacter()
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
 	OnTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
 
+	Stats = CreateDefaultSubobject<UStatsComponent>(TEXT("Stats"));
+	Stats->SetCommonData((UTDCharData*)UnitData);
+	OnTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
 	HealthBar->SetWidgetSpace(EWidgetSpace::World);
@@ -58,6 +61,7 @@ void ATDCharacter::BeginPlay()
 	{
 		AggroDrawnRange = CharData->GetAggroDrawnRange();
 		DrawingAggroRange = CharData->GetDrawingAggroRange();
+
 		Health = CharData->GetHealth();
 	}
 
@@ -97,10 +101,13 @@ void ATDCharacter::UpdateDirection()
 	//멈췄을 때는 원래 방향 그대로 있어야 하므로 업데이트 하지 않음.
 }
 
-bool ATDCharacter::IsLethal()
+bool ATDCharacter::IsLethal() const
 {
 	ETDAnimState State = Animation->GetState();
 	return  State == ETDAnimState::Dead || State == ETDAnimState::Dying;
+
+
+
 }
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
@@ -109,14 +116,24 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 
 	// 사망.
 	Health -= Damage;
-	OnHealthChanged.Broadcast();
+
 	OnTakeDamage.Broadcast(FDamage());
+
+	OnHealthChanged.Broadcast();
+
 	if (Health <= 0)
 	{
 		Die();
 		//todo OnDied.Broadcast()
 		return;
 	}
+
+	//if (Stats->GetHP() <= 0)
+	//{
+	//	Die();
+	//	//todo OnDied.Broadcast()
+	//	return;
+	//}
 
 	// Shaking 효과 //todo defaultsubobject better?
 	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
