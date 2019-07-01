@@ -50,14 +50,14 @@ void UTDProjectileCommonData::LoadResourcesDeffered()
 	{
 		if (it.Value.IsPending())
 		{
-			TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!"));
+			TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid!"), *it.Value.GetAssetName());
 			return;
 		}
 	}
 
 	if (HitSound.IsPending())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid!"));
+		TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid!"), *HitSound.GetAssetName());
 		return;
 	}
 

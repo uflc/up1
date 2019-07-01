@@ -2,9 +2,8 @@
 
 #include "TowerDataTree.h"
 #include "PaperFlipbook.h"
-#include "Engine/AssetManager.h"
 
-UTowerData* UTowerData::GetNextUpgraded(const ETowerType & UpType)
+UTowerData* UTowerData::GetNextUpgraded(const ETowerType& UpType)
 {
 	return UpTypes[(uint8)UpType].Upgrade;
 }
