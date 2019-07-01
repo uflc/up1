@@ -52,10 +52,15 @@ void UTDWeaponCommonData::LoadResources()
 
 void UTDWeaponCommonData::LoadResourcesDeffered()
 {
-	if (HitFlipbook.IsPending() 
-	 || AttackSound.IsPending())
+	if (HitFlipbook.IsPending())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but the asset is still invalid"));
+		TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid"), *HitFlipbook.GetAssetName());
+		return;
+	}
+
+	if (AttackSound.IsPending())
+	{
+		TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid"), *AttackSound.GetAssetName());
 		return;
 	}
 	

@@ -33,18 +33,6 @@ void ATDGameModeBase::LoadTDUnitCommons(const TArray<UTDUnitCommonData*>& InUsin
 	}
 }
 
-void ATDGameModeBase::LoadTowerResources(UTowerData* BaseTowerData)
-{
-	if (!BaseTowerData) return;
-
-	BaseTowerData->LoadResources();
-	
-	for (int i = 0; i < UPGRADES_NUM; i++)
-	{
-		LoadTowerResources(BaseTowerData->GetNextUpgraded((ETowerType)i));
-	}
-}
-
 //Common이 로드될 때마다 전부 완료됬는지 체크.
 void ATDGameModeBase::OnTDUnitFlipbooksLoaded()
 {
