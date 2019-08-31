@@ -9,15 +9,22 @@ void UEffectorComponent::InflictEffect(ATDCharacter* Target)
 {
 	if (!Target) return;
 
-	static const float ShakePower = 4.0f;
-	static const float ShakeDuration = 0.2f;
-	Target->TDUnitTakeDamage(ShakePower, ShakeDuration, Damage);
+	static const float ShakePower			= 4.0f;
+	static const float ShakeDuration	= 0.2f;
 
-	for ( FDebuff Debuff : Debuffs )
-	{
-		if (FMath::FRandRange(0, 99.99f) <= Debuff.Chance)
-		Target->TDUnitTakeDebuff(Debuff);
-	}
+	FDamage DamageToApp;
+	DamageToApp.Damage			=	Damage;
+	DamageToApp.DebuffArray	= Debuffs;
+
+	Target->TDUnitTakeDamage1(DamageToApp);
+
+	//Target->TDUnitTakeDamage(ShakePower, ShakeDuration, Damage);
+
+	//for ( FDebuff Debuff : Debuffs )
+	//{
+	//	if (FMath::FRandRange(0, 99.99f) <= Debuff.Chance)
+	//	Target->TDUnitTakeDebuff(Debuff);
+	//}
 }
 
 void UEffectorComponent::Initialize(float InEffectRange, uint32 InDamage, const TArray<FDebuff>& InDebuffArray)

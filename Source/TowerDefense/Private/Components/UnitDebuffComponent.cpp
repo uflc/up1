@@ -193,5 +193,8 @@ bool UUnitDebuffComponent::IsBlendable(const EDebuffType& InDebuffType)
 
 void UUnitDebuffComponent::TakeDamage(const FDamage& InDamage)
 {
-	TD_LOG(Warning,TEXT("TESTFUNC"));
+	for(auto Debuff : InDamage.DebuffArray)
+	{
+		RegDebuff(Debuff);
+	}
 }

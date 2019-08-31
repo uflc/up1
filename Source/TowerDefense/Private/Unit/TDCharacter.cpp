@@ -34,7 +34,6 @@ ATDCharacter::ATDCharacter()
 	OnTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
 
 	Stats = CreateDefaultSubobject<UStatsComponent>(TEXT("Stats"));
-	Stats->SetCommonData((UTDCharData*)UnitData);
 	OnTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
@@ -62,6 +61,7 @@ void ATDCharacter::BeginPlay()
 		AggroDrawnRange = CharData->GetAggroDrawnRange();
 		DrawingAggroRange = CharData->GetDrawingAggroRange();
 
+		Stats->SetCommonData((UTDCharData*)UnitData);
 		Health = CharData->GetHealth();
 	}
 
@@ -107,7 +107,6 @@ bool ATDCharacter::IsLethal() const
 	return  State == ETDAnimState::Dead || State == ETDAnimState::Dying;
 
 
-
 }
 
 void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
@@ -117,23 +116,57 @@ void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32
 	// 사망.
 	Health -= Damage;
 
-	OnTakeDamage.Broadcast(FDamage());
+	FDamage TempDamage;
+	TempDamage.Damage = Damage;
+
+	OnTakeDamage.Broadcast(TempDamage);
 
 	OnHealthChanged.Broadcast();
 
-	if (Health <= 0)
+	//if (Health <= 0)
+	//{
+	//	Die();
+	//	//todo OnDied.Broadcast()
+	//	return;
+	//}
+
+	if (Stats->GetHP() <= 0)
 	{
 		Die();
 		//todo OnDied.Broadcast()
 		return;
 	}
 
-	//if (Stats->GetHP() <= 0)
-	//{
-	//	Die();
-	//	//todo OnDied.Broadcast()
-	//	return;
-	//}
+	// Shaking 효과 //todo defaultsubobject better?
+	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
+	if (!ShakeComp)
+	{
+		ShakeComp = NewObject<UShakingComponent>(this, "ShakingComponent");
+		if (!ShakeComp)
+		{
+			return;
+		}
+	}
+
+	Cast<UShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
+}
+
+void ATDCharacter::TDUnitTakeDamage1(const FDamage & InDamage)
+{
+	static const float ShakePower = 4.0f;
+	static const float ShakeDuration = 0.2f;
+	if (IsLethal()) return;
+
+	OnTakeDamage.Broadcast(InDamage);
+
+	OnHealthChanged.Broadcast();
+
+	if (Stats->GetHP() <= 0)
+	{
+		Die();
+		//todo OnDied.Broadcast()
+		return;
+	}
 
 	// Shaking 효과 //todo defaultsubobject better?
 	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());

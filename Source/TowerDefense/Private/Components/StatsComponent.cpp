@@ -11,7 +11,7 @@ void UStatsComponent::TakeDamage(const FDamage & InDamage)
 
 	//if (HP < 0) 
 	//{
-
+	//		OnDied.Broadcast()
 	//}
 }
 

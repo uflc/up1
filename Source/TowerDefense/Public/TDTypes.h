@@ -150,3 +150,18 @@ struct FDamage
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<FDebuff> DebuffArray;
 };
+
+//USTRUCT()
+//struct FTDDamageEvent : public FRadialDamageEvent
+//{
+//	GENERATED_BODY()
+//
+//	/** ID for this class. NOTE this must be unique for all damage events. */
+//	static const int32 ClassID = 3;
+//
+//	virtual int32 GetTypeID() const override { return FTDDamageEvent::ClassID; };
+//	virtual bool IsOfType(int32 InID) const override { return (FTDDamageEvent::ClassID == InID) || FRadialDamageEvent::IsOfType(InID); };
+//	
+//	FTDDamageEvent()
+//	{}
+//};
