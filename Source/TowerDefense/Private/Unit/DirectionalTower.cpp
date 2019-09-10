@@ -14,7 +14,7 @@ void ADirectionalTower::SetFlipbooks()
 {
 	Super::SetFlipbooks();
 
-	UProjectileWeaponComponent* Launcher = Cast<UProjectileWeaponComponent>(AttackComp);
+	UProjectileWeaponComponent* Launcher = Cast<UProjectileWeaponComponent>(WeaponComp);
 	if (Launcher)
 	{
 		Launcher->ProjectileRelativeSpawnPoint = Animation->RelativeLocation;

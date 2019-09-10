@@ -54,6 +54,8 @@ void ATDUnit::ApplyData()
 
 	CreateUniqueWeapon();
 
+	CreateSkills();
+
 	if (UnitData->IsInitialzied())
 	{
 		SetFlipbooks();
@@ -74,11 +76,11 @@ void ATDUnit::CreateUniqueWeapon()
 	check(UnitData);
 
 	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
-	if (NewWeaponClass && (!AttackComp || NewWeaponClass != AttackComp->GetClass()))
+	if (NewWeaponClass && (!WeaponComp || NewWeaponClass != WeaponComp->GetClass()))
 	{
-		AttackComp = NewObject<UWeaponComponent>(this, NewWeaponClass);
+		WeaponComp = NewObject<UWeaponComponent>(this, NewWeaponClass);
 	}
-	if (!AttackComp)
+	if (!WeaponComp)
 	{
 		//TD_LOG(Warning, TEXT("%s: No AttackComp!"), *GetClass()->GetName());
 		return;
@@ -93,8 +95,47 @@ void ATDUnit::CreateUniqueWeapon()
 
 	//////There are AttackComp and Data.//////
 
-	AttackComp->SetCommonData(NewWeaponData);
+	WeaponComp->SetCommonData(NewWeaponData);
 	OnWeaponChanged.Broadcast();
+}
+
+//This method will clean up old skills
+void ATDUnit::CreateSkills()
+{
+	check(UnitData);
+
+	TArray<TSubclassOf<UWeaponComponent>> NewSkillClassArr = UnitData->GetSkillClassArr();
+
+	if (NewSkillClassArr.Num()!=0 )
+	{
+		SkillCompArr.Empty();
+		
+		for (auto NewSkillClass : NewSkillClassArr)
+		{
+			SkillCompArr.Add(NewObject<UWeaponComponent>(this, NewSkillClass));
+		}
+	}
+
+	//if (SkillCompArr.Num()==0)
+	//{
+	//	//TD_LOG(Warning, TEXT("%s: No SkillComp!"), *GetClass()->GetName());
+	//	return;
+	//}
+
+	TArray<UTDWeaponCommonData*> NewSkillDataArr= UnitData->GetSkillDataArr();
+	if (NewSkillDataArr.Num()==0)
+	{
+		TD_LOG(Warning, TEXT("%s: No WeaponData!"), *GetClass()->GetName());
+		return;
+	}
+
+	//////There are AttackComp and Data.//////
+
+	for( int idx = 0; idx < NewSkillDataArr.Num(); idx++)
+	{
+		SkillCompArr[idx]->SetCommonData(NewSkillDataArr[idx]);
+	}
+	//OnSkillsChanged.Broadcast();
 }
 
 float ATDUnit::GetAggroRange() const
@@ -104,15 +145,15 @@ float ATDUnit::GetAggroRange() const
 
 float ATDUnit::GetAttackRange() const
 {
-	return AttackComp ? AttackComp->GetRange() : 0.0f;
+	return WeaponComp ? WeaponComp->GetRange() : 0.0f;
 }
 
 int32 ATDUnit::GetAttackDamage() const
 {
-	return AttackComp ? AttackComp->GetDamage() : 0;
+	return WeaponComp ? WeaponComp->GetDamage() : 0;
 }
 
 float ATDUnit::GetAttackSpeed() const
 {
-	return AttackComp ? AttackComp->GetCooldown() : 0.0f;
+	return WeaponComp ? WeaponComp->GetCooldown() : 0.0f;
 }

@@ -50,10 +50,11 @@ protected:
 
 	//고유한 주 사용 무기(공격 방식).
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class UWeaponComponent* AttackComp;
+	class UWeaponComponent* WeaponComp;
+
 	//TODO 다양한 WeaponComponent로 여러 공격 및 스킬 구현.
-	/*UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
-	TArray<UWeaponComponent*> Weapons;*/
+	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
+	TArray<UWeaponComponent*> SkillCompArr;
 
 	//피아 식별. Player는 Enemy에게 어그로가 끌리며 역도 성립. 기본값인 None은 깍두기.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -76,6 +77,8 @@ public:
 
 	//AttackComp weapon is Unique
 	virtual void CreateUniqueWeapon();
+
+	virtual void CreateSkills();
 
 	//this is called in BTService AggroCheck() to see if enemy is in aggro range.
 	UFUNCTION(BlueprintPure)

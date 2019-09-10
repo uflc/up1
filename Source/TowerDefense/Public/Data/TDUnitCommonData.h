@@ -55,4 +55,6 @@ public:
 	FORCEINLINE const TArray<TSoftObjectPtr<class USoundCue>>& GetSounds() const { return Sounds; }
 	FORCEINLINE TSubclassOf<UWeaponComponent> GetWeaponClass() const { return WeaponClass; }
 	FORCEINLINE UTDWeaponCommonData* GetWeaponData() { return WeaponData; }
+	FORCEINLINE TArray<TSubclassOf<class UWeaponComponent>> GetSkillClassArr() const { return SkillClassArr; }
+	FORCEINLINE TArray<class UTDWeaponCommonData*> GetSkillDataArr() { return SkillDataArr; }
 };

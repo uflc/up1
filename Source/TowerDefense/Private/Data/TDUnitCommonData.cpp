@@ -53,6 +53,11 @@ void UTDUnitCommonData::LoadResources()
 	{
 		WeaponData->LoadResources();
 	}
+
+	for( auto SkillData : SkillDataArr)
+	{
+		SkillData->LoadResources();
+	}
 }
 
 void UTDUnitCommonData::LoadResourcesDeffered()
