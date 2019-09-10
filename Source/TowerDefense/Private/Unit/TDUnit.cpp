@@ -53,7 +53,6 @@ void ATDUnit::ApplyData()
 	check(UnitData);
 
 	CreateUniqueWeapon();
-
 	CreateSkills();
 
 	if (UnitData->IsInitialzied())
@@ -116,20 +115,12 @@ void ATDUnit::CreateSkills()
 		}
 	}
 
-	//if (SkillCompArr.Num()==0)
-	//{
-	//	//TD_LOG(Warning, TEXT("%s: No SkillComp!"), *GetClass()->GetName());
-	//	return;
-	//}
-
 	TArray<UTDWeaponCommonData*> NewSkillDataArr= UnitData->GetSkillDataArr();
 	if (NewSkillDataArr.Num()==0)
 	{
 		TD_LOG(Warning, TEXT("%s: No WeaponData!"), *GetClass()->GetName());
 		return;
 	}
-
-	//////There are AttackComp and Data.//////
 
 	for( int idx = 0; idx < NewSkillDataArr.Num(); idx++)
 	{

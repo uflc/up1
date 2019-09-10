@@ -3,6 +3,7 @@
 
 #include "UnitDebuffComponent.h"
 #include "TDCharacter.h"
+#include "CustomDebuffBaseComponent.h"
 #include "GameFramework\FloatingPawnMovement.h"
 #include "WeaponComponent.h"
 
@@ -75,6 +76,19 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 	//Set debuff duration.
 	GetWorld()->GetTimerManager().SetTimer(HandlesPtr->Last(), FTimerDelegate::CreateUFunction(this, FName("UnregDebuff"), *DebuffPtr), InDebuff.Duration, false);
 
+	//Custom Action
+	if (InDebuff.Type == EDebuffType::Custom)
+	{
+		const ATDCharacter*      Owner = (ATDCharacter*)GetOwner();
+		UCustomDebuffBaseComponent* CustomDebuffComp = Cast<UCustomDebuffBaseComponent>(Owner->GetComponentByClass(InDebuff.CustomDebuffClass));
+
+		bNeedUpdate = false;
+
+		if ( !CustomDebuffComp ) return;
+
+		CustomDebuffComp->DebuffStart();
+	}
+
 	//Apply Debuff
 	if (bNeedUpdate)
 	{
@@ -84,9 +98,24 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 
 void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 {
-	UpdateStat(InDebuff, false);
+	///Update unit
+	if (InDebuff.Type == EDebuffType::Custom)
+	{
+		const ATDCharacter*      Owner = (ATDCharacter*)GetOwner();
+		UCustomDebuffBaseComponent* CustomDebuffComp = Cast<UCustomDebuffBaseComponent>(Owner->GetComponentByClass(InDebuff.CustomDebuffClass));
 
-	auto TimersPtr = BuffIDTimersMap.Find(InDebuff.ID);
+		if (!CustomDebuffComp) return;
+
+		CustomDebuffComp->DebuffEnd();
+	}
+	else
+	{
+		UpdateStat(InDebuff, false);
+	}
+	///
+
+	///Update maps
+	TArray<FTimerHandle>* TimersPtr = BuffIDTimersMap.Find(InDebuff.ID);
 
 	if ( IsBlendable(InDebuff.Type) || TimersPtr->Num() <= 1 )
 	{ 
@@ -95,8 +124,11 @@ void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
 	}
 	else
 	{
-		TimersPtr->RemoveAt(0);
+		//TimersPtr->RemoveAt(0);
+		TimersPtr->Pop();
 	}
+	///
+
 }
 
 void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffOn)
@@ -112,7 +144,7 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffOn)
 
 	TArray<FDebuff> DebuffArr;
 
-	// ( Slow, Exhaust { AttkSpd,MovementSpd }, etc )
+	// ( Slow, Exhaust { AttkSpd,MovementSpd }, etc ) , !! Don't set custom debuff's type to blendable !!
 	if ( IsBlendable(InDebuff.Type) )
 	{
 		FBuffModifier* BuffMod = BuffTypeModMap.Find(InDebuff.Type);
@@ -186,6 +218,7 @@ bool UUnitDebuffComponent::IsBlendable(const EDebuffType& InDebuffType)
 
 		case EDebuffType::Snared:
 		case EDebuffType::Stun:
+		case EDebuffType::Custom:
 		default:
 			return false;
 	}
