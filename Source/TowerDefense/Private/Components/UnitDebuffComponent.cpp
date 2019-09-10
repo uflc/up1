@@ -195,6 +195,9 @@ void UUnitDebuffComponent::TakeDamage(const FDamage& InDamage)
 {
 	for(auto Debuff : InDamage.DebuffArray)
 	{
-		RegDebuff(Debuff);
+		if (FMath::FRandRange(0, 99.99f) <= Debuff.Chance)
+		{
+			RegDebuff(Debuff);
+		}
 	}
 }

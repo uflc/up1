@@ -16,15 +16,7 @@ void UEffectorComponent::InflictEffect(ATDCharacter* Target)
 	DamageToApp.Damage			=	Damage;
 	DamageToApp.DebuffArray	= Debuffs;
 
-	Target->TDUnitTakeDamage1(DamageToApp);
-
-	//Target->TDUnitTakeDamage(ShakePower, ShakeDuration, Damage);
-
-	//for ( FDebuff Debuff : Debuffs )
-	//{
-	//	if (FMath::FRandRange(0, 99.99f) <= Debuff.Chance)
-	//	Target->TDUnitTakeDebuff(Debuff);
-	//}
+	Target->TDUnitTakeDamage(DamageToApp);
 }
 
 void UEffectorComponent::Initialize(float InEffectRange, uint32 InDamage, const TArray<FDebuff>& InDebuffArray)

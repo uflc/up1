@@ -32,8 +32,13 @@ protected:
 	TSubclassOf<class UWeaponComponent> WeaponClass;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
-	class UTDWeaponCommonData* WeaponData;	// or array
+	class UTDWeaponCommonData* WeaponData;	
 
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	TArray<TSubclassOf<class UWeaponComponent>> SkillClassArr;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	TArray<class UTDWeaponCommonData*> SkillDataArr;
 public:
 	FLoadCompletedSignature OnLoadCompleted;
 

@@ -72,8 +72,11 @@ enum class EDebuffType : uint8
 {
 	Stun,
 	Snared,
-	Slow
+	Slow,
+	Custom
 };
+
+class UCustomDebuffBaseComponent;
 
 USTRUCT(BlueprintType)
 struct FDebuff
@@ -91,6 +94,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EDebuffType Type;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UCustomDebuffBaseComponent> CustomDebuffClass;
 	//// bool bIsPrimary;
 
 	// if true power is additive modifier, false is multiplication modifier.

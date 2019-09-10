@@ -61,16 +61,12 @@ public:
 
 	//TODO AActor::TakeDamge override?
 	UFUNCTION(BlueprintCallable)
-	void TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage);
-
-	UFUNCTION(BlueprintCallable)
-	void TDUnitTakeDamage1(const FDamage & InDamage);
-
+	void TDUnitTakeDamage(const FDamage & InDamage);
 
 	//virtual void TakeDamge();
 
-	UFUNCTION(BlueprintCallable)
-	void TDUnitTakeDebuff(FDebuff& InDebuff);
+	//UFUNCTION(BlueprintCallable)
+	//void TDUnitTakeDebuff(FDebuff& InDebuff);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Die();

@@ -109,49 +109,7 @@ bool ATDCharacter::IsLethal() const
 
 }
 
-void ATDCharacter::TDUnitTakeDamage(float ShakePower, float ShakeDuration, int32 Damage)
-{
-	if (IsLethal()) return;
-
-	// »ç¸Á.
-	Health -= Damage;
-
-	FDamage TempDamage;
-	TempDamage.Damage = Damage;
-
-	OnTakeDamage.Broadcast(TempDamage);
-
-	OnHealthChanged.Broadcast();
-
-	//if (Health <= 0)
-	//{
-	//	Die();
-	//	//todo OnDied.Broadcast()
-	//	return;
-	//}
-
-	if (Stats->GetHP() <= 0)
-	{
-		Die();
-		//todo OnDied.Broadcast()
-		return;
-	}
-
-	// Shaking È¿°ú //todo defaultsubobject better?
-	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
-	if (!ShakeComp)
-	{
-		ShakeComp = NewObject<UShakingComponent>(this, "ShakingComponent");
-		if (!ShakeComp)
-		{
-			return;
-		}
-	}
-
-	Cast<UShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
-}
-
-void ATDCharacter::TDUnitTakeDamage1(const FDamage & InDamage)
+void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 {
 	static const float ShakePower = 4.0f;
 	static const float ShakeDuration = 0.2f;
@@ -180,13 +138,6 @@ void ATDCharacter::TDUnitTakeDamage1(const FDamage & InDamage)
 	}
 
 	Cast<UShakingComponent>(ShakeComp)->Initialize(ShakePower, ShakeDuration);
-}
-
-void ATDCharacter::TDUnitTakeDebuff(FDebuff& InDebuff)
-{
-	if (IsLethal()) return;
-
-	DebuffControll->RegDebuff(InDebuff);
 }
 
 void ATDCharacter::Die_Implementation()
