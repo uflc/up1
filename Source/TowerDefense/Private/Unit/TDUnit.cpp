@@ -148,3 +148,21 @@ float ATDUnit::GetAttackSpeed() const
 {
 	return WeaponComp ? WeaponComp->GetCooldown() : 0.0f;
 }
+
+UWeaponComponent * ATDUnit::GetProperWeapon() const
+{
+	if (!WeaponComp->IsInCooldown())
+	{
+		return WeaponComp;
+	}
+
+	for (auto SkillComp : SkillCompArr)
+	{
+		if (!SkillComp->IsInCooldown())
+		{
+			return SkillComp;
+		}
+	}
+	//No Weapon
+	return nullptr;
+}

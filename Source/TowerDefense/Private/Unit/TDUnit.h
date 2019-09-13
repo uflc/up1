@@ -94,6 +94,9 @@ public:
 	UFUNCTION(BlueprintPure)
 	float GetAttackSpeed() const;
 
+	UFUNCTION(BlueprintPure)
+	UWeaponComponent* GetProperWeapon() const;
+
 	FORCEINLINE EUnitTeam GetTeam() const { return Team; }
 
 	static FName AnimationComponentName;

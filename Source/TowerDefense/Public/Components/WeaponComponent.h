@@ -24,8 +24,14 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	float Range;
 
+	UPROPERTY(BlueprintReadOnly)
+	bool bInCooldown;
+
+	FTimerHandle CooldownHandle;
 	/*UPROPERTY(BlueprintReadOnly)
 	int	UpgradedLevel = 0*/
+
+	void CooldownEnd();
 
 public:	
 	virtual void SetCommonData(UTDWeaponCommonData* InData);
@@ -38,8 +44,12 @@ public:
 
 	virtual bool IsTargetLocked();
 
+	
 	FORCEINLINE float GetRange() const { return Range; }
 	FORCEINLINE float GetCooldown() const { return Cooldown; }
+
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE bool IsInCooldown() const { return bInCooldown; }
 
 	UFUNCTION(BlueprintPure)
 	int32 GetDamage() const;

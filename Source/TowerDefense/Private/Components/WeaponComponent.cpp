@@ -6,7 +6,12 @@
 #include "TDWeaponCommonData.h"
 #include "Sound\SoundCue.h"
 
-void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData) 
+void UWeaponComponent::CooldownEnd()
+{
+	bInCooldown = false;
+}
+
+void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 { 
 	if (!InData || WeaponData == InData) return;
 
@@ -23,11 +28,20 @@ void UWeaponComponent::SetTarget(ATDCharacter* const NewTarget)
 
 void UWeaponComponent::UseWeapon() 
 {
+	const static float ProcDelay = 0.2f;
 	USoundBase* Sound = WeaponData->GetAttackSound().Get();
 	if (Sound != nullptr)
 	{
 		UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound,1,1,0);
 	}
+
+	if (Cooldown <= 0.2f)
+	{
+		return;
+	}
+	bInCooldown = true;
+
+	GetWorld()->GetTimerManager().SetTimer(CooldownHandle,this,&UWeaponComponent::CooldownEnd,Cooldown-ProcDelay,false);
 }
 
 bool UWeaponComponent::IsTargetLocked()
