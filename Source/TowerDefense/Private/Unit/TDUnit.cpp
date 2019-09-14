@@ -112,20 +112,23 @@ void ATDUnit::CreateSkills()
 		for (auto NewSkillClass : NewSkillClassArr)
 		{
 			SkillCompArr.Add(NewObject<UWeaponComponent>(this, NewSkillClass));
+			TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillClass->GetName());
 		}
 	}
 
 	TArray<UTDWeaponCommonData*> NewSkillDataArr= UnitData->GetSkillDataArr();
 	if (NewSkillDataArr.Num()==0)
 	{
-		TD_LOG(Warning, TEXT("%s: No WeaponData!"), *GetClass()->GetName());
+		//TD_LOG(Warning, TEXT("%s: No SkillData!"), *GetClass()->GetName());
 		return;
 	}
 
 	for( int idx = 0; idx < NewSkillDataArr.Num(); idx++)
 	{
 		SkillCompArr[idx]->SetCommonData(NewSkillDataArr[idx]);
+		TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
 	}
+
 	//OnSkillsChanged.Broadcast();
 }
 
@@ -149,20 +152,22 @@ float ATDUnit::GetAttackSpeed() const
 	return WeaponComp ? WeaponComp->GetCooldown() : 0.0f;
 }
 
-UWeaponComponent * ATDUnit::GetProperWeapon() const
+UWeaponComponent * ATDUnit::GetProperWeapon()
 {
+	for (auto& SkillComp : SkillCompArr)
+	{
+		if (!SkillComp->IsInCooldown())
+		{
+			TD_LOG(Warning, TEXT("%s"), *SkillComp->GetName());
+			return SkillComp;
+		}
+	}
+
 	if (!WeaponComp->IsInCooldown())
 	{
 		return WeaponComp;
 	}
 
-	for (auto SkillComp : SkillCompArr)
-	{
-		if (!SkillComp->IsInCooldown())
-		{
-			return SkillComp;
-		}
-	}
 	//No Weapon
 	return nullptr;
 }

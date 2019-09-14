@@ -53,7 +53,7 @@ protected:
 	class UWeaponComponent* WeaponComp;
 
 	//TODO 다양한 WeaponComponent로 여러 공격 및 스킬 구현.
-	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, /*Instanced, */BlueprintReadOnly)
 	TArray<UWeaponComponent*> SkillCompArr;
 
 	//피아 식별. Player는 Enemy에게 어그로가 끌리며 역도 성립. 기본값인 None은 깍두기.
@@ -94,8 +94,8 @@ public:
 	UFUNCTION(BlueprintPure)
 	float GetAttackSpeed() const;
 
-	UFUNCTION(BlueprintPure)
-	UWeaponComponent* GetProperWeapon() const;
+	UFUNCTION(BlueprintCallable)
+	UWeaponComponent* GetProperWeapon();
 
 	FORCEINLINE EUnitTeam GetTeam() const { return Team; }
 

@@ -19,6 +19,8 @@ void UWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 
 	Cooldown   = WeaponData->GetDefaultCooldown();
 	Range	   = WeaponData->GetDefaultRange();
+
+	bInCooldown = false;
 }
 
 void UWeaponComponent::SetTarget(ATDCharacter* const NewTarget)
@@ -29,16 +31,20 @@ void UWeaponComponent::SetTarget(ATDCharacter* const NewTarget)
 void UWeaponComponent::UseWeapon() 
 {
 	const static float ProcDelay = 0.2f;
+
+	TD_LOG(Warning, TEXT("%s : UseWeapon"), *GetName());
+
 	USoundBase* Sound = WeaponData->GetAttackSound().Get();
 	if (Sound != nullptr)
 	{
 		UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound,1,1,0);
 	}
 
-	if (Cooldown <= 0.2f)
+	if (Cooldown <= ProcDelay)
 	{
 		return;
 	}
+
 	bInCooldown = true;
 
 	GetWorld()->GetTimerManager().SetTimer(CooldownHandle,this,&UWeaponComponent::CooldownEnd,Cooldown-ProcDelay,false);
