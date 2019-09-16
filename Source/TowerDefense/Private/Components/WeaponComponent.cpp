@@ -32,7 +32,7 @@ void UWeaponComponent::UseWeapon()
 {
 	const static float ProcDelay = 0.2f;
 
-	TD_LOG(Warning, TEXT("%s : UseWeapon"), *GetName());
+	//TD_LOG(Warning, TEXT("%s : UseWeapon"), *GetName());
 
 	USoundBase* Sound = WeaponData->GetAttackSound().Get();
 	if (Sound != nullptr)

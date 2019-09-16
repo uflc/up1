@@ -112,7 +112,7 @@ void ATDUnit::CreateSkills()
 		for (auto NewSkillClass : NewSkillClassArr)
 		{
 			SkillCompArr.Add(NewObject<UWeaponComponent>(this, NewSkillClass));
-			TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillClass->GetName());
+			//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillClass->GetName());
 		}
 	}
 
@@ -126,7 +126,7 @@ void ATDUnit::CreateSkills()
 	for( int idx = 0; idx < NewSkillDataArr.Num(); idx++)
 	{
 		SkillCompArr[idx]->SetCommonData(NewSkillDataArr[idx]);
-		TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
+		//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
 	}
 
 	//OnSkillsChanged.Broadcast();
@@ -158,7 +158,7 @@ UWeaponComponent * ATDUnit::GetProperWeapon()
 	{
 		if (!SkillComp->IsInCooldown())
 		{
-			TD_LOG(Warning, TEXT("%s"), *SkillComp->GetName());
+			//TD_LOG(Warning, TEXT("%s"), *SkillComp->GetName());
 			return SkillComp;
 		}
 	}

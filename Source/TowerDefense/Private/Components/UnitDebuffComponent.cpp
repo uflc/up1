@@ -79,12 +79,20 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 	//Custom Action
 	if (InDebuff.Type == EDebuffType::Custom)
 	{
-		const ATDCharacter*      Owner = (ATDCharacter*)GetOwner();
+		/*const*/ ATDCharacter*      Owner = (ATDCharacter*)GetOwner();
 		UCustomDebuffBaseComponent* CustomDebuffComp = Cast<UCustomDebuffBaseComponent>(Owner->GetComponentByClass(InDebuff.CustomDebuffClass));
+
+		TD_LOG(Warning, TEXT("CustomEntry"));
 
 		bNeedUpdate = false;
 
-		if ( !CustomDebuffComp ) return;
+		if ( CustomDebuffComp == nullptr )
+		{
+			CustomDebuffComp = NewObject<UCustomDebuffBaseComponent>(Owner, InDebuff.CustomDebuffClass);
+			//CustomDebuffComp->RegisterComponent();
+			//CustomDebuffComp->AttachTo(Owner);
+			TD_LOG(Warning, TEXT("%s"), *(CustomDebuffComp->GetClass())->GetName());
+		}
 
 		CustomDebuffComp->DebuffStart();
 	}

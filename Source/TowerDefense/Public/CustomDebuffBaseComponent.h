@@ -7,7 +7,7 @@
 #include "CustomDebuffBaseComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(Blueprintable, ClassGroup=(Custom) )
 class TOWERDEFENSE_API UCustomDebuffBaseComponent : public USceneComponent
 {
 	GENERATED_BODY()
@@ -27,7 +27,14 @@ public:
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	virtual void DebuffStart();
+	// BlueprintNativeEvent for testing
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void DebuffStart();
 
-	virtual void DebuffEnd();
+	virtual void DebuffStart_Implementation();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void DebuffEnd();
+
+	virtual void DebuffEnd_Implementation();
 };

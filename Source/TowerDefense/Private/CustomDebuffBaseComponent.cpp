@@ -11,10 +11,10 @@ UCustomDebuffBaseComponent::UCustomDebuffBaseComponent()
 
 // Called when the game starts
 
-void UCustomDebuffBaseComponent::DebuffStart()
+void UCustomDebuffBaseComponent::DebuffStart_Implementation()
 {
 }
 
-void UCustomDebuffBaseComponent::DebuffEnd()
+void UCustomDebuffBaseComponent::DebuffEnd_Implementation()
 {
 }
