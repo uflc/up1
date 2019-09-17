@@ -14,9 +14,15 @@ class TOWERDEFENSE_API UStatsComponent : public UTDComponent
 {
 	GENERATED_BODY()
 	
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHealthChangeSignature);
+
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 HP;
+
+	UPROPERTY(BlueprintAssignable)
+	FHealthChangeSignature OnHealthChanged;
 
 public:
 	UFUNCTION()

@@ -9,6 +9,8 @@ void UStatsComponent::TakeDamage(const FDamage & InDamage)
 {
 	HP -= InDamage.Damage;
 
+	OnHealthChanged.Broadcast();
+
 	//if (HP < 0) 
 	//{
 	//		OnDied.Broadcast()
