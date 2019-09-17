@@ -4,22 +4,21 @@
 
 #include "TowerDefense.h"
 #include "TDTypes.h"
+#include "PaperFlipbookComponent.h"
 #include "CustomDebuffBaseComponent.generated.h"
 
 
 UCLASS(Blueprintable, ClassGroup=(Custom) )
-class TOWERDEFENSE_API UCustomDebuffBaseComponent : public USceneComponent
+class TOWERDEFENSE_API UCustomDebuffBaseComponent : public UPaperFlipbookComponent
 {
 	GENERATED_BODY()
-
+	
 public:	
 	// Sets default values for this component's properties
 	UCustomDebuffBaseComponent();
+	//UCustomDebuffBaseComponent(const FObjectInitializer& ObjectInitializer);
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class UTDPaperFlipbookComponent* EffectFlipbook;
-
 	// Called when the game starts
 	//virtual void BeginPlay() override;
 
