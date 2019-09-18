@@ -132,15 +132,15 @@ USTRUCT(BlueprintType)
 struct FEffectorData
 {
 	GENERATED_BODY()
-
+public:
 	//todo :: replace with FDamage
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 DefaultDamage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DefaultSplashRange;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FDebuff> DebuffArray;
 };
 
@@ -148,11 +148,11 @@ USTRUCT(BlueprintType)
 struct FDamage
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Damage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FDebuff> DebuffArray;
 };
 
