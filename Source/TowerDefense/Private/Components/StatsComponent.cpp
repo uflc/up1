@@ -3,16 +3,18 @@
 
 #include "StatsComponent.h"
 #include "TDTypes.h"
+#include "TDCharacter.h"
 #include "TDCharData.h"
 
 void UStatsComponent::TakeDamage(const FDamage & InDamage)
 {
 	SetHP(HP - InDamage.Damage);
 
-	//if (HP < 0) 
-	//{
-	//		OnDied.Broadcast()
-	//}
+	if (HP < 0) 
+	{
+		Cast<ATDCharacter>(GetOwner())->OnTDUnitDeath.Broadcast();
+	}
+
 }
 
 void UStatsComponent::SetHP(int32 InHP)
@@ -21,7 +23,6 @@ void UStatsComponent::SetHP(int32 InHP)
 
 	HP = InHP;
 	OnHealthChanged.Broadcast();
-
 }
 
 void UStatsComponent::SetCommonData(UTDCharData * InData)

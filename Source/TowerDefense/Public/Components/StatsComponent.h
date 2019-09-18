@@ -25,7 +25,7 @@ protected:
 	FHealthChangeSignature OnHealthChanged;
 
 public:
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void TakeDamage(const FDamage& InDamage);
 
 	UFUNCTION(BlueprintCallable)

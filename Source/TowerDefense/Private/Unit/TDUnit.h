@@ -72,7 +72,7 @@ public:
 	//virtual void PostInitProperties() override;
 	//virtual void PreRegisterAllComponents() override;
 	//virtual void PostInitializeComponents() override;
-
+	UPROPERTY(BlueprintAssignable)
 	FWeaponChangeSignature OnWeaponChanged;
 
 	//AttackComp weapon is Unique
