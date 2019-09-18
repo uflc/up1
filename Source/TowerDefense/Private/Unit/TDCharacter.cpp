@@ -119,15 +119,6 @@ void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 
 	OnTakeDamage.Broadcast(InDamage);
 
-	OnHealthChanged.Broadcast();
-
-	//if (Stats->GetHP() <= 0)
-	//{
-	//	//Die();
-	//	OnTDUnitDeath.Broadcast();
-	//	return;
-	//}
-
 	// Shaking È¿°ú //todo defaultsubobject better?
 	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
 	if (!ShakeComp)

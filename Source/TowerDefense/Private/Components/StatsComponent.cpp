@@ -14,6 +14,8 @@ void UStatsComponent::TakeDamage(const FDamage & InDamage)
 	{
 		Cast<ATDCharacter>(GetOwner())->OnTDUnitDeath.Broadcast();
 	}
+
+	OnHealthChanged.Broadcast();
 }
 
 void UStatsComponent::SetCommonData(UTDCharData * InData)
