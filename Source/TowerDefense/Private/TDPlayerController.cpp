@@ -37,6 +37,7 @@ void ATDPlayerController::UpdateValue(int32 Value, EValueType Type)
 		break;
 	case EValueType::Mana:
 		Mana += Value;
+		if (Mana>=100) Mana = 100;
 		HUDWidget->UpdateValue(Mana, EValueType::Mana);
 		break;
 	default:

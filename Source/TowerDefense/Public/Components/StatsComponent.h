@@ -19,7 +19,7 @@ protected:
 	int32 HP;
 
 public:
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void TakeDamage(const FDamage& InDamage);
 
 	FORCEINLINE int32 GetHP() const{ return HP; }

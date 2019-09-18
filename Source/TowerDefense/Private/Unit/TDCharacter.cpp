@@ -36,6 +36,8 @@ ATDCharacter::ATDCharacter()
 	Stats = CreateDefaultSubobject<UStatsComponent>(TEXT("Stats"));
 	OnTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
 
+	OnTDUnitDeath.AddDynamic(this, &ATDCharacter::Die);
+
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
 	HealthBar->SetWidgetSpace(EWidgetSpace::World);
 	HealthBar->SetRelativeRotation(FRotator(90.0f, 90.0f, 0.0f));
@@ -119,12 +121,12 @@ void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 
 	OnHealthChanged.Broadcast();
 
-	if (Stats->GetHP() <= 0)
-	{
-		Die();
-		//todo OnDied.Broadcast()
-		return;
-	}
+	//if (Stats->GetHP() <= 0)
+	//{
+	//	//Die();
+	//	OnTDUnitDeath.Broadcast();
+	//	return;
+	//}
 
 	// Shaking È¿°ú //todo defaultsubobject better?
 	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());

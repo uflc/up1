@@ -17,6 +17,7 @@ class TOWERDEFENSE_API ATDCharacter : public ATDUnit
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTakeDamageSignature, const FDamage& , InDamage);
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTDUnitDeathSignature);
 	
 public:
 	ATDCharacter();
@@ -43,15 +44,19 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 Health;
 	
+	/*UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "TDChar")
+	TSet<EDebuffType> Disables;*/
+
+public:
 	UPROPERTY(BlueprintAssignable)
 	FHealthChangeSignature OnHealthChanged;
 
 	UPROPERTY(BlueprintAssignable)
 	FTakeDamageSignature OnTakeDamage;
-	/*UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "TDChar")
-	TSet<EDebuffType> Disables;*/
 
-public:
+	UPROPERTY(BlueprintAssignable)
+	FTDUnitDeathSignature OnTDUnitDeath;
+
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
