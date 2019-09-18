@@ -28,6 +28,9 @@ public:
 	UFUNCTION()
 	void TakeDamage(const FDamage& InDamage);
 
+	UFUNCTION(BlueprintCallable)
+	void SetHP(int32 InHP);
+
 	FORCEINLINE int32 GetHP() const{ return HP; }
 
 	virtual void SetCommonData(class UTDCharData* InData);

@@ -34,7 +34,7 @@ private:
 	void InitializeDefaults();
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UTDUnitCommonData* UnitData;
 
 	//Root. Collision.

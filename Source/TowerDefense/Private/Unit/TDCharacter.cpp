@@ -62,7 +62,7 @@ void ATDCharacter::BeginPlay()
 		DrawingAggroRange = CharData->GetDrawingAggroRange();
 
 		Stats->SetCommonData((UTDCharData*)UnitData);
-		Health = CharData->GetHealth();
+		//Health = CharData->GetHealth();
 	}
 
 	//Without calling this HealthBar->GetUserWidgetObject() returns nullptr for some reason. don't know why.

@@ -7,14 +7,21 @@
 
 void UStatsComponent::TakeDamage(const FDamage & InDamage)
 {
-	HP -= InDamage.Damage;
-
-	OnHealthChanged.Broadcast();
+	SetHP(HP - InDamage.Damage);
 
 	//if (HP < 0) 
 	//{
 	//		OnDied.Broadcast()
 	//}
+}
+
+void UStatsComponent::SetHP(int32 InHP)
+{
+	if (InHP == HP) return;
+
+	HP = InHP;
+	OnHealthChanged.Broadcast();
+
 }
 
 void UStatsComponent::SetCommonData(UTDCharData * InData)

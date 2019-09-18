@@ -42,7 +42,7 @@ public:
 	float GetTowerRange();
 	virtual float GetTowerRange_Implementation();
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Tower")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool Upgrade(ETowerType UpType);
 	virtual bool Upgrade_Implementation(ETowerType UpType);
 };

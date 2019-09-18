@@ -14,7 +14,6 @@ class TOWERDEFENSE_API ATDCharacter : public ATDUnit
 	GENERATED_BODY()
 	
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTakeDamageSignature, const FDamage& , InDamage);
-
 	
 public:
 	ATDCharacter();
@@ -44,6 +43,7 @@ protected:
 
 	UPROPERTY(BlueprintAssignable)
 	FTakeDamageSignature OnTakeDamage;
+
 	/*UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "TDChar")
 	TSet<EDebuffType> Disables;*/
 
