@@ -16,6 +16,10 @@ UCustomDebuffBaseComponent::UCustomDebuffBaseComponent()
 
 // Called when the game starts
 
+void UCustomDebuffBaseComponent::Initialize_Implementation(const FDebuff& InDebuff)
+{
+}
+
 void UCustomDebuffBaseComponent::DebuffStart_Implementation()
 {
 }

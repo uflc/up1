@@ -41,10 +41,7 @@ protected:
 
 	//deprecated?
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
-	int32 Health;
-
-	UPROPERTY(BlueprintAssignable)
-	FTakeDamageSignature OnTakeDamage;
+	int32 Health;;
 
 	/*UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "TDChar")
 	TSet<EDebuffType> Disables;*/

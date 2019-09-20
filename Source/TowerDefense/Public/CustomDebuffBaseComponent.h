@@ -25,8 +25,11 @@ protected:
 public:	
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Initialize(const FDebuff& InDebuff);
 
-	// BlueprintNativeEvent for testing
+	virtual void Initialize_Implementation(const FDebuff& InDebuff);
+
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void DebuffStart();
 
