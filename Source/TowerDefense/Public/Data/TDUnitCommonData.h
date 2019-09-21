@@ -39,6 +39,13 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	TArray<class UTDWeaponCommonData*> SkillDataArr;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	TArray<TSubclassOf<class UPassiveSkillComponent>> PassiveSkillClassArr;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	TArray<class UPassiveCommonData*> PassiveSkillDataArr;
+	
 public:
 	FLoadCompletedSignature OnLoadCompleted;
 
@@ -57,4 +64,6 @@ public:
 	FORCEINLINE UTDWeaponCommonData* GetWeaponData() { return WeaponData; }
 	FORCEINLINE TArray<TSubclassOf<class UWeaponComponent>> GetSkillClassArr() const { return SkillClassArr; }
 	FORCEINLINE TArray<class UTDWeaponCommonData*> GetSkillDataArr() { return SkillDataArr; }
+	FORCEINLINE TArray<TSubclassOf<class UPassiveSkillComponent>> GetPassiveClassArr() const { return PassiveSkillClassArr; }
+	FORCEINLINE TArray<class UPassiveCommonData*> GetPassiveDataArr() { return PassiveSkillDataArr; }
 };

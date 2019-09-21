@@ -68,17 +68,17 @@ protected:
 public:
 	virtual void BeginPlay() override;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void RegDebuff(const FDebuff& Debuff);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void UnregDebuff(FDebuff & Debuff);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void UpdateStat(const FDebuff& InDebuff, bool bDebuffStart); // Broadcast?
 
 	bool IsBlendable(const EDebuffType& InDebuffType);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void TakeDamage(const FDamage& InDamage);
 };

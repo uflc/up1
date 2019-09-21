@@ -9,8 +9,8 @@ void UEffectorComponent::InflictEffect(ATDCharacter* Target)
 {
 	if (!Target) return;
 
-	static const float ShakePower			= 4.0f;
-	static const float ShakeDuration	= 0.2f;
+	//static const float ShakePower			= 4.0f;
+	//static const float ShakeDuration	= 0.2f;
 
 	FDamage DamageToApp;
 	DamageToApp.Damage			=	Damage;

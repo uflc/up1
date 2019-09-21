@@ -120,6 +120,11 @@ void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 	OnTakeDamage.Broadcast(InDamage);
 
 	// Shaking È¿°ú //todo defaultsubobject better?
+	if (InDamage.Damage <= 0)
+	{
+		return;
+	}
+
 	UActorComponent* ShakeComp = GetComponentByClass(UShakingComponent::StaticClass());
 	if (!ShakeComp)
 	{

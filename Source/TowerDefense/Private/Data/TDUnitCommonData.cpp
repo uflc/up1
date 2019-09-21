@@ -7,6 +7,8 @@
 #include "PaperFlipbook.h"
 #include "Sound/SoundCue.h"
 #include "Engine/AssetManager.h"
+#include "PassiveSkillComponent.h"
+#include "PassiveCommonData.h"
 
 void UTDUnitCommonData::PostLoad()
 {
@@ -57,6 +59,11 @@ void UTDUnitCommonData::LoadResources()
 	for( auto SkillData : SkillDataArr)
 	{
 		SkillData->LoadResources();
+	}
+
+	for (auto PassiveData : PassiveSkillDataArr)
+	{
+		PassiveData->LoadResources();
 	}
 }
 

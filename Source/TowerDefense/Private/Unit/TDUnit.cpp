@@ -7,6 +7,8 @@
 #include "PaperSpriteComponent.h"
 #include "WeaponComponent.h"
 #include "TDWeaponCommonData.h"
+#include "PassiveSkillComponent.h"
+#include "PassiveCommonData.h"
 
 FName ATDUnit::AnimationComponentName(TEXT("Flipbook0"));
 
@@ -103,6 +105,7 @@ void ATDUnit::CreateSkills()
 {
 	check(UnitData);
 
+	/// Active ///
 	TArray<TSubclassOf<UWeaponComponent>> NewSkillClassArr = UnitData->GetSkillClassArr();
 
 	if (NewSkillClassArr.Num()!=0 )
@@ -126,6 +129,33 @@ void ATDUnit::CreateSkills()
 	for( int idx = 0; idx < NewSkillDataArr.Num(); idx++)
 	{
 		SkillCompArr[idx]->SetCommonData(NewSkillDataArr[idx]);
+		//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
+	}
+
+	/// Passive ///
+	TArray<TSubclassOf<UPassiveSkillComponent>> NewPassiveClassArr = UnitData->GetPassiveClassArr();
+
+	if (NewPassiveClassArr.Num() != 0)
+	{
+		PassiveCompArr.Empty();
+
+		for (auto NewPassiveClass : NewPassiveClassArr)
+		{
+			PassiveCompArr.Add(NewObject<UPassiveSkillComponent>(this, NewPassiveClass));
+			//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillClass->GetName());
+		}
+	}
+
+	TArray<UPassiveCommonData*> NewPassiveDataArr = UnitData->GetPassiveDataArr();
+	if (NewPassiveDataArr.Num() == 0)
+	{
+		//TD_LOG(Warning, TEXT("%s: No SkillData!"), *GetClass()->GetName());
+		return;
+	}
+
+	for (int idx = 0; idx < NewPassiveDataArr.Num(); idx++)
+	{
+		PassiveCompArr[idx]->SetCommonData(NewPassiveDataArr[idx]);
 		//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
 	}
 

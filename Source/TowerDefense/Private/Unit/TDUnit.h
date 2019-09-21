@@ -56,6 +56,10 @@ protected:
 	UPROPERTY(EditAnywhere, /*Instanced, */BlueprintReadOnly)
 	TArray<UWeaponComponent*> SkillCompArr;
 
+	UPROPERTY(EditAnywhere, /*Instanced, */BlueprintReadOnly)
+	TArray<class UPassiveSkillComponent*> PassiveCompArr;
+
+
 	//피아 식별. Player는 Enemy에게 어그로가 끌리며 역도 성립. 기본값인 None은 깍두기.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EUnitTeam Team;

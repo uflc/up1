@@ -28,8 +28,6 @@ protected:
 	bool bInCooldown;
 
 	FTimerHandle CooldownHandle;
-	/*UPROPERTY(BlueprintReadOnly)
-	int	UpgradedLevel = 0*/
 
 	void CooldownEnd();
 
