@@ -91,7 +91,7 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 			CustomDebuffComp = NewObject<UCustomDebuffBaseComponent>(Owner, InDebuff.CustomDebuffClass, DebuffName);
 			CustomDebuffComp->AttachToComponent(Owner->GetRootComponent(),FAttachmentTransformRules::KeepRelativeTransform);
 			CustomDebuffComp->RegisterComponent();
-			TD_LOG(Warning, TEXT("%s"), *(CustomDebuffComp->GetClass())->GetName());
+			//TD_LOG(Warning, TEXT("%s"), *(CustomDebuffComp->GetClass())->GetName());
 
 			CustomDebuffComp->Initialize(InDebuff);
 		}

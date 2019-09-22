@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include "TDComponent.h"
+#include "Components\SceneComponent.h"
 #include "PassiveSkillComponent.generated.h"
 
 /**
  * 
  */
 UCLASS(Blueprintable, Abstract, EditInlineNew, meta = (BlueprintSpawnableComponent))
-class TOWERDEFENSE_API UPassiveSkillComponent : public UTDComponent
+class TOWERDEFENSE_API UPassiveSkillComponent : public USceneComponent
 {
 	GENERATED_BODY()
 	
