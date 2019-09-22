@@ -82,8 +82,6 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 		/*const*/ ATDCharacter*      Owner = (ATDCharacter*)GetOwner();
 		UCustomDebuffBaseComponent* CustomDebuffComp = Cast<UCustomDebuffBaseComponent>(Owner->GetComponentByClass(InDebuff.CustomDebuffClass));
 
-		TD_LOG(Warning, TEXT("CustomEntry"));
-
 		bNeedUpdate = false;
 
 		if ( CustomDebuffComp == nullptr )
