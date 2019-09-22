@@ -40,15 +40,15 @@ protected:
 	float AggroDrawnRange;
 
 	//deprecated?
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
-	int32 Health;;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
+	//int32 Health;
 
 	/*UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "TDChar")
 	TSet<EDebuffType> Disables;*/
 
 public:
 	UPROPERTY(BlueprintAssignable)
-	FTakeDamageSignature OnTakeDamage;
+	FTakeDamageSignature OnTDUnitTakeDamage;
 
 	UPROPERTY(BlueprintAssignable)
 	FTDUnitDeathSignature OnTDUnitDeath;

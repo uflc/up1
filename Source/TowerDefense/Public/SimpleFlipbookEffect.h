@@ -15,5 +15,6 @@ class TOWERDEFENSE_API ASimpleFlipbookEffect : public APaperFlipbookActor
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable)
 	void SetupEffect(class UPaperFlipbook* InFlipbook);
 };

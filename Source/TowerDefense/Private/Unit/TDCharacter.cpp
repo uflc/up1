@@ -31,10 +31,10 @@ ATDCharacter::ATDCharacter()
 	}
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
-	OnTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
+	OnTDUnitTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
 
 	Stats = CreateDefaultSubobject<UStatsComponent>(TEXT("Stats"));
-	OnTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
+	OnTDUnitTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
 
 	OnTDUnitDeath.AddDynamic(this, &ATDCharacter::Die);
 
@@ -107,17 +107,23 @@ bool ATDCharacter::IsLethal() const
 {
 	ETDAnimState State = Animation->GetState();
 	return  State == ETDAnimState::Dead || State == ETDAnimState::Dying;
-
-
 }
 
 void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 {
 	static const float ShakePower = 4.0f;
 	static const float ShakeDuration = 0.2f;
+
 	if (IsLethal()) return;
 
-	OnTakeDamage.Broadcast(InDamage);
+	//auto MyArray = OnTDUnitTakeDamage.GetAllObjects();
+	//
+	//for (auto data : MyArray)
+	//{
+	//	TD_LOG(Warning, TEXT("%s"), *data->GetName());
+	//}
+
+	OnTDUnitTakeDamage.Broadcast(InDamage);
 
 	// Shaking È¿°ú //todo defaultsubobject better?
 	if (InDamage.Damage <= 0)

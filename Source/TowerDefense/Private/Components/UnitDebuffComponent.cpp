@@ -238,6 +238,7 @@ bool UUnitDebuffComponent::IsBlendable(const EDebuffType& InDebuffType)
 
 void UUnitDebuffComponent::TakeDamage(const FDamage& InDamage)
 {
+	//TD_LOG(Warning, TEXT("DebuffCon : TakeDamage"));
 	for(auto Debuff : InDamage.DebuffArray)
 	{
 		if (FMath::FRandRange(0, 99.99f) <= Debuff.Chance)
