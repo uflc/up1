@@ -30,5 +30,6 @@ void UPassiveSkillComponent::SetTarget(ATDCharacter * const NewTarget)
 
 void UPassiveSkillComponent::Initialize_Implementation()
 {
+
 }
 

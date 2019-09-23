@@ -4,6 +4,7 @@
 #include "DirectionalTower.h"
 #include "Components/DirTDPaperFlipbookComponent.h"
 #include "ProjectileWeaponComponent.h"
+#include "TowerDataTree.h"
 
 ADirectionalTower::ADirectionalTower(const FObjectInitializer& ObjectInitializer) 
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UDirTDPaperFlipbookComponent>(ATDUnit::AnimationComponentName))
@@ -17,7 +18,9 @@ void ADirectionalTower::SetFlipbooks()
 	UProjectileWeaponComponent* Launcher = Cast<UProjectileWeaponComponent>(WeaponComp);
 	if (Launcher)
 	{
-		Launcher->ProjectileRelativeSpawnPoint = Animation->RelativeLocation;
+		UTowerData* TowerData = Cast<UTowerData>(UnitData);
+
+		Launcher->ProjectileRelativeSpawnPoint = Animation->RelativeLocation + TowerData->GetCompensVec();
 		Launcher->ProjectileRelativeSpawnPoint.Z += 1.0f;
 	}
 }

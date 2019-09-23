@@ -35,6 +35,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 Cost;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FVector ProjSpawnCompensVec;
+
 public:
 	//@return nullptr when UpType is not valid.
 	UFUNCTION(BlueprintPure)
@@ -47,6 +50,8 @@ public:
 	//BP용. c++에서는 TArray에 카피할 필요가 전혀 없다. see class note
 	UFUNCTION(BlueprintPure)
 	TArray<FTowerUpInfo> GetUpTypesInfo();
+
+	FORCEINLINE FVector GetCompensVec() const { return ProjSpawnCompensVec; }
 
 	FORCEINLINE int32 GetCost() const { return Cost; }
 };
