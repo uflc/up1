@@ -123,7 +123,7 @@ void ATDUnit::CreateSkills()
 	if (NewSkillDataArr.Num()==0)
 	{
 		//TD_LOG(Warning, TEXT("%s: No SkillData!"), *GetClass()->GetName());
-		return;
+		goto __Passive;
 	}
 
 	for( int idx = 0; idx < NewSkillDataArr.Num(); idx++)
@@ -133,6 +133,7 @@ void ATDUnit::CreateSkills()
 	}
 
 	/// Passive ///
+__Passive:
 	TArray<TSubclassOf<UPassiveSkillComponent>> NewPassiveClassArr = UnitData->GetPassiveClassArr();
 
 	if (NewPassiveClassArr.Num() != 0)
@@ -142,7 +143,7 @@ void ATDUnit::CreateSkills()
 		for (auto NewPassiveClass : NewPassiveClassArr)
 		{
 			PassiveCompArr.Add(NewObject<UPassiveSkillComponent>(this, NewPassiveClass));
-			//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillClass->GetName());
+			TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewPassiveClass->GetName());
 		}
 	}
 
@@ -156,6 +157,7 @@ void ATDUnit::CreateSkills()
 	for (int idx = 0; idx < NewPassiveDataArr.Num(); idx++)
 	{
 		PassiveCompArr[idx]->SetCommonData(NewPassiveDataArr[idx]);
+		PassiveCompArr[idx]->Initialize();
 		//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
 	}
 

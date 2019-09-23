@@ -6,12 +6,15 @@
 
 void UBaseAuraComponent::Initialize_Implementation()
 {
-	BoxCollision->SetWorldScale3D(FVector(500.0f,500.0f,500.0f));
+	BoxCollision->SetWorldLocation(GetOwner()->GetActorLocation());
+	BoxCollision->SetBoxExtent(FVector(EffectRange*1.25,EffectRange,50));
 }
 
 UBaseAuraComponent::UBaseAuraComponent()
 {
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Area0"));
 	BoxCollision->RegisterComponent();
-	BoxCollision->SetVisibility(true);
+
+	//BoxCollision->AttachToComponent(this,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	//BoxCollision->SetVisibility(true);
 }
