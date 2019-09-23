@@ -28,11 +28,7 @@ void UPassiveSkillComponent::SetTarget(ATDCharacter * const NewTarget)
 	Target = NewTarget;
 }
 
-void UPassiveSkillComponent::ActivateSkill()
+void UPassiveSkillComponent::Initialize_Implementation()
 {
-	//USoundBase* Sound = SkillData->GetAttackSound().Get();
-	//if (Sound != nullptr)
-	//{
-	//	UGameplayStatics::PlaySound2D((UObject*)GetWorld(), Sound, 1, 1, 0);
-	//}
 }
+

@@ -42,9 +42,11 @@ public:
 	UFUNCTION(BlueprintSetter)
 	void SetTarget(ATDCharacter* const NewTarget);
 
-	UFUNCTION(BlueprintCallable)
-	virtual void ActivateSkill();
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Initialize();
 
+	virtual void Initialize_Implementation();
+	
 	FORCEINLINE float GetAggroRange() const { return AggroRange; }
 	FORCEINLINE float GetEffectRange() const { return EffectRange; }
 };
