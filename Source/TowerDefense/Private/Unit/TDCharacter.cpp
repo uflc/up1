@@ -31,12 +31,7 @@ ATDCharacter::ATDCharacter()
 	}
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));
-	OnTDUnitTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
-
 	Stats = CreateDefaultSubobject<UStatsComponent>(TEXT("Stats"));
-	OnTDUnitTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
-
-	OnTDUnitDeath.AddDynamic(this, &ATDCharacter::Die);
 
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget0_HealthBar"));
 	HealthBar->SetWidgetSpace(EWidgetSpace::World);
@@ -56,6 +51,10 @@ ATDCharacter::ATDCharacter()
 void ATDCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	OnTDUnitTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
+	OnTDUnitTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
+	OnTDUnitDeath.Clear();
 
 	UTDCharData* CharData = Cast<UTDCharData>(UnitData);
 	if (CharData)
@@ -78,6 +77,7 @@ void ATDCharacter::BeginPlay()
 	{
 		TD_LOG(Warning, TEXT("err Init %s"), *HealthBar->GetWidgetClass()->GetName());
 	}
+
 }
 
 void ATDCharacter::Tick(float DeltaTime)
@@ -116,14 +116,13 @@ void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 
 	if (IsLethal()) return;
 
-	//auto MyArray = OnTDUnitTakeDamage.GetAllObjects();
-	//
-	//for (auto data : MyArray)
-	//{
-	//	TD_LOG(Warning, TEXT("%s"), *data->GetName());
-	//}
-
 	OnTDUnitTakeDamage.Broadcast(InDamage);
+
+	//if (Stats->GetHP() < 0) 
+	//{
+	//	Die();
+	//	return;
+	//}
 
 	// Shaking 효과 //todo defaultsubobject better?
 	if (InDamage.Damage <= 0)
@@ -147,6 +146,9 @@ void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 void ATDCharacter::Die_Implementation()
 {
 	// Play Dying anim once
+
+	OnTDUnitDeath.Broadcast();
+	
 	Animation->ChangeState(ETDAnimState::Dying);
 	Animation->PlayFromStart();
 	
@@ -184,6 +186,7 @@ void ATDCharacter::Die_Implementation()
 	{
 		HealthBar->DestroyComponent();
 	}
+
 
 	// After Dying anim 사후경직
 	FTimerHandle  Timer;

@@ -13,7 +13,7 @@ void UStatsComponent::TakeDamage(const FDamage & InDamage)
 
 	if (HP < 0) 
 	{
-		Cast<ATDCharacter>(GetOwner())->OnTDUnitDeath.Broadcast();
+		Cast<ATDCharacter>(GetOwner())->Die();
 	}
 }
 

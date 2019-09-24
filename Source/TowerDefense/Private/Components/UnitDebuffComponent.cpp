@@ -7,11 +7,11 @@
 #include "GameFramework\FloatingPawnMovement.h"
 #include "WeaponComponent.h"
 
-void UUnitDebuffComponent::BeginPlay()
-{
-	//((ATDCharacter*)GetOwner())->GetTakeDamageDelegate()->AddDynamic(this,&UUnitDebuffComponent::TestFunc);
-	//((ATDCharacter*)GetOwner())->GetTakeDamageDelegate().
-}
+//void UUnitDebuffComponent::BeginPlay()
+//{
+//	//((ATDCharacter*)GetOwner())->GetTakeDamageDelegate()->AddDynamic(this,&UUnitDebuffComponent::TestFunc);
+//	//((ATDCharacter*)GetOwner())->GetTakeDamageDelegate().
+//}
 
 void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 {
@@ -106,7 +106,7 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 	}
 }
 
-void UUnitDebuffComponent::UnregDebuff(FDebuff& InDebuff)
+void UUnitDebuffComponent::UnregDebuff(const FDebuff& InDebuff)
 {
 	///Update unit
 	if (InDebuff.Type == EDebuffType::Custom)
