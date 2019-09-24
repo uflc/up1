@@ -13,7 +13,7 @@ void UBaseAuraComponent::Initialize_Implementation()
 UBaseAuraComponent::UBaseAuraComponent()
 {
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Area0"));
-	BoxCollision->RegisterComponent();
+	//BoxCollision->RegisterComponent();
 
 	//BoxCollision->AttachToComponent(this,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	//BoxCollision->SetVisibility(true);
