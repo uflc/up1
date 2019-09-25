@@ -66,13 +66,13 @@ protected:
 	bool bIsStopped;
 
 public:
-	virtual void BeginPlay() override;
+	//virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
 	void RegDebuff(const FDebuff& Debuff);
 
 	UFUNCTION(BlueprintCallable)
-	void UnregDebuff(FDebuff & Debuff);
+	void UnregDebuff(const FDebuff & Debuff);
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateStat(const FDebuff& InDebuff, bool bDebuffStart); // Broadcast?

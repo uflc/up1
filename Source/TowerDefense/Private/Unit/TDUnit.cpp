@@ -110,6 +110,10 @@ void ATDUnit::CreateSkills()
 
 	if (NewSkillClassArr.Num()!=0 )
 	{
+		for (auto LegacySkillComp : SkillCompArr)
+		{
+			LegacySkillComp->DestroyComponent();
+		}
 		SkillCompArr.Empty();
 		
 		for (auto NewSkillClass : NewSkillClassArr)
@@ -138,11 +142,18 @@ __Passive:
 
 	if (NewPassiveClassArr.Num() != 0)
 	{
+		for (auto LegacySkillComp : PassiveCompArr)
+		{
+			LegacySkillComp->DestroyComponent();
+		}
 		PassiveCompArr.Empty();
 
 		for (auto NewPassiveClass : NewPassiveClassArr)
 		{
-			PassiveCompArr.Add(NewObject<UPassiveSkillComponent>(this, NewPassiveClass));
+			UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, NewPassiveClass);
+			NewComp->RegisterComponent();
+			PassiveCompArr.Add(NewComp);
+
 			TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewPassiveClass->GetName());
 		}
 	}
