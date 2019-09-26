@@ -72,6 +72,22 @@ void ATDUnit::SetFlipbooks()
 	Animation->SetFlipbooks(UnitData->GetRealAnimations());
 }
 
+
+void ATDUnit::CreateUniqueWeapon_test(bool bReset = true)
+{
+	check(UnitData);
+
+	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
+	if (NewWeaponClass && (!WeaponComp || NewWeaponClass != WeaponComp->GetClass()))
+	{
+		WeaponComp = NewObject<UWeaponComponent>(this, NewWeaponClass);
+	}
+	if (!WeaponComp)
+	{
+		//TD_LOG(Warning, TEXT("%s: No AttackComp!"), *GetClass()->GetName());
+		return;
+	}
+}
 void ATDUnit::CreateUniqueWeapon()
 {
 	check(UnitData);
