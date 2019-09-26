@@ -38,16 +38,20 @@ protected:
 	UPROPERTY(EditAnywhere)
 	FTalentInfo TalentsInfo[UPGRADES_NUM];
 
+public:
 	// For UI things
 	UFUNCTION(BlueprintPure)
 	FTalentInfo GetTalentInfo(const ETowerType& UpType) const;
 
 	// Manually Cast 
 	UFUNCTION(BlueprintPure)
-	UDataAsset* GetTalentData(const ETowerType& UpType, const int32 TalentLevel);
+	UDataAsset* GetTalentData(const ETowerType& UpType, const int32 TalentLevel) const;
+
+	UFUNCTION(BlueprintPure)
+	int32 GetTalentCost(const ETowerType& UpType, const int32 TalentLevel) const;
 
 	// Class infomation
 	UFUNCTION(BlueprintPure)
-	ETalentType GetTalentType(const ETowerType& UpType);
+	ETalentType GetTalentType(const ETowerType& UpType) const;
 
 };

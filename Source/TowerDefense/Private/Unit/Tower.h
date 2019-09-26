@@ -3,6 +3,7 @@
 #pragma once
 
 #include "TDUnit.h"
+#include "TDTypes.h"
 #include "Tower.generated.h"
 
 
@@ -25,6 +26,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 TotalCost;
 
+	int32 TalentLevel[UPGRADES_NUM];
+
 	virtual void BeginPlay() override;
 
 public:	
@@ -38,6 +41,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UI|HUD")
 	void ShowActionMenu();
 
+	UFUNCTION(BlueprintPure, Category = "Tower")
+	int32 GetTalentLevel(const ETowerType& UpType) const;
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "Tower")
 	float GetTowerRange();
 	virtual float GetTowerRange_Implementation();
@@ -45,4 +51,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool Upgrade(ETowerType UpType);
 	virtual bool Upgrade_Implementation(ETowerType UpType);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool UpgradeTalent(ETowerType UpType);
+	virtual bool UpgradeTalent_Implementation(ETowerType UpType);
 };

@@ -9,7 +9,8 @@
 #include "PaperSpriteComponent.h"
 #include "WeaponComponent.h"
 #include "NavArea_Null.h"
-
+#include "ProfTowerData.h"
+#include "PassiveSkillComponent.h"
 
 ATower::ATower()
 {
@@ -67,6 +68,11 @@ void ATower::ShowActionMenu()
 	GetWorld()->GetFirstPlayerController<ATDPlayerController>()->ShowTowerActionMenu(this);
 }
 
+int32 ATower::GetTalentLevel(const ETowerType & UpType) const
+{
+	return TalentLevel[(uint8)UpType];
+}
+
 float ATower::GetTowerRange_Implementation()
 {
 	return GetAttackRange();
@@ -84,6 +90,77 @@ bool ATower::Upgrade_Implementation(ETowerType UpType)
 	TotalCost += Upgraded->GetCost();
 
 	ApplyData();
+
+	return true;
+}
+
+bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
+{
+	UProfTowerData* ProfTowerData = Cast<UProfTowerData>(UnitData);
+	if (!ProfTowerData) return false;
+
+	int32& CurTalentLevel = TalentLevel[(uint8)UpType];
+
+	if (CurTalentLevel >= TALENT_LEVEL_MAX) return false;
+
+	FTalentInfo TalentInfo = ProfTowerData->GetTalentInfo(UpType);
+	UDataAsset* TalentData = TalentInfo.TalentData[CurTalentLevel];
+	TSubclassOf<UActorComponent> TalentClass = TalentInfo.Class;
+	bool DupChecker = false;
+
+	switch (TalentInfo.ClassType)
+	{
+	case ETalentType::ActiveSkill:
+		for (auto iSkillComp : SkillCompArr)
+		{
+			if (iSkillComp->StaticClass() == TalentInfo.Class.Get())
+			{
+				iSkillComp->SetCommonData((UTDWeaponCommonData*)TalentData);
+				DupChecker = true;
+				break;
+			}
+		}
+		if (!DupChecker)
+		{
+			UWeaponComponent* NewComp = NewObject<UWeaponComponent>(this, TalentInfo.Class.Get());
+			NewComp->SetCommonData((UTDWeaponCommonData*)TalentData);
+			SkillCompArr.Add(NewComp);
+		}
+		break;
+
+	case ETalentType::PassiveSkill:
+		for (auto iPassiveComp : PassiveCompArr)
+		{
+			if (iPassiveComp->StaticClass() == TalentInfo.Class.Get())
+			{
+				iPassiveComp->SetCommonData((UPassiveCommonData*)TalentData);
+				DupChecker=true;
+				break;
+			}
+		}
+		if (!DupChecker)
+		{
+			UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, TalentInfo.Class.Get());
+			NewComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+			NewComp->RegisterComponent();
+			NewComp->SetCommonData((UPassiveCommonData*)TalentData);
+			NewComp->Initialize();
+			PassiveCompArr.Add(NewComp);
+		}
+		break;
+
+	case ETalentType::Weapon:
+		WeaponComp->SetCommonData((UTDWeaponCommonData*)TalentData);
+		break;
+
+	default:
+		break;
+	}
+
+	CurTalentLevel++;
+
+	//Don't need with talent
+	//TotalCost += Upgraded->GetCost();
 
 	return true;
 }
