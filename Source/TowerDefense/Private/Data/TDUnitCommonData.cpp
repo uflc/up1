@@ -79,9 +79,9 @@ void UTDUnitCommonData::LoadResourcesDeffered()
 
 	for (const auto& Sound : Sounds)
 	{
-		if (Sound.IsPending())
+		if (Sound.IsValid())
 		{
-			TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid!"), *Sound.GetAssetName());
+			RealSounds.Add(Sound.Get());
 		}
 	}
 

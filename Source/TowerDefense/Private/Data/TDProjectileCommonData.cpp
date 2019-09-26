@@ -48,17 +48,15 @@ void UTDProjectileCommonData::LoadResourcesDeffered()
 {
 	for (const auto& it : FlipbookMap)
 	{
-		if (it.Value.IsPending())
+		if (it.Value.IsValid())
 		{
-			TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid!"), *it.Value.GetAssetName());
-			return;
+			RealFlipbooks.Add(it.Value.Get());
 		}
 	}
 
-	if (HitSound.IsPending())
+	if (HitSound.IsValid())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid!"), *HitSound.GetAssetName());
-		return;
+		RealHitSound = HitSound.Get();
 	}
 
 	bIsInitialized = true;

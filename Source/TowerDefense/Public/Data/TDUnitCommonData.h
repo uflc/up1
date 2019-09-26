@@ -19,6 +19,8 @@ private:
 	bool bIsInitialized;
 
 protected:
+	//////////////////////// Properties ////////////////////////
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Animation")
 	TArray<TSoftObjectPtr<class UPaperFlipbook>> Animations;
 
@@ -27,6 +29,11 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sound")
 	TArray<TSoftObjectPtr<class USoundCue>> Sounds;
+
+	UPROPERTY(Transient)
+	TArray<USoundCue*> RealSounds;
+
+	//////////////////////// Sub Objs ////////////////////////
 
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	TSubclassOf<class UWeaponComponent> WeaponClass;

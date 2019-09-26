@@ -39,10 +39,9 @@ void UPassiveCommonData::LoadResources()
 
 void UPassiveCommonData::LoadResourcesDeffered()
 {
-	if (SoundEffect.IsPending())
+	if (SoundEffect.IsValid())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid"), *SoundEffect.GetAssetName());
-		return;
+		RealSoundEffect = SoundEffect.Get();
 	}
 
 	bIsInitialized = true;

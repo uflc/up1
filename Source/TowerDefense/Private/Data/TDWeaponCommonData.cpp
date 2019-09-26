@@ -52,16 +52,14 @@ void UTDWeaponCommonData::LoadResources()
 
 void UTDWeaponCommonData::LoadResourcesDeffered()
 {
-	if (HitFlipbook.IsPending())
+	if (HitFlipbook.IsValid())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid"), *HitFlipbook.GetAssetName());
-		return;
+		RealHitFlipbook = HitFlipbook.Get();
 	}
 
-	if (AttackSound.IsPending())
+	if (AttackSound.IsValid())
 	{
-		TD_LOG(Warning, TEXT("AsyncRquest done but %s is still invalid"), *AttackSound.GetAssetName());
-		return;
+		RealAttackSound = AttackSound.Get();
 	}
 	
 	bIsInitialized = true;

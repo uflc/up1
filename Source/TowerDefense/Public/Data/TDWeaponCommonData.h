@@ -22,17 +22,28 @@ private:
 	bool bIsInitialized;
 
 protected:
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	class UTDProjectileCommonData* ProjectileData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	TSubclassOf<class AProjectileBase> ProjectileClass;
 
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class UPaperFlipbook> HitFlipbook;
 
+	UPROPERTY(Transient)
+	UPaperFlipbook* RealHitFlipbook;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class USoundCue> AttackSound;
+
+	UPROPERTY(Transient)
+	USoundCue* RealAttackSound;
+
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultCooldown;

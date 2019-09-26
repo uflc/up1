@@ -33,6 +33,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class USoundCue> SoundEffect;
 
+	UPROPERTY(Transient)
+	USoundCue* RealSoundEffect;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	float DefaultCooldown;
 

@@ -24,8 +24,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TMap<EWeaponFlipbookType, TSoftObjectPtr<class UPaperFlipbook>> FlipbookMap;
 
+	UPROPERTY(Transient)
+	TArray<UPaperFlipbook*> RealFlipbooks;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSoftObjectPtr<class USoundCue> HitSound;
+
+	UPROPERTY(Transient)
+	USoundCue* RealHitSound;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float Velocity;
