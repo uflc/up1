@@ -72,22 +72,22 @@ void ATDUnit::SetFlipbooks()
 	Animation->SetFlipbooks(UnitData->GetRealAnimations());
 }
 
+//void ATDUnit::CreateUniqueWeapon_test(bool bReset = true)
+//{
+//	check(UnitData);
+//
+//	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
+//	if (NewWeaponClass && (!WeaponComp || NewWeaponClass != WeaponComp->GetClass()))
+//	{
+//		WeaponComp = NewObject<UWeaponComponent>(this, NewWeaponClass);
+//	}
+//	if (!WeaponComp)
+//	{
+//		//TD_LOG(Warning, TEXT("%s: No AttackComp!"), *GetClass()->GetName());
+//		return;
+//	}
+//}
 
-void ATDUnit::CreateUniqueWeapon_test(bool bReset = true)
-{
-	check(UnitData);
-
-	TSubclassOf<UWeaponComponent> NewWeaponClass = UnitData->GetWeaponClass();
-	if (NewWeaponClass && (!WeaponComp || NewWeaponClass != WeaponComp->GetClass()))
-	{
-		WeaponComp = NewObject<UWeaponComponent>(this, NewWeaponClass);
-	}
-	if (!WeaponComp)
-	{
-		//TD_LOG(Warning, TEXT("%s: No AttackComp!"), *GetClass()->GetName());
-		return;
-	}
-}
 void ATDUnit::CreateUniqueWeapon()
 {
 	check(UnitData);
@@ -124,17 +124,22 @@ void ATDUnit::CreateSkills()
 	/// Active ///
 	TArray<TSubclassOf<UWeaponComponent>> NewSkillClassArr = UnitData->GetSkillClassArr();
 
+	for (auto LegacySkillComp : SkillCompArr)
+	{
+		LegacySkillComp->DestroyComponent();
+	}
+
 	if (NewSkillClassArr.Num()!=0 )
 	{
-		for (auto LegacySkillComp : SkillCompArr)
-		{
-			LegacySkillComp->DestroyComponent();
-		}
 		SkillCompArr.Empty();
 		
 		for (auto NewSkillClass : NewSkillClassArr)
 		{
-			SkillCompArr.Add(NewObject<UWeaponComponent>(this, NewSkillClass));
+			UWeaponComponent* CreatedComp = NewObject<UWeaponComponent>(this, NewSkillClass);
+			// Only for scenecomponent base
+			//CreatedComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+			//CreatedComp->RegisterComponent();
+			SkillCompArr.Add(CreatedComp);
 			//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillClass->GetName());
 		}
 	}
@@ -156,17 +161,18 @@ void ATDUnit::CreateSkills()
 __Passive:
 	TArray<TSubclassOf<UPassiveSkillComponent>> NewPassiveClassArr = UnitData->GetPassiveClassArr();
 
+	for (auto LegacySkillComp : PassiveCompArr)
+	{
+		LegacySkillComp->DestroyComponent();
+	}
+	PassiveCompArr.Empty();
+
 	if (NewPassiveClassArr.Num() != 0)
 	{
-		for (auto LegacySkillComp : PassiveCompArr)
-		{
-			LegacySkillComp->DestroyComponent();
-		}
-		PassiveCompArr.Empty();
-
 		for (auto NewPassiveClass : NewPassiveClassArr)
 		{
 			UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, NewPassiveClass);
+			NewComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 			NewComp->RegisterComponent();
 			PassiveCompArr.Add(NewComp);
 

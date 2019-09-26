@@ -13,6 +13,13 @@ void UBaseAuraComponent::Initialize_Implementation()
 	BoxCollision->SetBoxExtent(FVector(EffectRange*1.25,EffectRange,200));
 }
 
+void UBaseAuraComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+
+//	BoxCollision->DestroyComponent();
+}
+
 UBaseAuraComponent::UBaseAuraComponent()
 {
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Area0"));

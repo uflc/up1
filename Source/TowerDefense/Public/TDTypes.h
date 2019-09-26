@@ -65,7 +65,17 @@ enum class ETowerType : uint8
 	THREE
 };
 
+//타워 업그레이드 타입
+UENUM(BlueprintType)
+enum class ETalentType : uint8
+{
+	Weapon,
+	ActiveSkill,
+	PassiveSkill
+};
+
 #define	 UPGRADES_NUM 3//TODO use Enum as Byte as arrry index ?
+#define TALENT_LEVEL_MAX 2
 
 UENUM(BlueprintType)
 enum class EDebuffType : uint8

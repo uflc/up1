@@ -22,13 +22,13 @@ private:
 
 protected:
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
-	//	class UTDProjectileCommonData* ProjectileData;
+	//class UTDProjectileCommonData* ProjectileData;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
-	//	TSubclassOf<class AProjectileBase> ProjectileClass;
+	//TSubclassOf<class AProjectileBase> ProjectileClass;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
-	//	TSoftObjectPtr<class UPaperFlipbook> HitFlipbook;
+	//TSoftObjectPtr<class UPaperFlipbook> HitFlipbook;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class USoundCue> SoundEffect;

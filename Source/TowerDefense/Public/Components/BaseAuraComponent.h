@@ -22,4 +22,6 @@ public:
 	UBaseAuraComponent();
 
 	virtual void Initialize_Implementation();
+
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason);
 };

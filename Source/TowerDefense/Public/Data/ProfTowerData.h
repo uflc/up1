@@ -2,8 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Data/TowerDataTree.h"
+#include "TowerDataTree.h"
 #include "ProfTowerData.generated.h"
 
 /**
@@ -14,8 +13,17 @@ struct FTalentInfo
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditAnywhere)
+	int32 Cost[TALENT_LEVEL_MAX];
+
+	UPROPERTY(EditAnywhere)
+	UDataAsset* TalentData[TALENT_LEVEL_MAX];
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<int32> Cost;
+	ETalentType ClassType; // Use Switch { Weapon / ActiveSkill / PassiveSkill }
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UActorComponent> Class;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UTexture2D* Preview;
@@ -27,6 +35,19 @@ class TOWERDEFENSE_API UProfTowerData : public UTowerData
 	GENERATED_BODY()
 	
 protected:
-	FTalentInfo Talents[UPGRADES_NUM];
+	UPROPERTY(EditAnywhere)
+	FTalentInfo TalentsInfo[UPGRADES_NUM];
+
+	// For UI things
+	UFUNCTION(BlueprintPure)
+	FTalentInfo GetTalentInfo(const ETowerType& UpType) const;
+
+	// Manually Cast 
+	UFUNCTION(BlueprintPure)
+	UDataAsset* GetTalentData(const ETowerType& UpType, const int32 TalentLevel);
+
+	// Class infomation
+	UFUNCTION(BlueprintPure)
+	ETalentType GetTalentType(const ETowerType& UpType);
 
 };
