@@ -70,6 +70,9 @@ protected:
 
 	virtual void ApplyData();
 
+	UFUNCTION(BlueprintCallable)
+	void SetUnitData(UTDUnitCommonData* InData);
+
 	FORCEINLINE bool IsSpriteDirectional() const { return bIsSpriteDirectional; }
 	
 public:
