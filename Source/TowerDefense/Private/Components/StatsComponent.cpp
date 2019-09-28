@@ -11,10 +11,10 @@ void UStatsComponent::TakeDamage(const FDamage & InDamage)
 	//TD_LOG(Warning, TEXT("Stat : TakeDamage"));
 	SetHP(HP - InDamage.Damage);
 
-	if (HP < 0) 
-	{
-		Cast<ATDCharacter>(GetOwner())->Die();
-	}
+	//if (HP < 0) 
+	//{
+	//	Cast<ATDCharacter>(GetOwner())->Die();
+	//}
 }
 
 void UStatsComponent::SetHP(int32 InHP)

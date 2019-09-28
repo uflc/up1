@@ -31,7 +31,8 @@ protected:
 
 	void CooldownEnd();
 
-public:	
+public:		
+	UFUNCTION(BlueprintCallable)
 	virtual void SetCommonData(UTDWeaponCommonData* InData);
 
 	UFUNCTION(BlueprintSetter)

@@ -118,11 +118,11 @@ void ATDCharacter::TDUnitTakeDamage(const FDamage & InDamage)
 
 	OnTDUnitTakeDamage.Broadcast(InDamage);
 
-	//if (Stats->GetHP() < 0) 
-	//{
-	//	Die();
-	//	return;
-	//}
+	if (Stats->GetHP() < 0) 
+	{
+		Die();
+		return;
+	}
 
 	// Shaking È¿°ú //todo defaultsubobject better?
 	if (InDamage.Damage <= 0)

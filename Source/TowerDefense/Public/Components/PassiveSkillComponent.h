@@ -37,6 +37,7 @@ protected:
 	void DelayEnd();
 
 public:
+	UFUNCTION(BlueprintCallable)
 	virtual void SetCommonData(UPassiveCommonData* InData);
 
 	UFUNCTION(BlueprintSetter)

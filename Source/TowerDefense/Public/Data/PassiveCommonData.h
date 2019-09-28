@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class TOWERDEFENSE_API UPassiveCommonData : public UDataAsset
 {
 	GENERATED_BODY()
