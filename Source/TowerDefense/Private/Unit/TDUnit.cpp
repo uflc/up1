@@ -67,6 +67,14 @@ void ATDUnit::ApplyData()
 	}
 }
 
+void ATDUnit::SetUnitData(UTDUnitCommonData* InData)
+{
+	if (InData && InData == UnitData) return;
+
+	UnitData = InData;
+	ApplyData();
+}
+
 void ATDUnit::SetFlipbooks()
 {
 	Animation->SetFlipbooks(UnitData->GetRealAnimations());
