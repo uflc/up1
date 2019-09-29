@@ -30,6 +30,8 @@ protected:
 	TSubclassOf<class AProjectileBase> ProjectileClass;
 
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FVector EffectCompensVec;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TSoftObjectPtr<class UPaperFlipbook> HitFlipbook;
@@ -70,8 +72,10 @@ public:
 	FORCEINLINE int32 GetDefaultDamage() const { return EffectorData.DefaultDamage; }
 	FORCEINLINE float GetDefaultSplashRange() const { return EffectorData.DefaultSplashRange;}
 	FORCEINLINE float GetDefaultRange() const { return DefaultRange; }
+	FORCEINLINE FVector GetEffectVec() const { return EffectCompensVec; }
 	FORCEINLINE float GetDefaultCooldown() const { return DefaultCooldown; }
 	FORCEINLINE const TArray<FDebuff>& GetDebuffArray() const { return EffectorData.DebuffArray; }
 	FORCEINLINE const TSoftObjectPtr<class UPaperFlipbook>& GetHitFlipbook() { return HitFlipbook; }
 	FORCEINLINE const TSoftObjectPtr<class USoundCue>& GetAttackSound() { return AttackSound; }
+
 };

@@ -54,4 +54,5 @@ public:
 	UFUNCTION(BlueprintPure)
 	ETalentType GetTalentType(const ETowerType& UpType) const;
 
+	virtual void LoadResources();
 };

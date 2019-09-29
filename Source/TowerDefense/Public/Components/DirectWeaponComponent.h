@@ -17,6 +17,9 @@ public:
 	UDirectWeaponComponent();
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	FVector EffectRelativeSpawnPoint;
+
 	UPROPERTY()
 	class UEffectorComponent* Effector;
 

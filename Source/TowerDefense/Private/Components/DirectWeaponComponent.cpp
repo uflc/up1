@@ -20,6 +20,7 @@ void UDirectWeaponComponent::SetCommonData(UTDWeaponCommonData* InData)
 
 	Super::SetCommonData(InData);
 
+	EffectRelativeSpawnPoint=InData->GetEffectVec();
 	Effector->Initialize(WeaponData->GetDefaultSplashRange(), WeaponData->GetDefaultDamage(), WeaponData->GetDebuffArray());
 }
 
@@ -37,7 +38,8 @@ void UDirectWeaponComponent::UseWeapon()
 	UPaperFlipbook* EffectFlipbook = WeaponData->GetHitFlipbook().Get();
 	if (EffectFlipbook)
 	{
-		ASimpleFlipbookEffect* AttackEffect = GetWorld()->SpawnActor<ASimpleFlipbookEffect>(Target->GetActorLocation(), FRotator::ZeroRotator);
+		FVector EffectSpawnVec = Target->GetActorLocation()+ EffectRelativeSpawnPoint;
+		ASimpleFlipbookEffect* AttackEffect = GetWorld()->SpawnActor<ASimpleFlipbookEffect>(EffectSpawnVec, FRotator::ZeroRotator);
 		
 		if (AttackEffect)
 		{
