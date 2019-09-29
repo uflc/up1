@@ -150,7 +150,7 @@ void UUnitDebuffComponent::UpdateStat(const FDebuff& InDebuff, bool bDebuffOn)
 	//
 
 	////юс╫ц
-	static const float SnaredMoveSpeedModifier = 0.00001f;
+	static const float SnaredMoveSpeedModifier = 0.001f;
 
 	TArray<FDebuff> DebuffArr;
 

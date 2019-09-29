@@ -140,12 +140,13 @@ bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 		}
 		if (!DupChecker)
 		{
-			UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, TalentInfo.Class.Get());
-			NewComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-			NewComp->RegisterComponent();
-			NewComp->SetCommonData((UPassiveCommonData*)TalentData);
-			NewComp->Initialize();
-			PassiveCompArr.Add(NewComp);
+			AddPassiveSkill(TalentInfo.Class.Get(), (UPassiveCommonData*)TalentData);
+			//UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, TalentInfo.Class.Get());
+			//NewComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+			//NewComp->RegisterComponent();
+			//NewComp->SetCommonData((UPassiveCommonData*)TalentData);
+			//NewComp->Initialize();
+			//PassiveCompArr.Add(NewComp);
 		}
 		break;
 
