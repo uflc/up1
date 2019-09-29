@@ -104,6 +104,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UWeaponComponent* GetProperWeapon();
 
+	UFUNCTION(BlueprintCallable)
+	void AddPassiveSkill(TSubclassOf<UPassiveSkillComponent> InClass, class UPassiveCommonData* InData);
+
+	UFUNCTION(BlueprintCallable)
+	void AddActiveSkill(TSubclassOf<UWeaponComponent> InClass, class UTDWeaponCommonData* InData);
+
+
 	FORCEINLINE EUnitTeam GetTeam() const { return Team; }
 
 	static FName AnimationComponentName;

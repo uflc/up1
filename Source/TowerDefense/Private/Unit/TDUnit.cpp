@@ -130,44 +130,28 @@ void ATDUnit::CreateSkills()
 	check(UnitData);
 
 	/// Active ///
-	TArray<TSubclassOf<UWeaponComponent>> NewSkillClassArr = UnitData->GetSkillClassArr();
 
 	for (auto LegacySkillComp : SkillCompArr)
 	{
 		LegacySkillComp->DestroyComponent();
 	}
+	SkillCompArr.Empty();
 
-	if (NewSkillClassArr.Num()!=0 )
-	{
-		SkillCompArr.Empty();
-		
-		for (auto NewSkillClass : NewSkillClassArr)
-		{
-			UWeaponComponent* CreatedComp = NewObject<UWeaponComponent>(this, NewSkillClass);
-			// Only for scenecomponent base
-			//CreatedComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-			//CreatedComp->RegisterComponent();
-			SkillCompArr.Add(CreatedComp);
-			//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillClass->GetName());
-		}
-	}
+	TArray<TSubclassOf<UWeaponComponent>> NewSkillClassArr = UnitData->GetSkillClassArr();
+	TArray<UTDWeaponCommonData*> NewSkillDataArr = UnitData->GetSkillDataArr();
 
-	TArray<UTDWeaponCommonData*> NewSkillDataArr= UnitData->GetSkillDataArr();
-	if (NewSkillDataArr.Num()==0)
+	if (NewSkillClassArr.Num()==0 || NewSkillDataArr.Num()==0)
 	{
-		//TD_LOG(Warning, TEXT("%s: No SkillData!"), *GetClass()->GetName());
 		goto __Passive;
 	}
 
 	for( int idx = 0; idx < NewSkillDataArr.Num(); idx++)
 	{
-		SkillCompArr[idx]->SetCommonData(NewSkillDataArr[idx]);
-		//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
+		AddActiveSkill(NewSkillClassArr[idx], NewSkillDataArr[idx]);
 	}
 
 	/// Passive ///
 __Passive:
-	TArray<TSubclassOf<UPassiveSkillComponent>> NewPassiveClassArr = UnitData->GetPassiveClassArr();
 
 	for (auto LegacySkillComp : PassiveCompArr)
 	{
@@ -175,21 +159,11 @@ __Passive:
 	}
 	PassiveCompArr.Empty();
 
-	if (NewPassiveClassArr.Num() != 0)
-	{
-		for (auto NewPassiveClass : NewPassiveClassArr)
-		{
-			UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, NewPassiveClass);
-			NewComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-			NewComp->RegisterComponent();
-			PassiveCompArr.Add(NewComp);
-
-			TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewPassiveClass->GetName());
-		}
-	}
-
+	TArray<TSubclassOf<UPassiveSkillComponent>> NewPassiveClassArr = UnitData->GetPassiveClassArr();
 	TArray<UPassiveCommonData*> NewPassiveDataArr = UnitData->GetPassiveDataArr();
-	if (NewPassiveDataArr.Num() == 0)
+
+
+	if (NewPassiveDataArr.Num() == 0 || NewPassiveClassArr.Num() == 0)
 	{
 		//TD_LOG(Warning, TEXT("%s: No SkillData!"), *GetClass()->GetName());
 		return;
@@ -197,9 +171,7 @@ __Passive:
 
 	for (int idx = 0; idx < NewPassiveDataArr.Num(); idx++)
 	{
-		PassiveCompArr[idx]->SetCommonData(NewPassiveDataArr[idx]);
-		PassiveCompArr[idx]->Initialize();
-		//TD_LOG(Warning, TEXT("%s: %s Skill Added"), *GetClass()->GetName(), *NewSkillDataArr[idx]->GetName());
+		AddPassiveSkill(NewPassiveClassArr[idx], NewPassiveDataArr[idx]);
 	}
 
 	//OnSkillsChanged.Broadcast();
@@ -243,4 +215,21 @@ UWeaponComponent * ATDUnit::GetProperWeapon()
 
 	//No Weapon
 	return nullptr;
+}
+
+void ATDUnit::AddPassiveSkill(TSubclassOf<UPassiveSkillComponent> InClass, UPassiveCommonData * InData)
+{
+	UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, InClass);
+	NewComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	NewComp->RegisterComponent();
+	NewComp->SetCommonData(InData);
+	NewComp->Initialize();
+	PassiveCompArr.Add(NewComp);
+}
+
+void ATDUnit::AddActiveSkill(TSubclassOf<UWeaponComponent> InClass, UTDWeaponCommonData * InData)
+{
+	UWeaponComponent* CreatedComp = NewObject<UWeaponComponent>(this, InClass);
+	CreatedComp->SetCommonData(InData);
+	SkillCompArr.Add(CreatedComp);
 }
