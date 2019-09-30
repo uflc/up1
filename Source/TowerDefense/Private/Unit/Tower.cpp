@@ -122,9 +122,10 @@ bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 		}
 		if (!DupChecker)
 		{
-			UWeaponComponent* NewComp = NewObject<UWeaponComponent>(this, TalentInfo.Class.Get());
-			NewComp->SetCommonData((UTDWeaponCommonData*)TalentData);
-			SkillCompArr.Add(NewComp);
+			AddActiveSkill(TalentInfo.Class.Get(), (UTDWeaponCommonData*)TalentData);
+			//UWeaponComponent* NewComp = NewObject<UWeaponComponent>(this, TalentInfo.Class.Get());
+			//NewComp->SetCommonData((UTDWeaponCommonData*)TalentData);
+			//SkillCompArr.Add(NewComp);
 		}
 		break;
 
@@ -151,6 +152,10 @@ bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 		break;
 
 	case ETalentType::Weapon:
+		if (!WeaponComp) 
+		{
+			break;
+		}
 		WeaponComp->SetCommonData((UTDWeaponCommonData*)TalentData);
 		break;
 

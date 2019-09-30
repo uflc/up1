@@ -11,10 +11,10 @@ void UStatsComponent::TakeDamage(const FDamage & InDamage)
 	//TD_LOG(Warning, TEXT("Stat : TakeDamage"));
 	SetHP(HP - InDamage.Damage);
 
-	//if (HP < 0) 
-	//{
-	//	Cast<ATDCharacter>(GetOwner())->Die();
-	//}
+	if (HP >= MaxHP)
+	{
+		SetHP(MaxHP);
+	}
 }
 
 void UStatsComponent::SetHP(int32 InHP)
@@ -28,4 +28,5 @@ void UStatsComponent::SetHP(int32 InHP)
 void UStatsComponent::SetCommonData(UTDCharData * InData)
 {
 	HP=InData->GetHealth();
+	MaxHP= InData->GetHealth();
 }

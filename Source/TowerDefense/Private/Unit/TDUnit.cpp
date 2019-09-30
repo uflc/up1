@@ -218,3 +218,4 @@ void ATDUnit::AddActiveSkill(TSubclassOf<UWeaponComponent> InClass, UTDWeaponCom
 	CreatedComp->SetCommonData(InData);
 	SkillCompArr.Add(CreatedComp);
 }
+

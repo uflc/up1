@@ -17,10 +17,12 @@ void UBaseAuraComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 
-//	BoxCollision->DestroyComponent();
+	//	BoxCollision->DestroyComponent();
 }
 
 UBaseAuraComponent::UBaseAuraComponent()
 {
+	//FString name = FString(TEXT("Area"));
+	//name.AppendInt(rand()%100);
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Area0"));
 }

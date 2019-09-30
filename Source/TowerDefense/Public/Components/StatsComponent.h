@@ -21,6 +21,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
 	int32 HP;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TDChar")
+	int32 MaxHP;
+
 	UPROPERTY(BlueprintAssignable)
 	FHealthChangeSignature OnHealthChanged;
 
