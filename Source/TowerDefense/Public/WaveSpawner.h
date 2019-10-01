@@ -19,6 +19,8 @@ private:
 
 	uint8 WaveIdx;
 
+	uint8 WaveLoopCount;
+
 	uint32 SpawnedUnitNum;
 
 	uint8 SubWaveRemaining;

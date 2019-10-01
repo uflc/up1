@@ -30,6 +30,7 @@ void AWaveSpawner::StartLevelWave(const TArray<AActor*>& InSpawnPoints)
 	SpawnPoints = InSpawnPoints;
 
 	WaveIdx = 0;
+	WaveLoopCount = LevelWaveData->GetWaveArray()[0].LoopCount;
 	bWaitingForFinishLevel = false;
 
 	StartSubWaves();
@@ -45,7 +46,9 @@ void AWaveSpawner::StartSubWaves()
 	//
 	UGameplayStatics::PlaySound2D(GetWorld(), WaveStartSound);
 
-	const TArray<FSubWaveData>& SubWaves = LevelWaveData->GetWaveArray()[WaveIdx].Wave;
+	const FWaveData& CurrentWave = LevelWaveData->GetWaveArray()[WaveIdx];
+
+	const TArray<FSubWaveData>& SubWaves = CurrentWave.Wave;
 
 	uint8 SubWaveIndex = 0;
 
@@ -120,18 +123,29 @@ void AWaveSpawner::SpawnSubWaveActor(const uint8 Index)
 			TD_LOG(Warning, TEXT("#%d Wave Ended."), WaveIdx);
 
 			const TArray<FWaveData>& WaveArray = LevelWaveData->GetWaveArray();
-			//Level의 끝 체크.
-			if (++WaveIdx > WaveArray.Num() - 1)
-			{
-				TD_LOG(Warning, TEXT("All Wave Ended."));
 
-				bWaitingForFinishLevel = true;
-				//루프 끝.
-				return;
+			if (WaveLoopCount-- <= 0)
+			{
+				TD_LOG(Warning, TEXT("#%d Wave Loop Ended."), WaveIdx);
+
+				// Level의 끝 체크. 다음 웨이브가 있다면 진행될 것.
+				if (++WaveIdx > WaveArray.Num() - 1)
+				{
+					TD_LOG(Warning, TEXT("All Wave Ended."));
+
+					bWaitingForFinishLevel = true;
+					//끝.
+					return;
+				}
+
+				WaveLoopCount = WaveArray[WaveIdx].LoopCount;
 			}
+
+			//
+			
 			FTimerHandle NextWaveHandle;
 
-			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),20.0f,false);
+			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),5.0f,false);
 			
 		}
 	}

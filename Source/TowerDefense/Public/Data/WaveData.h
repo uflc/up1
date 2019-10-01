@@ -50,6 +50,9 @@ struct  FWaveData
 
 	UPROPERTY(EditAnywhere)
 	TArray<FSubWaveData> Wave;
+
+	UPROPERTY(EditAnywhere)
+	uint8 LoopCount;
 };
 
 UCLASS(BlueprintType)
