@@ -50,11 +50,13 @@ ATDCharacter::ATDCharacter()
 
 void ATDCharacter::BeginPlay()
 {
+	OnTDUnitDeath.Clear();
+
 	Super::BeginPlay();
 
 	OnTDUnitTakeDamage.AddDynamic(DebuffControll, &UUnitDebuffComponent::TakeDamage);
 	OnTDUnitTakeDamage.AddDynamic(Stats, &UStatsComponent::TakeDamage);
-	OnTDUnitDeath.Clear();
+	
 
 	UTDCharData* CharData = Cast<UTDCharData>(UnitData);
 	if (CharData)

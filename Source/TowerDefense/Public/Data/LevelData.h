@@ -30,4 +30,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName NextLevelName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FVector HeroSpawnLocation;
 };
