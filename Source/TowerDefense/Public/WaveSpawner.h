@@ -27,8 +27,10 @@ private:
 	TArray<uint8> SubWaveSpawnRemainingArr;
 	bool bWaitingForFinishLevel;
 
-
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* WaveStartSound;
+
 	virtual void BeginPlay() override;
 
 	void StartSubWaves();

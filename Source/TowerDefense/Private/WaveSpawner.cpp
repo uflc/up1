@@ -6,6 +6,7 @@
 #include "EnemyTDCharAIController.h"
 #include "EnemyTDCharacter.h"
 #include "TDGameModeBase.h"
+#include "Sound\SoundBase.h"
 
 void AWaveSpawner::BeginPlay()
 {
@@ -37,6 +38,12 @@ void AWaveSpawner::StartLevelWave(const TArray<AActor*>& InSpawnPoints)
 void AWaveSpawner::StartSubWaves()
 {
 	TD_LOG(Warning, TEXT("Start #%d Wave"), WaveIdx);
+
+	//static ConstructorHelpers::FObjectFinder<USoundBase> Soundf(TEXT("/Game/Sound/WaveStart"));
+
+	//static USoundBase* Sound = Soundf.Object;
+	//
+	UGameplayStatics::PlaySound2D(GetWorld(), WaveStartSound);
 
 	const TArray<FSubWaveData>& SubWaves = LevelWaveData->GetWaveArray()[WaveIdx].Wave;
 
@@ -87,7 +94,11 @@ void AWaveSpawner::SpawnSubWaveActor(const uint8 Index)
 {
 	const FSubWaveData& SubWave = GetSubWaveData(Index);
 
-	const FVector SpawnPoint = SpawnPoints[SubWave.SpawnLocationIdx]->GetActorLocation();
+	FVector RandomVec = (FMath::VRand().GetSafeNormal()*20.f);
+
+	RandomVec.Z=0;
+
+	const FVector SpawnPoint = SpawnPoints[SubWave.SpawnLocationIdx]->GetActorLocation() + RandomVec;
 
 	AEnemyTDCharacter* SpawnedUnit = Cast<AEnemyTDCharacter>(GetWorld()->SpawnActor(SubWave.SpawnUnitClass, &SpawnPoint));
 	SpawnedUnit->GetController<AEnemyTDCharAIController>()->DestBranchIdxQ = SubWave.DestBranchIdxQ;
@@ -120,7 +131,8 @@ void AWaveSpawner::SpawnSubWaveActor(const uint8 Index)
 			}
 			FTimerHandle NextWaveHandle;
 
-			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),5.0f,false);
+			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),20.0f,false);
+			
 		}
 	}
 }

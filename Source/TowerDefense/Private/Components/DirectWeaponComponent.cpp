@@ -7,7 +7,7 @@
 #include "EffectorComponent.h"
 #include "TDCharacter.h"
 #include "PaperFlipbook.h"
-
+#include "TDPaperFlipbookComponent.h"
 
 UDirectWeaponComponent::UDirectWeaponComponent()
 {
@@ -38,12 +38,18 @@ void UDirectWeaponComponent::UseWeapon()
 	UPaperFlipbook* EffectFlipbook = WeaponData->GetHitFlipbook().Get();
 	if (EffectFlipbook)
 	{
-		FVector EffectSpawnVec = Target->GetActorLocation()+ EffectRelativeSpawnPoint;
-		ASimpleFlipbookEffect* AttackEffect = GetWorld()->SpawnActor<ASimpleFlipbookEffect>(EffectSpawnVec, FRotator::ZeroRotator);
-		
+		FRotator tempRotator= FRotator::ZeroRotator;
+		ATDCharacter* tempOwner = Cast<ATDCharacter>(GetOwner());
+		if(tempOwner)
+		{ 
+			tempRotator=tempOwner->GetAnimation()->GetComponentRotation();
+		}
+		FVector EffectSpawnVec = Target->GetActorLocation() + EffectRelativeSpawnPoint;
+		ASimpleFlipbookEffect* AttackEffect = GetWorld()->SpawnActor<ASimpleFlipbookEffect>(EffectSpawnVec, tempRotator);
 		if (AttackEffect)
 		{
-			AttackEffect->SetupEffect(EffectFlipbook);
+			if(tempOwner)AttackEffect->SetupEffect(EffectFlipbook,true);
+			else AttackEffect->SetupEffect(EffectFlipbook);
 		}
 	}
 }
