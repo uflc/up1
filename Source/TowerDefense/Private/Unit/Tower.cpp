@@ -96,16 +96,16 @@ bool ATower::Upgrade_Implementation(ETowerType UpType)
 
 bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 {
+	 if(!IsTalentUpgradable(UpType)) return false;
+
 	UProfTowerData* ProfTowerData = Cast<UProfTowerData>(UnitData);
-	if (!ProfTowerData) return false;
-
 	int32& CurTalentLevel = TalentLevel[(uint8)UpType];
-
-	if (CurTalentLevel >= TALENT_LEVEL_MAX) return false;
-
 	FTalentInfo TalentInfo = ProfTowerData->GetTalentInfo(UpType);
 	UDataAsset* TalentData = TalentInfo.TalentData[CurTalentLevel];
 	TSubclassOf<UActorComponent> TalentClass = TalentInfo.Class;
+
+	if (!TalentData)	 return false;
+
 	bool DupChecker = false;
 
 	switch (TalentInfo.ClassType)
@@ -113,7 +113,7 @@ bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 	case ETalentType::ActiveSkill:
 		for (auto iSkillComp : SkillCompArr)
 		{
-			if (iSkillComp->StaticClass() == TalentInfo.Class.Get())
+			if (iSkillComp->StaticClass() == TalentInfo.Class.Get() && iSkillComp->IsActive())
 			{
 				iSkillComp->SetCommonData((UTDWeaponCommonData*)TalentData);
 				DupChecker = true;
@@ -123,16 +123,13 @@ bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 		if (!DupChecker)
 		{
 			AddActiveSkill(TalentInfo.Class.Get(), (UTDWeaponCommonData*)TalentData);
-			//UWeaponComponent* NewComp = NewObject<UWeaponComponent>(this, TalentInfo.Class.Get());
-			//NewComp->SetCommonData((UTDWeaponCommonData*)TalentData);
-			//SkillCompArr.Add(NewComp);
 		}
 		break;
 
 	case ETalentType::PassiveSkill:
 		for (auto iPassiveComp : PassiveCompArr)
 		{
-			if (iPassiveComp->StaticClass() == TalentInfo.Class.Get())
+			if (iPassiveComp->StaticClass() == TalentInfo.Class.Get() && iPassiveComp->IsActive())
 			{
 				iPassiveComp->SetCommonData((UPassiveCommonData*)TalentData);
 				DupChecker=true;
@@ -142,12 +139,6 @@ bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 		if (!DupChecker)
 		{
 			AddPassiveSkill(TalentInfo.Class.Get(), (UPassiveCommonData*)TalentData);
-			//UPassiveSkillComponent* NewComp = NewObject<UPassiveSkillComponent>(this, TalentInfo.Class.Get());
-			//NewComp->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-			//NewComp->RegisterComponent();
-			//NewComp->SetCommonData((UPassiveCommonData*)TalentData);
-			//NewComp->Initialize();
-			//PassiveCompArr.Add(NewComp);
 		}
 		break;
 
@@ -169,6 +160,25 @@ bool ATower::UpgradeTalent_Implementation(ETowerType UpType)
 	//TotalCost += Upgraded->GetCost();
 
 	return true;
+}
+
+bool ATower::IsTalentUpgradable(const ETowerType& UpType) const
+{
+	UProfTowerData* ProfTowerData = Cast<UProfTowerData>(UnitData);
+	if (!ProfTowerData) return false;
+
+	if (TalentLevel[(uint8)UpType] >= TALENT_LEVEL_MAX) return false;
+
+	UDataAsset* TalentData = ProfTowerData->GetTalentInfo(UpType).TalentData[TalentLevel[(uint8)UpType]];
+
+	if (!TalentData)	 return false;
+
+	return true;
+}
+
+void ATower::UpdateTalentLevel(const ETowerType & UpType)
+{
+	TalentLevel[(uint8)UpType]++;
 }
 
 void ATower::NotifyActorOnClicked(FKey ButtonPressed)

@@ -29,8 +29,11 @@ enum class ETDAnimState : uint8
 	Attacking	UMETA(DisplayName = "Attaking Animation"),
 	Running		UMETA(DisplayName = "Running Animation"),
 	Dying		UMETA(DisplayName = "Dying Animation"),
-	Dead		UMETA(DisplayName = "Dead Animation")
-};
+	Dead		UMETA(DisplayName = "Dead Animation"),
+	Custom1,
+	Custom2,
+	Custom3	
+};				
 
 UENUM(BlueprintType)
 enum class ESoundType : uint8

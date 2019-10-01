@@ -55,4 +55,10 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool UpgradeTalent(ETowerType UpType);
 	virtual bool UpgradeTalent_Implementation(ETowerType UpType);
+
+	UFUNCTION(BlueprintCallable)
+	bool IsTalentUpgradable(const ETowerType& UpType) const;
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateTalentLevel(const ETowerType& UpType);
 };

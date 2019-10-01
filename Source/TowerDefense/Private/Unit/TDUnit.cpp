@@ -216,6 +216,7 @@ void ATDUnit::AddActiveSkill(TSubclassOf<UWeaponComponent> InClass, UTDWeaponCom
 {
 	UWeaponComponent* CreatedComp = NewObject<UWeaponComponent>(this, InClass);
 	CreatedComp->SetCommonData(InData);
+	CreatedComp->ComponentTags.AddUnique(TEXT("Skill"));
 	SkillCompArr.Add(CreatedComp);
 }
 
