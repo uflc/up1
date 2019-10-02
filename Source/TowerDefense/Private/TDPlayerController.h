@@ -41,6 +41,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateValue(int32 Value, EValueType Type);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver();
+
 	UFUNCTION(BlueprintCallable)
 	void ApplyLevelData(ULevelData* InLevelData);
 

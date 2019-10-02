@@ -33,6 +33,7 @@ void ATDPlayerController::UpdateValue(int32 Value, EValueType Type)
 		break;
 	case EValueType::Life:
 		Life += Value;
+		if (Life <= 0) GameOver();
 		HUDWidget->UpdateValue(Life, EValueType::Life);
 		break;
 	case EValueType::Mana:
