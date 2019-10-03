@@ -145,7 +145,7 @@ void AWaveSpawner::SpawnSubWaveActor(const uint8 Index)
 			
 			FTimerHandle NextWaveHandle;
 
-			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),5.0f,false);
+			GetWorldTimerManager().SetTimer(NextWaveHandle, FTimerDelegate::CreateUObject(this, &AWaveSpawner::StartSubWaves),20.0f,false);
 			
 		}
 	}
