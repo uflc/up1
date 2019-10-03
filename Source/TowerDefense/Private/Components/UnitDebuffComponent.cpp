@@ -86,8 +86,10 @@ void UUnitDebuffComponent::RegDebuff(const FDebuff& InDebuff)
 
 		if ( CustomDebuffComp == nullptr )
 		{
-			FName DebuffName = FName(*InDebuff.CustomDebuffClass->GetName() + '0');
-
+			FString DebuffIDString;
+			DebuffIDString.AppendInt(InDebuff.ID);
+			FName DebuffName = FName(*InDebuff.CustomDebuffClass->GetName());
+			DebuffName.AppendString(DebuffIDString);
 			CustomDebuffComp = NewObject<UCustomDebuffBaseComponent>(Owner, InDebuff.CustomDebuffClass, DebuffName);
 			CustomDebuffComp->AttachToComponent(Owner->GetRootComponent(),FAttachmentTransformRules::KeepRelativeTransform);
 			CustomDebuffComp->RegisterComponent();

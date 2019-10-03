@@ -27,7 +27,7 @@ ATDCharacter::ATDCharacter()
 	//Animation->SetRelativeLocation(SpriteOffset);
 	if (Shadow)
 	{
-		Shadow->SetRelativeLocation(FVector(0.0f, -0.1f, 0.0f));
+		Shadow->SetRelativeLocation(FVector(0.0f, -5.0f, 0.0f));
 	}
 
 	DebuffControll = CreateDefaultSubobject<UUnitDebuffComponent>(TEXT("DebuffController"));

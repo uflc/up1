@@ -24,5 +24,6 @@ UBaseAuraComponent::UBaseAuraComponent()
 {
 	//FString name = FString(TEXT("Area"));
 	//name.AppendInt(rand()%100);
+
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Area0"));
 }
