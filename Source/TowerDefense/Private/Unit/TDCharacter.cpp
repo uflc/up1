@@ -156,11 +156,11 @@ void ATDCharacter::Die_Implementation()
 	
 	USoundBase* Sound = nullptr;
 
-	bool bIsDyingSoundExist = UnitData->GetSounds().IsValidIndex((uint8)ESoundType::Dying);
+	bool bIsDyingSoundExist = UnitData->GetSounds().IsValidIndex((uint8)ETDSoundType::Dying);
 
 	if ( bIsDyingSoundExist )
 	{
-		Sound = ( UnitData ? UnitData->GetSounds()[(uint8)ESoundType::Dying].Get() : nullptr );
+		Sound = ( UnitData ? UnitData->GetSounds()[(uint8)ETDSoundType::Dying].Get() : nullptr );
 	}
 
 	if ( Sound != nullptr )

@@ -36,7 +36,7 @@ enum class ETDAnimState : uint8
 };				
 
 UENUM(BlueprintType)
-enum class ESoundType : uint8
+enum class ETDSoundType : uint8
 {
 	Dying		UMETA(DisplayName = "Dying Sound")
 	//...

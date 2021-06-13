@@ -20,7 +20,7 @@ void ADirectionalTower::SetFlipbooks()
 	{
 		UTowerData* TowerData = Cast<UTowerData>(UnitData);
 
-		Launcher->ProjectileRelativeSpawnPoint = Animation->RelativeLocation + TowerData->GetCompensVec();
+		Launcher->ProjectileRelativeSpawnPoint = Animation->GetRelativeLocation() + TowerData->GetCompensVec();
 		Launcher->ProjectileRelativeSpawnPoint.Z += 1.0f;
 	}
 }
